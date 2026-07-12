@@ -1,0 +1,83 @@
+name: Deploy report to GitHub Pages
+
+# Rebuilds report/dist from the committed experiment data (runs/, artifacts/,
+# config/) so the deployed page always matches the repository, then publishes
+# it to GitHub Pages. Report content is never hand-edited (see CLAUDE.md).
+
+on:
+  push:
+    branches:
+      - main
+      # feature branch so the page can be previewed before merge; remove after merge
+      - claude/spec-task-planning-ubz1up
+    paths:
+      - "report/**"
+      - "runs/**"
+      - "artifacts/**"
+      - "config/**"
+      - "references/**"
+      - "src/signal_aug/reporting/**"
+      - "scripts/**"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one deploy at a time; don't cancel an in-progress deploy.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --frozen
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Tailwind
+        run: npm ci
+        working-directory: report
+
+      - name: Build report
+        run: |
+          uv run python scripts/aggregate_results.py
+          uv run python scripts/build_report.py
+
+      - name: Verify report was generated
+        run: test -s report/dist/index.html
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: report/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

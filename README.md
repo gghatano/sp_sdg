@@ -4,7 +4,7 @@
 
 - 仕様: [`docs/spec.md`](docs/spec.md)
 - 実行計画: [`docs/plan.md`](docs/plan.md)
-- 進捗レポート: `report/dist/index.html`(オフライン閲覧可)
+- 進捗レポート: `report/dist/index.html`(オフライン閲覧可)。公開版: https://gghatano.github.io/sp_sdg/
 
 ## 対象論文・追試条件
 
@@ -59,6 +59,10 @@ make all-report   # 監査 → 集計 → report/dist/index.html 生成
 ```
 
 結果は `runs/` と `artifacts/` から自動生成され、HTML への手入力は行いません。`all-report` は監査が失敗すると意図的にそこで停止します(不正な結果をレポートに載せないためのゲート)。
+
+### GitHub Pages への自動デプロイ
+
+`.github/workflows/deploy-pages.yml` が、`report/`・`runs/`・`artifacts/`・`config/` 等の変更を push すると committed データからレポートを再生成し、GitHub Pages(https://gghatano.github.io/sp_sdg/ )へ公開します。手動実行(workflow_dispatch)も可能です。Pages のソースは「GitHub Actions」に設定しておく必要があります。
 
 ## 実験条件の追加方法
 
