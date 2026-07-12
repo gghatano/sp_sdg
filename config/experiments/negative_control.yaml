@@ -1,0 +1,13 @@
+# Phase 5 negative control: the label_shuffle augmentation must NOT reduce the
+# required subject count. Same setup as subject_count.yaml, one augmentation.
+phase: 4
+name: subject_count      # same name so runs land alongside the main curves
+dataset: UCI_HAR
+model: cnn1d_har
+subject_counts: [3, 6, 9, 12, 15, 18, 21]
+repeats: 3
+augmentations: [label_shuffle]
+target_metric: accuracy
+target_value: 0.90
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md

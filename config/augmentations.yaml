@@ -40,3 +40,10 @@ augmentations:
     params:
       ratio: 1.0
       k: 5
+
+  # Negative control (Phase 5): synthetic samples with randomized labels.
+  # Must NOT yield a subject-count reduction; validates the analysis pipeline.
+  label_shuffle:
+    method: label_shuffle
+    params:
+      ratio: 1.0

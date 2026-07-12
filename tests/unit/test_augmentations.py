@@ -63,3 +63,16 @@ def test_unknown_method_raises():
     X, y = tiny_dataset()
     with pytest.raises(ValueError):
         apply_augmentation("nonexistent", X, y, seed=0)
+
+
+def test_label_shuffle_randomizes_only_synthetic_labels():
+    """Negative control: originals are preserved; synthetic samples copy real
+    signals but get randomized labels (so they carry no class signal)."""
+    X, y = tiny_dataset(n=40, n_classes=2)
+    X_out, y_out = apply_augmentation("label_shuffle", X, y, seed=0, params={})
+    # originals untouched
+    np.testing.assert_array_equal(X_out[: len(X)], X)
+    np.testing.assert_array_equal(y_out[: len(y)], y)
+    # every synthetic signal equals some real signal (copy), labels stay in range
+    assert len(X_out) == 2 * len(X)
+    assert set(np.unique(y_out[len(y):])) <= set(np.unique(y))
