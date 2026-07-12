@@ -1,0 +1,36 @@
+{
+  "run_id": "phase1_FordA_oversample_cnn1d_s2",
+  "phase": 1,
+  "dataset": "FordA",
+  "dataset_checksum": "f5e5f3d6bba318d87c7c43d8fdc18c5d6becc5b768bfcb805e8b975648cd94b9",
+  "split_checksum": "3f7f8d8ac8bf57b94977666a9c9b62f45c47bcc949d8b2b0728b6ec4a120adc7",
+  "augmentation": "oversample",
+  "augmentation_params": {
+    "ratio": 1.0
+  },
+  "model": "cnn1d",
+  "model_params": {
+    "epochs": 100,
+    "patience": 15,
+    "batch_size": 32,
+    "lr": 0.001,
+    "val_fraction": 0.2,
+    "hidden": 64
+  },
+  "seed": 2,
+  "git_commit": "2f1fd5bbfc5aed78baf2df21ab6be38c73a3a334",
+  "git_dirty": true,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "ed1154de64ae623bafd9730e29e5cf65afc630e4f9e5331b850694cd125145b1",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-12T13:51:43.248610+00:00",
+  "ended_at": "2026-07-12T13:55:38.687961+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/phase1_FordA_oversample_cnn1d_s2.json",
+  "predictions_path": "runs/predictions/phase1_FordA_oversample_cnn1d_s2.csv",
+  "log_path": "runs/logs/phase1_FordA_oversample_cnn1d_s2.log"
+}
