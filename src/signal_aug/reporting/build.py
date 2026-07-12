@@ -16,6 +16,63 @@ from pathlib import Path
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
+AUG_COLORS = {
+    "none": "#64748b",
+    "oversample": "#0ea5e9",
+    "jitter": "#22c55e",
+    "scaling": "#eab308",
+    "mixup": "#ec4899",
+    "dtw": "#8b5cf6",
+    "smote": "#f97316",
+}
+
+
+def learning_curve_svg(dataset: str, model: str, curves: dict, width: int = 320, height: int = 200) -> str:
+    """Inline SVG line chart of accuracy vs train_fraction, one line per
+    augmentation. Self-contained (no JS/external refs) for offline viewing."""
+    pad_l, pad_r, pad_t, pad_b = 40, 8, 12, 28
+    series = {
+        aug: curves[f"{dataset}|{model}|{aug}"]
+        for aug in AUG_COLORS
+        if f"{dataset}|{model}|{aug}" in curves
+    }
+    if not series:
+        return ""
+    all_pts = [p for pts in series.values() for p in pts]
+    ys = [p["accuracy_mean"] for p in all_pts]
+    y_min, y_max = min(ys), max(ys)
+    if y_max - y_min < 0.02:
+        y_min, y_max = y_min - 0.01, y_max + 0.01
+    fracs = sorted({p["train_fraction"] for p in all_pts})
+    x_min, x_max = min(fracs), max(fracs)
+
+    def sx(f: float) -> float:
+        return pad_l + (f - x_min) / (x_max - x_min or 1) * (width - pad_l - pad_r)
+
+    def sy(a: float) -> float:
+        return pad_t + (1 - (a - y_min) / (y_max - y_min or 1)) * (height - pad_t - pad_b)
+
+    parts = [f'<svg viewBox="0 0 {width} {height}" class="w-full h-auto" role="img" '
+             f'aria-label="{dataset} {model} learning curve">']
+    # axes
+    parts.append(f'<line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{height-pad_b}" stroke="#cbd5e1"/>')
+    parts.append(f'<line x1="{pad_l}" y1="{height-pad_b}" x2="{width-pad_r}" y2="{height-pad_b}" stroke="#cbd5e1"/>')
+    for a in (y_min, y_max):
+        parts.append(f'<text x="{pad_l-4}" y="{sy(a)+3:.1f}" text-anchor="end" font-size="9" fill="#64748b">{a:.3f}</text>')
+    for f in fracs:
+        parts.append(f'<text x="{sx(f):.1f}" y="{height-pad_b+12}" text-anchor="middle" font-size="9" fill="#64748b">{int(f*100)}%</text>')
+    # lines
+    for aug, pts in series.items():
+        color = AUG_COLORS[aug]
+        d = " ".join(f"{'M' if i == 0 else 'L'}{sx(p['train_fraction']):.1f},{sy(p['accuracy_mean']):.1f}"
+                     for i, p in enumerate(pts))
+        parts.append(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="1.5"/>')
+        for p in pts:
+            parts.append(f'<circle cx="{sx(p["train_fraction"]):.1f}" cy="{sy(p["accuracy_mean"]):.1f}" r="2" fill="{color}"/>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
 PHASE_NAMES = {
     0: "Phase 0: 基盤構築",
     1: "Phase 1: UCR最小追試",
@@ -38,6 +95,8 @@ REQUIRED_SECTION_IDS = [
     "models",
     "reproducibility",
     "results",
+    "learning-curves",
+    "statistics",
     "paper-comparison",
     "failed-runs",
     "audit",
@@ -116,14 +175,41 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     findings_data = _load_json(root / "artifacts/findings.json") or {}
     references_index = {r["key"]: i + 1 for i, r in enumerate(references)}
 
+    # learning-curve charts: one panel per (dataset, model) that has a sweep
+    curves = results.get("learning_curves", {})
+    curve_keys = sorted({(k.split("|")[0], k.split("|")[1]) for k in curves})
+    curve_panels = []
+    for dataset, model in curve_keys:
+        # only render panels that actually have multiple fractions (a real sweep)
+        sample = curves.get(f"{dataset}|{model}|none", [])
+        if len(sample) >= 2:
+            svg = learning_curve_svg(dataset, model, curves)
+            if svg:
+                curve_panels.append({"dataset": dataset, "model": model, "svg": svg})
+
+    stats = results.get("stats", [])
+    # significance after Holm-Bonferroni over the family of tests
+    stats_sorted = sorted([s for s in stats if s.get("p_value") is not None], key=lambda s: s["p_value"])
+    m = len(stats_sorted)
+    for i, s in enumerate(stats_sorted):
+        adj = s["p_value"] * (m - i)
+        s["significant_holm"] = bool(adj < 0.05 and s["p_value"] < 0.05)
+
+    # main table shows full-training-set rows only; the fraction sweep lives in
+    # the learning-curve figures, so 858 rows don't flood the table
+    summary_full = [s for s in summary_main if s.get("train_fraction", 1.0) == 1.0]
+
     return {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "results": results,
-        "summary": summary_main,
+        "summary": summary_full,
         "best_improvements": best_improvements,
         "worst_degradations": worst_degradations,
         "findings": findings_data.get("findings", []),
         "ref": references_index,
+        "curve_panels": curve_panels,
+        "stats": stats_sorted,
+        "aug_colors": AUG_COLORS,
         "n_runs": len(results["runs"]),
         "n_completed": len(completed_runs),
         "n_failed": len(results["failed_runs"]),

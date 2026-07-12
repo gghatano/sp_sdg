@@ -29,10 +29,11 @@
     "cpu_count": 4
   },
   "started_at": "2026-07-12T16:12:33.656125+00:00",
-  "ended_at": null,
-  "status": "running",
-  "metrics_path": null,
-  "predictions_path": null,
+  "ended_at": "2026-07-12T16:12:48.459207+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/phase2_ECG5000_f75_scaling_cnn1d_s0.json",
+  "predictions_path": "runs/predictions/phase2_ECG5000_f75_scaling_cnn1d_s0.csv",
   "log_path": "runs/logs/phase2_ECG5000_f75_scaling_cnn1d_s0.log",
-  "train_fraction": 0.75
+  "train_fraction": 0.75,
+  "n_train_used": 376
 }

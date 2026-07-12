@@ -214,6 +214,56 @@
   {% endif %}
 </section>
 
+<section id="learning-curves" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">学習曲線(精度 対 学習サンプル比率)</h2>
+  {% if curve_panels %}
+  <p class="text-sm mb-2">横軸は学習データの使用比率(10〜100%)、縦軸は test 精度(seed 平均)。各線が拡張手法。低比率(=少データ)ほど拡張の効果が出やすいという仮説 H1 を、この曲線の左端の広がりで確認する。</p>
+  <div class="flex flex-wrap gap-3 text-xs mb-3">
+    {% for aug, color in aug_colors.items() %}
+    <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-sm" style="background: {{ color }}"></span>{{ aug }}</span>
+    {% endfor %}
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for panel in curve_panels %}
+    <figure class="bg-white border border-slate-200 rounded p-2">
+      <figcaption class="text-xs font-mono text-slate-600 mb-1">{{ panel.dataset }} / {{ panel.model }}</figcaption>
+      {{ panel.svg | safe }}
+    </figure>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-sm text-slate-500">学習サンプル比率スイープの結果がまだありません(Phase 2 で生成)。</p>
+  {% endif %}
+</section>
+
+<section id="statistics" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">統計検定(拡張なしとの対比較)</h2>
+  {% if stats %}
+  <p class="text-sm mb-2">Wilcoxon 符号順位検定。各拡張手法 × モデルについて、同一(データセット・seed・学習比率)でペアにした精度差を none と比較する。p 値は Holm-Bonferroni 法で多重比較補正した上で有意性(α=0.05)を判定。n はペア数。</p>
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200">
+      <th class="p-2">拡張</th><th class="p-2">モデル</th><th class="p-2 text-right">平均Δ(精度)</th><th class="p-2 text-right">n</th><th class="p-2 text-right">p 値</th><th class="p-2">有意(Holm)</th>
+    </tr></thead>
+    <tbody>
+      {% for s in stats %}
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">{{ s.augmentation }}</td><td class="p-2 font-mono">{{ s.model }}</td>
+        <td class="p-2 text-right {{ 'text-green-700' if s.mean_delta > 0 else 'text-red-700' }}">{{ "%+.4f" | format(s.mean_delta) }}</td>
+        <td class="p-2 text-right">{{ s.n_pairs }}</td>
+        <td class="p-2 text-right">{{ "%.4g" | format(s.p_value) if s.p_value is not none else "—" }}</td>
+        <td class="p-2">{% if s.significant_holm %}<span class="text-green-700 font-medium">はい</span>{% else %}<span class="text-slate-400">いいえ</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="text-xs text-slate-500 mt-2">平均Δ が正でも有意でない、あるいは有意でも効果量が小さい場合がある点に注意。効果量(平均Δ)と有意性(p 値)は別物として読む。</p>
+  {% else %}
+  <p class="text-sm text-slate-500">検定に十分なペア数がまだありません(Phase 2 で生成)。</p>
+  {% endif %}
+</section>
+
 <section id="paper-comparison" class="mb-10">
   <h2 class="text-xl font-semibold text-slate-900 mb-3">原論文との比較と現時点の知見</h2>
   {% if findings %}

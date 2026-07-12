@@ -63,20 +63,49 @@ def summarize(rows: list[dict]) -> list[dict]:
     return summary
 
 
+def learning_curves(summary: list[dict]) -> dict:
+    """Group summary rows into per-(dataset, model, augmentation) accuracy
+    curves over train_fraction, for the Phase 2 learning-curve figures."""
+    curves: dict[str, list[dict]] = {}
+    for s in summary:
+        key = f"{s['dataset']}|{s['model']}|{s['augmentation']}"
+        curves.setdefault(key, []).append(
+            {
+                "train_fraction": s.get("train_fraction", 1.0),
+                "accuracy_mean": s["accuracy_mean"],
+                "accuracy_std": s["accuracy_std"],
+                "macro_f1_mean": s["macro_f1_mean"],
+            }
+        )
+    for points in curves.values():
+        points.sort(key=lambda p: p["train_fraction"])
+    return curves
+
+
 def build_results_json(
     manifests_dir: str | Path = "runs/manifests",
     audit_path: str | Path = "artifacts/audit_report.json",
     output_path: str | Path = "report/assets/data/results.json",
 ) -> dict:
+    from signal_aug.evaluation.stats import wilcoxon_vs_none
+
     rows = collect_runs(manifests_dir)
+    summary = summarize(rows)
     audit = None
     audit_path = Path(audit_path)
     if audit_path.exists():
         audit = json.loads(audit_path.read_text())
         audit.pop("runs", None)  # keep the report data compact
+
+    # Wilcoxon test is meaningful once fractions/datasets give >=5 pairs (Phase 2)
+    phase2_rows = [r for r in rows if r.get("phase") == 2]
+    stats = wilcoxon_vs_none(phase2_rows) if phase2_rows else []
+
     data = {
         "runs": rows,
-        "summary": summarize(rows),
+        "summary": summary,
+        "learning_curves": learning_curves([s for s in summary if s["dataset"] != "synthetic"]),
+        "stats": stats,
         "failed_runs": [r for r in rows if r["status"] == "failed"],
         "audit": audit,
     }

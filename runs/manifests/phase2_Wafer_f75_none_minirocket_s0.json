@@ -1,0 +1,31 @@
+{
+  "run_id": "phase2_Wafer_f75_none_minirocket_s0",
+  "phase": 2,
+  "dataset": "Wafer",
+  "dataset_checksum": "f0710382759f7fcbb6fdc882c994c7d67abd930fcbcec84c5f0c458fda7f049c",
+  "split_checksum": "a2dfa4af11dca3f319cfa39a39c1fe5cb2876b4cbace70237a10e9d727d0e4eb",
+  "augmentation": "none",
+  "augmentation_params": {},
+  "model": "minirocket",
+  "model_params": {
+    "n_kernels": 10000
+  },
+  "seed": 0,
+  "git_commit": "395f3706e4a5149686510fa71c80a2237e6a66dd",
+  "git_dirty": true,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-12T16:53:13.813761+00:00",
+  "ended_at": "2026-07-12T16:53:16.897433+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/phase2_Wafer_f75_none_minirocket_s0.json",
+  "predictions_path": "runs/predictions/phase2_Wafer_f75_none_minirocket_s0.csv",
+  "log_path": "runs/logs/phase2_Wafer_f75_none_minirocket_s0.log",
+  "train_fraction": 0.75,
+  "n_train_used": 750
+}

@@ -1,5 +1,5 @@
 # 唯一の順序管理簿 (spec 3.9)。status: todo | in_progress | done | blocked
-current_phase: 1
+current_phase: 2
 
 tasks:
   - {id: P0-1, phase: 0, title: "ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)", status: done}
@@ -24,9 +24,9 @@ tasks:
   - {id: P2-1, phase: 2, title: "Phase 2 対象データセット 12 件の選定", status: done}
   - {id: P2-2, phase: 2, title: "学習サンプル比率スイープの runner 拡張", status: done}
   - {id: P2-3, phase: 2, title: "統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加", status: done}
-  - {id: P2-5, phase: 2, title: "Phase 2 実験格子の実行 (2520 runs)", status: in_progress}
-  - {id: P2-6, phase: 2, title: "Phase 2 集計・検定・レポート反映", status: todo}
-  - {id: P2-4, phase: 2, title: "被験者データへ持ち込む 3-5 手法の選定", status: todo}
+  - {id: P2-5, phase: 2, title: "Phase 2 実験格子の実行 (2520 runs)", status: done}
+  - {id: P2-6, phase: 2, title: "Phase 2 集計・検定・レポート反映", status: done}
+  - {id: P2-4, phase: 2, title: "被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)", status: done}
 
   - {id: P3-1, phase: 3, title: "被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)", status: done}
   - {id: P3-2, phase: 3, title: "主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)", status: done}

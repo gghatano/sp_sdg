@@ -35,6 +35,33 @@
       "confidence": "high",
       "type": "reproduction",
       "notes": "実装の妥当性を支持。監査 130/130 合格"
+    },
+    {
+      "id": "F-5",
+      "phase": 2,
+      "claim": "1D-CNN ではデータ拡張が精度を有意に改善する(12データセット×5比率×3seeds のペア検定で mixup +6.2pt, dtw +5.7pt, smote +5.1pt, oversample +4.3pt, scaling +3.7pt が Holm-Bonferroni 補正後も有意, α=0.05)",
+      "evidence": "results.json stats (Wilcoxon vs none, n=180 pairs/条件), Phase 2",
+      "confidence": "high",
+      "type": "original",
+      "notes": "2520 runs・監査合格。効果量は mixup が最大。jitter は補正後は非有意(p=0.0099)"
+    },
+    {
+      "id": "F-6",
+      "phase": 2,
+      "claim": "MiniRocket ではどの拡張手法も精度を有意に改善しない(全手法で Holm 補正後 非有意、平均Δは -0.2〜+0.5pt)",
+      "evidence": "results.json stats, Phase 2",
+      "confidence": "high",
+      "type": "original",
+      "notes": "拡張効果はモデル依存という H2 を強く支持。MiniRocket は畳み込み特徴が既に頑健で、生信号拡張の恩恵が小さい可能性。拡張は『モデルによっては無益』であり万能ではない"
+    },
+    {
+      "id": "F-7",
+      "phase": 2,
+      "claim": "拡張効果(1D-CNN)は学習比率が中〜低程度(25-50%)で相対的に大きい傾向があり、低データ条件で拡張が効くという仮説 H1 と整合する",
+      "evidence": "results.json learning_curves, フラクション別平均Δ(cnn1d: 10%→+4.2pt, 25%→+5.5pt, 50%→+3.7pt, 75%→+2.3pt)",
+      "confidence": "medium",
+      "type": "reproduction",
+      "notes": "厳密には単調でなく、フルサイズでも改善が残る点は Iwana & Uchida の傾向より弱い。被験者数削減の主張には Phase 4-5 の被験者単位学習曲線が必要"
     }
   ],
   "schema": {
