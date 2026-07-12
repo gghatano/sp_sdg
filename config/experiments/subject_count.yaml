@@ -1,10 +1,23 @@
-# Phase 4-5: subject-count learning curves (DRAFT - dataset chosen in Phase 3).
+# Phase 4-5: subject-count learning curves on UCI HAR.
+# Fixed held-out test = 9 official test subjects (subject-disjoint from pool).
+# Curves are built from the 21 official train ("pool") subjects by adding whole
+# subjects at a time (never individual windows; spec section 8).
 phase: 4
 name: subject_count
-status: draft
-dataset: null  # decided in Phase 3
-subject_counts: []  # e.g. [2, 4, 8, 16, ...] set after Phase 3
-augmentations: []  # 3-5 methods selected at the end of Phase 2
-models: [cnn1d, minirocket]
-seeds: [0, 1, 2]
-target_metric: null  # pre-registered before Phase 4 runs (spec section 5, Phase 4)
+dataset: UCI_HAR
+model: cnn1d_har      # primary model: augmentation was significant for CNN (F-5); lighter epochs for the large curve grid
+subject_counts: [3, 6, 9, 12, 15, 18, 21]
+repeats: 3            # distinct random subject subsets per count (seed-controlled)
+# 5 augmentations selected in Phase 2 (P2-4), plus the none baseline
+augmentations: [none, oversample, scaling, mixup, dtw, smote]
+
+# --- Pre-registration (spec section 5, Phase 4) ---
+# Registered BEFORE any subject-count run, from literature, NOT tuned to results.
+# Anguita et al. (2013, ESANN) report ~0.90 accuracy with SVM on 561 features;
+# deep models on raw inertial signals reach 0.90-0.95. We register a round,
+# literature-grounded target and ask: how many real subjects are needed to
+# reach it, with vs without augmentation? Reduction = 1 - N*(aug)/N*(none).
+target_metric: accuracy
+target_value: 0.90
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md

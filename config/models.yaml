@@ -21,6 +21,19 @@ models:
       val_fraction: 0.25
       hidden: 16
 
+  # Lighter CNN for subject-count curves (Phase 4): HAR converges fast and the
+  # grid is large, so fewer epochs keep CPU cost bounded. Validated to still
+  # clear the pre-registered 0.90 target at full pool.
+  cnn1d_har:
+    type: cnn1d
+    params:
+      epochs: 40
+      patience: 8
+      batch_size: 64
+      lr: 0.001
+      val_fraction: 0.2
+      hidden: 64
+
   minirocket:
     type: minirocket
     params:
