@@ -10,6 +10,12 @@
 - ペルソナレビュー(教授/院生/実務者の 3 視点)完了。指摘 24 件中、findings の主張修正・レポートの両側提示・task_queue の YAML 破損・再現性情報のバグ(commit 選択、git_dirty 判定)・README 補強など主要指摘を反映済み
 - 次: Phase 2 準備(P2-1: データセット選定、P2-2: 学習サンプル比率スイープの runner 拡張)
 
+## Phase 2 実行メモ(2026-07-12)
+
+- Phase 2 グリッド初回実行は、二重起動した 2 プロセスが同一 run_id を並行書き込みして競合し、manifest 保存の tmp.replace が FileNotFoundError で約 183 runs 時点でクラッシュした
+- 対策済み: runner に pid ロック(runs/.runner.lock)を追加し二重起動を拒否、manifest の tmp 名を pid 付きに変更。テストで担保(test_grid_lock.py)
+- 単一プロセスで resume 実行中。resume は completed をスキップし、running/failed/未実行を再実行する
+
 ## 環境
 
 - Python 3.11 / uv 管理(torch CPU 版・aeon 1.5)
