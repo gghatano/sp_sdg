@@ -60,7 +60,8 @@ def test_resume_skips_completed(smoke_result, capsys):
         repo_root=".",
     )
     captured = capsys.readouterr()
-    assert captured.out.count("[skip]") == 4
+    assert "(4 pre-existing)" in captured.out
+    assert captured.out.count("[run ]") == 0  # nothing re-run on a clean resume
     assert all(r["status"] == "completed" for r in results)
 
 

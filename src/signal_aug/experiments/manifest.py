@@ -130,9 +130,13 @@ def validate_manifest(manifest: dict) -> list[str]:
 def save_manifest(manifest: dict, manifests_dir: str | Path) -> Path:
     path = Path(manifests_dir) / f"{manifest['run_id']}.json"
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".json.tmp")
+    # Unique tmp name per process so two writers of the same run_id cannot
+    # clobber each other's tmp mid-write (spec section 7 forbids concurrent
+    # writes to one run_id; this hardening keeps a stray double-run from
+    # corrupting the store rather than condoning it).
+    tmp = path.with_suffix(f".json.tmp.{os.getpid()}")
     tmp.write_text(json.dumps(manifest, indent=2, ensure_ascii=False))
-    tmp.replace(path)
+    os.replace(tmp, path)
     return path
 
 

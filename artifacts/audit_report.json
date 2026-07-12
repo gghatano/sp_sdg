@@ -1,6 +1,6 @@
 {
-  "n_runs": 130,
-  "n_passed": 130,
+  "n_runs": 239,
+  "n_passed": 238,
   "n_failed_runs": 0,
   "n_problem_runs": 0,
   "runs": [
@@ -756,6 +756,660 @@
     },
     {
       "run_id": "phase1_GunPoint_smote_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_dtw_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_dtw_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_dtw_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_dtw_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_dtw_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_dtw_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_jitter_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_jitter_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_jitter_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_jitter_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_jitter_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_jitter_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_mixup_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_mixup_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_mixup_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_mixup_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_mixup_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_mixup_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_none_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_none_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_none_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_none_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_none_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_none_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_oversample_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_oversample_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_oversample_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_oversample_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_oversample_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_oversample_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_scaling_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_scaling_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_scaling_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_scaling_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_scaling_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_scaling_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_smote_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_smote_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_smote_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_smote_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_smote_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f10_smote_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_dtw_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_dtw_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_dtw_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_dtw_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_dtw_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_dtw_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_jitter_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_jitter_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_jitter_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_jitter_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_jitter_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_jitter_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_mixup_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_mixup_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_mixup_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_mixup_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_mixup_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_mixup_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_none_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_none_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_none_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_none_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_none_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_none_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_oversample_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_oversample_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_oversample_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_oversample_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_oversample_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_oversample_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_scaling_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_scaling_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_scaling_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_scaling_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_scaling_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_scaling_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_smote_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_smote_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_smote_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_smote_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_smote_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f25_smote_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_jitter_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_jitter_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_jitter_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_jitter_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_jitter_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_jitter_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_mixup_cnn1d_s0",
+      "status": "running",
+      "passed": false,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_none_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_none_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_none_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_none_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_none_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_none_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_oversample_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_oversample_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_oversample_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_oversample_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_oversample_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_oversample_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_scaling_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_scaling_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_scaling_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_scaling_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_scaling_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase2_GunPoint_f50_scaling_minirocket_s2",
       "status": "completed",
       "passed": true,
       "problems": []

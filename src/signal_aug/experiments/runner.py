@@ -10,7 +10,9 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import traceback
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -40,6 +42,31 @@ class RunSpec:
 
 def load_yaml(path: str | Path) -> dict:
     return yaml.safe_load(Path(path).read_text())
+
+
+@contextmanager
+def grid_lock(runs_dir: Path):
+    """Prevent two runner processes from executing grids concurrently — the
+    root cause of run_id write races (spec section 7). Stale locks (dead pid)
+    are reclaimed automatically."""
+    lock = Path(runs_dir) / ".runner.lock"
+    lock.parent.mkdir(parents=True, exist_ok=True)
+    if lock.exists():
+        try:
+            old_pid = int(lock.read_text().strip())
+            os.kill(old_pid, 0)  # raises if the pid is gone
+            raise RuntimeError(
+                f"another runner (pid {old_pid}) holds {lock}. "
+                f"Wait for it, or remove the lock if that process is dead."
+            )
+        except (ValueError, ProcessLookupError):
+            pass  # stale lock, reclaim it
+    lock.write_text(str(os.getpid()))
+    try:
+        yield
+    finally:
+        if lock.exists() and lock.read_text().strip() == str(os.getpid()):
+            lock.unlink()
 
 
 def expand_grid(experiment_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[RunSpec]:
@@ -176,18 +203,20 @@ def run_experiment(
     results = []
     data_cache: dict[str, DatasetSplits] = {}
 
-    for spec in runs:
-        existing = mf.load_manifest(spec.run_id, manifests_dir)
-        if resume and existing and existing.get("status") == "completed":
-            print(f"[skip] {spec.run_id} (already completed)")
-            results.append(existing)
-            continue
-        if spec.dataset not in data_cache:
-            data_cache[spec.dataset] = load_dataset(spec.dataset, datasets_cfg, data_dir=data_dir)
-        print(f"[run ] {spec.run_id}")
-        results.append(execute_run(spec, data_cache[spec.dataset], runs_dir=runs_dir, repo_root=repo_root))
+    n_skip = 0
+    with grid_lock(Path(runs_dir)):
+        for spec in runs:
+            existing = mf.load_manifest(spec.run_id, manifests_dir)
+            if resume and existing and existing.get("status") == "completed":
+                results.append(existing)
+                n_skip += 1
+                continue
+            if spec.dataset not in data_cache:
+                data_cache[spec.dataset] = load_dataset(spec.dataset, datasets_cfg, data_dir=data_dir)
+            print(f"[run ] {spec.run_id}")
+            results.append(execute_run(spec, data_cache[spec.dataset], runs_dir=runs_dir, repo_root=repo_root))
 
     n_done = sum(1 for r in results if r["status"] == "completed")
     n_fail = sum(1 for r in results if r["status"] == "failed")
-    print(f"[done] {n_done} completed, {n_fail} failed, {len(results)} total")
+    print(f"[done] {n_done} completed ({n_skip} pre-existing), {n_fail} failed, {len(results)} total")
     return results
