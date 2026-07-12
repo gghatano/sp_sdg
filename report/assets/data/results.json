@@ -1,0 +1,117 @@
+{
+  "runs": [
+    {
+      "run_id": "smoke_synthetic_jitter_cnn1d_smoke_s0",
+      "phase": 0,
+      "dataset": "synthetic",
+      "augmentation": "jitter",
+      "model": "cnn1d_smoke",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b3a37d6b8c6c",
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "n_test": 40
+    },
+    {
+      "run_id": "smoke_synthetic_jitter_minirocket_smoke_s0",
+      "phase": 0,
+      "dataset": "synthetic",
+      "augmentation": "jitter",
+      "model": "minirocket_smoke",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b3a37d6b8c6c",
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "n_test": 40
+    },
+    {
+      "run_id": "smoke_synthetic_none_cnn1d_smoke_s0",
+      "phase": 0,
+      "dataset": "synthetic",
+      "augmentation": "none",
+      "model": "cnn1d_smoke",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b3a37d6b8c6c",
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "n_test": 40
+    },
+    {
+      "run_id": "smoke_synthetic_none_minirocket_smoke_s0",
+      "phase": 0,
+      "dataset": "synthetic",
+      "augmentation": "none",
+      "model": "minirocket_smoke",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b3a37d6b8c6c",
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "balanced_accuracy": 1.0,
+      "n_test": 40
+    }
+  ],
+  "summary": [
+    {
+      "dataset": "synthetic",
+      "augmentation": "jitter",
+      "model": "cnn1d_smoke",
+      "n_seeds": 1,
+      "accuracy_mean": 1.0,
+      "accuracy_std": 0.0,
+      "macro_f1_mean": 1.0,
+      "macro_f1_std": 0.0,
+      "balanced_accuracy_mean": 1.0,
+      "balanced_accuracy_std": 0.0
+    },
+    {
+      "dataset": "synthetic",
+      "augmentation": "jitter",
+      "model": "minirocket_smoke",
+      "n_seeds": 1,
+      "accuracy_mean": 1.0,
+      "accuracy_std": 0.0,
+      "macro_f1_mean": 1.0,
+      "macro_f1_std": 0.0,
+      "balanced_accuracy_mean": 1.0,
+      "balanced_accuracy_std": 0.0
+    },
+    {
+      "dataset": "synthetic",
+      "augmentation": "none",
+      "model": "cnn1d_smoke",
+      "n_seeds": 1,
+      "accuracy_mean": 1.0,
+      "accuracy_std": 0.0,
+      "macro_f1_mean": 1.0,
+      "macro_f1_std": 0.0,
+      "balanced_accuracy_mean": 1.0,
+      "balanced_accuracy_std": 0.0
+    },
+    {
+      "dataset": "synthetic",
+      "augmentation": "none",
+      "model": "minirocket_smoke",
+      "n_seeds": 1,
+      "accuracy_mean": 1.0,
+      "accuracy_std": 0.0,
+      "macro_f1_mean": 1.0,
+      "macro_f1_std": 0.0,
+      "balanced_accuracy_mean": 1.0,
+      "balanced_accuracy_std": 0.0
+    }
+  ],
+  "failed_runs": [],
+  "audit": {
+    "n_runs": 4,
+    "n_passed": 4,
+    "n_failed_runs": 0,
+    "n_problem_runs": 0
+  }
+}

@@ -1,0 +1,12 @@
+key,authors,year,venue,topic,datasets,methods,relevance
+ucr,Dau et al.,2019,IEEE/CAA JAS,UCR archive,UCR 128 datasets,-,データセット出典
+bakeoff,Bagnall et al.,2017,DMKD,TSC benchmark,UCR85,多数の分類器,ベースライン相場の参照
+rocket,Dempster et al.,2020,DMKD,分類器,UCR,ROCKET,MiniRocket の前身
+minirocket,Dempster et al.,2021,KDD,分類器,UCR109,MiniRocket,採用モデル
+smote,Chawla et al.,2002,JAIR,拡張,UCI等,SMOTE,raw-SMOTE の原型
+mixup,Zhang et al.,2018,ICLR,拡張,画像/音声,mixup,mixup の原型
+um2017,Um et al.,2017,ICMI,拡張,ウェアラブル,jitter/scaling/rotation等,追試対象T2
+iwana2021,Iwana & Uchida,2021,PLOS ONE,拡張サーベイ,UCR128,12手法x6モデル,主参照・追試対象T1
+forestier2017,Forestier et al.,2017,ICDM,拡張,UCR,DBA合成,追試対象T3
+fawaz2019,Ismail Fawaz et al.,2019,DMKD,DLレビュー,UCR85,FCN/ResNet等,CNN設計の参照
+aeon,Middlehurst et al.,2024,JMLR,ツールキット,-,-,実装基盤

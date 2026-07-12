@@ -1,0 +1,10 @@
+# Phase 2: cross-dataset comparison (DRAFT - dataset list and fractions to be
+# finalized after Phase 1 results are audited).
+phase: 2
+name: phase2
+status: draft
+datasets: []  # 10+ UCR datasets, to be selected in Phase 2 kickoff
+train_fractions: [0.10, 0.25, 0.50, 0.75, 1.00]
+augmentations: [none, oversample, jitter, scaling, mixup, dtw, smote]
+models: [cnn1d, minirocket]
+seeds: [0, 1, 2]

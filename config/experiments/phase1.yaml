@@ -1,0 +1,8 @@
+# Phase 1: minimal UCR reproduction.
+# 3 datasets x 7 augmentations x 2 models x 3 seeds = 126 runs.
+phase: 1
+name: phase1
+datasets: [ECG5000, FordA, GunPoint]
+augmentations: [none, oversample, jitter, scaling, mixup, dtw, smote]
+models: [cnn1d, minirocket]
+seeds: [0, 1, 2]

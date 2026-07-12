@@ -1,0 +1,23 @@
+# Dataset registry. Experiment configs reference datasets by key.
+# source: "ucr" datasets are downloaded via aeon into data/raw/.
+# source: "synthetic" is generated locally (network-free; used by smoke tests).
+datasets:
+  synthetic:
+    source: synthetic
+    n_train: 60
+    n_test: 40
+    length: 64
+    n_channels: 1
+    n_classes: 2
+
+  ECG5000:
+    source: ucr
+    note: "UCR archive. 5000 heartbeats, 5 classes, length 140."
+
+  FordA:
+    source: ucr
+    note: "UCR archive. Engine noise classification, 2 classes, length 500."
+
+  GunPoint:
+    source: ucr
+    note: "UCR archive. Motion capture, 2 classes, length 150."

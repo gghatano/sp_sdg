@@ -1,0 +1,11 @@
+{
+  "findings": [],
+  "schema": {
+    "id": "F-<serial>",
+    "phase": "int",
+    "claim": "1文の知見",
+    "evidence": "run_id / 集計ファイルへの参照",
+    "confidence": "low | medium | high",
+    "type": "reproduction | original"
+  }
+}

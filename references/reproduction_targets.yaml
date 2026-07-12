@@ -1,0 +1,20 @@
+# 追試対象の構造化定義 (spec 3.3)
+targets:
+  - id: T1
+    paper: "Iwana & Uchida (2021), An empirical survey of data augmentation for time series classification with neural networks, PLOS ONE 16(7)"
+    scope: "時系列拡張手法(jittering, scaling, 等)の効果がデータセット依存であるという主要傾向を、UCR サブセット + 1D-CNN/MiniRocket で確認する"
+    phase: 1
+    status: planned
+    notes: "サーベイ論文のため厳密な数値一致ではなく傾向の再現を目標とする"
+
+  - id: T2
+    paper: "Um et al. (2017), Data Augmentation of Wearable Sensor Data for Parkinson's Disease Monitoring using CNNs, ICMI"
+    scope: "jittering / scaling がウェアラブル信号分類を改善するという報告を、公開データで方向的に確認する"
+    phase: 2
+    status: planned
+
+  - id: T3
+    paper: "Forestier et al. (2017), Generating synthetic time series to augment sparse datasets, ICDM"
+    scope: "DTW ベース合成が少データ条件で有効という報告の簡略版追試(実装差は artifacts/deviations.md 参照)"
+    phase: 2
+    status: planned

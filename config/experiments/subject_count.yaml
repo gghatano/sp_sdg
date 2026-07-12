@@ -1,0 +1,10 @@
+# Phase 4-5: subject-count learning curves (DRAFT - dataset chosen in Phase 3).
+phase: 4
+name: subject_count
+status: draft
+dataset: null  # decided in Phase 3
+subject_counts: []  # e.g. [2, 4, 8, 16, ...] set after Phase 3
+augmentations: []  # 3-5 methods selected at the end of Phase 2
+models: [cnn1d, minirocket]
+seeds: [0, 1, 2]
+target_metric: null  # pre-registered before Phase 4 runs (spec section 5, Phase 4)

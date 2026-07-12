@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Environment
+.env
+
+# Node
+report/node_modules/
+
+# Data (structure kept via .gitkeep)
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Run artifacts (manifests/metrics are tracked; heavy artifacts are not)
+runs/checkpoints/*
+!runs/checkpoints/.gitkeep
+runs/logs/*
+!runs/logs/.gitkeep
+runs/predictions/*
+!runs/predictions/.gitkeep
+
+# Report build intermediates (dist/index.html IS tracked by policy)
+report/dist/assets/*.tmp.*

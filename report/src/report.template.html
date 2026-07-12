@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>信号データ拡張・論文追試プロジェクト レポート</title>
+<style>{{ css | safe }}</style>
+</head>
+<body class="bg-slate-50 text-slate-800 leading-relaxed">
+<div class="max-w-5xl mx-auto px-6 py-10">
+
+<header class="mb-10 border-b border-slate-200 pb-6">
+  <h1 class="text-3xl font-bold text-slate-900">信号データ拡張・論文追試プロジェクト</h1>
+  <p class="mt-2 text-sm text-slate-500">研究進捗レポート ・ 生成日時 {{ generated_at }} ・ 本レポートは runs/ と artifacts/ から自動生成されています</p>
+</header>
+
+<nav class="mb-10 text-sm">
+  <ul class="flex flex-wrap gap-x-4 gap-y-1 text-blue-700">
+    <li><a href="#exec-summary" class="hover:underline">サマリ</a></li>
+    <li><a href="#progress" class="hover:underline">進捗</a></li>
+    <li><a href="#results" class="hover:underline">結果</a></li>
+    <li><a href="#audit" class="hover:underline">監査</a></li>
+    <li><a href="#limitations" class="hover:underline">限界</a></li>
+    <li><a href="#references" class="hover:underline">参考文献</a></li>
+  </ul>
+</nav>
+
+<section id="exec-summary" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">エグゼクティブサマリ</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+    <div class="bg-white rounded-lg border border-slate-200 p-4">
+      <div class="text-2xl font-bold text-slate-900">{{ n_completed }}</div>
+      <div class="text-xs text-slate-500 mt-1">完了した実験 run</div>
+    </div>
+    <div class="bg-white rounded-lg border border-slate-200 p-4">
+      <div class="text-2xl font-bold {{ 'text-red-600' if n_failed else 'text-slate-900' }}">{{ n_failed }}</div>
+      <div class="text-xs text-slate-500 mt-1">失敗した run</div>
+    </div>
+    <div class="bg-white rounded-lg border border-slate-200 p-4">
+      <div class="text-2xl font-bold text-slate-900">{{ tasks_done | length }} / {{ tasks | length }}</div>
+      <div class="text-xs text-slate-500 mt-1">完了タスク</div>
+    </div>
+    <div class="bg-white rounded-lg border border-slate-200 p-4">
+      <div class="text-lg font-bold text-slate-900">{{ current_phase_name }}</div>
+      <div class="text-xs text-slate-500 mt-1">現在のフェーズ</div>
+    </div>
+  </div>
+  {% if best_improvements %}
+  <p class="text-sm">ベースライン(拡張なし)に対する精度改善の上位:</p>
+  <ul class="mt-2 text-sm list-disc list-inside">
+    {% for s in best_improvements %}
+    <li><span class="font-mono">{{ s.dataset }} / {{ s.augmentation }} / {{ s.model }}</span>: 精度 {{ "%.4f" | format(s.accuracy_mean) }}(Δ {{ "%+.4f" | format(s.delta_vs_none) }})</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-sm text-slate-500">実験結果はまだありません。Phase 1 の実験完了後にここへ主要な差分が表示されます。</p>
+  {% endif %}
+</section>
+
+<section id="purpose" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">研究目的・仮説</h2>
+  <p class="text-sm">公開時系列データ(UCR Archive [1])上でデータ拡張手法の効果を系統的に追試し、その知見を被験者ID付きデータへ展開することで、<strong>所定の分類性能を得るために必要な実被験者数をデータ拡張でどこまで削減できるか</strong>を定量評価する。</p>
+  <p class="text-sm mt-2">仮説: 時系列向けデータ拡張(ジッタリング・スケーリング [7]、mixup [6]、DTW ベース合成 [9]、SMOTE [5] など)は学習データが少ない条件で最も効果が大きく、その効果は「実被験者の追加」に部分的に代替し得る。</p>
+</section>
+
+<section id="current-phase" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">現在のフェーズ</h2>
+  <p class="text-sm"><span class="inline-block bg-blue-100 text-blue-800 rounded px-2 py-0.5 font-medium">{{ current_phase_name }}</span></p>
+</section>
+
+<section id="progress" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">タスク状況(完了・実行中・未実施)</h2>
+  <div class="grid md:grid-cols-3 gap-4 text-sm">
+    <div>
+      <h3 class="font-medium text-green-700 mb-2">完了 ({{ tasks_done | length }})</h3>
+      <ul class="space-y-1">{% for t in tasks_done %}<li class="bg-white border border-slate-200 rounded px-2 py-1">{{ t.id }}: {{ t.title }}</li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3 class="font-medium text-amber-700 mb-2">実行中 ({{ tasks_doing | length }})</h3>
+      <ul class="space-y-1">{% for t in tasks_doing %}<li class="bg-white border border-slate-200 rounded px-2 py-1">{{ t.id }}: {{ t.title }}</li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3 class="font-medium text-slate-500 mb-2">未実施 ({{ tasks_todo | length }})</h3>
+      <ul class="space-y-1">{% for t in tasks_todo %}<li class="bg-white border border-slate-200 rounded px-2 py-1">{{ t.id }}: {{ t.title }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</section>
+
+<section id="reproduction-conditions" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">論文追試条件</h2>
+  {% if reproduction_targets and reproduction_targets.targets %}
+  <ul class="text-sm space-y-2">
+    {% for t in reproduction_targets.targets %}
+    <li class="bg-white border border-slate-200 rounded p-3">
+      <div class="font-medium">{{ t.paper }}</div>
+      <div class="text-slate-600 mt-1">{{ t.scope }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-sm text-slate-500">追試対象は references/reproduction_targets.yaml で管理します(未登録)。</p>
+  {% endif %}
+</section>
+
+<section id="datasets" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">データセット</h2>
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200"><th class="p-2">名前</th><th class="p-2">ソース</th><th class="p-2">備考</th></tr></thead>
+    <tbody>
+      {% for name, spec in datasets_cfg.items() %}
+      <tr class="border-b border-slate-100"><td class="p-2 font-mono">{{ name }}</td><td class="p-2">{{ spec.source }}</td><td class="p-2 text-slate-600">{{ spec.note | default("") }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section id="augmentations" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">データ拡張手法</h2>
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200"><th class="p-2">名前</th><th class="p-2">方式</th><th class="p-2">パラメータ</th></tr></thead>
+    <tbody>
+      {% for name, spec in augmentations_cfg.items() %}
+      <tr class="border-b border-slate-100"><td class="p-2 font-mono">{{ name }}</td><td class="p-2">{{ spec.method }}</td><td class="p-2 font-mono text-xs">{{ spec.params }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="text-xs text-slate-500 mt-2">手法の背景は参考文献 [5]–[9] を参照。拡張は学習データにのみ適用され、テストデータには一切適用されません。</p>
+</section>
+
+<section id="models" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">モデル</h2>
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200"><th class="p-2">名前</th><th class="p-2">種類</th><th class="p-2">パラメータ</th></tr></thead>
+    <tbody>
+      {% for name, spec in models_cfg.items() %}
+      <tr class="border-b border-slate-100"><td class="p-2 font-mono">{{ name }}</td><td class="p-2">{{ spec.type }}</td><td class="p-2 font-mono text-xs">{{ spec.params }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="text-xs text-slate-500 mt-2">1D-CNN は時系列分類の標準的ベースライン [10]、MiniRocket [4] は高速かつ高精度な変換ベース手法です。</p>
+</section>
+
+<section id="reproducibility" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">再現性情報</h2>
+  <ul class="text-sm list-disc list-inside space-y-1">
+    <li>全 run は一意な run_id と manifest(条件・環境・Git commit・依存関係チェックサム)を持ちます</li>
+    {% if reproducibility.git_commit %}<li>最新の完了 run のコード版: <span class="font-mono">{{ reproducibility.git_commit }}</span></li>{% endif %}
+    <li>乱数 seed は run 単位で固定(データ分割・拡張・モデル初期化のすべてに適用)</li>
+    <li>依存関係は uv.lock で固定。実験条件は config/ の YAML で管理し、コードに埋め込みません</li>
+  </ul>
+</section>
+
+<section id="results" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">主要結果</h2>
+  {% if summary %}
+  <p class="text-sm mb-3">seed 平均の精度(±標準偏差)と、拡張なしベースラインとの差分 Δ。</p>
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200">
+      <th class="p-2">データセット</th><th class="p-2">拡張</th><th class="p-2">モデル</th>
+      <th class="p-2 text-right">精度</th><th class="p-2 text-right">Δ vs none</th><th class="p-2 text-right">macro-F1</th><th class="p-2 text-right">seeds</th>
+    </tr></thead>
+    <tbody>
+      {% for s in summary %}
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">{{ s.dataset }}</td><td class="p-2 font-mono">{{ s.augmentation }}</td><td class="p-2 font-mono">{{ s.model }}</td>
+        <td class="p-2 text-right">{{ "%.4f" | format(s.accuracy_mean) }} ± {{ "%.4f" | format(s.accuracy_std) }}</td>
+        <td class="p-2 text-right {{ 'text-green-700' if s.delta_vs_none and s.delta_vs_none > 0 else 'text-slate-400' }}">{{ "%+.4f" | format(s.delta_vs_none) if s.delta_vs_none is not none else "—" }}</td>
+        <td class="p-2 text-right">{{ "%.4f" | format(s.macro_f1_mean) }}</td>
+        <td class="p-2 text-right">{{ s.n_seeds }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <details class="mt-3 text-sm">
+    <summary class="cursor-pointer text-blue-700">全 run の一覧を表示({{ n_runs }} runs)</summary>
+    <div class="overflow-x-auto mt-2">
+    <table class="w-full text-xs bg-white border border-slate-200 rounded">
+      <thead><tr class="text-left border-b border-slate-200"><th class="p-2">run_id</th><th class="p-2">status</th><th class="p-2 text-right">accuracy</th><th class="p-2 text-right">macro_f1</th><th class="p-2">commit</th></tr></thead>
+      <tbody>
+        {% for r in results.runs %}
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">{{ r.run_id }}</td><td class="p-2">{{ r.status }}</td>
+          <td class="p-2 text-right">{{ "%.4f" | format(r.accuracy) if r.accuracy is defined and r.accuracy is not none else "—" }}</td>
+          <td class="p-2 text-right">{{ "%.4f" | format(r.macro_f1) if r.macro_f1 is defined and r.macro_f1 is not none else "—" }}</td>
+          <td class="p-2 font-mono">{{ r.git_commit }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </details>
+  {% else %}
+  <p class="text-sm text-slate-500">完了した実験がまだありません。</p>
+  {% endif %}
+</section>
+
+<section id="paper-comparison" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">原論文との比較</h2>
+  <p class="text-sm text-slate-500">Phase 1 の完了後、Iwana &amp; Uchida のサーベイ [8] 等で報告された傾向(拡張効果はデータセット・モデル依存であり一様でない)との整合性をここで比較します。追試対象の詳細条件は references/reproduction_targets.yaml に記録します。</p>
+</section>
+
+<section id="failed-runs" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">失敗した実験</h2>
+  {% if results.failed_runs %}
+  <ul class="text-sm space-y-1">
+    {% for r in results.failed_runs %}
+    <li class="bg-red-50 border border-red-200 rounded px-2 py-1 font-mono">{{ r.run_id }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-sm text-slate-500">失敗した run はありません。</p>
+  {% endif %}
+</section>
+
+<section id="audit" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">監査結果</h2>
+  {% if audit %}
+  <p class="text-sm">機械監査(manifest スキーマ・metrics 範囲・予測ファイル整合性): {{ audit.n_runs }} runs 中 <span class="font-medium {{ 'text-green-700' if audit.n_problem_runs == 0 else 'text-red-600' }}">{{ audit.n_passed }} 件合格 / 問題 {{ audit.n_problem_runs }} 件</span></p>
+  {% else %}
+  <p class="text-sm text-slate-500">監査は未実行です(scripts/audit_results.py で実行)。</p>
+  {% endif %}
+</section>
+
+<section id="limitations" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">限界と注意点</h2>
+  {% if limitations %}
+  <ul class="text-sm list-disc list-inside space-y-1">
+    {% for item in limitations %}<li>{{ item }}</li>{% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-sm text-slate-500">artifacts/limitations.md に記録された項目がここに表示されます。</p>
+  {% endif %}
+</section>
+
+<section id="next-tasks" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">次のタスク</h2>
+  <ol class="text-sm list-decimal list-inside space-y-1">
+    {% for t in tasks_todo[:8] %}<li>{{ t.id }}: {{ t.title }}</li>{% endfor %}
+  </ol>
+</section>
+
+<section id="references" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">参考文献</h2>
+  <ol class="text-sm space-y-2">
+    {% for ref in references %}
+    <li class="flex gap-2"><span class="text-slate-400 shrink-0">[{{ loop.index }}]</span><span>{{ ref.text }}{% if ref.url %} <a href="{{ ref.url }}" class="text-blue-700 hover:underline break-all">{{ ref.url }}</a>{% endif %}</span></li>
+    {% endfor %}
+  </ol>
+</section>
+
+<footer class="mt-12 pt-6 border-t border-slate-200 text-xs text-slate-400">
+  <p>本レポートは実験結果ファイルから自動生成されています。数値の手入力は行いません。ソース: report/src/report.template.html</p>
+</footer>
+
+</div>
+</body>
+</html>

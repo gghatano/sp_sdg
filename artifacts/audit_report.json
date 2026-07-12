@@ -1,0 +1,32 @@
+{
+  "n_runs": 4,
+  "n_passed": 4,
+  "n_failed_runs": 0,
+  "n_problem_runs": 0,
+  "runs": [
+    {
+      "run_id": "smoke_synthetic_jitter_cnn1d_smoke_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "smoke_synthetic_jitter_minirocket_smoke_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "smoke_synthetic_none_cnn1d_smoke_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "smoke_synthetic_none_minirocket_smoke_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    }
+  ]
+}
