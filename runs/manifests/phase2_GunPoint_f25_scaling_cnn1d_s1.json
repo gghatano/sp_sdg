@@ -1,13 +1,13 @@
 {
-  "run_id": "phase2_GunPoint_f25_jitter_cnn1d_s0",
+  "run_id": "phase2_GunPoint_f25_scaling_cnn1d_s1",
   "phase": 2,
   "dataset": "GunPoint",
   "dataset_checksum": "65342a99ade7e30c9263a9a1553b81bcfa5de02982d499ff14d14f2ee5d413f0",
   "split_checksum": "3c66505f536a02707135dd9dc7f48efeab27d0fd2c83531c39bc5008f613d64e",
-  "augmentation": "jitter",
+  "augmentation": "scaling",
   "augmentation_params": {
     "ratio": 1.0,
-    "sigma": 0.03
+    "sigma": 0.1
   },
   "model": "cnn1d",
   "model_params": {
@@ -18,9 +18,9 @@
     "val_fraction": 0.2,
     "hidden": 64
   },
-  "seed": 0,
-  "git_commit": "53adeaa51b03a155d546a6e4c023184ad5462eff",
-  "git_dirty": false,
+  "seed": 1,
+  "git_commit": "2507c0dc1e9508ef9cc7356700b37098217d1605",
+  "git_dirty": true,
   "python_version": "3.11.15",
   "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
   "hardware": {
@@ -28,12 +28,12 @@
     "machine": "x86_64",
     "cpu_count": 4
   },
-  "started_at": "2026-07-12T15:42:44.138959+00:00",
-  "ended_at": "2026-07-12T15:43:38.948902+00:00",
+  "started_at": "2026-07-12T15:45:51.327434+00:00",
+  "ended_at": "2026-07-12T15:46:41.895695+00:00",
   "status": "completed",
-  "metrics_path": "runs/metrics/phase2_GunPoint_f25_jitter_cnn1d_s0.json",
-  "predictions_path": "runs/predictions/phase2_GunPoint_f25_jitter_cnn1d_s0.csv",
-  "log_path": "runs/logs/phase2_GunPoint_f25_jitter_cnn1d_s0.log",
+  "metrics_path": "runs/metrics/phase2_GunPoint_f25_scaling_cnn1d_s1.json",
+  "predictions_path": "runs/predictions/phase2_GunPoint_f25_scaling_cnn1d_s1.csv",
+  "log_path": "runs/logs/phase2_GunPoint_f25_scaling_cnn1d_s1.log",
   "train_fraction": 0.25,
   "n_train_used": 12
 }
