@@ -1,0 +1,42 @@
+{
+  "run_id": "subject_count_UCI_HAR_n3_oversample_cnn1d_har_r0",
+  "phase": 4,
+  "dataset": "UCI_HAR",
+  "dataset_checksum": "uci_har_pool",
+  "split_checksum": "subjects:16,27,30",
+  "augmentation": "oversample",
+  "augmentation_params": {
+    "ratio": 1.0
+  },
+  "model": "cnn1d_har",
+  "model_params": {
+    "epochs": 40,
+    "patience": 8,
+    "batch_size": 64,
+    "lr": 0.001,
+    "val_fraction": 0.2,
+    "hidden": 64
+  },
+  "seed": 0,
+  "git_commit": "dd543e39a9e8df7dd37d5806a37d27c8975e8c54",
+  "git_dirty": false,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-12T18:30:51.479517+00:00",
+  "ended_at": "2026-07-12T18:31:02.705534+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/subject_count_UCI_HAR_n3_oversample_cnn1d_har_r0.json",
+  "predictions_path": "runs/predictions/subject_count_UCI_HAR_n3_oversample_cnn1d_har_r0.csv",
+  "log_path": "runs/logs/subject_count_UCI_HAR_n3_oversample_cnn1d_har_r0.log",
+  "subject_count": 3,
+  "subjects_used": [
+    16,
+    27,
+    30
+  ]
+}
