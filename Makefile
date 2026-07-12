@@ -16,6 +16,9 @@ download:
 phase1:
 	uv run python scripts/run_experiment.py --config config/experiments/phase1.yaml
 
+phase2:
+	uv run python scripts/run_experiment.py --config config/experiments/phase2.yaml
+
 aggregate:
 	uv run python scripts/aggregate_results.py
 
