@@ -1,0 +1,38 @@
+# 唯一の順序管理簿 (spec 3.9)。status: todo | in_progress | done | blocked
+current_phase: 5
+
+tasks:
+  - {id: P0-1, phase: 0, title: "ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)", status: done}
+  - {id: P0-2, phase: 0, title: "config 雛形作成 (datasets/augmentations/models/experiments)", status: done}
+  - {id: P0-3, phase: 0, title: "パッケージ初期化 (__init__.py)", status: done}
+  - {id: P0-4, phase: 0, title: "データローダ (UCR + synthetic, checksum, znorm, train/val split)", status: done}
+  - {id: P0-5, phase: 0, title: "実験 runner / seed / manifest / resume", status: done}
+  - {id: P0-6, phase: 0, title: "テスト基盤 (unit/integration/regression)", status: done}
+  - {id: P0-7, phase: 0, title: "Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)", status: done}
+  - {id: P0-8, phase: 0, title: "サブエージェント・コマンド定義 (.claude/)", status: done}
+  - {id: P0-9, phase: 0, title: "進行管理ファイル初期化 (artifacts/)", status: done}
+  - {id: P0-10, phase: 0, title: "smoke 実験実行と Phase 0 品質ゲート通過", status: done}
+
+  - {id: P1-1, phase: 1, title: "拡張手法 7 種の実装確認と unit テスト", status: done}
+  - {id: P1-2, phase: 1, title: "モデル実装 (1D-CNN, MiniRocket+Ridge)", status: done}
+  - {id: P1-3, phase: 1, title: "UCR 3データセット取得 + checksum 記録", status: done}
+  - {id: P1-4, phase: 1, title: "Phase 1 実験格子の実行 (126 runs)", status: done}
+  - {id: P1-5, phase: 1, title: "結果集計・監査", status: done}
+  - {id: P1-6, phase: 1, title: "HTML レポートへの結果反映", status: done}
+  - {id: P1-7, phase: 1, title: "ペルソナレビュー (教授/院生/実務者視点) とレポート改訂", status: done}
+
+  - {id: P2-1, phase: 2, title: "Phase 2 対象データセット 12 件の選定", status: done}
+  - {id: P2-2, phase: 2, title: "学習サンプル比率スイープの runner 拡張", status: done}
+  - {id: P2-3, phase: 2, title: "統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加", status: done}
+  - {id: P2-5, phase: 2, title: "Phase 2 実験格子の実行 (2520 runs)", status: done}
+  - {id: P2-6, phase: 2, title: "Phase 2 集計・検定・レポート反映", status: done}
+  - {id: P2-4, phase: 2, title: "被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)", status: done}
+
+  - {id: P3-1, phase: 3, title: "被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)", status: done}
+  - {id: P3-2, phase: 3, title: "主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)", status: done}
+  - {id: P4-1, phase: 4, title: "被験者単位 group split 基盤 (subject.py)", status: done}
+  - {id: P4-2, phase: 4, title: "目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)", status: done}
+  - {id: P4-3, phase: 4, title: "UCI HAR ローダ + 被験者数 runner 実装", status: done}
+  - {id: P4-4, phase: 4, title: "被験者数学習曲線グリッド実行 (126 runs)", status: done}
+  - {id: P5-1, phase: 5, title: "必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映", status: done}
+  - {id: P5-2, phase: 5, title: "negative control (label_shuffle) の追加と削減の健全性検証", status: done}

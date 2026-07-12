@@ -1,0 +1,45 @@
+# Model registry. Validation data for early stopping is carved out of the
+# training split only (never test data; see spec section 8).
+models:
+  cnn1d:
+    type: cnn1d
+    params:
+      epochs: 100
+      patience: 15
+      batch_size: 32
+      lr: 0.001
+      val_fraction: 0.2
+      hidden: 64
+
+  cnn1d_smoke:
+    type: cnn1d
+    params:
+      epochs: 15
+      patience: 5
+      batch_size: 16
+      lr: 0.001
+      val_fraction: 0.25
+      hidden: 16
+
+  # Lighter CNN for subject-count curves (Phase 4): HAR converges fast and the
+  # grid is large, so fewer epochs keep CPU cost bounded. Validated to still
+  # clear the pre-registered 0.90 target at full pool.
+  cnn1d_har:
+    type: cnn1d
+    params:
+      epochs: 40
+      patience: 8
+      batch_size: 64
+      lr: 0.001
+      val_fraction: 0.2
+      hidden: 64
+
+  minirocket:
+    type: minirocket
+    params:
+      n_kernels: 10000
+
+  minirocket_smoke:
+    type: minirocket
+    params:
+      n_kernels: 500

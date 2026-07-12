@@ -1,0 +1,11 @@
+{
+  "name": "signal-aug-report",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build:css": "tailwindcss -i src/input.css -o dist/assets/report.css --content dist/index.html --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

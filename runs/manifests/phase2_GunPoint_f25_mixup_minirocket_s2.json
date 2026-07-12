@@ -1,0 +1,34 @@
+{
+  "run_id": "phase2_GunPoint_f25_mixup_minirocket_s2",
+  "phase": 2,
+  "dataset": "GunPoint",
+  "dataset_checksum": "65342a99ade7e30c9263a9a1553b81bcfa5de02982d499ff14d14f2ee5d413f0",
+  "split_checksum": "3c66505f536a02707135dd9dc7f48efeab27d0fd2c83531c39bc5008f613d64e",
+  "augmentation": "mixup",
+  "augmentation_params": {
+    "ratio": 1.0,
+    "alpha": 0.2
+  },
+  "model": "minirocket",
+  "model_params": {
+    "n_kernels": 10000
+  },
+  "seed": 2,
+  "git_commit": "e6d1af21f610cf0fe23d34e56f077cb2927130a9",
+  "git_dirty": true,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-12T15:48:50.819830+00:00",
+  "ended_at": "2026-07-12T15:48:50.986984+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/phase2_GunPoint_f25_mixup_minirocket_s2.json",
+  "predictions_path": "runs/predictions/phase2_GunPoint_f25_mixup_minirocket_s2.csv",
+  "log_path": "runs/logs/phase2_GunPoint_f25_mixup_minirocket_s2.log",
+  "train_fraction": 0.25,
+  "n_train_used": 12
+}

@@ -1,0 +1,102 @@
+{
+  "findings": [
+    {
+      "id": "F-1",
+      "phase": 1,
+      "claim": "フルサイズの学習データ(ECG5000: 500件, FordA: 3601件)では、精度の改善は全条件で +1pt 未満に留まる一方、悪化側は最大 -3.5pt に達した(F-3)。一貫した改善は観測されなかった(統計検定は Phase 2 で実施予定)",
+      "evidence": "report/assets/data/results.json summary (none との差分)",
+      "confidence": "medium",
+      "type": "reproduction",
+      "notes": "Iwana & Uchida 2021 の『拡張効果は低データ条件で大きく、常に有効とは限らない』と整合。accuracy ベースの観察であり、クラス不均衡な ECG5000 では macro-F1 側で挙動が異なる(例: minirocket none 0.5948 → scaling 0.6257)点に注意。Phase 2 の学習サンプル比率スイープで低データ条件を検証する"
+    },
+    {
+      "id": "F-2",
+      "phase": 1,
+      "claim": "最小データセット GunPoint(train 50件)では拡張による改善が観測された(cnn1d: oversample で 0.9889→1.0000、minirocket: scaling で 0.9978→1.0000)",
+      "evidence": "runs/metrics/phase1_GunPoint_*.json",
+      "confidence": "low",
+      "type": "reproduction",
+      "notes": "3 seeds のみで差はベースラインの seed 間標準偏差(±0.0192)の範囲内。さらに GunPoint は精度 0.99-1.00 の天井効果があり改善余地が 1-2 サンプル分しかないため、確証は弱い。低データ仮説 H1 と方向が一致する、以上のことは言えない"
+    },
+    {
+      "id": "F-3",
+      "phase": 1,
+      "claim": "FordA + MiniRocket では複数の拡張が性能を悪化させた(oversample -3.5pt, jitter -2.6pt, scaling -2.3pt)",
+      "evidence": "runs/metrics/phase1_FordA_*_minirocket_*.json",
+      "confidence": "medium",
+      "type": "original",
+      "notes": "MiniRocket の特徴量が振幅・ノイズ統計に敏感な可能性。拡張はモデル依存で害にもなる、という H2 側の証拠"
+    },
+    {
+      "id": "F-4",
+      "phase": 1,
+      "claim": "ベースライン精度は文献相場と整合(GunPoint/MiniRocket 0.998, FordA/MiniRocket 0.949, ECG5000 両モデル 0.94 台)",
+      "evidence": "references/paper_matrix.csv の相場と summary の比較",
+      "confidence": "high",
+      "type": "reproduction",
+      "notes": "実装の妥当性を支持。監査 130/130 合格"
+    },
+    {
+      "id": "F-5",
+      "phase": 2,
+      "claim": "1D-CNN ではデータ拡張が精度を有意に改善する(12データセット×5比率×3seeds のペア検定で mixup +6.2pt, dtw +5.7pt, smote +5.1pt, oversample +4.3pt, scaling +3.7pt が Holm-Bonferroni 補正後も有意, α=0.05)",
+      "evidence": "results.json stats (Wilcoxon vs none, n=180 pairs/条件), Phase 2",
+      "confidence": "high",
+      "type": "original",
+      "notes": "2520 runs・監査合格。効果量は mixup が最大。jitter は補正後は非有意(p=0.0099)"
+    },
+    {
+      "id": "F-6",
+      "phase": 2,
+      "claim": "MiniRocket ではどの拡張手法も精度を有意に改善しない(全手法で Holm 補正後 非有意、平均Δは -0.2〜+0.5pt)",
+      "evidence": "results.json stats, Phase 2",
+      "confidence": "high",
+      "type": "original",
+      "notes": "拡張効果はモデル依存という H2 を強く支持。MiniRocket は畳み込み特徴が既に頑健で、生信号拡張の恩恵が小さい可能性。拡張は『モデルによっては無益』であり万能ではない"
+    },
+    {
+      "id": "F-7",
+      "phase": 2,
+      "claim": "拡張効果(1D-CNN)は学習比率が中〜低程度(25-50%)で相対的に大きい傾向があり、低データ条件で拡張が効くという仮説 H1 と整合する",
+      "evidence": "results.json learning_curves, フラクション別平均Δ(cnn1d: 10%→+4.2pt, 25%→+5.5pt, 50%→+3.7pt, 75%→+2.3pt)",
+      "confidence": "medium",
+      "type": "reproduction",
+      "notes": "厳密には単調でなく、フルサイズでも改善が残る点は Iwana & Uchida の傾向より弱い。被験者数削減の主張には Phase 4-5 の被験者単位学習曲線が必要"
+    },
+    {
+      "id": "F-8",
+      "phase": 5,
+      "claim": "UCI HAR で目標精度 0.90 に必要な実被験者数は拡張なしで約 8.85 名(95%CI 5.7-10.0)。点推定では DTW が最大の削減(N*=7.9, 削減率 10.8%, 約1名節約)、mixup・scaling が小幅な削減を示す",
+      "evidence": "results.json reduction (126 runs, 事前登録 target=0.90), Phase 4-5",
+      "confidence": "low",
+      "type": "original",
+      "notes": "反復 3 回のため N* の bootstrap CI が広く、拡張手法の CI は none の CI と重なる。点推定の方向は『拡張が実被験者を部分的に代替』という主仮説と整合するが、統計的に確定できるレベルではない"
+    },
+    {
+      "id": "F-9",
+      "phase": 5,
+      "claim": "oversample と smote は必要被験者数をむしろ増やした(削減率 -4.8%, -2.6%)。全手法が被験者削減に有効なわけではない",
+      "evidence": "results.json reduction, Phase 4-5",
+      "confidence": "low",
+      "type": "original",
+      "notes": "F-6(MiniRocket で拡張が無効)と併せ、拡張の効果は手法・モデル・データ依存であり万能ではないという一貫した結論。単純な複製系(oversample)は被験者多様性を増やさないため少被験者条件で不利な可能性"
+    },
+    {
+      "id": "F-10",
+      "phase": 5,
+      "claim": "negative control(ラベルを無作為化した label_shuffle)が 4.3% の見かけの削減を示し、mixup(4.1%)・scaling(3.9%)と同等だった。すなわち約4%以下の削減はクラス信号のない対照でも再現され、アーティファクトと区別できない",
+      "evidence": "results.json reduction, label_shuffle vs mixup/scaling, Phase 5 negative control (21 runs)",
+      "confidence": "high",
+      "type": "original",
+      "notes": "本研究で最も重要な方法論的知見。少データ条件ではデータ量の水増し自体が正則化的に働くため、ラベルが誤っていても見かけ上 N* が下がりうる。DTW(10.8%)のみが対照を上回るが CI は重なり、確定はできない。結論: 本設定ではデータ拡張による被験者削減は『対照を明確に超える』とは言えず、小さな削減の主張は negative control 越えを条件とすべき"
+    }
+  ],
+  "schema": {
+    "id": "F-<serial>",
+    "phase": "int",
+    "claim": "1文の知見",
+    "evidence": "run_id / 集計ファイルへの参照",
+    "confidence": "low | medium | high",
+    "type": "reproduction | original"
+  }
+}

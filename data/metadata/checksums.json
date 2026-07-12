@@ -1,0 +1,119 @@
+{
+  "ECG5000": {
+    "dataset_checksum": "ee5f8d60edb340d0210751bee0c5b6ba5ea5349efa2e64d1513e5642a0b25e77",
+    "split_checksum": "13a90fde71d80706aabc09a6d56785ac486e08033695aaa93e75cdb6201edf61",
+    "n_train": 500,
+    "n_test": 4500,
+    "n_channels": 1,
+    "length": 140,
+    "n_classes": 5
+  },
+  "FordA": {
+    "dataset_checksum": "f5e5f3d6bba318d87c7c43d8fdc18c5d6becc5b768bfcb805e8b975648cd94b9",
+    "split_checksum": "3f7f8d8ac8bf57b94977666a9c9b62f45c47bcc949d8b2b0728b6ec4a120adc7",
+    "n_train": 3601,
+    "n_test": 1320,
+    "n_channels": 1,
+    "length": 500,
+    "n_classes": 2
+  },
+  "GunPoint": {
+    "dataset_checksum": "65342a99ade7e30c9263a9a1553b81bcfa5de02982d499ff14d14f2ee5d413f0",
+    "split_checksum": "3c66505f536a02707135dd9dc7f48efeab27d0fd2c83531c39bc5008f613d64e",
+    "n_train": 50,
+    "n_test": 150,
+    "n_channels": 1,
+    "length": 150,
+    "n_classes": 2
+  },
+  "ECG200": {
+    "dataset_checksum": "94e0ca45b0b882e43847b3b24941b86a49d5eb44eee9800746fda92a0216ed41",
+    "split_checksum": "8569a348e313271accd701e36b6901d65648510bc4c0a4c06afbe44b57495ba3",
+    "n_train": 100,
+    "n_test": 100,
+    "n_channels": 1,
+    "length": 96,
+    "n_classes": 2
+  },
+  "TwoLeadECG": {
+    "dataset_checksum": "74dfe03210f9f5fb8647b8b9a2be86ae6f495939f8a130a30eb97a1b6f07f5fe",
+    "split_checksum": "0740861711d0fe717ce709c8da9d388c1219a3a940b35b35f0b9985dabc9016c",
+    "n_train": 23,
+    "n_test": 1139,
+    "n_channels": 1,
+    "length": 82,
+    "n_classes": 2
+  },
+  "ItalyPowerDemand": {
+    "dataset_checksum": "dc86c8dea0d68da4e6d94b33cb342f4f8478ad3f427510f396e0797192234d1e",
+    "split_checksum": "1ce7d3e1cefcf730d0945302c81526b248b13ff09f3add00710319075b11056c",
+    "n_train": 67,
+    "n_test": 1029,
+    "n_channels": 1,
+    "length": 24,
+    "n_classes": 2
+  },
+  "MoteStrain": {
+    "dataset_checksum": "5e5f5395368685ca5cc184ca4e392970569f878c3ca6870d2ab9c1d8e08151fc",
+    "split_checksum": "e519f4a3e37bf8b7204381d42663ba2a92d214ac3feb134ddab71c04af2c88f8",
+    "n_train": 20,
+    "n_test": 1252,
+    "n_channels": 1,
+    "length": 84,
+    "n_classes": 2
+  },
+  "SonyAIBORobotSurface1": {
+    "dataset_checksum": "fb7a914aa402863a2164d842c30f390c1e2dfa20839c6665704a2a89e009d4ef",
+    "split_checksum": "d9ff90ba986ac6abad2554de57954fc5a6bd4d3a04f5cf760fc3525e4a56f91f",
+    "n_train": 20,
+    "n_test": 601,
+    "n_channels": 1,
+    "length": 70,
+    "n_classes": 2
+  },
+  "CBF": {
+    "dataset_checksum": "9658e8d7036a527043a196781a0b94b8a21a6f2c53147adf84a18abbe8f7d550",
+    "split_checksum": "c0a7b5bdf9e9c40a12d17a5fea0ab7a0a7bc98c57d00204f518d4c9a860fff5b",
+    "n_train": 30,
+    "n_test": 900,
+    "n_channels": 1,
+    "length": 128,
+    "n_classes": 3
+  },
+  "Plane": {
+    "dataset_checksum": "17bcaa5dcc168517bdbba15d559119af8b02f50def62e092bf096d6e3e4f8012",
+    "split_checksum": "17e8ba5cb105632ae8966e9bd4a09d2b0fb9590339994e1a77a5f449c346ba0d",
+    "n_train": 105,
+    "n_test": 105,
+    "n_channels": 1,
+    "length": 144,
+    "n_classes": 7
+  },
+  "ArrowHead": {
+    "dataset_checksum": "fed235e72e8bb3257809ad5af1ec37f8cb0eb8575a5cf78cfc02449899a39ff5",
+    "split_checksum": "ebc39bddcfe555398e735f50ac9412b0e030d931bf7778866aa0c646c99a3605",
+    "n_train": 36,
+    "n_test": 175,
+    "n_channels": 1,
+    "length": 251,
+    "n_classes": 3
+  },
+  "Coffee": {
+    "dataset_checksum": "647bd6f79101bb23d61db8cb2e37c0a595ca915b0c6d39ac4134f7798fa0499c",
+    "split_checksum": "ddf8cd4e91406b3f2a50fc2e142078f8ac250a10901c5c93dc0f2e7378dbff61",
+    "n_train": 28,
+    "n_test": 28,
+    "n_channels": 1,
+    "length": 286,
+    "n_classes": 2
+  },
+  "Wafer": {
+    "dataset_checksum": "f0710382759f7fcbb6fdc882c994c7d67abd930fcbcec84c5f0c458fda7f049c",
+    "split_checksum": "a2dfa4af11dca3f319cfa39a39c1fe5cb2876b4cbace70237a10e9d727d0e4eb",
+    "n_train": 1000,
+    "n_test": 6164,
+    "n_channels": 1,
+    "length": 152,
+    "n_classes": 2
+  }
+}

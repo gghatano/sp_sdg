@@ -1,0 +1,48 @@
+[
+  {
+    "key": "ucr",
+    "text": "H. A. Dau, A. Bagnall, K. Kamgar, C.-C. M. Yeh, Y. Zhu, S. Gharghabi, C. A. Ratanamahatana, and E. Keogh, \"The UCR Time Series Archive,\" IEEE/CAA Journal of Automatica Sinica, vol. 6, no. 6, pp. 1293–1305, 2019.",
+    "url": "https://www.cs.ucr.edu/~eamonn/time_series_data_2018/"
+  },
+  {
+    "key": "bakeoff",
+    "text": "A. Bagnall, J. Lines, A. Bostrom, J. Large, and E. Keogh, \"The great time series classification bake off: a review and experimental evaluation of recent algorithmic advances,\" Data Mining and Knowledge Discovery, vol. 31, no. 3, pp. 606–660, 2017."
+  },
+  {
+    "key": "rocket",
+    "text": "A. Dempster, F. Petitjean, and G. I. Webb, \"ROCKET: exceptionally fast and accurate time series classification using random convolutional kernels,\" Data Mining and Knowledge Discovery, vol. 34, pp. 1454–1495, 2020."
+  },
+  {
+    "key": "minirocket",
+    "text": "A. Dempster, D. F. Schmidt, and G. I. Webb, \"MiniRocket: A Very Fast (Almost) Deterministic Transform for Time Series Classification,\" in Proc. 27th ACM SIGKDD Conference on Knowledge Discovery & Data Mining (KDD), 2021, pp. 248–257."
+  },
+  {
+    "key": "smote",
+    "text": "N. V. Chawla, K. W. Bowyer, L. O. Hall, and W. P. Kegelmeyer, \"SMOTE: Synthetic Minority Over-sampling Technique,\" Journal of Artificial Intelligence Research, vol. 16, pp. 321–357, 2002."
+  },
+  {
+    "key": "mixup",
+    "text": "H. Zhang, M. Cissé, Y. N. Dauphin, and D. Lopez-Paz, \"mixup: Beyond Empirical Risk Minimization,\" in Proc. International Conference on Learning Representations (ICLR), 2018."
+  },
+  {
+    "key": "um2017",
+    "text": "T. T. Um, F. M. J. Pfister, D. Pichler, S. Endo, M. Lang, S. Hirche, U. Fietzek, and D. Kulić, \"Data Augmentation of Wearable Sensor Data for Parkinson's Disease Monitoring using Convolutional Neural Networks,\" in Proc. 19th ACM International Conference on Multimodal Interaction (ICMI), 2017, pp. 216–220."
+  },
+  {
+    "key": "iwana2021",
+    "text": "B. K. Iwana and S. Uchida, \"An empirical survey of data augmentation for time series classification with neural networks,\" PLOS ONE, vol. 16, no. 7, e0254841, 2021."
+  },
+  {
+    "key": "forestier2017",
+    "text": "G. Forestier, F. Petitjean, H. A. Dau, G. I. Webb, and E. Keogh, \"Generating synthetic time series to augment sparse datasets,\" in Proc. IEEE International Conference on Data Mining (ICDM), 2017, pp. 865–870."
+  },
+  {
+    "key": "fawaz2019",
+    "text": "H. Ismail Fawaz, G. Forestier, J. Weber, L. Idoumghar, and P.-A. Muller, \"Deep learning for time series classification: a review,\" Data Mining and Knowledge Discovery, vol. 33, no. 4, pp. 917–963, 2019."
+  },
+  {
+    "key": "aeon",
+    "text": "M. Middlehurst, A. Ishaq, P. Schäfer et al., \"aeon: a Python toolkit for learning from time series,\" Journal of Machine Learning Research, vol. 25, no. 289, pp. 1–10, 2024.",
+    "url": "https://www.aeon-toolkit.org/"
+  }
+]

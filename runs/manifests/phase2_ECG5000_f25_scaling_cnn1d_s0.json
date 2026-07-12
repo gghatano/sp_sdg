@@ -1,0 +1,39 @@
+{
+  "run_id": "phase2_ECG5000_f25_scaling_cnn1d_s0",
+  "phase": 2,
+  "dataset": "ECG5000",
+  "dataset_checksum": "ee5f8d60edb340d0210751bee0c5b6ba5ea5349efa2e64d1513e5642a0b25e77",
+  "split_checksum": "13a90fde71d80706aabc09a6d56785ac486e08033695aaa93e75cdb6201edf61",
+  "augmentation": "scaling",
+  "augmentation_params": {
+    "ratio": 1.0,
+    "sigma": 0.1
+  },
+  "model": "cnn1d",
+  "model_params": {
+    "epochs": 100,
+    "patience": 15,
+    "batch_size": 32,
+    "lr": 0.001,
+    "val_fraction": 0.2,
+    "hidden": 64
+  },
+  "seed": 0,
+  "git_commit": "979fc42af6246bf81335f45c2ef2b90961188eec",
+  "git_dirty": true,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-12T16:05:18.236236+00:00",
+  "ended_at": "2026-07-12T16:05:23.467763+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/phase2_ECG5000_f25_scaling_cnn1d_s0.json",
+  "predictions_path": "runs/predictions/phase2_ECG5000_f25_scaling_cnn1d_s0.csv",
+  "log_path": "runs/logs/phase2_ECG5000_f25_scaling_cnn1d_s0.log",
+  "train_fraction": 0.25,
+  "n_train_used": 125
+}

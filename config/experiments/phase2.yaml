@@ -1,0 +1,22 @@
+# Phase 2: cross-dataset comparison with learning-sample-ratio sweep.
+# 12 datasets x 5 fractions x 7 augmentations x 2 models x 3 seeds = 2520 runs.
+# Dataset selection rationale: artifacts/decision_log.md (2026-07-12).
+phase: 2
+name: phase2
+datasets:
+  - GunPoint          # motion, 50 train, Phase 1 continuity
+  - ECG5000           # ECG, 500 train, imbalanced 5-class, Phase 1 continuity
+  - ECG200            # ECG, 100 train
+  - TwoLeadECG        # ECG, 23 train (intrinsically low-data)
+  - ItalyPowerDemand  # power sensor, 67 train, short series
+  - MoteStrain        # sensor, 20 train
+  - SonyAIBORobotSurface1  # robot sensor, 20 train
+  - CBF               # simulated, 30 train, 3-class
+  - Plane             # sensor/shape, 105 train, 7-class
+  - ArrowHead         # image-derived, 36 train, 3-class
+  - Coffee            # spectrograph, 28 train
+  - Wafer             # semiconductor sensor, 1000 train, imbalanced
+train_fractions: [0.10, 0.25, 0.50, 0.75, 1.00]
+augmentations: [none, oversample, jitter, scaling, mixup, dtw, smote]
+models: [cnn1d, minirocket]
+seeds: [0, 1, 2]

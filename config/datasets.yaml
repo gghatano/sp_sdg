@@ -1,0 +1,64 @@
+# Dataset registry. Experiment configs reference datasets by key.
+# source: "ucr" datasets are downloaded via aeon into data/raw/.
+# source: "synthetic" is generated locally (network-free; used by smoke tests).
+datasets:
+  synthetic:
+    source: synthetic
+    n_train: 60
+    n_test: 40
+    length: 64
+    n_channels: 1
+    n_classes: 2
+
+  ECG5000:
+    source: ucr
+    note: "UCR archive. 5000 heartbeats, 5 classes, length 140."
+
+  FordA:
+    source: ucr
+    note: "UCR archive. Engine noise classification, 2 classes, length 500."
+
+  GunPoint:
+    source: ucr
+    note: "UCR archive. Motion capture, 2 classes, length 150."
+
+  # --- Phase 2 additions (selection rationale: artifacts/decision_log.md) ---
+  ECG200:
+    source: ucr
+    note: "ECG, 2 classes, 100 train."
+
+  TwoLeadECG:
+    source: ucr
+    note: "ECG, 2 classes, 23 train (intrinsically low-data)."
+
+  ItalyPowerDemand:
+    source: ucr
+    note: "Power demand, 2 classes, 67 train, length 24."
+
+  MoteStrain:
+    source: ucr
+    note: "Sensor, 2 classes, 20 train."
+
+  SonyAIBORobotSurface1:
+    source: ucr
+    note: "Robot accelerometer, 2 classes, 20 train."
+
+  CBF:
+    source: ucr
+    note: "Simulated (Cylinder-Bell-Funnel), 3 classes, 30 train."
+
+  Plane:
+    source: ucr
+    note: "Sensor/shape, 7 classes, 105 train."
+
+  ArrowHead:
+    source: ucr
+    note: "Image-derived shapes, 3 classes, 36 train."
+
+  Coffee:
+    source: ucr
+    note: "Spectrograph, 2 classes, 28 train."
+
+  Wafer:
+    source: ucr
+    note: "Semiconductor sensor, 2 classes, 1000 train, imbalanced."

@@ -1,0 +1,8 @@
+# Network-free smoke experiment: synthetic data, tiny models.
+# Must complete in well under a minute. Used as the Phase 0 quality gate.
+phase: 0
+name: smoke
+datasets: [synthetic]
+augmentations: [none, jitter]
+models: [cnn1d_smoke, minirocket_smoke]
+seeds: [0]

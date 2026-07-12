@@ -1,0 +1,56 @@
+# 追試対象の構造化定義 (spec 3.3)
+targets:
+  - id: T1
+    paper: "Iwana & Uchida (2021), An empirical survey of data augmentation for time series classification with neural networks, PLOS ONE 16(7)"
+    scope: "時系列拡張手法(jittering, scaling, 等)の効果がデータセット依存であるという主要傾向を、UCR サブセット + 1D-CNN/MiniRocket で確認する"
+    phase: 1
+    status: planned
+    notes: "サーベイ論文のため厳密な数値一致ではなく傾向の再現を目標とする"
+
+  - id: T2
+    paper: "Um et al. (2017), Data Augmentation of Wearable Sensor Data for Parkinson's Disease Monitoring using CNNs, ICMI"
+    scope: "jittering / scaling がウェアラブル信号分類を改善するという報告を、公開データで方向的に確認する"
+    phase: 2
+    status: planned
+
+  - id: T3
+    paper: "Forestier et al. (2017), Generating synthetic time series to augment sparse datasets, ICDM"
+    scope: "DTW ベース合成が少データ条件で有効という報告の簡略版追試(実装差は artifacts/deviations.md 参照)"
+    phase: 2
+    status: planned
+
+# Phase 3-5 の被験者ID付きデータセット。選定根拠は references/notes/phase3_dataset_candidates.md
+subject_datasets:
+  primary:
+    id: UCI_HAR
+    name: "Human Activity Recognition Using Smartphones (UCI HAR)"
+    subjects: 30
+    task: "ウェアラブル慣性センサによる6クラス行動認識"
+    signal: "3軸加速度 + 3軸ジャイロ, 50 Hz, 2.56s窓(128点), 50%重複"
+    license: "CC BY 4.0"
+    url: "https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones"
+    group_split: "被験者ID付き。公式に train=21名 / test=9名の被験者非跨り分割あり"
+    source: "Anguita et al. (2013), ESANN 2013, pp. 437-442. DOI:10.24432/C54S4K"
+    status: selected
+    notes: "生信号版(RawData)を使用。561次元特徴版はリーク懸念のため不使用"
+  backup:
+    id: WISDM_2019
+    name: "WISDM Smartphone and Smartwatch Activity and Biometrics (2019)"
+    subjects: 51
+    task: "スマホ+スマートウォッチによる18クラス行動認識"
+    signal: "加速度 + ジャイロ, 20 Hz"
+    license: "CC BY 4.0"
+    url: "https://archive.ics.uci.edu/dataset/507/wisdm+smartphone+and+smartwatch+activity+and+biometrics+dataset"
+    group_split: "被験者ID付き、被験者は明確に分離"
+    source: "Weiss et al. (2019), IEEE Access 7:133190-133202"
+    status: backup
+    notes: "生データにラベル・タイムスタンプ不整合の報告(rWISDM, arXiv:2305.10222)。採用時は前処理QCが必要"
+  domain_diversity:
+    id: PTB_XL
+    name: "PTB-XL 12-lead ECG"
+    subjects: 18885
+    task: "12誘導ECGの診断分類(多ラベル)"
+    license: "CC BY 4.0"
+    url: "https://physionet.org/content/ptb-xl/1.0.1/"
+    status: candidate_phase6
+    notes: "Phase 6/7 のドメイン多様化検証用の予備候補"

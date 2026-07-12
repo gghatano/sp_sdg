@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>信号データ拡張・論文追試プロジェクト レポート</title>
+<style>{{ css | safe }}</style>
+</head>
+<body class="bg-slate-50 text-slate-800 leading-relaxed">
+<div class="max-w-5xl mx-auto px-6 py-10">
+
+<header class="mb-10 border-b border-slate-200 pb-6">
+  <h1 class="text-3xl font-bold text-slate-900">信号データ拡張・論文追試プロジェクト</h1>
+  <p class="mt-2 text-sm text-slate-500">研究進捗レポート ・ 生成日時 {{ generated_at }} ・ 本レポートは runs/ と artifacts/ から自動生成されています</p>
+</header>
+
+<nav class="mb-10 text-sm">
+  <ul class="flex flex-wrap gap-x-4 gap-y-1 text-blue-700">
+    <li><a href="#exec-summary" class="hover:underline">サマリ</a></li>
+    <li><a href="#progress" class="hover:underline">進捗</a></li>
+    <li><a href="#results" class="hover:underline">結果</a></li>
+    <li><a href="#audit" class="hover:underline">監査</a></li>
+    <li><a href="#limitations" class="hover:underline">限界</a></li>
+    <li><a href="#references" class="hover:underline">参考文献</a></li>
+  </ul>
+</nav>
+
+<section id="exec-summary" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">エグゼクティブサマリ</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+    <div class="bg-white rounded-lg border border-slate-200 p-4">
+      <div class="text-2xl font-bold text-slate-900">{{ n_completed }}</div>
+      <div class="text-xs text-slate-500 mt-1">完了した実験 run</div>
+    </div>
+    <div class="bg-white rounded-lg border border-slate-200 p-4">
+      <div class="text-2xl font-bold {{ 'text-red-600' if n_failed else 'text-slate-900' }}">{{ n_failed }}</div>
+      <div class="text-xs text-slate-500 mt-1">失敗した run</div>
+    </div>
+    <div class="bg-white rounded-lg border border-slate-200 p-4">
+      <div class="text-2xl font-bold text-slate-900">{{ tasks_done | length }} / {{ tasks | length }}</div>
+      <div class="text-xs text-slate-500 mt-1">完了タスク</div>
+    </div>
+    <div class="bg-white rounded-lg border border-slate-200 p-4">
+      <div class="text-lg font-bold text-slate-900">{{ current_phase_name }}</div>
+      <div class="text-xs text-slate-500 mt-1">現在のフェーズ</div>
+    </div>
+  </div>
+  {% if reduction and reduction.methods and reduction.n_star_none %}
+  <div class="bg-blue-50 border border-blue-200 rounded p-3 mb-4 text-sm">
+    <p class="font-medium text-blue-900 mb-1">被験者数削減(本研究の主目的・UCI HAR)</p>
+    <p>目標 {{ reduction.target_metric }}={{ reduction.target_value }} に必要な実被験者数は拡張なしで <span class="font-mono">{{ reduction.n_star_none }}</span> 名。点推定では DTW が最大 <span class="font-mono">{{ "%.0f%%" | format((reduction.methods | selectattr('augmentation','equalto','dtw') | map(attribute='reduction_rate') | first | default(0)) * 100) }}</span> の削減を示すが、ラベル無作為化の negative control ですら約 4% の見かけの削減が出るため、<strong>本設定ではデータ拡張が被験者数を確実に削減するとは言えない</strong>(小さな削減はアーティファクトと区別できない)。詳細は<a href="#subject-reduction" class="text-blue-700 hover:underline">被験者数削減評価</a>。</p>
+  </div>
+  {% endif %}
+  {% if best_improvements %}
+  <p class="text-sm mb-2">Δ は同一データセット・同一モデルにおける拡張なし(none)条件との精度差(各 {{ best_improvements[0].n_seeds }} seeds の平均)。効果は改善・悪化の両方向に現れている。</p>
+  <div class="grid md:grid-cols-2 gap-4 text-sm">
+    <div>
+      <p class="font-medium text-green-800 mb-1">改善側の上位</p>
+      <ul class="space-y-1">
+        {% for s in best_improvements %}
+        <li><span class="font-mono">{{ s.dataset }} / {{ s.augmentation }} / {{ s.model }}</span>: Δ {{ "%+.4f" | format(s.delta_vs_none) }}(精度 {{ "%.4f" | format(s.accuracy_mean) }} ± {{ "%.4f" | format(s.accuracy_std) }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div>
+      <p class="font-medium text-red-800 mb-1">悪化側の上位</p>
+      <ul class="space-y-1">
+        {% for s in worst_degradations %}
+        <li><span class="font-mono">{{ s.dataset }} / {{ s.augmentation }} / {{ s.model }}</span>: Δ {{ "%+.4f" | format(s.delta_vs_none) }}(精度 {{ "%.4f" | format(s.accuracy_mean) }} ± {{ "%.4f" | format(s.accuracy_std) }})</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <p class="text-xs text-slate-500 mt-2">注意: 改善側の差はいずれもベースラインの seed 間標準偏差の範囲内であり、3 seeds ではノイズと区別できない。統計検定は Phase 2 で実施する。手法名の意味は<a href="#augmentations" class="text-blue-700 hover:underline">データ拡張手法</a>を参照。</p>
+  {% else %}
+  <p class="text-sm text-slate-500">実験結果はまだありません。Phase 1 の実験完了後にここへ主要な差分が表示されます。</p>
+  {% endif %}
+</section>
+
+<section id="purpose" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">研究目的・仮説</h2>
+  <p class="text-sm">公開時系列データ(UCR Archive [{{ ref.ucr }}]: 時系列分類の標準ベンチマーク集)上でデータ拡張手法の効果を系統的に追試し、その知見を被験者ID付きデータへ展開することで、<strong>所定の分類性能を得るために必要な実被験者数をデータ拡張でどこまで削減できるか</strong>を定量評価する。</p>
+  <p class="text-sm mt-2">仮説: 時系列向けデータ拡張 —— ジッタリング(ノイズ付加)・スケーリング(振幅の伸縮)[{{ ref.um2017 }}]、mixup(2 サンプルの線形補間)[{{ ref.mixup }}]、DTW(Dynamic Time Warping: 時間方向の伸縮を許して系列同士を整列する手法)に基づく合成 [{{ ref.forestier2017 }}]、SMOTE(近傍サンプル間の内挿による合成)[{{ ref.smote }}] など —— は学習データが少ない条件で最も効果が大きく、その効果は「実被験者の追加」に部分的に代替し得る。</p>
+</section>
+
+<section id="current-phase" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">現在のフェーズ</h2>
+  <p class="text-sm"><span class="inline-block bg-blue-100 text-blue-800 rounded px-2 py-0.5 font-medium">{{ current_phase_name }}</span></p>
+</section>
+
+<section id="progress" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">タスク状況(完了・実行中・未実施)</h2>
+  <div class="grid md:grid-cols-3 gap-4 text-sm">
+    <div>
+      <h3 class="font-medium text-green-700 mb-2">完了 ({{ tasks_done | length }})</h3>
+      <ul class="space-y-1">{% for t in tasks_done %}<li class="bg-white border border-slate-200 rounded px-2 py-1">{{ t.id }}: {{ t.title }}</li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3 class="font-medium text-amber-700 mb-2">実行中 ({{ tasks_doing | length }})</h3>
+      <ul class="space-y-1">{% for t in tasks_doing %}<li class="bg-white border border-slate-200 rounded px-2 py-1">{{ t.id }}: {{ t.title }}</li>{% endfor %}</ul>
+    </div>
+    <div>
+      <h3 class="font-medium text-slate-500 mb-2">未実施 ({{ tasks_todo | length }})</h3>
+      <ul class="space-y-1">{% for t in tasks_todo %}<li class="bg-white border border-slate-200 rounded px-2 py-1">{{ t.id }}: {{ t.title }}</li>{% endfor %}</ul>
+    </div>
+  </div>
+</section>
+
+<section id="reproduction-conditions" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">論文追試条件</h2>
+  {% if reproduction_targets and reproduction_targets.targets %}
+  <ul class="text-sm space-y-2">
+    {% for t in reproduction_targets.targets %}
+    <li class="bg-white border border-slate-200 rounded p-3">
+      <div class="font-medium">{{ t.paper }}</div>
+      <div class="text-slate-600 mt-1">{{ t.scope }}</div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-sm text-slate-500">追試対象は references/reproduction_targets.yaml で管理します(未登録)。</p>
+  {% endif %}
+</section>
+
+<section id="datasets" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">データセット</h2>
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200"><th class="p-2">名前</th><th class="p-2">ソース</th><th class="p-2">備考</th></tr></thead>
+    <tbody>
+      {% for name, spec in datasets_cfg.items() %}
+      <tr class="border-b border-slate-100"><td class="p-2 font-mono">{{ name }}</td><td class="p-2">{{ spec.source }}</td><td class="p-2 text-slate-600">{{ spec.note | default("") }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section id="augmentations" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">データ拡張手法</h2>
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200"><th class="p-2">名前</th><th class="p-2">方式</th><th class="p-2">パラメータ</th></tr></thead>
+    <tbody>
+      {% for name, spec in augmentations_cfg.items() %}
+      <tr class="border-b border-slate-100"><td class="p-2 font-mono">{{ name }}</td><td class="p-2">{{ spec.method }}</td><td class="p-2 font-mono text-xs">{{ spec.params }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="text-xs text-slate-500 mt-2">ratio は「元の学習データ数に対して追加生成する合成サンプル数の比」(1.0 で学習データが倍増。元サンプルは常に保持)。その他のパラメータの意味は config/augmentations.yaml のコメントと src/signal_aug/augmentations/methods.py を参照。各手法の原典は「研究目的・仮説」の引用([{{ ref.smote }}][{{ ref.mixup }}][{{ ref.um2017 }}][{{ ref.forestier2017 }}])および原論文との実装差分は artifacts/deviations.md を参照。拡張は学習データにのみ適用され、テストデータには一切適用されません。</p>
+</section>
+
+<section id="models" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">モデル</h2>
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200"><th class="p-2">名前</th><th class="p-2">種類</th><th class="p-2">パラメータ</th></tr></thead>
+    <tbody>
+      {% for name, spec in models_cfg.items() %}
+      <tr class="border-b border-slate-100"><td class="p-2 font-mono">{{ name }}</td><td class="p-2">{{ spec.type }}</td><td class="p-2 font-mono text-xs">{{ spec.params }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="text-xs text-slate-500 mt-2">1D-CNN は時系列分類の標準的ベースライン [{{ ref.fawaz2019 }}]。MiniRocket [{{ ref.minirocket }}] はランダム畳み込みカーネルで特徴抽出する ROCKET [{{ ref.rocket }}] の後継で、高速かつ高精度な変換ベース手法です。_smoke 付きの構成は動作確認(品質ゲート)専用で、研究結果には使いません。</p>
+</section>
+
+<section id="reproducibility" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">再現性情報</h2>
+  <ul class="text-sm list-disc list-inside space-y-1">
+    <li>全 run は一意な run_id と manifest(条件・環境・Git commit・依存関係チェックサム)を持ちます</li>
+    {% if reproducibility.git_commit %}<li>最後に完了した run(ended_at 基準)のコード版: <span class="font-mono">{{ reproducibility.git_commit }}</span>、Python {{ reproducibility.python_version }}</li>{% endif %}
+    {% if reproducibility.n_dirty_runs %}<li class="text-amber-700">git_dirty=true の run が {{ reproducibility.n_dirty_runs }}/{{ reproducibility.n_completed }} 件あります(実験中に生成される未追跡の run 成果物を含んだ判定。詳細は「限界と注意点」)</li>{% endif %}
+    <li>乱数 seed は run 単位で固定(データ分割・拡張・モデル初期化のすべてに適用)</li>
+    <li>依存関係は uv.lock で固定(torch は CPU 版)。実験条件は config/ の YAML で管理し、コードに埋め込みません</li>
+    <li>実装基盤: aeon ツールキット [{{ ref.aeon }}](UCR データ取得・MiniRocket・DTW)、PyTorch(1D-CNN)、scikit-learn(Ridge・評価指標)</li>
+  </ul>
+</section>
+
+<section id="results" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">主要結果</h2>
+  {% if summary %}
+  <p class="text-sm mb-1">seed 平均の精度(± は seed 間標準偏差)と、拡張なしベースラインとの差分 Δ。smoke 用の合成データは動作確認専用のため本表から除外している(「全 run の一覧」には含む)。</p>
+  <p class="text-xs text-slate-500 mb-3">macro-F1 はクラスごとの F1 スコアの単純平均で、少数クラスの誤りを強く反映する。クラス不均衡が強い ECG5000(5 クラス中 2 クラスで全体の 9 割超)では精度より大幅に低くなるが、これは異常ではない。balanced acc. はクラスごとの再現率の平均。</p>
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200">
+      <th class="p-2">データセット</th><th class="p-2 text-right">学習比率</th><th class="p-2">拡張</th><th class="p-2">モデル</th>
+      <th class="p-2 text-right">精度</th><th class="p-2 text-right">Δ vs none</th><th class="p-2 text-right">macro-F1</th><th class="p-2 text-right">balanced acc.</th><th class="p-2 text-right">seeds</th>
+    </tr></thead>
+    <tbody>
+      {% for s in summary %}
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">{{ s.dataset }}</td><td class="p-2 text-right">{{ "%d%%" | format((s.train_fraction | default(1.0)) * 100) }}</td><td class="p-2 font-mono">{{ s.augmentation }}</td><td class="p-2 font-mono">{{ s.model }}</td>
+        <td class="p-2 text-right">{{ "%.4f" | format(s.accuracy_mean) }} ± {{ "%.4f" | format(s.accuracy_std) }}</td>
+        <td class="p-2 text-right {{ 'text-green-700' if s.delta_vs_none and s.delta_vs_none > 0 else 'text-slate-400' }}">{{ "%+.4f" | format(s.delta_vs_none) if s.delta_vs_none is not none else "—" }}</td>
+        <td class="p-2 text-right">{{ "%.4f" | format(s.macro_f1_mean) }} ± {{ "%.4f" | format(s.macro_f1_std) }}</td>
+        <td class="p-2 text-right">{{ "%.4f" | format(s.balanced_accuracy_mean) }}</td>
+        <td class="p-2 text-right">{{ s.n_seeds }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <details class="mt-3 text-sm">
+    <summary class="cursor-pointer text-blue-700">全 run の一覧を表示({{ n_runs }} runs)</summary>
+    <div class="overflow-x-auto mt-2">
+    <table class="w-full text-xs bg-white border border-slate-200 rounded">
+      <thead><tr class="text-left border-b border-slate-200"><th class="p-2">run_id</th><th class="p-2">status</th><th class="p-2 text-right">accuracy</th><th class="p-2 text-right">macro_f1</th><th class="p-2">commit</th></tr></thead>
+      <tbody>
+        {% for r in results.runs %}
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">{{ r.run_id }}</td><td class="p-2">{{ r.status }}</td>
+          <td class="p-2 text-right">{{ "%.4f" | format(r.accuracy) if r.accuracy is defined and r.accuracy is not none else "—" }}</td>
+          <td class="p-2 text-right">{{ "%.4f" | format(r.macro_f1) if r.macro_f1 is defined and r.macro_f1 is not none else "—" }}</td>
+          <td class="p-2 font-mono">{{ r.git_commit }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </details>
+  {% else %}
+  <p class="text-sm text-slate-500">完了した実験がまだありません。</p>
+  {% endif %}
+</section>
+
+<section id="learning-curves" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">学習曲線(精度 対 学習サンプル比率)</h2>
+  {% if curve_panels %}
+  <p class="text-sm mb-2">横軸は学習データの使用比率(10〜100%)、縦軸は test 精度(seed 平均)。各線が拡張手法。低比率(=少データ)ほど拡張の効果が出やすいという仮説 H1 を、この曲線の左端の広がりで確認する。</p>
+  <div class="flex flex-wrap gap-3 text-xs mb-3">
+    {% for aug, color in aug_colors.items() %}
+    <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-sm" style="background: {{ color }}"></span>{{ aug }}</span>
+    {% endfor %}
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for panel in curve_panels %}
+    <figure class="bg-white border border-slate-200 rounded p-2">
+      <figcaption class="text-xs font-mono text-slate-600 mb-1">{{ panel.dataset }} / {{ panel.model }}</figcaption>
+      {{ panel.svg | safe }}
+    </figure>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-sm text-slate-500">学習サンプル比率スイープの結果がまだありません(Phase 2 で生成)。</p>
+  {% endif %}
+</section>
+
+<section id="statistics" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">統計検定(拡張なしとの対比較)</h2>
+  {% if stats %}
+  <p class="text-sm mb-2">Wilcoxon 符号順位検定。各拡張手法 × モデルについて、同一(データセット・seed・学習比率)でペアにした精度差を none と比較する。p 値は Holm-Bonferroni 法で多重比較補正した上で有意性(α=0.05)を判定。n はペア数。</p>
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200">
+      <th class="p-2">拡張</th><th class="p-2">モデル</th><th class="p-2 text-right">平均Δ(精度)</th><th class="p-2 text-right">n</th><th class="p-2 text-right">p 値</th><th class="p-2">有意(Holm)</th>
+    </tr></thead>
+    <tbody>
+      {% for s in stats %}
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">{{ s.augmentation }}</td><td class="p-2 font-mono">{{ s.model }}</td>
+        <td class="p-2 text-right {{ 'text-green-700' if s.mean_delta > 0 else 'text-red-700' }}">{{ "%+.4f" | format(s.mean_delta) }}</td>
+        <td class="p-2 text-right">{{ s.n_pairs }}</td>
+        <td class="p-2 text-right">{{ "%.4g" | format(s.p_value) if s.p_value is not none else "—" }}</td>
+        <td class="p-2">{% if s.significant_holm %}<span class="text-green-700 font-medium">はい</span>{% else %}<span class="text-slate-400">いいえ</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="text-xs text-slate-500 mt-2">平均Δ が正でも有意でない、あるいは有意でも効果量が小さい場合がある点に注意。効果量(平均Δ)と有意性(p 値)は別物として読む。</p>
+  {% else %}
+  <p class="text-sm text-slate-500">検定に十分なペア数がまだありません(Phase 2 で生成)。</p>
+  {% endif %}
+</section>
+
+<section id="subject-reduction" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">被験者数削減評価(本研究の主目的)</h2>
+  {% if reduction and reduction.methods %}
+  <p class="text-sm mb-2">UCI HAR(被験者ID付き)で、事前登録した目標性能(<span class="font-mono">{{ reduction.target_metric }} = {{ reduction.target_value }}</span>)に到達するのに必要な実被験者数 N* を、拡張なし(none)と各拡張手法で比較する。<strong>削減率 = 1 − N*(手法) / N*(none)</strong>。N* は学習曲線の線形補間で推定し、括弧内は 3 反復からの bootstrap 95% 信頼区間。目標達成に必要な被験者数の基準は N*(none) = <span class="font-mono">{{ reduction.n_star_none }}</span> 名{% if reduction.n_star_none_ci %}(95%CI {{ reduction.n_star_none_ci[0] }}–{{ reduction.n_star_none_ci[1] }}){% endif %}。</p>
+  <div class="bg-white border border-slate-200 rounded p-2 mb-3">{{ reduction_svg | safe }}</div>
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200">
+      <th class="p-2">拡張</th><th class="p-2 text-right">N*(必要被験者数)</th><th class="p-2 text-right">95% CI</th><th class="p-2 text-right">削減率</th><th class="p-2 text-right">節約被験者数</th>
+    </tr></thead>
+    <tbody>
+      {% for m in reduction.methods %}
+      <tr class="border-b border-slate-100 {{ 'bg-slate-50' if m.augmentation == 'none' else '' }}">
+        <td class="p-2 font-mono">{{ m.augmentation }}</td>
+        <td class="p-2 text-right">{{ m.n_star if m.n_star is not none else "未到達" }}</td>
+        <td class="p-2 text-right text-slate-500">{% if m.n_star_ci and m.n_star_ci[0] is not none %}{{ m.n_star_ci[0] }}–{{ m.n_star_ci[1] }}{% else %}—{% endif %}</td>
+        <td class="p-2 text-right {{ 'text-green-700' if m.reduction_rate and m.reduction_rate > 0 else ('text-red-700' if m.reduction_rate and m.reduction_rate < 0 else 'text-slate-400') }}">{{ "%+.1f%%" | format(m.reduction_rate * 100) if m.reduction_rate is not none else "—" }}</td>
+        <td class="p-2 text-right">{{ "%+.2f" | format(m.subjects_saved) if m.subjects_saved is not none else "—" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="text-xs text-slate-500 mt-2">解釈上の注意: N* の信頼区間は反復 3 回のため広く、多くの手法で none の CI と重なる。したがって点推定では DTW・mixup 等が数%の削減を示すものの、<strong>3 反復では削減効果を統計的に確定できない</strong>。確度を上げるには反復数の増加が必要(限界セクション参照)。負の削減率は、その手法が必要被験者数をむしろ増やした(=有害)ことを意味する。</p>
+  {% set nc = reduction.methods | selectattr('augmentation','equalto','label_shuffle') | first %}
+  {% if nc and nc.reduction_rate is not none %}
+  <div class="mt-3 bg-amber-50 border border-amber-200 rounded p-3 text-sm">
+    <p class="font-medium text-amber-900 mb-1">Negative control(label_shuffle)の重要性</p>
+    <p>ラベルを無作為化した対照 <span class="font-mono">label_shuffle</span>(クラス信号を持たない)は <span class="font-mono">{{ "%+.1f%%" | format(nc.reduction_rate * 100) }}</span> の見かけの削減を示した。これは mixup・scaling の削減率と同等であり、<strong>約 4% 以下の削減は信号のない対照でも再現される=アーティファクトと区別できない</strong>ことを意味する。少データではデータ量の水増し自体が正則化的に働くためと考えられる。したがって、削減の主張は「negative control を明確に超えるか」を条件とすべきで、本設定でそれを満たす手法はない(DTW の点推定のみが対照を上回るが信頼区間は重なる)。</p>
+  </div>
+  {% endif %}
+  {% else %}
+  <p class="text-sm text-slate-500">被験者数削減の結果はまだありません(Phase 4-5 で生成)。</p>
+  {% endif %}
+</section>
+
+<section id="paper-comparison" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">原論文との比較と現時点の知見</h2>
+  {% if findings %}
+  <p class="text-sm mb-3">Phase 1 の結果は、拡張効果がデータセット・モデル依存で一様ではないという Iwana &amp; Uchida のサーベイ [{{ ref.iwana2021 }}] の報告と整合する。ベースライン精度は既発表のベンチマーク結果 [{{ ref.bakeoff }}][{{ ref.minirocket }}] の相場と一致しており、実装の妥当性を支持する。以下は artifacts/findings.json に記録された知見(「追試」= 先行研究の傾向確認、「独自」= 本プロジェクトで観測された知見)。</p>
+  <ul class="text-sm space-y-2">
+    {% for f in findings %}
+    <li class="bg-white border border-slate-200 rounded p-3">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="font-mono text-xs text-slate-400">{{ f.id }}</span>
+        <span class="text-xs rounded px-1.5 py-0.5 {{ 'bg-blue-100 text-blue-800' if f.type == 'reproduction' else 'bg-purple-100 text-purple-800' }}">{{ '追試' if f.type == 'reproduction' else '独自' }}</span>
+        <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">確度: {{ f.confidence }}</span>
+      </div>
+      <div>{{ f.claim }}</div>
+      {% if f.notes %}<div class="text-xs text-slate-500 mt-1">{{ f.notes }}</div>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  <p class="text-xs text-slate-500 mt-2">追試対象の詳細条件は references/reproduction_targets.yaml、原論文との実装差分は artifacts/deviations.md を参照。</p>
+  {% else %}
+  <p class="text-sm text-slate-500">知見はまだ記録されていません(artifacts/findings.json に追加されるとここに表示されます)。</p>
+  {% endif %}
+</section>
+
+<section id="failed-runs" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">失敗した実験</h2>
+  {% if results.failed_runs %}
+  <ul class="text-sm space-y-1">
+    {% for r in results.failed_runs %}
+    <li class="bg-red-50 border border-red-200 rounded px-2 py-1 font-mono">{{ r.run_id }}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-sm text-slate-500">失敗した run はありません。</p>
+  {% endif %}
+</section>
+
+<section id="audit" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">監査結果</h2>
+  {% if audit %}
+  <p class="text-sm">機械監査(manifest スキーマ・metrics 範囲・予測ファイル整合性): {{ audit.n_runs }} runs 中 <span class="font-medium {{ 'text-green-700' if audit.n_problem_runs == 0 else 'text-red-600' }}">{{ audit.n_passed }} 件合格 / 問題 {{ audit.n_problem_runs }} 件</span></p>
+  {% else %}
+  <p class="text-sm text-slate-500">監査は未実行です(scripts/audit_results.py で実行)。</p>
+  {% endif %}
+</section>
+
+<section id="limitations" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">限界と注意点</h2>
+  {% if limitations %}
+  <ul class="text-sm list-disc list-inside space-y-1">
+    {% for item in limitations %}<li>{{ item }}</li>{% endfor %}
+  </ul>
+  {% else %}
+  <p class="text-sm text-slate-500">artifacts/limitations.md に記録された項目がここに表示されます。</p>
+  {% endif %}
+</section>
+
+<section id="next-tasks" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">次のタスク</h2>
+  <ol class="text-sm list-decimal list-inside space-y-1">
+    {% for t in tasks_todo[:8] %}<li>{{ t.id }}: {{ t.title }}</li>{% endfor %}
+  </ol>
+</section>
+
+<section id="references" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">参考文献</h2>
+  <ol class="text-sm space-y-2">
+    {% for ref in references %}
+    <li class="flex gap-2"><span class="text-slate-400 shrink-0">[{{ loop.index }}]</span><span>{{ ref.text }}{% if ref.url %} <a href="{{ ref.url }}" class="text-blue-700 hover:underline break-all">{{ ref.url }}</a>{% endif %}</span></li>
+    {% endfor %}
+  </ol>
+</section>
+
+<footer class="mt-12 pt-6 border-t border-slate-200 text-xs text-slate-400">
+  <p>本レポートは実験結果ファイルから自動生成されています。数値の手入力は行いません。ソース: report/src/report.template.html</p>
+</footer>
+
+</div>
+</body>
+</html>

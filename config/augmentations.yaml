@@ -1,0 +1,49 @@
+# Augmentation registry. `ratio` is the fraction of synthetic samples added
+# relative to the original training set size (1.0 doubles the training set).
+# Augmenters only ever see training data (see spec section 8).
+augmentations:
+  none:
+    method: none
+    params: {}
+
+  oversample:
+    method: oversample
+    params:
+      ratio: 1.0
+
+  jitter:
+    method: jitter
+    params:
+      ratio: 1.0
+      sigma: 0.03
+
+  scaling:
+    method: scaling
+    params:
+      ratio: 1.0
+      sigma: 0.1
+
+  mixup:
+    method: mixup
+    params:
+      ratio: 1.0
+      alpha: 0.2
+
+  dtw:
+    method: dtw
+    params:
+      ratio: 1.0
+      window: 0.1
+
+  smote:
+    method: smote
+    params:
+      ratio: 1.0
+      k: 5
+
+  # Negative control (Phase 5): synthetic samples with randomized labels.
+  # Must NOT yield a subject-count reduction; validates the analysis pipeline.
+  label_shuffle:
+    method: label_shuffle
+    params:
+      ratio: 1.0
