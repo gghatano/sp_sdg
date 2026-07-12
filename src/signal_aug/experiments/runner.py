@@ -18,7 +18,7 @@ import numpy as np
 import yaml
 
 from signal_aug.augmentations.methods import apply_augmentation
-from signal_aug.data.loader import DatasetSplits, load_dataset
+from signal_aug.data.loader import DatasetSplits, load_dataset, stratified_subsample
 from signal_aug.evaluation.metrics import compute_metrics
 from signal_aug.experiments import manifest as mf
 from signal_aug.models.minirocket import build_model
@@ -35,6 +35,7 @@ class RunSpec:
     model_type: str
     model_params: dict
     seed: int
+    train_fraction: float = 1.0
 
 
 def load_yaml(path: str | Path) -> dict:
@@ -45,26 +46,31 @@ def expand_grid(experiment_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[Ru
     runs = []
     phase = int(experiment_cfg["phase"])
     name = experiment_cfg["name"]
+    fractions = [float(f) for f in experiment_cfg.get("train_fractions", [1.0])]
     for dataset in experiment_cfg["datasets"]:
-        for aug in experiment_cfg["augmentations"]:
-            aug_spec = aug_cfg["augmentations"][aug]
-            for model in experiment_cfg["models"]:
-                model_spec = model_cfg["models"][model]
-                for seed in experiment_cfg["seeds"]:
-                    run_id = f"{name}_{dataset}_{aug}_{model}_s{seed}"
-                    runs.append(
-                        RunSpec(
-                            run_id=run_id,
-                            phase=phase,
-                            dataset=dataset,
-                            augmentation=aug_spec["method"],
-                            augmentation_params=dict(aug_spec.get("params") or {}),
-                            model=model,
-                            model_type=model_spec["type"],
-                            model_params=dict(model_spec.get("params") or {}),
-                            seed=int(seed),
+        for fraction in fractions:
+            # fraction omitted from run_id at 1.0 so Phase 1 run_ids stay stable
+            frac_tag = "" if fraction == 1.0 else f"_f{int(round(fraction * 100))}"
+            for aug in experiment_cfg["augmentations"]:
+                aug_spec = aug_cfg["augmentations"][aug]
+                for model in experiment_cfg["models"]:
+                    model_spec = model_cfg["models"][model]
+                    for seed in experiment_cfg["seeds"]:
+                        run_id = f"{name}_{dataset}{frac_tag}_{aug}_{model}_s{seed}"
+                        runs.append(
+                            RunSpec(
+                                run_id=run_id,
+                                phase=phase,
+                                dataset=dataset,
+                                augmentation=aug_spec["method"],
+                                augmentation_params=dict(aug_spec.get("params") or {}),
+                                model=model,
+                                model_type=model_spec["type"],
+                                model_params=dict(model_spec.get("params") or {}),
+                                seed=int(seed),
+                                train_fraction=fraction,
+                            )
                         )
-                    )
     return runs
 
 
@@ -101,12 +107,19 @@ def execute_run(spec: RunSpec, data: DatasetSplits, runs_dir: str | Path = "runs
         repo_root=repo_root,
     )
     manifest["log_path"] = str(log_path)
+    manifest["train_fraction"] = spec.train_fraction
     mf.save_manifest(manifest, manifests_dir)
 
     try:
         logger.info("dataset=%s train=%s test=%s", spec.dataset, data.X_train.shape, data.X_test.shape)
+        X_train, y_train = stratified_subsample(
+            data.X_train, data.y_train, spec.train_fraction, seed=spec.seed
+        )
+        manifest["n_train_used"] = int(len(y_train))
+        if spec.train_fraction != 1.0:
+            logger.info("train_fraction=%s subsampled=%s", spec.train_fraction, X_train.shape)
         X_aug, y_aug = apply_augmentation(
-            spec.augmentation, data.X_train, data.y_train, seed=spec.seed, params=spec.augmentation_params
+            spec.augmentation, X_train, y_train, seed=spec.seed, params=spec.augmentation_params
         )
         if not np.isfinite(X_aug).all():
             raise ValueError("augmented training data contains NaN/Inf")

@@ -106,6 +106,27 @@ def load_dataset(name: str, datasets_config: dict, data_dir: str | Path = "data/
     raise ValueError(f"Unknown dataset source: {spec['source']}")
 
 
+def stratified_subsample(
+    X: np.ndarray, y: np.ndarray, fraction: float, seed: int
+) -> tuple[np.ndarray, np.ndarray]:
+    """Deterministic stratified subsample of the training split (Phase 2
+    learning-sample-ratio sweeps). Keeps at least one sample per class.
+    Operates on training data only - never applied to test data."""
+    if not 0.0 < fraction <= 1.0:
+        raise ValueError(f"fraction must be in (0, 1], got {fraction}")
+    if fraction == 1.0:
+        return X, y
+    rng = np.random.default_rng([seed, int(round(fraction * 1000))])
+    keep: list[int] = []
+    for cls in np.unique(y):
+        idx = np.flatnonzero(y == cls)
+        rng.shuffle(idx)
+        n_keep = max(1, int(round(len(idx) * fraction)))
+        keep.extend(idx[:n_keep].tolist())
+    keep = np.sort(np.array(keep))
+    return X[keep], y[keep]
+
+
 def train_val_split(
     X: np.ndarray, y: np.ndarray, val_fraction: float, seed: int
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:

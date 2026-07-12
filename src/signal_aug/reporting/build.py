@@ -93,9 +93,13 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     # smoke runs on synthetic data are quality-gate checks, not study results
     summary_main = [s for s in results["summary"] if s["dataset"] != "synthetic"]
 
-    baseline = {(s["dataset"], s["model"]): s for s in summary_main if s["augmentation"] == "none"}
+    baseline = {
+        (s["dataset"], s.get("train_fraction", 1.0), s["model"]): s
+        for s in summary_main
+        if s["augmentation"] == "none"
+    }
     for s in summary_main:
-        base = baseline.get((s["dataset"], s["model"]))
+        base = baseline.get((s["dataset"], s.get("train_fraction", 1.0), s["model"]))
         s["delta_vs_none"] = (
             round(s["accuracy_mean"] - base["accuracy_mean"], 4) if base and s["augmentation"] != "none" else None
         )

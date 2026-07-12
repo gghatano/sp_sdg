@@ -27,6 +27,7 @@ def collect_runs(manifests_dir: str | Path = "runs/manifests") -> list[dict]:
             "git_dirty": manifest.get("git_dirty"),
             "ended_at": manifest.get("ended_at"),
             "python_version": manifest.get("python_version"),
+            "train_fraction": manifest.get("train_fraction", 1.0),
         }
         if manifest["status"] == "completed" and manifest.get("metrics_path"):
             metrics_path = Path(manifest["metrics_path"])
@@ -42,11 +43,18 @@ def summarize(rows: list[dict]) -> list[dict]:
     for row in rows:
         if row["status"] != "completed" or "accuracy" not in row:
             continue
-        groups.setdefault((row["dataset"], row["augmentation"], row["model"]), []).append(row)
+        key = (row["dataset"], row.get("train_fraction", 1.0), row["augmentation"], row["model"])
+        groups.setdefault(key, []).append(row)
 
     summary = []
-    for (dataset, aug, model), members in sorted(groups.items()):
-        entry = {"dataset": dataset, "augmentation": aug, "model": model, "n_seeds": len(members)}
+    for (dataset, fraction, aug, model), members in sorted(groups.items()):
+        entry = {
+            "dataset": dataset,
+            "train_fraction": fraction,
+            "augmentation": aug,
+            "model": model,
+            "n_seeds": len(members),
+        }
         for metric in ("accuracy", "macro_f1", "balanced_accuracy"):
             values = [m[metric] for m in members]
             entry[f"{metric}_mean"] = round(statistics.mean(values), 4)
