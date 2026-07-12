@@ -1,9 +1,765 @@
 {
-  "n_runs": 4,
-  "n_passed": 4,
+  "n_runs": 130,
+  "n_passed": 130,
   "n_failed_runs": 0,
   "n_problem_runs": 0,
   "runs": [
+    {
+      "run_id": "phase1_ECG5000_dtw_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_dtw_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_dtw_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_dtw_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_dtw_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_dtw_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_jitter_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_jitter_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_jitter_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_jitter_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_jitter_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_jitter_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_mixup_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_mixup_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_mixup_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_mixup_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_mixup_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_mixup_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_none_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_none_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_none_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_none_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_none_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_none_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_oversample_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_oversample_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_oversample_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_oversample_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_oversample_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_oversample_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_scaling_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_scaling_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_scaling_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_scaling_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_scaling_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_scaling_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_smote_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_smote_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_smote_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_smote_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_smote_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_ECG5000_smote_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_dtw_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_dtw_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_dtw_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_dtw_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_dtw_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_dtw_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_jitter_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_jitter_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_jitter_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_jitter_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_jitter_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_jitter_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_mixup_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_mixup_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_mixup_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_mixup_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_mixup_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_mixup_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_none_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_none_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_none_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_none_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_none_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_none_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_oversample_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_oversample_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_oversample_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_oversample_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_oversample_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_oversample_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_scaling_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_scaling_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_scaling_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_scaling_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_scaling_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_scaling_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_smote_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_smote_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_smote_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_smote_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_smote_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_FordA_smote_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_dtw_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_dtw_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_dtw_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_dtw_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_dtw_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_dtw_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_jitter_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_jitter_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_jitter_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_jitter_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_jitter_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_jitter_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_mixup_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_mixup_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_mixup_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_mixup_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_mixup_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_mixup_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_none_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_none_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_none_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_none_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_none_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_none_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_oversample_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_oversample_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_oversample_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_oversample_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_oversample_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_oversample_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_scaling_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_scaling_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_scaling_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_scaling_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_scaling_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_scaling_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_smote_cnn1d_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_smote_cnn1d_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_smote_cnn1d_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_smote_minirocket_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_smote_minirocket_s1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "phase1_GunPoint_smote_minirocket_s2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
     {
       "run_id": "smoke_synthetic_jitter_cnn1d_smoke_s0",
       "status": "completed",

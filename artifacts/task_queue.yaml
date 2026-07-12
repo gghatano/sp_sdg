@@ -1,5 +1,5 @@
 # 唯一の順序管理簿 (spec 3.9)。status: todo | in_progress | done | blocked
-current_phase: 0
+current_phase: 1
 
 tasks:
   - {id: P0-1, phase: 0, title: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等), status: done}
@@ -15,11 +15,11 @@ tasks:
 
   - {id: P1-1, phase: 1, title: 拡張手法 7 種の実装確認と unit テスト, status: done}
   - {id: P1-2, phase: 1, title: モデル実装 (1D-CNN, MiniRocket+Ridge), status: done}
-  - {id: P1-3, phase: 1, title: UCR 3データセット取得 + checksum 記録, status: in_progress}
-  - {id: P1-4, phase: 1, title: Phase 1 実験格子の実行 (126 runs), status: todo}
-  - {id: P1-5, phase: 1, title: 結果集計・監査, status: todo}
-  - {id: P1-6, phase: 1, title: HTML レポートへの結果反映, status: todo}
-  - {id: P1-7, phase: 1, title: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂, status: todo}
+  - {id: P1-3, phase: 1, title: UCR 3データセット取得 + checksum 記録, status: done}
+  - {id: P1-4, phase: 1, title: Phase 1 実験格子の実行 (126 runs), status: done}
+  - {id: P1-5, phase: 1, title: 結果集計・監査, status: done}
+  - {id: P1-6, phase: 1, title: HTML レポートへの結果反映, status: done}
+  - {id: P1-7, phase: 1, title: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂, status: in_progress}
 
   - {id: P2-1, phase: 2, title: Phase 2 対象データセット 10+ 件の選定, status: todo}
   - {id: P2-2, phase: 2, title: 学習サンプル比率スイープの runner 拡張, status: todo}

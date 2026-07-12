@@ -1,0 +1,37 @@
+{
+  "run_id": "phase1_GunPoint_mixup_cnn1d_s1",
+  "phase": 1,
+  "dataset": "GunPoint",
+  "dataset_checksum": "65342a99ade7e30c9263a9a1553b81bcfa5de02982d499ff14d14f2ee5d413f0",
+  "split_checksum": "3c66505f536a02707135dd9dc7f48efeab27d0fd2c83531c39bc5008f613d64e",
+  "augmentation": "mixup",
+  "augmentation_params": {
+    "ratio": 1.0,
+    "alpha": 0.2
+  },
+  "model": "cnn1d",
+  "model_params": {
+    "epochs": 100,
+    "patience": 15,
+    "batch_size": 32,
+    "lr": 0.001,
+    "val_fraction": 0.2,
+    "hidden": 64
+  },
+  "seed": 1,
+  "git_commit": "ea2edb95e688eed3331e81273456c9eb69c1003b",
+  "git_dirty": true,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "ed1154de64ae623bafd9730e29e5cf65afc630e4f9e5331b850694cd125145b1",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-12T15:24:33.672789+00:00",
+  "ended_at": "2026-07-12T15:24:35.002401+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/phase1_GunPoint_mixup_cnn1d_s1.json",
+  "predictions_path": "runs/predictions/phase1_GunPoint_mixup_cnn1d_s1.csv",
+  "log_path": "runs/logs/phase1_GunPoint_mixup_cnn1d_s1.log"
+}

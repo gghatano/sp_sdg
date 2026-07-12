@@ -1,5 +1,42 @@
 {
-  "findings": [],
+  "findings": [
+    {
+      "id": "F-1",
+      "phase": 1,
+      "claim": "フルサイズの学習データ(ECG5000: 500件, FordA: 3601件)では、7種の拡張手法の効果はいずれも ±1pt 未満で、有意な改善は見られない",
+      "evidence": "report/assets/data/results.json summary (none との差分)",
+      "confidence": "medium",
+      "type": "reproduction",
+      "notes": "Iwana & Uchida 2021 の『拡張効果は低データ条件で大きい』と整合。Phase 2 の学習サンプル比率スイープで低データ条件を検証する"
+    },
+    {
+      "id": "F-2",
+      "phase": 1,
+      "claim": "最小データセット GunPoint(train 50件)では拡張による改善が観測された(cnn1d: oversample で 0.9889→1.0000、minirocket: scaling で 0.9978→1.0000)",
+      "evidence": "runs/metrics/phase1_GunPoint_*.json",
+      "confidence": "low",
+      "type": "reproduction",
+      "notes": "3 seeds のみで差も小さいため確証は弱い。低データ仮説 H1 と方向は一致"
+    },
+    {
+      "id": "F-3",
+      "phase": 1,
+      "claim": "FordA + MiniRocket では複数の拡張が性能を悪化させた(oversample -3.5pt, jitter -2.6pt, scaling -2.3pt)",
+      "evidence": "runs/metrics/phase1_FordA_*_minirocket_*.json",
+      "confidence": "medium",
+      "type": "original",
+      "notes": "MiniRocket の特徴量が振幅・ノイズ統計に敏感な可能性。拡張はモデル依存で害にもなる、という H2 側の証拠"
+    },
+    {
+      "id": "F-4",
+      "phase": 1,
+      "claim": "ベースライン精度は文献相場と整合(GunPoint/MiniRocket 0.998, FordA/MiniRocket 0.949, ECG5000 両モデル 0.94 台)",
+      "evidence": "references/paper_matrix.csv の相場と summary の比較",
+      "confidence": "high",
+      "type": "reproduction",
+      "notes": "実装の妥当性を支持。監査 130/130 合格"
+    }
+  ],
   "schema": {
     "id": "F-<serial>",
     "phase": "int",

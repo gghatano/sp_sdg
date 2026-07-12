@@ -11,7 +11,7 @@
 
 <header class="mb-10 border-b border-slate-200 pb-6">
   <h1 class="text-3xl font-bold text-slate-900">信号データ拡張・論文追試プロジェクト</h1>
-  <p class="mt-2 text-sm text-slate-500">研究進捗レポート ・ 生成日時 2026-07-12 13:29 UTC ・ 本レポートは runs/ と artifacts/ から自動生成されています</p>
+  <p class="mt-2 text-sm text-slate-500">研究進捗レポート ・ 生成日時 2026-07-12 15:26 UTC ・ 本レポートは runs/ と artifacts/ から自動生成されています</p>
 </header>
 
 <nav class="mb-10 text-sm">
@@ -29,7 +29,7 @@
   <h2 class="text-xl font-semibold text-slate-900 mb-3">エグゼクティブサマリ</h2>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
     <div class="bg-white rounded-lg border border-slate-200 p-4">
-      <div class="text-2xl font-bold text-slate-900">4</div>
+      <div class="text-2xl font-bold text-slate-900">130</div>
       <div class="text-xs text-slate-500 mt-1">完了した実験 run</div>
     </div>
     <div class="bg-white rounded-lg border border-slate-200 p-4">
@@ -37,11 +37,11 @@
       <div class="text-xs text-slate-500 mt-1">失敗した run</div>
     </div>
     <div class="bg-white rounded-lg border border-slate-200 p-4">
-      <div class="text-2xl font-bold text-slate-900">11 / 23</div>
+      <div class="text-2xl font-bold text-slate-900">16 / 23</div>
       <div class="text-xs text-slate-500 mt-1">完了タスク</div>
     </div>
     <div class="bg-white rounded-lg border border-slate-200 p-4">
-      <div class="text-lg font-bold text-slate-900">Phase 0: 基盤構築</div>
+      <div class="text-lg font-bold text-slate-900">Phase 1: UCR最小追試</div>
       <div class="text-xs text-slate-500 mt-1">現在のフェーズ</div>
     </div>
   </div>
@@ -49,9 +49,15 @@
   <p class="text-sm">ベースライン(拡張なし)に対する精度改善の上位:</p>
   <ul class="mt-2 text-sm list-disc list-inside">
     
-    <li><span class="font-mono">synthetic / jitter / cnn1d_smoke</span>: 精度 1.0000(Δ +0.0000)</li>
+    <li><span class="font-mono">GunPoint / oversample / cnn1d</span>: 精度 1.0000(Δ +0.0111)</li>
     
-    <li><span class="font-mono">synthetic / jitter / minirocket_smoke</span>: 精度 1.0000(Δ +0.0000)</li>
+    <li><span class="font-mono">GunPoint / scaling / cnn1d</span>: 精度 0.9978(Δ +0.0089)</li>
+    
+    <li><span class="font-mono">GunPoint / smote / cnn1d</span>: 精度 0.9978(Δ +0.0089)</li>
+    
+    <li><span class="font-mono">GunPoint / mixup / cnn1d</span>: 精度 0.9933(Δ +0.0044)</li>
+    
+    <li><span class="font-mono">FordA / dtw / cnn1d</span>: 精度 0.9369(Δ +0.0023)</li>
     
   </ul>
   
@@ -65,23 +71,23 @@
 
 <section id="current-phase" class="mb-10">
   <h2 class="text-xl font-semibold text-slate-900 mb-3">現在のフェーズ</h2>
-  <p class="text-sm"><span class="inline-block bg-blue-100 text-blue-800 rounded px-2 py-0.5 font-medium">Phase 0: 基盤構築</span></p>
+  <p class="text-sm"><span class="inline-block bg-blue-100 text-blue-800 rounded px-2 py-0.5 font-medium">Phase 1: UCR最小追試</span></p>
 </section>
 
 <section id="progress" class="mb-10">
   <h2 class="text-xl font-semibold text-slate-900 mb-3">タスク状況(完了・実行中・未実施)</h2>
   <div class="grid md:grid-cols-3 gap-4 text-sm">
     <div>
-      <h3 class="font-medium text-green-700 mb-2">完了 (11)</h3>
-      <ul class="space-y-1"><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression 51件)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN</li></ul>
+      <h3 class="font-medium text-green-700 mb-2">完了 (16)</h3>
+      <ul class="space-y-1"><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression 51件)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li></ul>
     </div>
     <div>
       <h3 class="font-medium text-amber-700 mb-2">実行中 (1)</h3>
-      <ul class="space-y-1"><li class="bg-white border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li></ul>
+      <ul class="space-y-1"><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li></ul>
     </div>
     <div>
-      <h3 class="font-medium text-slate-500 mb-2">未実施 (11)</h3>
-      <ul class="space-y-1"><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 10+ 件の選定</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P2-3: 統計検定・信号品質指標の実装</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 3-5 手法の選定</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P3-2: 主対象 1 件 + 予備 1 件の決定と group split 設計</li></ul>
+      <h3 class="font-medium text-slate-500 mb-2">未実施 (6)</h3>
+      <ul class="space-y-1"><li class="bg-white border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 10+ 件の選定</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P2-3: 統計検定・信号品質指標の実装</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 3-5 手法の選定</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="bg-white border border-slate-200 rounded px-2 py-1">P3-2: 主対象 1 件 + 予備 1 件の決定と group split 設計</li></ul>
     </div>
   </div>
 </section>
@@ -195,6 +201,342 @@
     <tbody>
       
       <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9377 ± 0.0040</td>
+        <td class="p-2 text-right text-slate-400">-0.0037</td>
+        <td class="p-2 text-right">0.5747</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9398 ± 0.0010</td>
+        <td class="p-2 text-right text-slate-400">-0.0051</td>
+        <td class="p-2 text-right">0.6127</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9381 ± 0.0007</td>
+        <td class="p-2 text-right text-slate-400">-0.0033</td>
+        <td class="p-2 text-right">0.5494</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9431 ± 0.0024</td>
+        <td class="p-2 text-right text-slate-400">-0.0018</td>
+        <td class="p-2 text-right">0.6192</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9376 ± 0.0030</td>
+        <td class="p-2 text-right text-slate-400">-0.0038</td>
+        <td class="p-2 text-right">0.5525</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9435 ± 0.0015</td>
+        <td class="p-2 text-right text-slate-400">-0.0014</td>
+        <td class="p-2 text-right">0.6241</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9414 ± 0.0022</td>
+        <td class="p-2 text-right text-slate-400">—</td>
+        <td class="p-2 text-right">0.5566</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9449 ± 0.0008</td>
+        <td class="p-2 text-right text-slate-400">—</td>
+        <td class="p-2 text-right">0.5948</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9392 ± 0.0022</td>
+        <td class="p-2 text-right text-slate-400">-0.0022</td>
+        <td class="p-2 text-right">0.5529</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9445 ± 0.0008</td>
+        <td class="p-2 text-right text-slate-400">-0.0004</td>
+        <td class="p-2 text-right">0.6203</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9370 ± 0.0033</td>
+        <td class="p-2 text-right text-slate-400">-0.0044</td>
+        <td class="p-2 text-right">0.5494</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9456 ± 0.0006</td>
+        <td class="p-2 text-right text-green-700">+0.0007</td>
+        <td class="p-2 text-right">0.6257</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9331 ± 0.0056</td>
+        <td class="p-2 text-right text-slate-400">-0.0083</td>
+        <td class="p-2 text-right">0.5498</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">ECG5000</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9441 ± 0.0009</td>
+        <td class="p-2 text-right text-slate-400">-0.0008</td>
+        <td class="p-2 text-right">0.6192</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9369 ± 0.0016</td>
+        <td class="p-2 text-right text-green-700">+0.0023</td>
+        <td class="p-2 text-right">0.9369</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9374 ± 0.0009</td>
+        <td class="p-2 text-right text-slate-400">-0.0116</td>
+        <td class="p-2 text-right">0.9373</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9356 ± 0.0046</td>
+        <td class="p-2 text-right text-green-700">+0.0010</td>
+        <td class="p-2 text-right">0.9356</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9235 ± 0.0087</td>
+        <td class="p-2 text-right text-slate-400">-0.0255</td>
+        <td class="p-2 text-right">0.9234</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9351 ± 0.0009</td>
+        <td class="p-2 text-right text-green-700">+0.0005</td>
+        <td class="p-2 text-right">0.9351</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9348 ± 0.0040</td>
+        <td class="p-2 text-right text-slate-400">-0.0142</td>
+        <td class="p-2 text-right">0.9348</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9346 ± 0.0032</td>
+        <td class="p-2 text-right text-slate-400">—</td>
+        <td class="p-2 text-right">0.9345</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9490 ± 0.0016</td>
+        <td class="p-2 text-right text-slate-400">—</td>
+        <td class="p-2 text-right">0.9489</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9346 ± 0.0004</td>
+        <td class="p-2 text-right text-slate-400">+0.0000</td>
+        <td class="p-2 text-right">0.9345</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9136 ± 0.0066</td>
+        <td class="p-2 text-right text-slate-400">-0.0354</td>
+        <td class="p-2 text-right">0.9135</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9318 ± 0.0015</td>
+        <td class="p-2 text-right text-slate-400">-0.0028</td>
+        <td class="p-2 text-right">0.9317</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9260 ± 0.0054</td>
+        <td class="p-2 text-right text-slate-400">-0.0230</td>
+        <td class="p-2 text-right">0.9259</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9366 ± 0.0029</td>
+        <td class="p-2 text-right text-green-700">+0.0020</td>
+        <td class="p-2 text-right">0.9366</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">FordA</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9447 ± 0.0008</td>
+        <td class="p-2 text-right text-slate-400">-0.0043</td>
+        <td class="p-2 text-right">0.9447</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9889 ± 0.0038</td>
+        <td class="p-2 text-right text-slate-400">+0.0000</td>
+        <td class="p-2 text-right">0.9889</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9978 ± 0.0038</td>
+        <td class="p-2 text-right text-slate-400">+0.0000</td>
+        <td class="p-2 text-right">0.9978</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9911 ± 0.0154</td>
+        <td class="p-2 text-right text-green-700">+0.0022</td>
+        <td class="p-2 text-right">0.9911</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9978 ± 0.0038</td>
+        <td class="p-2 text-right text-slate-400">+0.0000</td>
+        <td class="p-2 text-right">0.9978</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9933 ± 0.0000</td>
+        <td class="p-2 text-right text-green-700">+0.0044</td>
+        <td class="p-2 text-right">0.9933</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9956 ± 0.0038</td>
+        <td class="p-2 text-right text-slate-400">-0.0022</td>
+        <td class="p-2 text-right">0.9956</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9889 ± 0.0192</td>
+        <td class="p-2 text-right text-slate-400">—</td>
+        <td class="p-2 text-right">0.9889</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9978 ± 0.0038</td>
+        <td class="p-2 text-right text-slate-400">—</td>
+        <td class="p-2 text-right">0.9978</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">1.0000 ± 0.0000</td>
+        <td class="p-2 text-right text-green-700">+0.0111</td>
+        <td class="p-2 text-right">1.0000</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9978 ± 0.0038</td>
+        <td class="p-2 text-right text-slate-400">+0.0000</td>
+        <td class="p-2 text-right">0.9978</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9978 ± 0.0038</td>
+        <td class="p-2 text-right text-green-700">+0.0089</td>
+        <td class="p-2 text-right">0.9978</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">1.0000 ± 0.0000</td>
+        <td class="p-2 text-right text-green-700">+0.0022</td>
+        <td class="p-2 text-right">1.0000</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">cnn1d</td>
+        <td class="p-2 text-right">0.9978 ± 0.0038</td>
+        <td class="p-2 text-right text-green-700">+0.0089</td>
+        <td class="p-2 text-right">0.9978</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
+        <td class="p-2 font-mono">GunPoint</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">minirocket</td>
+        <td class="p-2 text-right">0.9978 ± 0.0038</td>
+        <td class="p-2 text-right text-slate-400">+0.0000</td>
+        <td class="p-2 text-right">0.9978</td>
+        <td class="p-2 text-right">3</td>
+      </tr>
+      
+      <tr class="border-b border-slate-100">
         <td class="p-2 font-mono">synthetic</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">cnn1d_smoke</td>
         <td class="p-2 text-right">1.0000 ± 0.0000</td>
         <td class="p-2 text-right text-slate-400">+0.0000</td>
@@ -230,11 +572,893 @@
   </table>
   </div>
   <details class="mt-3 text-sm">
-    <summary class="cursor-pointer text-blue-700">全 run の一覧を表示(4 runs)</summary>
+    <summary class="cursor-pointer text-blue-700">全 run の一覧を表示(130 runs)</summary>
     <div class="overflow-x-auto mt-2">
     <table class="w-full text-xs bg-white border border-slate-200 rounded">
       <thead><tr class="text-left border-b border-slate-200"><th class="p-2">run_id</th><th class="p-2">status</th><th class="p-2 text-right">accuracy</th><th class="p-2 text-right">macro_f1</th><th class="p-2">commit</th></tr></thead>
       <tbody>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_dtw_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9360</td>
+          <td class="p-2 text-right">0.5843</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_dtw_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9422</td>
+          <td class="p-2 text-right">0.5644</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_dtw_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9349</td>
+          <td class="p-2 text-right">0.5755</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_dtw_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9407</td>
+          <td class="p-2 text-right">0.6105</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_dtw_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9400</td>
+          <td class="p-2 text-right">0.6177</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_dtw_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9387</td>
+          <td class="p-2 text-right">0.6100</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_jitter_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9384</td>
+          <td class="p-2 text-right">0.5387</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_jitter_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9387</td>
+          <td class="p-2 text-right">0.5589</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_jitter_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9373</td>
+          <td class="p-2 text-right">0.5506</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_jitter_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9449</td>
+          <td class="p-2 text-right">0.6272</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_jitter_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9440</td>
+          <td class="p-2 text-right">0.6188</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_jitter_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9404</td>
+          <td class="p-2 text-right">0.6116</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_mixup_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9342</td>
+          <td class="p-2 text-right">0.5619</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_mixup_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9396</td>
+          <td class="p-2 text-right">0.5539</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_mixup_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9391</td>
+          <td class="p-2 text-right">0.5418</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_mixup_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9444</td>
+          <td class="p-2 text-right">0.6243</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_mixup_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9418</td>
+          <td class="p-2 text-right">0.6206</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_mixup_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9442</td>
+          <td class="p-2 text-right">0.6274</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_none_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9436</td>
+          <td class="p-2 text-right">0.5551</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_none_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9391</td>
+          <td class="p-2 text-right">0.5580</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_none_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9416</td>
+          <td class="p-2 text-right">0.5569</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_none_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9458</td>
+          <td class="p-2 text-right">0.6015</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_none_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9442</td>
+          <td class="p-2 text-right">0.5920</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_none_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9447</td>
+          <td class="p-2 text-right">0.5910</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_oversample_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9404</td>
+          <td class="p-2 text-right">0.5502</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_oversample_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9404</td>
+          <td class="p-2 text-right">0.5604</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_oversample_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9367</td>
+          <td class="p-2 text-right">0.5480</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_oversample_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9451</td>
+          <td class="p-2 text-right">0.6206</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_oversample_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9449</td>
+          <td class="p-2 text-right">0.6215</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_oversample_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9436</td>
+          <td class="p-2 text-right">0.6187</td>
+          <td class="p-2 font-mono">38f461cdbd12</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_scaling_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9364</td>
+          <td class="p-2 text-right">0.5357</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_scaling_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9404</td>
+          <td class="p-2 text-right">0.5636</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_scaling_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9340</td>
+          <td class="p-2 text-right">0.5490</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_scaling_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9462</td>
+          <td class="p-2 text-right">0.6326</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_scaling_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9453</td>
+          <td class="p-2 text-right">0.6225</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_scaling_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9451</td>
+          <td class="p-2 text-right">0.6219</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_smote_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9376</td>
+          <td class="p-2 text-right">0.5522</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_smote_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9269</td>
+          <td class="p-2 text-right">0.5478</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_smote_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9349</td>
+          <td class="p-2 text-right">0.5494</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_smote_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9444</td>
+          <td class="p-2 text-right">0.6167</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_smote_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9449</td>
+          <td class="p-2 text-right">0.6248</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_ECG5000_smote_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9431</td>
+          <td class="p-2 text-right">0.6159</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_dtw_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9356</td>
+          <td class="p-2 text-right">0.9356</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_dtw_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9364</td>
+          <td class="p-2 text-right">0.9364</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_dtw_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9386</td>
+          <td class="p-2 text-right">0.9386</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_dtw_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9379</td>
+          <td class="p-2 text-right">0.9378</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_dtw_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9379</td>
+          <td class="p-2 text-right">0.9378</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_dtw_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9364</td>
+          <td class="p-2 text-right">0.9363</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_jitter_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9333</td>
+          <td class="p-2 text-right">0.9333</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_jitter_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9409</td>
+          <td class="p-2 text-right">0.9409</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_jitter_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9326</td>
+          <td class="p-2 text-right">0.9325</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_jitter_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9227</td>
+          <td class="p-2 text-right">0.9226</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_jitter_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9152</td>
+          <td class="p-2 text-right">0.9151</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_jitter_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9326</td>
+          <td class="p-2 text-right">0.9325</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_mixup_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9356</td>
+          <td class="p-2 text-right">0.9355</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_mixup_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9341</td>
+          <td class="p-2 text-right">0.9340</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_mixup_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9356</td>
+          <td class="p-2 text-right">0.9356</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_mixup_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9394</td>
+          <td class="p-2 text-right">0.9393</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_mixup_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9333</td>
+          <td class="p-2 text-right">0.9333</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_mixup_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9318</td>
+          <td class="p-2 text-right">0.9317</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_none_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9371</td>
+          <td class="p-2 text-right">0.9370</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_none_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9311</td>
+          <td class="p-2 text-right">0.9309</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_none_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9356</td>
+          <td class="p-2 text-right">0.9356</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_none_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9477</td>
+          <td class="p-2 text-right">0.9476</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_none_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9485</td>
+          <td class="p-2 text-right">0.9484</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_none_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9508</td>
+          <td class="p-2 text-right">0.9507</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_oversample_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9341</td>
+          <td class="p-2 text-right">0.9340</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_oversample_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9348</td>
+          <td class="p-2 text-right">0.9348</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_oversample_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9348</td>
+          <td class="p-2 text-right">0.9347</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_oversample_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9212</td>
+          <td class="p-2 text-right">0.9211</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_oversample_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9106</td>
+          <td class="p-2 text-right">0.9105</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_oversample_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9091</td>
+          <td class="p-2 text-right">0.9090</td>
+          <td class="p-2 font-mono">2f1fd5bbfc5a</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_scaling_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9318</td>
+          <td class="p-2 text-right">0.9317</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_scaling_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9303</td>
+          <td class="p-2 text-right">0.9302</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_scaling_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9333</td>
+          <td class="p-2 text-right">0.9333</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_scaling_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9212</td>
+          <td class="p-2 text-right">0.9211</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_scaling_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9318</td>
+          <td class="p-2 text-right">0.9317</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_scaling_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9250</td>
+          <td class="p-2 text-right">0.9249</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_smote_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9386</td>
+          <td class="p-2 text-right">0.9386</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_smote_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9379</td>
+          <td class="p-2 text-right">0.9378</td>
+          <td class="p-2 font-mono">4ea596281620</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_smote_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9333</td>
+          <td class="p-2 text-right">0.9333</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_smote_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9439</td>
+          <td class="p-2 text-right">0.9439</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_smote_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9455</td>
+          <td class="p-2 text-right">0.9454</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_FordA_smote_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9447</td>
+          <td class="p-2 text-right">0.9447</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_dtw_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9867</td>
+          <td class="p-2 text-right">0.9867</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_dtw_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_dtw_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9867</td>
+          <td class="p-2 text-right">0.9867</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_dtw_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_dtw_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_dtw_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_jitter_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_jitter_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9733</td>
+          <td class="p-2 text-right">0.9733</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_jitter_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_jitter_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_jitter_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_jitter_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_mixup_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_mixup_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_mixup_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_mixup_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_mixup_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_mixup_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_none_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_none_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9667</td>
+          <td class="p-2 text-right">0.9666</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_none_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_none_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_none_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_none_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_oversample_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_oversample_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_oversample_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_oversample_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_oversample_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_oversample_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_scaling_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_scaling_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_scaling_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_scaling_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_scaling_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_scaling_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_smote_cnn1d_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_smote_cnn1d_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_smote_cnn1d_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_smote_minirocket_s0</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 text-right">0.9933</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_smote_minirocket_s1</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
+        
+        <tr class="border-b border-slate-100">
+          <td class="p-2 font-mono">phase1_GunPoint_smote_minirocket_s2</td><td class="p-2">completed</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 text-right">1.0000</td>
+          <td class="p-2 font-mono">ea2edb95e688</td>
+        </tr>
         
         <tr class="border-b border-slate-100">
           <td class="p-2 font-mono">smoke_synthetic_jitter_cnn1d_smoke_s0</td><td class="p-2">completed</td>
@@ -286,7 +1510,7 @@
 <section id="audit" class="mb-10">
   <h2 class="text-xl font-semibold text-slate-900 mb-3">監査結果</h2>
   
-  <p class="text-sm">機械監査(manifest スキーマ・metrics 範囲・予測ファイル整合性): 4 runs 中 <span class="font-medium text-green-700">4 件合格 / 問題 0 件</span></p>
+  <p class="text-sm">機械監査(manifest スキーマ・metrics 範囲・予測ファイル整合性): 130 runs 中 <span class="font-medium text-green-700">130 件合格 / 問題 0 件</span></p>
   
 </section>
 
@@ -302,7 +1526,7 @@
 <section id="next-tasks" class="mb-10">
   <h2 class="text-xl font-semibold text-slate-900 mb-3">次のタスク</h2>
   <ol class="text-sm list-decimal list-inside space-y-1">
-    <li>P1-3: UCR 3データセット取得 + checksum 記録</li><li>P1-4: Phase 1 実験格子の実行 (126 runs)</li><li>P1-5: 結果集計・監査</li><li>P1-6: HTML レポートへの結果反映</li><li>P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li>P2-1: Phase 2 対象データセット 10+ 件の選定</li><li>P2-2: 学習サンプル比率スイープの runner 拡張</li><li>P2-3: 統計検定・信号品質指標の実装</li>
+    <li>P2-1: Phase 2 対象データセット 10+ 件の選定</li><li>P2-2: 学習サンプル比率スイープの runner 拡張</li><li>P2-3: 統計検定・信号品質指標の実装</li><li>P2-4: 被験者データへ持ち込む 3-5 手法の選定</li><li>P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li>P3-2: 主対象 1 件 + 予備 1 件の決定と group split 設計</li>
   </ol>
 </section>
 
