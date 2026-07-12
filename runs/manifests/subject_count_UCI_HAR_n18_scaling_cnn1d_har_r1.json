@@ -1,11 +1,14 @@
 {
-  "run_id": "subject_count_UCI_HAR_n18_none_cnn1d_har_r1",
+  "run_id": "subject_count_UCI_HAR_n18_scaling_cnn1d_har_r1",
   "phase": 4,
   "dataset": "UCI_HAR",
   "dataset_checksum": "uci_har_pool",
   "split_checksum": "subjects:1,3,5,6,7,11,14,15,17,21,22,23,25,26,27,28,29,30",
-  "augmentation": "none",
-  "augmentation_params": {},
+  "augmentation": "scaling",
+  "augmentation_params": {
+    "ratio": 1.0,
+    "sigma": 0.1
+  },
   "model": "cnn1d_har",
   "model_params": {
     "epochs": 40,
@@ -16,7 +19,7 @@
     "hidden": 64
   },
   "seed": 1,
-  "git_commit": "36e6dcd58638d0114047c105485d92856efd7715",
+  "git_commit": "21e19df5eafd45ba86fcb8c412fed7ee28fd8234",
   "git_dirty": true,
   "python_version": "3.11.15",
   "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
@@ -25,12 +28,12 @@
     "machine": "x86_64",
     "cpu_count": 4
   },
-  "started_at": "2026-07-12T19:18:06.667522+00:00",
-  "ended_at": "2026-07-12T19:18:31.226260+00:00",
+  "started_at": "2026-07-12T19:19:34.226751+00:00",
+  "ended_at": "2026-07-12T19:20:36.177947+00:00",
   "status": "completed",
-  "metrics_path": "runs/metrics/subject_count_UCI_HAR_n18_none_cnn1d_har_r1.json",
-  "predictions_path": "runs/predictions/subject_count_UCI_HAR_n18_none_cnn1d_har_r1.csv",
-  "log_path": "runs/logs/subject_count_UCI_HAR_n18_none_cnn1d_har_r1.log",
+  "metrics_path": "runs/metrics/subject_count_UCI_HAR_n18_scaling_cnn1d_har_r1.json",
+  "predictions_path": "runs/predictions/subject_count_UCI_HAR_n18_scaling_cnn1d_har_r1.csv",
+  "log_path": "runs/logs/subject_count_UCI_HAR_n18_scaling_cnn1d_har_r1.log",
   "subject_count": 18,
   "subjects_used": [
     1,
