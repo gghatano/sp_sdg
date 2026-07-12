@@ -29,10 +29,10 @@
     "cpu_count": 4
   },
   "started_at": "2026-07-12T19:16:47.716160+00:00",
-  "ended_at": null,
-  "status": "running",
-  "metrics_path": null,
-  "predictions_path": null,
+  "ended_at": "2026-07-12T19:18:06.644241+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/subject_count_UCI_HAR_n18_smote_cnn1d_har_r0.json",
+  "predictions_path": "runs/predictions/subject_count_UCI_HAR_n18_smote_cnn1d_har_r0.csv",
   "log_path": "runs/logs/subject_count_UCI_HAR_n18_smote_cnn1d_har_r0.log",
   "subject_count": 18,
   "subjects_used": [
