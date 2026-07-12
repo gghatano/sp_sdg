@@ -4,20 +4,23 @@ targets:
     paper: "Iwana & Uchida (2021), An empirical survey of data augmentation for time series classification with neural networks, PLOS ONE 16(7)"
     scope: "時系列拡張手法(jittering, scaling, 等)の効果がデータセット依存であるという主要傾向を、UCR サブセット + 1D-CNN/MiniRocket で確認する"
     phase: 1
-    status: planned
-    notes: "サーベイ論文のため厳密な数値一致ではなく傾向の再現を目標とする"
+    status: confirmed
+    findings: [F-1, F-3, F-5, F-6, F-7]
+    notes: "サーベイ論文のため厳密な数値一致ではなく傾向の再現を目標とする。Phase 1-2 で効果のデータセット・モデル依存性を再現(reproduction_notes.md 参照)"
 
   - id: T2
     paper: "Um et al. (2017), Data Augmentation of Wearable Sensor Data for Parkinson's Disease Monitoring using CNNs, ICMI"
     scope: "jittering / scaling がウェアラブル信号分類を改善するという報告を、公開データで方向的に確認する"
     phase: 2
-    status: planned
+    status: partial
+    notes: "Phase 2 で jitter/scaling を UCR で評価済み(手法自体は追試)。ウェアラブル原データでの直接追試は未実施(Phase 6 候補)"
 
   - id: T3
     paper: "Forestier et al. (2017), Generating synthetic time series to augment sparse datasets, ICDM"
     scope: "DTW ベース合成が少データ条件で有効という報告の簡略版追試(実装差は artifacts/deviations.md 参照)"
     phase: 2
-    status: planned
+    status: partial
+    notes: "DTW ベース拡張(ペアワイズ簡略版)を Phase 2 で評価済み。DBA による原法の忠実な追試は未実施"
 
 # Phase 3-5 の被験者ID付きデータセット。選定根拠は references/notes/phase3_dataset_candidates.md
 subject_datasets:

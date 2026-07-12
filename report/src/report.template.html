@@ -48,7 +48,7 @@
   {% if reduction and reduction.methods and reduction.n_star_none %}
   <div class="bg-blue-50 border border-blue-200 rounded p-3 mb-4 text-sm">
     <p class="font-medium text-blue-900 mb-1">被験者数削減(本研究の主目的・UCI HAR)</p>
-    <p>目標 {{ reduction.target_metric }}={{ reduction.target_value }} に必要な実被験者数は拡張なしで <span class="font-mono">{{ reduction.n_star_none }}</span> 名。点推定では DTW が最大 <span class="font-mono">{{ "%.0f%%" | format((reduction.methods | selectattr('augmentation','equalto','dtw') | map(attribute='reduction_rate') | first | default(0)) * 100) }}</span> の削減を示すが、ラベル無作為化の negative control ですら約 4% の見かけの削減が出るため、<strong>本設定ではデータ拡張が被験者数を確実に削減するとは言えない</strong>(小さな削減はアーティファクトと区別できない)。詳細は<a href="#subject-reduction" class="text-blue-700 hover:underline">被験者数削減評価</a>。</p>
+    <p>目標 {{ reduction.target_metric }}={{ reduction.target_value }} に必要な実被験者数は拡張なしで <span class="font-mono">{{ reduction.n_star_none }}</span> 名。点推定では DTW が最大 <span class="font-mono">{{ "%.1f%%" | format((reduction.methods | selectattr('augmentation','equalto','dtw') | map(attribute='reduction_rate') | first | default(0)) * 100) }}</span> の削減を示すが、ラベル無作為化の negative control ですら約 4% の見かけの削減が出るため、<strong>本設定ではデータ拡張が被験者数を確実に削減するとは言えない</strong>(小さな削減はアーティファクトと区別できない)。詳細は<a href="#subject-reduction" class="text-blue-700 hover:underline">被験者数削減評価</a>。</p>
   </div>
   {% endif %}
   {% if best_improvements %}
@@ -273,7 +273,7 @@
 <section id="subject-reduction" class="mb-10">
   <h2 class="text-xl font-semibold text-slate-900 mb-3">被験者数削減評価(本研究の主目的)</h2>
   {% if reduction and reduction.methods %}
-  <p class="text-sm mb-2">UCI HAR(被験者ID付き)で、事前登録した目標性能(<span class="font-mono">{{ reduction.target_metric }} = {{ reduction.target_value }}</span>)に到達するのに必要な実被験者数 N* を、拡張なし(none)と各拡張手法で比較する。<strong>削減率 = 1 − N*(手法) / N*(none)</strong>。N* は学習曲線の線形補間で推定し、括弧内は 3 反復からの bootstrap 95% 信頼区間。目標達成に必要な被験者数の基準は N*(none) = <span class="font-mono">{{ reduction.n_star_none }}</span> 名{% if reduction.n_star_none_ci %}(95%CI {{ reduction.n_star_none_ci[0] }}–{{ reduction.n_star_none_ci[1] }}){% endif %}。</p>
+  <p class="text-sm mb-2">UCI HAR(Human Activity Recognition Using Smartphones [{{ ref.anguita2013 }}]、被験者ID付き・30名の慣性センサ行動認識)で、事前登録した目標性能(<span class="font-mono">{{ reduction.target_metric }} = {{ reduction.target_value }}</span>)に到達するのに必要な実被験者数 N* を、拡張なし(none)と各拡張手法で比較する。<strong>削減率 = 1 − N*(手法) / N*(none)</strong>。N* は学習曲線の線形補間で推定し、括弧内は 3 反復からの bootstrap 95% 信頼区間。目標達成に必要な被験者数の基準は N*(none) = <span class="font-mono">{{ reduction.n_star_none }}</span> 名{% if reduction.n_star_none_ci %}(95%CI {{ reduction.n_star_none_ci[0] }}–{{ reduction.n_star_none_ci[1] }}){% endif %}。目標値 0.90 は Anguita et al. [{{ ref.anguita2013 }}] の報告水準に基づき、実験前に事前登録した(artifacts/pre_registration.md)。予備対象は WISDM [{{ ref.weiss2019 }}](51名)。</p>
   <div class="bg-white border border-slate-200 rounded p-2 mb-3">{{ reduction_svg | safe }}</div>
   <div class="overflow-x-auto">
   <table class="w-full text-sm bg-white border border-slate-200 rounded">

@@ -2,6 +2,8 @@
 
 結果確定前に確認する項目。機械検査(scripts/audit_results.py)+ 手動確認。
 
+本ファイルは Phase ごとに使い回す**恒久チェックリスト(テンプレート)**であり、チェックボックスは特定の run に紐付いた記録ではない。各 Phase の実際の機械検査結果は `artifacts/audit_report.json`(`make audit` が生成)と `artifacts/state.md` の各 Phase 記述を参照すること。
+
 ## 機械検査(make audit)
 
 - [ ] 全 manifest が schema に適合(必須キー・status)

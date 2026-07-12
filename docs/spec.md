@@ -359,6 +359,8 @@ Makefile
 .env.example
 ```
 
+> 補足(本プロジェクトでの実配置): 本仕様書と実行計画は `docs/` 配下に置いている(この仕様書は `docs/spec.md`、計画は `docs/plan.md`)。上記リストの `SPEC.md` は本ファイルに対応する。理由は decision_log.md(2026-07-12)を参照。
+
 必要に応じて次も作成する。
 
 ```text
