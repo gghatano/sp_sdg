@@ -99,3 +99,29 @@ def test_wilcoxon_detects_consistent_improvement():
 def test_wilcoxon_skips_underpowered_groups():
     rows = _rows()[:4]  # only 2 pairs
     assert wilcoxon_vs_none(rows) == []
+
+
+def test_wilcoxon_all_zero_deltas_returns_none_pvalue():
+    rows = []
+    for seed in range(6):
+        for aug in ("none", "jitter"):
+            rows.append({"dataset": "d", "model": "m", "seed": seed, "train_fraction": 1.0,
+                         "augmentation": aug, "status": "completed", "accuracy": 0.8})
+    res = wilcoxon_vs_none(rows)  # jitter == none everywhere -> all-zero diffs
+    jitter = next(r for r in res if r["augmentation"] == "jitter")
+    assert jitter["p_value"] is None
+    assert jitter["mean_delta"] == 0.0
+
+
+def test_wilcoxon_mixed_signs_still_computes():
+    rows = []
+    deltas = [0.05, -0.02, 0.03, -0.01, 0.04, 0.06]
+    for seed, d in enumerate(deltas):
+        rows.append({"dataset": "d", "model": "m", "seed": seed, "train_fraction": 1.0,
+                     "augmentation": "none", "status": "completed", "accuracy": 0.80})
+        rows.append({"dataset": "d", "model": "m", "seed": seed, "train_fraction": 1.0,
+                     "augmentation": "jitter", "status": "completed", "accuracy": 0.80 + d})
+    res = wilcoxon_vs_none(rows)
+    jitter = next(r for r in res if r["augmentation"] == "jitter")
+    assert jitter["p_value"] is not None
+    assert jitter["n_pairs"] == 6

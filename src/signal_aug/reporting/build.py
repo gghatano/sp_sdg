@@ -16,6 +16,9 @@ from pathlib import Path
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
+# Single source of augmentation colors. Any augmentation not listed falls back
+# to _FALLBACK_COLOR, and charts enumerate augmentations present in the data
+# (not this dict), so a new method never silently vanishes from a figure.
 AUG_COLORS = {
     "none": "#64748b",
     "oversample": "#0ea5e9",
@@ -26,16 +29,24 @@ AUG_COLORS = {
     "smote": "#f97316",
     "label_shuffle": "#94a3b8",
 }
+_FALLBACK_COLOR = "#334155"
+
+
+def aug_color(aug: str) -> str:
+    return AUG_COLORS.get(aug, _FALLBACK_COLOR)
 
 
 def learning_curve_svg(dataset: str, model: str, curves: dict, width: int = 320, height: int = 200) -> str:
     """Inline SVG line chart of accuracy vs train_fraction, one line per
     augmentation. Self-contained (no JS/external refs) for offline viewing."""
     pad_l, pad_r, pad_t, pad_b = 40, 8, 12, 28
+    prefix = f"{dataset}|{model}|"
+    # enumerate augmentations present in the data (not AUG_COLORS) so a method
+    # without a preassigned color still appears
     series = {
-        aug: curves[f"{dataset}|{model}|{aug}"]
-        for aug in AUG_COLORS
-        if f"{dataset}|{model}|{aug}" in curves
+        key[len(prefix):]: pts
+        for key, pts in sorted(curves.items())
+        if key.startswith(prefix)
     }
     if not series:
         return ""
@@ -64,7 +75,7 @@ def learning_curve_svg(dataset: str, model: str, curves: dict, width: int = 320,
         parts.append(f'<text x="{sx(f):.1f}" y="{height-pad_b+12}" text-anchor="middle" font-size="9" fill="#64748b">{int(f*100)}%</text>')
     # lines
     for aug, pts in series.items():
-        color = AUG_COLORS[aug]
+        color = aug_color(aug)
         d = " ".join(f"{'M' if i == 0 else 'L'}{sx(p['train_fraction']):.1f},{sy(p['accuracy_mean']):.1f}"
                      for i, p in enumerate(pts))
         parts.append(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="1.5"/>')
@@ -107,7 +118,7 @@ def subject_curve_svg(curves_by_aug: dict, target: float | None, width: int = 56
         parts.append(f'<line x1="{pad_l}" y1="{sy(target):.1f}" x2="{width-pad_r}" y2="{sy(target):.1f}" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/>')
         parts.append(f'<text x="{width-pad_r+4}" y="{sy(target)+3:.1f}" font-size="10" fill="#ef4444">目標 {target}</text>')
     for aug, pts in curves_by_aug.items():
-        color = AUG_COLORS.get(aug, "#334155")
+        color = aug_color(aug)
         pts = sorted(pts, key=lambda p: p["train_fraction"])
         d = " ".join(f"{'M' if i == 0 else 'L'}{sx(p['train_fraction']):.1f},{sy(p['accuracy_mean']):.1f}"
                      for i, p in enumerate(pts))
@@ -245,13 +256,11 @@ def gather_context(repo_root: str | Path = ".") -> dict:
                          for m in reduction["methods"]}
         reduction_svg = subject_curve_svg(curves_by_aug, reduction.get("target_value"))
 
+    from signal_aug.evaluation.stats import holm_bonferroni
+
     stats = results.get("stats", [])
-    # significance after Holm-Bonferroni over the family of tests
-    stats_sorted = sorted([s for s in stats if s.get("p_value") is not None], key=lambda s: s["p_value"])
-    m = len(stats_sorted)
-    for i, s in enumerate(stats_sorted):
-        adj = s["p_value"] * (m - i)
-        s["significant_holm"] = bool(adj < 0.05 and s["p_value"] < 0.05)
+    # significance after Holm-Bonferroni step-down over the family of tests
+    stats_sorted = holm_bonferroni(stats, alpha=0.05)
 
     # main table shows full-training-set rows only; the fraction sweep lives in
     # the learning-curve figures, so 858 rows don't flood the table

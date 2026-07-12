@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
+from functools import cached_property
 from pathlib import Path
 
 import numpy as np
@@ -23,14 +24,16 @@ class DatasetSplits:
     y_test: np.ndarray
     class_names: list[str]
 
-    @property
+    # arrays are treated as immutable after load, so checksums are computed once
+    # and cached (a grid re-references the same shared DatasetSplits per run).
+    @cached_property
     def dataset_checksum(self) -> str:
         h = hashlib.sha256()
         for arr in (self.X_train, self.y_train, self.X_test, self.y_test):
             h.update(np.ascontiguousarray(arr).tobytes())
         return h.hexdigest()
 
-    @property
+    @cached_property
     def split_checksum(self) -> str:
         h = hashlib.sha256()
         h.update(f"{len(self.y_train)}:{len(self.y_test)}".encode())

@@ -27,16 +27,7 @@ class MiniRocketClassifier:
         return self
 
     def predict(self, X: np.ndarray) -> np.ndarray:
-        assert self.transformer is not None and self.classifier is not None
+        if self.transformer is None or self.classifier is None:
+            raise RuntimeError("fit() must be called before predict()")
         features = self.transformer.transform(X.astype(np.float64))
         return self.classifier.predict(features).astype(np.int64)
-
-
-def build_model(model_type: str, params: dict, seed: int):
-    from signal_aug.models.cnn1d import CNN1DClassifier
-
-    if model_type == "cnn1d":
-        return CNN1DClassifier(seed=seed, **params)
-    if model_type == "minirocket":
-        return MiniRocketClassifier(seed=seed, **params)
-    raise ValueError(f"Unknown model type: {model_type}")
