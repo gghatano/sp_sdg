@@ -1,5 +1,5 @@
 {
-  "run_id": "phase2_GunPoint_f25_mixup_cnn1d_s0",
+  "run_id": "phase2_GunPoint_f25_mixup_cnn1d_s1",
   "phase": 2,
   "dataset": "GunPoint",
   "dataset_checksum": "65342a99ade7e30c9263a9a1553b81bcfa5de02982d499ff14d14f2ee5d413f0",
@@ -18,8 +18,8 @@
     "val_fraction": 0.2,
     "hidden": 64
   },
-  "seed": 0,
-  "git_commit": "2507c0dc1e9508ef9cc7356700b37098217d1605",
+  "seed": 1,
+  "git_commit": "45d1068aeea12b7a6bd63ef4558a6f5677cf61e4",
   "git_dirty": true,
   "python_version": "3.11.15",
   "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
@@ -28,12 +28,11 @@
     "machine": "x86_64",
     "cpu_count": 4
   },
-  "started_at": "2026-07-12T15:47:05.559914+00:00",
-  "ended_at": "2026-07-12T15:47:59.008658+00:00",
-  "status": "completed",
-  "metrics_path": "runs/metrics/phase2_GunPoint_f25_mixup_cnn1d_s0.json",
-  "predictions_path": "runs/predictions/phase2_GunPoint_f25_mixup_cnn1d_s0.csv",
-  "log_path": "runs/logs/phase2_GunPoint_f25_mixup_cnn1d_s0.log",
-  "train_fraction": 0.25,
-  "n_train_used": 12
+  "started_at": "2026-07-12T15:47:59.016778+00:00",
+  "ended_at": null,
+  "status": "running",
+  "metrics_path": null,
+  "predictions_path": null,
+  "log_path": "runs/logs/phase2_GunPoint_f25_mixup_cnn1d_s1.log",
+  "train_fraction": 0.25
 }
