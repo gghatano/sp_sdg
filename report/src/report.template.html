@@ -45,6 +45,12 @@
       <div class="text-xs text-slate-500 mt-1">現在のフェーズ</div>
     </div>
   </div>
+  {% if reduction and reduction.methods and reduction.n_star_none %}
+  <div class="bg-blue-50 border border-blue-200 rounded p-3 mb-4 text-sm">
+    <p class="font-medium text-blue-900 mb-1">被験者数削減(本研究の主目的・UCI HAR)</p>
+    <p>目標 {{ reduction.target_metric }}={{ reduction.target_value }} に必要な実被験者数は拡張なしで <span class="font-mono">{{ reduction.n_star_none }}</span> 名。点推定では DTW が最大 <span class="font-mono">{{ "%.0f%%" | format((reduction.methods | selectattr('augmentation','equalto','dtw') | map(attribute='reduction_rate') | first | default(0)) * 100) }}</span> の削減(約1名節約)を示すが、3 反復では信頼区間が広く<strong>統計的に確定的ではない</strong>。詳細は<a href="#subject-reduction" class="text-blue-700 hover:underline">被験者数削減評価</a>。</p>
+  </div>
+  {% endif %}
   {% if best_improvements %}
   <p class="text-sm mb-2">Δ は同一データセット・同一モデルにおける拡張なし(none)条件との精度差(各 {{ best_improvements[0].n_seeds }} seeds の平均)。効果は改善・悪化の両方向に現れている。</p>
   <div class="grid md:grid-cols-2 gap-4 text-sm">
@@ -261,6 +267,35 @@
   <p class="text-xs text-slate-500 mt-2">平均Δ が正でも有意でない、あるいは有意でも効果量が小さい場合がある点に注意。効果量(平均Δ)と有意性(p 値)は別物として読む。</p>
   {% else %}
   <p class="text-sm text-slate-500">検定に十分なペア数がまだありません(Phase 2 で生成)。</p>
+  {% endif %}
+</section>
+
+<section id="subject-reduction" class="mb-10">
+  <h2 class="text-xl font-semibold text-slate-900 mb-3">被験者数削減評価(本研究の主目的)</h2>
+  {% if reduction and reduction.methods %}
+  <p class="text-sm mb-2">UCI HAR(被験者ID付き)で、事前登録した目標性能(<span class="font-mono">{{ reduction.target_metric }} = {{ reduction.target_value }}</span>)に到達するのに必要な実被験者数 N* を、拡張なし(none)と各拡張手法で比較する。<strong>削減率 = 1 − N*(手法) / N*(none)</strong>。N* は学習曲線の線形補間で推定し、括弧内は 3 反復からの bootstrap 95% 信頼区間。目標達成に必要な被験者数の基準は N*(none) = <span class="font-mono">{{ reduction.n_star_none }}</span> 名{% if reduction.n_star_none_ci %}(95%CI {{ reduction.n_star_none_ci[0] }}–{{ reduction.n_star_none_ci[1] }}){% endif %}。</p>
+  <div class="bg-white border border-slate-200 rounded p-2 mb-3">{{ reduction_svg | safe }}</div>
+  <div class="overflow-x-auto">
+  <table class="w-full text-sm bg-white border border-slate-200 rounded">
+    <thead><tr class="text-left border-b border-slate-200">
+      <th class="p-2">拡張</th><th class="p-2 text-right">N*(必要被験者数)</th><th class="p-2 text-right">95% CI</th><th class="p-2 text-right">削減率</th><th class="p-2 text-right">節約被験者数</th>
+    </tr></thead>
+    <tbody>
+      {% for m in reduction.methods %}
+      <tr class="border-b border-slate-100 {{ 'bg-slate-50' if m.augmentation == 'none' else '' }}">
+        <td class="p-2 font-mono">{{ m.augmentation }}</td>
+        <td class="p-2 text-right">{{ m.n_star if m.n_star is not none else "未到達" }}</td>
+        <td class="p-2 text-right text-slate-500">{% if m.n_star_ci and m.n_star_ci[0] is not none %}{{ m.n_star_ci[0] }}–{{ m.n_star_ci[1] }}{% else %}—{% endif %}</td>
+        <td class="p-2 text-right {{ 'text-green-700' if m.reduction_rate and m.reduction_rate > 0 else ('text-red-700' if m.reduction_rate and m.reduction_rate < 0 else 'text-slate-400') }}">{{ "%+.1f%%" | format(m.reduction_rate * 100) if m.reduction_rate is not none else "—" }}</td>
+        <td class="p-2 text-right">{{ "%+.2f" | format(m.subjects_saved) if m.subjects_saved is not none else "—" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <p class="text-xs text-slate-500 mt-2">解釈上の注意: N* の信頼区間は反復 3 回のため広く、多くの手法で none の CI と重なる。したがって点推定では DTW・mixup 等が数%の削減を示すものの、<strong>3 反復では削減効果を統計的に確定できない</strong>。確度を上げるには反復数の増加が必要(限界セクション参照)。負の削減率は、その手法が必要被験者数をむしろ増やした(=有害)ことを意味する。</p>
+  {% else %}
+  <p class="text-sm text-slate-500">被験者数削減の結果はまだありません(Phase 4-5 で生成)。</p>
   {% endif %}
 </section>
 

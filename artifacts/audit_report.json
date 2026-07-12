@@ -1,6 +1,6 @@
 {
-  "n_runs": 2650,
-  "n_passed": 2650,
+  "n_runs": 2776,
+  "n_passed": 2776,
   "n_failed_runs": 0,
   "n_problem_runs": 0,
   "runs": [
@@ -15900,6 +15900,762 @@
     },
     {
       "run_id": "smoke_synthetic_none_minirocket_smoke_s0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_dtw_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_dtw_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_mixup_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_mixup_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_mixup_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_none_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_none_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_none_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_oversample_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_oversample_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_oversample_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_scaling_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_scaling_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_scaling_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_smote_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_smote_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_smote_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_dtw_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_dtw_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_mixup_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_mixup_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_mixup_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_none_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_none_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_none_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_oversample_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_oversample_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_oversample_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_scaling_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_scaling_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_scaling_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_smote_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_smote_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_smote_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_dtw_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_dtw_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_mixup_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_mixup_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_mixup_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_none_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_none_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_none_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_oversample_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_oversample_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_oversample_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_scaling_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_scaling_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_scaling_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_smote_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_smote_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_smote_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_dtw_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_dtw_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_mixup_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_mixup_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_mixup_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_none_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_none_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_none_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_oversample_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_oversample_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_oversample_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_scaling_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_scaling_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_scaling_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_smote_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_smote_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_smote_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_dtw_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_dtw_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_mixup_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_mixup_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_mixup_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_none_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_none_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_none_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_oversample_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_oversample_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_oversample_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_scaling_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_scaling_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_scaling_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_smote_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_smote_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_smote_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_dtw_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_dtw_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_mixup_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_mixup_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_mixup_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_none_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_none_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_none_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_oversample_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_oversample_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_oversample_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_scaling_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_scaling_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_scaling_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_smote_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_smote_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_smote_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_dtw_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_dtw_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_mixup_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_mixup_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_mixup_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_none_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_none_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_none_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_oversample_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_oversample_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_oversample_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_scaling_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_scaling_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_scaling_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_smote_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_smote_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_smote_cnn1d_har_r2",
       "status": "completed",
       "passed": true,
       "problems": []

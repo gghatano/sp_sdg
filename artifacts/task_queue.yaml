@@ -1,5 +1,5 @@
 # 唯一の順序管理簿 (spec 3.9)。status: todo | in_progress | done | blocked
-current_phase: 4
+current_phase: 5
 
 tasks:
   - {id: P0-1, phase: 0, title: "ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)", status: done}
@@ -33,6 +33,6 @@ tasks:
   - {id: P4-1, phase: 4, title: "被験者単位 group split 基盤 (subject.py)", status: done}
   - {id: P4-2, phase: 4, title: "目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)", status: done}
   - {id: P4-3, phase: 4, title: "UCI HAR ローダ + 被験者数 runner 実装", status: done}
-  - {id: P4-4, phase: 4, title: "被験者数学習曲線グリッド実行 (126 runs)", status: in_progress}
-  - {id: P5-1, phase: 5, title: "必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映", status: todo}
+  - {id: P4-4, phase: 4, title: "被験者数学習曲線グリッド実行 (126 runs)", status: done}
+  - {id: P5-1, phase: 5, title: "必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映", status: done}
   - {id: P5-2, phase: 5, title: "negative control (ラベル破壊拡張) の追加", status: todo}

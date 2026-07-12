@@ -82,11 +82,38 @@ def learning_curves(summary: list[dict]) -> dict:
     return curves
 
 
+def _subject_metric_rows(manifests_dir: Path) -> list[dict]:
+    """Phase 4 rows carry subject_count in the manifest, not the metrics file,
+    so join them here for the reduction analysis."""
+    rows = []
+    for path in sorted(Path(manifests_dir).glob("subject_count_*.json")):
+        m = json.loads(path.read_text())
+        if m.get("status") != "completed" or not m.get("metrics_path"):
+            continue
+        metrics_path = Path(m["metrics_path"])
+        if not metrics_path.exists():
+            continue
+        row = {
+            "phase": m["phase"],
+            "augmentation": m["augmentation"],
+            "model": m["model"],
+            "subject_count": m.get("subject_count"),
+            "status": "completed",
+        }
+        row.update(json.loads(metrics_path.read_text()))
+        rows.append(row)
+    return rows
+
+
 def build_results_json(
     manifests_dir: str | Path = "runs/manifests",
     audit_path: str | Path = "artifacts/audit_report.json",
     output_path: str | Path = "report/assets/data/results.json",
+    config_dir: str | Path = "config",
 ) -> dict:
+    import yaml
+
+    from signal_aug.evaluation.reduction import reduction_analysis
     from signal_aug.evaluation.stats import wilcoxon_vs_none
 
     rows = collect_runs(manifests_dir)
@@ -101,11 +128,26 @@ def build_results_json(
     phase2_rows = [r for r in rows if r.get("phase") == 2]
     stats = wilcoxon_vs_none(phase2_rows) if phase2_rows else []
 
+    # Phase 4-5: subject-count reduction analysis, target read from the
+    # pre-registered config (never chosen post-hoc; spec section 8)
+    reduction = None
+    subject_rows = _subject_metric_rows(Path(manifests_dir))
+    subj_cfg_path = Path(config_dir) / "experiments/subject_count.yaml"
+    if subject_rows and subj_cfg_path.exists():
+        subj_cfg = yaml.safe_load(subj_cfg_path.read_text())
+        reduction = reduction_analysis(
+            subject_rows,
+            target=float(subj_cfg["target_value"]),
+            metric=subj_cfg["target_metric"],
+        )
+        reduction["pre_registered"] = bool(subj_cfg.get("pre_registered"))
+
     data = {
         "runs": rows,
         "summary": summary,
         "learning_curves": learning_curves([s for s in summary if s["dataset"] != "synthetic"]),
         "stats": stats,
+        "reduction": reduction,
         "failed_runs": [r for r in rows if r["status"] == "failed"],
         "audit": audit,
     }

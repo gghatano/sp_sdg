@@ -62,6 +62,24 @@
       "confidence": "medium",
       "type": "reproduction",
       "notes": "厳密には単調でなく、フルサイズでも改善が残る点は Iwana & Uchida の傾向より弱い。被験者数削減の主張には Phase 4-5 の被験者単位学習曲線が必要"
+    },
+    {
+      "id": "F-8",
+      "phase": 5,
+      "claim": "UCI HAR で目標精度 0.90 に必要な実被験者数は拡張なしで約 8.85 名(95%CI 5.7-10.0)。点推定では DTW が最大の削減(N*=7.9, 削減率 10.8%, 約1名節約)、mixup・scaling が小幅な削減を示す",
+      "evidence": "results.json reduction (126 runs, 事前登録 target=0.90), Phase 4-5",
+      "confidence": "low",
+      "type": "original",
+      "notes": "反復 3 回のため N* の bootstrap CI が広く、拡張手法の CI は none の CI と重なる。点推定の方向は『拡張が実被験者を部分的に代替』という主仮説と整合するが、統計的に確定できるレベルではない"
+    },
+    {
+      "id": "F-9",
+      "phase": 5,
+      "claim": "oversample と smote は必要被験者数をむしろ増やした(削減率 -4.8%, -2.6%)。全手法が被験者削減に有効なわけではない",
+      "evidence": "results.json reduction, Phase 4-5",
+      "confidence": "low",
+      "type": "original",
+      "notes": "F-6(MiniRocket で拡張が無効)と併せ、拡張の効果は手法・モデル・データ依存であり万能ではないという一貫した結論。単純な複製系(oversample)は被験者多様性を増やさないため少被験者条件で不利な可能性"
     }
   ],
   "schema": {

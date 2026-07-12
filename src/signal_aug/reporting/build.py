@@ -73,6 +73,53 @@ def learning_curve_svg(dataset: str, model: str, curves: dict, width: int = 320,
     return "".join(parts)
 
 
+def subject_curve_svg(curves_by_aug: dict, target: float | None, width: int = 560, height: int = 300) -> str:
+    """Wider learning-curve chart for the subject-count study: accuracy vs
+    number of subjects, one line per augmentation, with the pre-registered
+    target as a horizontal reference line. Self-contained SVG."""
+    pad_l, pad_r, pad_t, pad_b = 46, 90, 14, 34
+    all_pts = [p for pts in curves_by_aug.values() for p in pts]
+    if not all_pts:
+        return ""
+    ys = [p["accuracy_mean"] for p in all_pts] + ([target] if target else [])
+    y_min, y_max = min(ys), max(ys)
+    y_min, y_max = y_min - 0.01, y_max + 0.01
+    xs = sorted({p["train_fraction"] for p in all_pts})
+    x_min, x_max = min(xs), max(xs)
+
+    def sx(x):
+        return pad_l + (x - x_min) / (x_max - x_min or 1) * (width - pad_l - pad_r)
+
+    def sy(a):
+        return pad_t + (1 - (a - y_min) / (y_max - y_min or 1)) * (height - pad_t - pad_b)
+
+    parts = [f'<svg viewBox="0 0 {width} {height}" class="w-full h-auto" role="img" aria-label="subject-count learning curve">']
+    parts.append(f'<line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{height-pad_b}" stroke="#cbd5e1"/>')
+    parts.append(f'<line x1="{pad_l}" y1="{height-pad_b}" x2="{width-pad_r}" y2="{height-pad_b}" stroke="#cbd5e1"/>')
+    for a in (y_min + 0.01, (y_min + y_max) / 2, y_max - 0.01):
+        parts.append(f'<text x="{pad_l-5}" y="{sy(a)+3:.1f}" text-anchor="end" font-size="10" fill="#64748b">{a:.2f}</text>')
+        parts.append(f'<line x1="{pad_l}" y1="{sy(a):.1f}" x2="{width-pad_r}" y2="{sy(a):.1f}" stroke="#f1f5f9"/>')
+    for x in xs:
+        parts.append(f'<text x="{sx(x):.1f}" y="{height-pad_b+14}" text-anchor="middle" font-size="10" fill="#64748b">{int(x)}</text>')
+    parts.append(f'<text x="{(pad_l+width-pad_r)/2:.0f}" y="{height-4}" text-anchor="middle" font-size="10" fill="#475569">被験者数</text>')
+    if target:
+        parts.append(f'<line x1="{pad_l}" y1="{sy(target):.1f}" x2="{width-pad_r}" y2="{sy(target):.1f}" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/>')
+        parts.append(f'<text x="{width-pad_r+4}" y="{sy(target)+3:.1f}" font-size="10" fill="#ef4444">目標 {target}</text>')
+    for aug, pts in curves_by_aug.items():
+        color = AUG_COLORS.get(aug, "#334155")
+        pts = sorted(pts, key=lambda p: p["train_fraction"])
+        d = " ".join(f"{'M' if i == 0 else 'L'}{sx(p['train_fraction']):.1f},{sy(p['accuracy_mean']):.1f}"
+                     for i, p in enumerate(pts))
+        parts.append(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="{2 if aug == "none" else 1.5}" '
+                     f'{"" if aug == "none" else "opacity=0.85"}/>')
+        for p in pts:
+            parts.append(f'<circle cx="{sx(p["train_fraction"]):.1f}" cy="{sy(p["accuracy_mean"]):.1f}" r="2.5" fill="{color}"/>')
+        last = pts[-1]
+        parts.append(f'<text x="{width-pad_r+4}" y="{sy(last["accuracy_mean"])+3:.1f}" font-size="9" fill="{color}">{aug}</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
 PHASE_NAMES = {
     0: "Phase 0: 基盤構築",
     1: "Phase 1: UCR最小追試",
@@ -97,6 +144,7 @@ REQUIRED_SECTION_IDS = [
     "results",
     "learning-curves",
     "statistics",
+    "subject-reduction",
     "paper-comparison",
     "failed-runs",
     "audit",
@@ -187,6 +235,15 @@ def gather_context(repo_root: str | Path = ".") -> dict:
             if svg:
                 curve_panels.append({"dataset": dataset, "model": model, "svg": svg})
 
+    # subject-count reduction (Phase 5) + its learning-curve chart
+    reduction = results.get("reduction")
+    reduction_svg = ""
+    if reduction and reduction.get("methods"):
+        curves_by_aug = {m["augmentation"]: [{"train_fraction": p["subject_count"],
+                                              "accuracy_mean": p["mean"]} for p in m["curve"]]
+                         for m in reduction["methods"]}
+        reduction_svg = subject_curve_svg(curves_by_aug, reduction.get("target_value"))
+
     stats = results.get("stats", [])
     # significance after Holm-Bonferroni over the family of tests
     stats_sorted = sorted([s for s in stats if s.get("p_value") is not None], key=lambda s: s["p_value"])
@@ -210,6 +267,8 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "curve_panels": curve_panels,
         "stats": stats_sorted,
         "aug_colors": AUG_COLORS,
+        "reduction": reduction,
+        "reduction_svg": reduction_svg,
         "n_runs": len(results["runs"]),
         "n_completed": len(completed_runs),
         "n_failed": len(results["failed_runs"]),

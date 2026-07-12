@@ -10,6 +10,13 @@
 - ペルソナレビュー(教授/院生/実務者の 3 視点)完了。指摘 24 件中、findings の主張修正・レポートの両側提示・task_queue の YAML 破損・再現性情報のバグ(commit 選択、git_dirty 判定)・README 補強など主要指摘を反映済み
 - 次: Phase 2 準備(P2-1: データセット選定、P2-2: 学習サンプル比率スイープの runner 拡張)
 
+## Phase 4-5 完了(2026-07-12)
+
+- UCI HAR で被験者数学習曲線 126 runs 完走・失敗 0・監査 2776/2776 合格
+- 主結果(F-8, F-9): 目標 acc 0.90 に必要な実被験者数は none で約 8.85 名。点推定では DTW が最大削減(N*=7.9, 10.8%, 約1名節約)、mixup/scaling が小幅削減、oversample/smote は増加(有害)。ただし反復 3 回で CI が広く統計的に非確定
+- 事前登録(artifacts/pre_registration.md)どおり target=0.90 を結果前に固定して評価
+- 残タスク: P5-2 negative control(ラベル破壊拡張)、Phase 6-7(反復増・WISDM での再現・統合レポート)
+
 ## Phase 2 実行メモ(2026-07-12)
 
 - Phase 2 グリッド初回実行は、二重起動した 2 プロセスが同一 run_id を並行書き込みして競合し、manifest 保存の tmp.replace が FileNotFoundError で約 183 runs 時点でクラッシュした
