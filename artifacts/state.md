@@ -6,8 +6,9 @@
 
 - Phase 0 完了(品質ゲート通過、テスト 51 件全通過)
 - **Phase 1 完了**: 126 runs(3データセット × 7拡張 × 2モデル × 3 seeds)全完走・失敗 0・監査 130/130 合格
-- 主要知見は artifacts/findings.json(F-1〜F-4)。フルサイズ学習データでは拡張効果は僅少、最小データセット GunPoint でのみ改善、FordA+MiniRocket では拡張が有害
-- 次: レポートのペルソナレビュー(P1-7)→ Phase 2 準備(P2-1: データセット選定)
+- 主要知見は artifacts/findings.json(F-1〜F-4)。フルサイズ学習データでは改善は +1pt 未満・悪化は最大 -3.5pt、最小データセット GunPoint でのみ改善傾向(ノイズ範囲)、FordA+MiniRocket では拡張が有害
+- ペルソナレビュー(教授/院生/実務者の 3 視点)完了。指摘 24 件中、findings の主張修正・レポートの両側提示・task_queue の YAML 破損・再現性情報のバグ(commit 選択、git_dirty 判定)・README 補強など主要指摘を反映済み
+- 次: Phase 2 準備(P2-1: データセット選定、P2-2: 学習サンプル比率スイープの runner 拡張)
 
 ## 環境
 

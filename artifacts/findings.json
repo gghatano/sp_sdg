@@ -3,11 +3,11 @@
     {
       "id": "F-1",
       "phase": 1,
-      "claim": "フルサイズの学習データ(ECG5000: 500件, FordA: 3601件)では、7種の拡張手法の効果はいずれも ±1pt 未満で、有意な改善は見られない",
+      "claim": "フルサイズの学習データ(ECG5000: 500件, FordA: 3601件)では、精度の改善は全条件で +1pt 未満に留まる一方、悪化側は最大 -3.5pt に達した(F-3)。一貫した改善は観測されなかった(統計検定は Phase 2 で実施予定)",
       "evidence": "report/assets/data/results.json summary (none との差分)",
       "confidence": "medium",
       "type": "reproduction",
-      "notes": "Iwana & Uchida 2021 の『拡張効果は低データ条件で大きい』と整合。Phase 2 の学習サンプル比率スイープで低データ条件を検証する"
+      "notes": "Iwana & Uchida 2021 の『拡張効果は低データ条件で大きく、常に有効とは限らない』と整合。accuracy ベースの観察であり、クラス不均衡な ECG5000 では macro-F1 側で挙動が異なる(例: minirocket none 0.5948 → scaling 0.6257)点に注意。Phase 2 の学習サンプル比率スイープで低データ条件を検証する"
     },
     {
       "id": "F-2",
@@ -16,7 +16,7 @@
       "evidence": "runs/metrics/phase1_GunPoint_*.json",
       "confidence": "low",
       "type": "reproduction",
-      "notes": "3 seeds のみで差も小さいため確証は弱い。低データ仮説 H1 と方向は一致"
+      "notes": "3 seeds のみで差はベースラインの seed 間標準偏差(±0.0192)の範囲内。さらに GunPoint は精度 0.99-1.00 の天井効果があり改善余地が 1-2 サンプル分しかないため、確証は弱い。低データ仮説 H1 と方向が一致する、以上のことは言えない"
     },
     {
       "id": "F-3",

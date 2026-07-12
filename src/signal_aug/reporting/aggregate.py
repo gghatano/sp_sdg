@@ -24,6 +24,9 @@ def collect_runs(manifests_dir: str | Path = "runs/manifests") -> list[dict]:
             "seed": manifest["seed"],
             "status": manifest["status"],
             "git_commit": manifest.get("git_commit", "")[:12],
+            "git_dirty": manifest.get("git_dirty"),
+            "ended_at": manifest.get("ended_at"),
+            "python_version": manifest.get("python_version"),
         }
         if manifest["status"] == "completed" and manifest.get("metrics_path"):
             metrics_path = Path(manifest["metrics_path"])

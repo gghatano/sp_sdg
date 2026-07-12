@@ -82,29 +82,44 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     completed_runs = [r for r in results["runs"] if r["status"] == "completed"]
     reproducibility = {}
     if completed_runs:
-        latest = completed_runs[-1]
-        reproducibility = {"git_commit": latest.get("git_commit", "")}
+        latest = max(completed_runs, key=lambda r: r.get("ended_at") or "")
+        reproducibility = {
+            "git_commit": latest.get("git_commit", ""),
+            "python_version": latest.get("python_version", ""),
+            "n_dirty_runs": sum(1 for r in completed_runs if r.get("git_dirty")),
+            "n_completed": len(completed_runs),
+        }
 
-    baseline = {
-        (s["dataset"], s["model"]): s for s in results["summary"] if s["augmentation"] == "none"
-    }
-    for s in results["summary"]:
+    # smoke runs on synthetic data are quality-gate checks, not study results
+    summary_main = [s for s in results["summary"] if s["dataset"] != "synthetic"]
+
+    baseline = {(s["dataset"], s["model"]): s for s in summary_main if s["augmentation"] == "none"}
+    for s in summary_main:
         base = baseline.get((s["dataset"], s["model"]))
         s["delta_vs_none"] = (
             round(s["accuracy_mean"] - base["accuracy_mean"], 4) if base and s["augmentation"] != "none" else None
         )
+        s["baseline_std"] = base["accuracy_std"] if base else None
 
-    best_improvements = sorted(
-        [s for s in results["summary"] if s.get("delta_vs_none") is not None],
+    deltas = sorted(
+        [s for s in summary_main if s.get("delta_vs_none") is not None],
         key=lambda s: s["delta_vs_none"],
         reverse=True,
-    )[:5]
+    )
+    best_improvements = deltas[:3]
+    worst_degradations = list(reversed(deltas[-3:])) if deltas else []
+
+    findings_data = _load_json(root / "artifacts/findings.json") or {}
+    references_index = {r["key"]: i + 1 for i, r in enumerate(references)}
 
     return {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "results": results,
-        "summary": results["summary"],
+        "summary": summary_main,
         "best_improvements": best_improvements,
+        "worst_degradations": worst_degradations,
+        "findings": findings_data.get("findings", []),
+        "ref": references_index,
         "n_runs": len(results["runs"]),
         "n_completed": len(completed_runs),
         "n_failed": len(results["failed_runs"]),

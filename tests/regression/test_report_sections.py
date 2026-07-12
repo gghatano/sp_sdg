@@ -23,3 +23,27 @@ def test_references_present():
     html = render_report(context, "report/src", css="")
     assert "UCR Time Series Archive" in html
     assert "MiniRocket" in html
+
+
+def test_smoke_runs_excluded_from_main_summary():
+    """Quality-gate runs on synthetic data must not appear as study results."""
+    context = gather_context(".")
+    assert all(s["dataset"] != "synthetic" for s in context["summary"])
+
+
+def test_reference_indices_are_key_based():
+    """Inline citations come from the ref map, so inserting a reference cannot
+    silently shift citation numbers."""
+    context = gather_context(".")
+    template = open("report/src/report.template.html").read()
+    assert "ref.ucr" in template and "ref.minirocket" in template
+    for key in ("ucr", "minirocket", "iwana2021", "aeon"):
+        assert key in context["ref"]
+
+
+def test_findings_rendered_when_present():
+    context = gather_context(".")
+    html = render_report(context, "report/src", css="")
+    if context["findings"]:
+        assert context["findings"][0]["id"] in html
+        assert "追試" in html

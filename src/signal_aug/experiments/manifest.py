@@ -47,9 +47,11 @@ def git_info(repo_root: str | Path = ".") -> tuple[str, bool]:
         commit = subprocess.run(
             ["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=repo_root, check=True
         ).stdout.strip()
+        # -uno: untracked files (e.g. run outputs written during the grid) must
+        # not mark the source tree dirty
         dirty = bool(
             subprocess.run(
-                ["git", "status", "--porcelain"], capture_output=True, text=True, cwd=repo_root, check=True
+                ["git", "status", "--porcelain", "-uno"], capture_output=True, text=True, cwd=repo_root, check=True
             ).stdout.strip()
         )
         return commit, dirty
