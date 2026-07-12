@@ -80,6 +80,15 @@
       "confidence": "low",
       "type": "original",
       "notes": "F-6(MiniRocket で拡張が無効)と併せ、拡張の効果は手法・モデル・データ依存であり万能ではないという一貫した結論。単純な複製系(oversample)は被験者多様性を増やさないため少被験者条件で不利な可能性"
+    },
+    {
+      "id": "F-10",
+      "phase": 5,
+      "claim": "negative control(ラベルを無作為化した label_shuffle)が 4.3% の見かけの削減を示し、mixup(4.1%)・scaling(3.9%)と同等だった。すなわち約4%以下の削減はクラス信号のない対照でも再現され、アーティファクトと区別できない",
+      "evidence": "results.json reduction, label_shuffle vs mixup/scaling, Phase 5 negative control (21 runs)",
+      "confidence": "high",
+      "type": "original",
+      "notes": "本研究で最も重要な方法論的知見。少データ条件ではデータ量の水増し自体が正則化的に働くため、ラベルが誤っていても見かけ上 N* が下がりうる。DTW(10.8%)のみが対照を上回るが CI は重なり、確定はできない。結論: 本設定ではデータ拡張による被験者削減は『対照を明確に超える』とは言えず、小さな削減の主張は negative control 越えを条件とすべき"
     }
   ],
   "schema": {

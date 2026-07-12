@@ -35,4 +35,4 @@ tasks:
   - {id: P4-3, phase: 4, title: "UCI HAR ローダ + 被験者数 runner 実装", status: done}
   - {id: P4-4, phase: 4, title: "被験者数学習曲線グリッド実行 (126 runs)", status: done}
   - {id: P5-1, phase: 5, title: "必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映", status: done}
-  - {id: P5-2, phase: 5, title: "negative control (ラベル破壊拡張) の追加", status: todo}
+  - {id: P5-2, phase: 5, title: "negative control (label_shuffle) の追加と削減の健全性検証", status: done}

@@ -24,6 +24,7 @@ AUG_COLORS = {
     "mixup": "#ec4899",
     "dtw": "#8b5cf6",
     "smote": "#f97316",
+    "label_shuffle": "#94a3b8",
 }
 
 

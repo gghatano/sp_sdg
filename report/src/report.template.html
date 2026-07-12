@@ -48,7 +48,7 @@
   {% if reduction and reduction.methods and reduction.n_star_none %}
   <div class="bg-blue-50 border border-blue-200 rounded p-3 mb-4 text-sm">
     <p class="font-medium text-blue-900 mb-1">被験者数削減(本研究の主目的・UCI HAR)</p>
-    <p>目標 {{ reduction.target_metric }}={{ reduction.target_value }} に必要な実被験者数は拡張なしで <span class="font-mono">{{ reduction.n_star_none }}</span> 名。点推定では DTW が最大 <span class="font-mono">{{ "%.0f%%" | format((reduction.methods | selectattr('augmentation','equalto','dtw') | map(attribute='reduction_rate') | first | default(0)) * 100) }}</span> の削減(約1名節約)を示すが、3 反復では信頼区間が広く<strong>統計的に確定的ではない</strong>。詳細は<a href="#subject-reduction" class="text-blue-700 hover:underline">被験者数削減評価</a>。</p>
+    <p>目標 {{ reduction.target_metric }}={{ reduction.target_value }} に必要な実被験者数は拡張なしで <span class="font-mono">{{ reduction.n_star_none }}</span> 名。点推定では DTW が最大 <span class="font-mono">{{ "%.0f%%" | format((reduction.methods | selectattr('augmentation','equalto','dtw') | map(attribute='reduction_rate') | first | default(0)) * 100) }}</span> の削減を示すが、ラベル無作為化の negative control ですら約 4% の見かけの削減が出るため、<strong>本設定ではデータ拡張が被験者数を確実に削減するとは言えない</strong>(小さな削減はアーティファクトと区別できない)。詳細は<a href="#subject-reduction" class="text-blue-700 hover:underline">被験者数削減評価</a>。</p>
   </div>
   {% endif %}
   {% if best_improvements %}
@@ -294,6 +294,13 @@
   </table>
   </div>
   <p class="text-xs text-slate-500 mt-2">解釈上の注意: N* の信頼区間は反復 3 回のため広く、多くの手法で none の CI と重なる。したがって点推定では DTW・mixup 等が数%の削減を示すものの、<strong>3 反復では削減効果を統計的に確定できない</strong>。確度を上げるには反復数の増加が必要(限界セクション参照)。負の削減率は、その手法が必要被験者数をむしろ増やした(=有害)ことを意味する。</p>
+  {% set nc = reduction.methods | selectattr('augmentation','equalto','label_shuffle') | first %}
+  {% if nc and nc.reduction_rate is not none %}
+  <div class="mt-3 bg-amber-50 border border-amber-200 rounded p-3 text-sm">
+    <p class="font-medium text-amber-900 mb-1">Negative control(label_shuffle)の重要性</p>
+    <p>ラベルを無作為化した対照 <span class="font-mono">label_shuffle</span>(クラス信号を持たない)は <span class="font-mono">{{ "%+.1f%%" | format(nc.reduction_rate * 100) }}</span> の見かけの削減を示した。これは mixup・scaling の削減率と同等であり、<strong>約 4% 以下の削減は信号のない対照でも再現される=アーティファクトと区別できない</strong>ことを意味する。少データではデータ量の水増し自体が正則化的に働くためと考えられる。したがって、削減の主張は「negative control を明確に超えるか」を条件とすべきで、本設定でそれを満たす手法はない(DTW の点推定のみが対照を上回るが信頼区間は重なる)。</p>
+  </div>
+  {% endif %}
   {% else %}
   <p class="text-sm text-slate-500">被験者数削減の結果はまだありません(Phase 4-5 で生成)。</p>
   {% endif %}

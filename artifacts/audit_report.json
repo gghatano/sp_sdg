@@ -1,6 +1,6 @@
 {
-  "n_runs": 2776,
-  "n_passed": 2776,
+  "n_runs": 2797,
+  "n_passed": 2797,
   "n_failed_runs": 0,
   "n_problem_runs": 0,
   "runs": [
@@ -15923,6 +15923,24 @@
       "problems": []
     },
     {
+      "run_id": "subject_count_UCI_HAR_n12_label_shuffle_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_label_shuffle_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n12_label_shuffle_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
       "run_id": "subject_count_UCI_HAR_n12_mixup_cnn1d_har_r0",
       "status": "completed",
       "passed": true,
@@ -16026,6 +16044,24 @@
     },
     {
       "run_id": "subject_count_UCI_HAR_n15_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_label_shuffle_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_label_shuffle_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n15_label_shuffle_cnn1d_har_r2",
       "status": "completed",
       "passed": true,
       "problems": []
@@ -16139,6 +16175,24 @@
       "problems": []
     },
     {
+      "run_id": "subject_count_UCI_HAR_n18_label_shuffle_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_label_shuffle_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n18_label_shuffle_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
       "run_id": "subject_count_UCI_HAR_n18_mixup_cnn1d_har_r0",
       "status": "completed",
       "passed": true,
@@ -16242,6 +16296,24 @@
     },
     {
       "run_id": "subject_count_UCI_HAR_n21_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_label_shuffle_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_label_shuffle_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n21_label_shuffle_cnn1d_har_r2",
       "status": "completed",
       "passed": true,
       "problems": []
@@ -16355,6 +16427,24 @@
       "problems": []
     },
     {
+      "run_id": "subject_count_UCI_HAR_n3_label_shuffle_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_label_shuffle_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n3_label_shuffle_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
       "run_id": "subject_count_UCI_HAR_n3_mixup_cnn1d_har_r0",
       "status": "completed",
       "passed": true,
@@ -16463,6 +16553,24 @@
       "problems": []
     },
     {
+      "run_id": "subject_count_UCI_HAR_n6_label_shuffle_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_label_shuffle_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n6_label_shuffle_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
       "run_id": "subject_count_UCI_HAR_n6_mixup_cnn1d_har_r0",
       "status": "completed",
       "passed": true,
@@ -16566,6 +16674,24 @@
     },
     {
       "run_id": "subject_count_UCI_HAR_n9_dtw_cnn1d_har_r2",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_label_shuffle_cnn1d_har_r0",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_label_shuffle_cnn1d_har_r1",
+      "status": "completed",
+      "passed": true,
+      "problems": []
+    },
+    {
+      "run_id": "subject_count_UCI_HAR_n9_label_shuffle_cnn1d_har_r2",
       "status": "completed",
       "passed": true,
       "problems": []
