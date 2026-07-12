@@ -1,36 +1,40 @@
 # state.md
 
-最終更新: 2026-07-12(Phase 1 完了)
+最終更新: 2026-07-12(Phase 5 完了 + GitHub Pages デプロイ)
 
 ## 現在の状態
 
-- Phase 0 完了(品質ゲート通過、テスト 51 件全通過)
-- **Phase 1 完了**: 126 runs(3データセット × 7拡張 × 2モデル × 3 seeds)全完走・失敗 0・監査 130/130 合格
-- 主要知見は artifacts/findings.json(F-1〜F-4)。フルサイズ学習データでは改善は +1pt 未満・悪化は最大 -3.5pt、最小データセット GunPoint でのみ改善傾向(ノイズ範囲)、FordA+MiniRocket では拡張が有害
-- ペルソナレビュー(教授/院生/実務者の 3 視点)完了。指摘 24 件中、findings の主張修正・レポートの両側提示・task_queue の YAML 破損・再現性情報のバグ(commit 選択、git_dirty 判定)・README 補強など主要指摘を反映済み
-- 次: Phase 2 準備(P2-1: データセット選定、P2-2: 学習サンプル比率スイープの runner 拡張)
+- **Phase 0〜5 完了**。全 2797 runs・失敗 0・監査全合格。テストは `make test` で全通過(件数は増減するためここには固定値を書かない)
+- PR #1 が main にマージ済み。レポートは GitHub Pages に自動デプロイ(https://gghatano.github.io/sp_sdg/ )
+- 主要知見は artifacts/findings.json(F-1〜F-10)
+- 次の候補: Phase 6-7(削減評価の反復数増による確度向上、予備対象 WISDM での再現、拡張強度スイープ、統合レポート)。詳細は GitHub issue #7
 
-## Phase 4-5 完了(2026-07-12)
+## フェーズ別の経過(時系列)
 
-- UCI HAR で被験者数学習曲線 126 runs 完走・失敗 0・監査 2776/2776 合格
-- 主結果(F-8, F-9): 目標 acc 0.90 に必要な実被験者数は none で約 8.85 名。点推定では DTW が最大削減(N*=7.9, 10.8%, 約1名節約)、mixup/scaling が小幅削減、oversample/smote は増加(有害)。ただし反復 3 回で CI が広く統計的に非確定
-- 事前登録(artifacts/pre_registration.md)どおり target=0.90 を結果前に固定して評価
-- 残タスク: P5-2 negative control(ラベル破壊拡張)、Phase 6-7(反復増・WISDM での再現・統合レポート)
+### Phase 0 完了
+基盤構築(config 駆動・runner・manifest・監査・Tailwind HTML 自動生成)。品質ゲート(smoke)通過。
 
-## Phase 2 実行メモ(2026-07-12)
+### Phase 1 完了
+126 runs(3データセット × 7拡張 × 2モデル × 3 seeds)全完走・監査 130/130 合格。知見 F-1〜F-4: フルサイズ学習データでは改善は +1pt 未満・悪化は最大 -3.5pt、GunPoint でのみ改善傾向(ノイズ範囲)、FordA+MiniRocket では拡張が有害。ベースラインは文献相場と整合。3ペルソナレビューを反映。
 
-- Phase 2 グリッド初回実行は、二重起動した 2 プロセスが同一 run_id を並行書き込みして競合し、manifest 保存の tmp.replace が FileNotFoundError で約 183 runs 時点でクラッシュした
-- 対策済み: runner に pid ロック(runs/.runner.lock)を追加し二重起動を拒否、manifest の tmp 名を pid 付きに変更。テストで担保(test_grid_lock.py)
-- 単一プロセスで resume 実行中。resume は completed をスキップし、running/failed/未実行を再実行する
+### Phase 2 完了
+12データセット × 5学習比率 × 7拡張 × 2モデル × 3 seeds = 2520 runs 全完走・監査合格。知見 F-5(1D-CNN では拡張が Holm 補正後も有意)、F-6(MiniRocket ではどの手法も非有意)、F-7(効果は低〜中比率で相対的に大)。
+- 初回実行は runner の二重起動で同一 run_id を並行書き込みし競合クラッシュ(約183 runs 時点)。対策: pid ロック(runs/.runner.lock)で二重起動拒否 + manifest の tmp 名を pid 付きに変更(test_grid_lock.py で担保)。単一プロセスで resume し完走。
+
+### Phase 3 完了
+被験者ID付き公開データを調査(全 CC BY 4.0)。主対象 UCI HAR(30名)、予備 WISDM(51名)を決定。
+
+### Phase 4-5 完了
+UCI HAR で被験者数学習曲線 126 runs + negative control 21 runs 完走・監査合格。事前登録どおり target=0.90 を結果前に固定。知見 F-8/F-9/F-10: 目標 0.90 に必要な実被験者数は none で約 8.85 名。点推定では DTW が最大削減(N*=7.9, 10.8%, 約1名節約)だが、negative control(label_shuffle)ですら約 4.3% の見かけの削減を示すため、約 4% 以下の削減はアーティファクトと区別できず、**本設定でデータ拡張が被験者数を確実に削減するとは言えない**。反復 3 回で CI が広い。
 
 ## 環境
 
 - Python 3.11 / uv 管理(torch CPU 版・aeon 1.5)
 - 実行環境: Claude Code リモートコンテナ(CPU のみ)
-- Phase 1 の実測実行時間: 約 1.5 時間(FordA の CNN が支配的)
+- 実測実行時間の目安: Phase 1 約 1.5 時間、Phase 2 約 2 時間、Phase 4-5 は cnn1d_har(軽量)で数十分〜
 
 ## 注意事項
 
 - report/dist/index.html は Git 管理する方針(ユーザー決定 2026-07-12)
 - LICENSE の選定は保留中(ユーザー決定 2026-07-12)
-- Phase 2 の学習サンプル比率スイープには runner の拡張(train_fractions 対応)が必要
+- レビュー指摘は GitHub issue #3(コード)/#4(テスト)/#5(ドキュメント)/#6(統計)に整理済み

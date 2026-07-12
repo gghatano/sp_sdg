@@ -46,6 +46,29 @@ uv run python scripts/run_experiment.py --config config/experiments/phase1.yaml
 
 注意: resume の判定は run_id と status のみで、**config のパラメータ変更は検知しません**。実験条件を変えて再実行する場合は `--no-resume` を付けるか、該当する `runs/manifests/*.json` を削除してください。
 
+## Phase 2 実行(UCR 横断比較)
+
+12 データセット × 5 学習比率(10-100%)× 7 拡張 × 2 モデル × 3 seeds = 2520 runs。学習比率スイープと Wilcoxon 検定・学習曲線を含みます(4 コア CPU で約 2 時間目安)。
+
+```bash
+make download     # 未取得の Phase 2 データセットも取得
+make phase2       # config/experiments/phase2.yaml のグリッド(resume 対応)
+```
+
+## Phase 4-5 実行(被験者数削減評価)
+
+被験者ID付きデータ(UCI HAR)で「目標性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を評価します。UCI HAR は初回実行時に自動ダウンロードされ、公式の被験者非跨り分割(train 21名 / test 9名)を用います。
+
+```bash
+# 目標性能は config/experiments/subject_count.yaml に事前登録済み(実行前に固定)
+uv run python scripts/run_subject_experiment.py --config config/experiments/subject_count.yaml
+# negative control(ラベル無作為化拡張が削減を示さないことの確認)
+uv run python scripts/run_subject_experiment.py --config config/experiments/negative_control.yaml
+make all-report   # N*・削減率・信頼区間・学習曲線をレポートへ反映
+```
+
+被験者数削減の分析(N* 推定・削減率・bootstrap 信頼区間)は `src/signal_aug/evaluation/reduction.py`。目標性能は結果を見る前に `artifacts/pre_registration.md` に登録します(事後設定の禁止)。
+
 ## Audit(結果監査)
 
 ```bash
