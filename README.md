@@ -62,7 +62,11 @@ make all-report   # 監査 → 集計 → report/dist/index.html 生成
 
 ### GitHub Pages への自動デプロイ
 
-`.github/workflows/deploy-pages.yml` が、`report/`・`runs/`・`artifacts/`・`config/` 等の変更を push すると committed データからレポートを再生成し、GitHub Pages(https://gghatano.github.io/sp_sdg/ )へ公開します。手動実行(workflow_dispatch)も可能です。Pages のソースは「GitHub Actions」に設定しておく必要があります。
+`.github/workflows/deploy-pages.yml` が committed データからレポートを再生成し、GitHub Pages(https://gghatano.github.io/sp_sdg/ )へ公開します。
+
+- **ビルド検証**はどのブランチの push でも実行され、レポートが生成できることを確認します(PR チェック)。
+- **公開(deploy)は既定ブランチ `main` からのみ**行われます。GitHub Pages の `github-pages` 環境が既定で非既定ブランチのデプロイを制限するためで、この挙動に合わせています。したがってレポートは PR が main にマージされた時点で公開されます。手動実行(workflow_dispatch)を main 上で行うこともできます。
+- 前提: リポジトリの Settings → Pages で「Source: GitHub Actions」を設定しておく必要があります(設定済み)。フィーチャーブランチから先に公開したい場合は、Settings → Environments → github-pages の "Deployment branches" に当該ブランチを許可してください。
 
 ## 実験条件の追加方法
 

@@ -74,6 +74,10 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    # GitHub Pages deploys only from the default branch (the github-pages
+    # environment restricts non-default branches by default). Feature-branch
+    # pushes still run `build` as a PR check; deploy happens on merge to main.
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
