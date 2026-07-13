@@ -45,7 +45,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-13 13:43 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-13 13:47 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -74,7 +74,7 @@
         (UCI HAR [12])へ展開して「所定の分類性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を定量する。
         1D-CNN では 5 手法の拡張が精度を統計的に有意に改善する一方、MiniRocket [4] では有意な改善が
         見られず、効果はモデルに強く依存する。被験者数削減では、事前登録した目標精度
-        0.9 に必要な実被験者数は拡張なしで約
+        0.90 に必要な実被験者数は拡張なしで約
         8.85 名であり、点推定では DTW ベース合成 [9] が最大
         10.8% の削減を示すが、反復が少なく信頼区間がラベル無作為化の negative control と重なるため確定できない。
         より小さな削減を示す手法は対照と同水準にとどまり、信号のない対照でも生じるアーティファクトと区別できない。したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
@@ -152,7 +152,7 @@
       <h3 class="sub">3.2 目標性能の事前登録</h3>
       <p class="lead text-sm">
       目標 τ を結果に合わせて選ぶと削減率をいくらでも都合よくできる。これを防ぐため、τ・指標・評価手続きを<strong>1 run も実行する前に</strong>登録する
-      (artifacts/pre_registration.md)。本研究では指標 = test accuracy、τ = <span class="font-mono">0.9</span>
+      (artifacts/pre_registration.md)。本研究では指標 = test accuracy、τ = <span class="font-mono">0.90</span>
       を採用した。この値は UCI HAR で Anguita ら [12] が報告した水準に基づく文献由来の丸い値であり、結果を見てからの調整は行っていない。
       </p>
 
@@ -2099,7 +2099,7 @@
       <h3 class="sub" id="subject-reduction">6.3 被験者数削減(RQ2)</h3>
       
       <p class="lead text-sm">被験者ID付きの UCI HAR [12](30名の慣性センサ行動認識)で、事前登録した目標
-      <span class="font-mono">accuracy = 0.9</span> に到達するのに必要な実被験者数 N* を、拡張なしと各手法で比較する。
+      <span class="font-mono">accuracy = 0.90</span> に到達するのに必要な実被験者数 N* を、拡張なしと各手法で比較する。
       <strong>削減率 = 1 − N*(手法) / N*(none)</strong>。目標値は Anguita ら [12] の報告水準に基づき<strong>実験前に固定</strong>した
       (artifacts/pre_registration.md)。基準は N*(none) = <span class="font-mono">8.85</span> 名(95%CI 5.68–10.04)。</p>
       <figure class="border border-slate-200 rounded p-2 my-3"><svg viewBox="0 0 560 300" class="w-full h-auto" role="img" aria-label="subject-count learning curve"><line x1="46" y1="14" x2="46" y2="266" stroke="#cbd5e1"/><line x1="46" y1="266" x2="470" y2="266" stroke="#cbd5e1"/><text x="41" y="248.5" text-anchor="end" font-size="10" fill="#64748b">0.84</text><line x1="46" y1="245.5" x2="470" y2="245.5" stroke="#f1f5f9"/><text x="41" y="143.0" text-anchor="end" font-size="10" fill="#64748b">0.89</text><line x1="46" y1="140.0" x2="470" y2="140.0" stroke="#f1f5f9"/><text x="41" y="37.5" text-anchor="end" font-size="10" fill="#64748b">0.95</text><line x1="46" y1="34.5" x2="470" y2="34.5" stroke="#f1f5f9"/><text x="46.0" y="280" text-anchor="middle" font-size="10" fill="#64748b">3</text><text x="116.7" y="280" text-anchor="middle" font-size="10" fill="#64748b">6</text><text x="187.3" y="280" text-anchor="middle" font-size="10" fill="#64748b">9</text><text x="258.0" y="280" text-anchor="middle" font-size="10" fill="#64748b">12</text><text x="328.7" y="280" text-anchor="middle" font-size="10" fill="#64748b">15</text><text x="399.3" y="280" text-anchor="middle" font-size="10" fill="#64748b">18</text><text x="470.0" y="280" text-anchor="middle" font-size="10" fill="#64748b">21</text><text x="258" y="296" text-anchor="middle" font-size="10" fill="#475569">被験者数</text><line x1="46" y1="128.6" x2="470" y2="128.6" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/><text x="474" y="131.6" font-size="10" fill="#ef4444">目標 0.9</text><path d="M46.0,211.6 L116.7,144.6 L187.3,119.4 L258.0,71.7 L328.7,58.6 L399.3,64.5 L470.0,46.9" fill="none" stroke="#8b5cf6" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="211.6" r="2.5" fill="#8b5cf6"/><circle cx="116.7" cy="144.6" r="2.5" fill="#8b5cf6"/><circle cx="187.3" cy="119.4" r="2.5" fill="#8b5cf6"/><circle cx="258.0" cy="71.7" r="2.5" fill="#8b5cf6"/><circle cx="328.7" cy="58.6" r="2.5" fill="#8b5cf6"/><circle cx="399.3" cy="64.5" r="2.5" fill="#8b5cf6"/><circle cx="470.0" cy="46.9" r="2.5" fill="#8b5cf6"/><text x="474" y="49.9" font-size="9" fill="#8b5cf6">dtw</text><path d="M46.0,236.6 L116.7,173.8 L187.3,118.7 L258.0,110.7 L328.7,86.7 L399.3,90.8 L470.0,90.8" fill="none" stroke="#94a3b8" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="236.6" r="2.5" fill="#94a3b8"/><circle cx="116.7" cy="173.8" r="2.5" fill="#94a3b8"/><circle cx="187.3" cy="118.7" r="2.5" fill="#94a3b8"/><circle cx="258.0" cy="110.7" r="2.5" fill="#94a3b8"/><circle cx="328.7" cy="86.7" r="2.5" fill="#94a3b8"/><circle cx="399.3" cy="90.8" r="2.5" fill="#94a3b8"/><circle cx="470.0" cy="90.8" r="2.5" fill="#94a3b8"/><text x="474" y="93.8" font-size="9" fill="#94a3b8">label_shuffle</text><path d="M46.0,210.8 L116.7,177.9 L187.3,118.3 L258.0,77.5 L328.7,61.6 L399.3,71.9 L470.0,48.3" fill="none" stroke="#ec4899" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="210.8" r="2.5" fill="#ec4899"/><circle cx="116.7" cy="177.9" r="2.5" fill="#ec4899"/><circle cx="187.3" cy="118.3" r="2.5" fill="#ec4899"/><circle cx="258.0" cy="77.5" r="2.5" fill="#ec4899"/><circle cx="328.7" cy="61.6" r="2.5" fill="#ec4899"/><circle cx="399.3" cy="71.9" r="2.5" fill="#ec4899"/><circle cx="470.0" cy="48.3" r="2.5" fill="#ec4899"/><text x="474" y="51.3" font-size="9" fill="#ec4899">mixup</text><path d="M46.0,245.5 L116.7,155.5 L187.3,127.2 L258.0,59.6 L328.7,39.7 L399.3,64.5 L470.0,51.4" fill="none" stroke="#64748b" stroke-width="2" /><circle cx="46.0" cy="245.5" r="2.5" fill="#64748b"/><circle cx="116.7" cy="155.5" r="2.5" fill="#64748b"/><circle cx="187.3" cy="127.2" r="2.5" fill="#64748b"/><circle cx="258.0" cy="59.6" r="2.5" fill="#64748b"/><circle cx="328.7" cy="39.7" r="2.5" fill="#64748b"/><circle cx="399.3" cy="64.5" r="2.5" fill="#64748b"/><circle cx="470.0" cy="51.4" r="2.5" fill="#64748b"/><text x="474" y="54.4" font-size="9" fill="#64748b">none</text><path d="M46.0,233.6 L116.7,172.8 L187.3,134.8 L258.0,66.4 L328.7,52.2 L399.3,75.4 L470.0,55.7" fill="none" stroke="#0ea5e9" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="233.6" r="2.5" fill="#0ea5e9"/><circle cx="116.7" cy="172.8" r="2.5" fill="#0ea5e9"/><circle cx="187.3" cy="134.8" r="2.5" fill="#0ea5e9"/><circle cx="258.0" cy="66.4" r="2.5" fill="#0ea5e9"/><circle cx="328.7" cy="52.2" r="2.5" fill="#0ea5e9"/><circle cx="399.3" cy="75.4" r="2.5" fill="#0ea5e9"/><circle cx="470.0" cy="55.7" r="2.5" fill="#0ea5e9"/><text x="474" y="58.7" font-size="9" fill="#0ea5e9">oversample</text><path d="M46.0,164.1 L116.7,180.8 L187.3,118.3 L258.0,60.4 L328.7,34.5 L399.3,66.4 L470.0,40.5" fill="none" stroke="#eab308" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="164.1" r="2.5" fill="#eab308"/><circle cx="116.7" cy="180.8" r="2.5" fill="#eab308"/><circle cx="187.3" cy="118.3" r="2.5" fill="#eab308"/><circle cx="258.0" cy="60.4" r="2.5" fill="#eab308"/><circle cx="328.7" cy="34.5" r="2.5" fill="#eab308"/><circle cx="399.3" cy="66.4" r="2.5" fill="#eab308"/><circle cx="470.0" cy="40.5" r="2.5" fill="#eab308"/><text x="474" y="43.5" font-size="9" fill="#eab308">scaling</text><path d="M46.0,232.3 L116.7,175.6 L187.3,130.0 L258.0,75.8 L328.7,44.4 L399.3,69.7 L470.0,55.1" fill="none" stroke="#f97316" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="232.3" r="2.5" fill="#f97316"/><circle cx="116.7" cy="175.6" r="2.5" fill="#f97316"/><circle cx="187.3" cy="130.0" r="2.5" fill="#f97316"/><circle cx="258.0" cy="75.8" r="2.5" fill="#f97316"/><circle cx="328.7" cy="44.4" r="2.5" fill="#f97316"/><circle cx="399.3" cy="69.7" r="2.5" fill="#f97316"/><circle cx="470.0" cy="55.1" r="2.5" fill="#f97316"/><text x="474" y="58.1" font-size="9" fill="#f97316">smote</text></svg><figcaption class="cap mt-1">図2: 被験者数に対する精度の学習曲線と目標線。</figcaption></figure>
@@ -22048,7 +22048,7 @@
       </details>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-13 13:43 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-13 13:47 UTC</p>
   </div>
 
 </div>

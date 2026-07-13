@@ -74,7 +74,7 @@
         (UCI HAR [{{ ref.anguita2013 }}])へ展開して「所定の分類性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を定量する。
         1D-CNN では {{ facts.n_significant }} 手法の拡張が精度を統計的に有意に改善する一方、MiniRocket [{{ ref.minirocket }}] では有意な改善が
         見られず、効果はモデルに強く依存する。被験者数削減では、事前登録した目標精度
-        {{ facts.target_value if facts.target_value is not none else "—" }} に必要な実被験者数は拡張なしで約
+        {{ "%.2f" | format(facts.target_value) if facts.target_value is not none else "—" }} に必要な実被験者数は拡張なしで約
         {{ facts.n_star_none if facts.n_star_none is not none else "—" }} 名であり、点推定では DTW ベース合成 [{{ ref.forestier2017 }}] が最大
         {{ facts.dtw_reduction_pct if facts.dtw_reduction_pct is not none else "—" }}% の削減を示すが、反復が少なく信頼区間がラベル無作為化の negative control と重なるため確定できない。
         より小さな削減を示す手法は対照と同水準にとどまり、信号のない対照でも生じるアーティファクトと区別できない。したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
@@ -152,7 +152,7 @@
       <h3 class="sub">3.2 目標性能の事前登録</h3>
       <p class="lead text-sm">
       目標 τ を結果に合わせて選ぶと削減率をいくらでも都合よくできる。これを防ぐため、τ・指標・評価手続きを<strong>1 run も実行する前に</strong>登録する
-      (artifacts/pre_registration.md)。本研究では指標 = test accuracy、τ = <span class="font-mono">{{ facts.target_value if facts.target_value is not none else "0.90" }}</span>
+      (artifacts/pre_registration.md)。本研究では指標 = test accuracy、τ = <span class="font-mono">{{ "%.2f" | format(facts.target_value) if facts.target_value is not none else "0.90" }}</span>
       を採用した。この値は UCI HAR で Anguita ら [{{ ref.anguita2013 }}] が報告した水準に基づく文献由来の丸い値であり、結果を見てからの調整は行っていない。
       </p>
 
@@ -330,7 +330,7 @@
       <h3 class="sub" id="subject-reduction">6.3 被験者数削減(RQ2)</h3>
       {% if reduction and reduction.methods %}
       <p class="lead text-sm">被験者ID付きの UCI HAR [{{ ref.anguita2013 }}](30名の慣性センサ行動認識)で、事前登録した目標
-      <span class="font-mono">{{ reduction.target_metric }} = {{ reduction.target_value }}</span> に到達するのに必要な実被験者数 N* を、拡張なしと各手法で比較する。
+      <span class="font-mono">{{ reduction.target_metric }} = {{ "%.2f" | format(reduction.target_value) }}</span> に到達するのに必要な実被験者数 N* を、拡張なしと各手法で比較する。
       <strong>削減率 = 1 − N*(手法) / N*(none)</strong>。目標値は Anguita ら [{{ ref.anguita2013 }}] の報告水準に基づき<strong>実験前に固定</strong>した
       (artifacts/pre_registration.md)。基準は N*(none) = <span class="font-mono">{{ reduction.n_star_none }}</span> 名{% if reduction.n_star_none_ci %}(95%CI {{ reduction.n_star_none_ci[0] }}–{{ reduction.n_star_none_ci[1] }}){% endif %}。</p>
       <figure class="border border-slate-200 rounded p-2 my-3">{{ reduction_svg | safe }}<figcaption class="cap mt-1">図2: 被験者数に対する精度の学習曲線と目標線。</figcaption></figure>
