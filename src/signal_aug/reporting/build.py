@@ -144,25 +144,23 @@ PHASE_NAMES = {
 }
 
 REQUIRED_SECTION_IDS = [
-    "exec-summary",
-    "purpose",
-    "current-phase",
-    "progress",
-    "reproduction-conditions",
-    "datasets",
-    "augmentations",
-    "models",
-    "reproducibility",
+    # paper tab (academic structure)
+    "abstract",
+    "introduction",
+    "related-work",
+    "setup",
     "results",
     "learning-curves",
-    "statistics",
     "subject-reduction",
-    "paper-comparison",
-    "failed-runs",
-    "audit",
+    "discussion",
     "limitations",
-    "next-tasks",
+    "conclusion",
     "references",
+    # dashboard tab (non-paper / operational)
+    "ops-progress",
+    "ops-runs",
+    "ops-audit",
+    "ops-reproducibility",
 ]
 
 
@@ -266,7 +264,24 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     # the learning-curve figures, so 858 rows don't flood the table
     summary_full = [s for s in summary_main if s.get("train_fraction", 1.0) == 1.0]
 
+    # headline numbers for the abstract/intro (all derived from data, not typed)
+    study_runs = [r for r in results["runs"] if r["status"] == "completed" and r.get("dataset") != "synthetic"]
+    dtw_reduction = next(
+        (m["reduction_rate"] for m in (reduction or {}).get("methods", []) if m["augmentation"] == "dtw"),
+        None,
+    )
+    facts = {
+        "n_study_runs": len(study_runs),
+        "n_study_datasets": len({r["dataset"] for r in study_runs}),
+        "n_significant": sum(1 for s in stats_sorted if s.get("significant_holm")),
+        "target_metric": (reduction or {}).get("target_metric"),
+        "target_value": (reduction or {}).get("target_value"),
+        "n_star_none": (reduction or {}).get("n_star_none"),
+        "dtw_reduction_pct": round(dtw_reduction * 100, 1) if dtw_reduction is not None else None,
+    }
+
     return {
+        "facts": facts,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "results": results,
         "summary": summary_full,

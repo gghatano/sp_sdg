@@ -47,3 +47,18 @@ def test_findings_rendered_when_present():
     if context["findings"]:
         assert context["findings"][0]["id"] in html
         assert "追試" in html
+
+
+def test_report_has_paper_and_dashboard_tabs():
+    context = gather_context(".")
+    html = render_report(context, "report/src", css="")
+    assert 'data-tabbtn="paper"' in html and 'data-tabbtn="dashboard"' in html
+    assert 'data-tab="paper"' in html and 'data-tab="dashboard"' in html
+
+
+def test_paper_tab_has_academic_sections():
+    """Paper tab must carry the academic structure; ops ids live in the dashboard."""
+    for sid in ("abstract", "introduction", "related-work", "setup", "conclusion"):
+        assert sid in REQUIRED_SECTION_IDS
+    for sid in ("ops-progress", "ops-audit", "ops-runs", "ops-reproducibility"):
+        assert sid in REQUIRED_SECTION_IDS
