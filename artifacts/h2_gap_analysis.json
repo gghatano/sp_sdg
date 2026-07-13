@@ -1,0 +1,165 @@
+{
+  "train_fraction": 1.0,
+  "n_points": 24,
+  "spearman_overall": 0.037077469601744566,
+  "per_model": {
+    "cnn1d": {
+      "n": 12,
+      "mean_gap": 0.0471,
+      "mean_sdg_effect": 0.0839,
+      "spearman": 0.034965034965034975
+    },
+    "minirocket": {
+      "n": 12,
+      "mean_gap": 0.045,
+      "mean_sdg_effect": -0.0013,
+      "spearman": -0.08465726964337703
+    }
+  },
+  "points": [
+    {
+      "dataset": "ArrowHead",
+      "model": "cnn1d",
+      "gap": 0.0813,
+      "sdg_effect": 0.1117
+    },
+    {
+      "dataset": "ArrowHead",
+      "model": "minirocket",
+      "gap": 0.1105,
+      "sdg_effect": 0.0013
+    },
+    {
+      "dataset": "CBF",
+      "model": "cnn1d",
+      "gap": 0.0152,
+      "sdg_effect": 0.0002
+    },
+    {
+      "dataset": "CBF",
+      "model": "minirocket",
+      "gap": 0.0019,
+      "sdg_effect": -0.0007
+    },
+    {
+      "dataset": "Coffee",
+      "model": "cnn1d",
+      "gap": -0.0357,
+      "sdg_effect": 0.3829
+    },
+    {
+      "dataset": "Coffee",
+      "model": "minirocket",
+      "gap": 0.0,
+      "sdg_effect": 0.0
+    },
+    {
+      "dataset": "ECG200",
+      "model": "cnn1d",
+      "gap": 0.16,
+      "sdg_effect": 0.0228
+    },
+    {
+      "dataset": "ECG200",
+      "model": "minirocket",
+      "gap": 0.0967,
+      "sdg_effect": -0.0116
+    },
+    {
+      "dataset": "ECG5000",
+      "model": "cnn1d",
+      "gap": 0.0339,
+      "sdg_effect": -0.0043
+    },
+    {
+      "dataset": "ECG5000",
+      "model": "minirocket",
+      "gap": 0.0391,
+      "sdg_effect": -0.0015
+    },
+    {
+      "dataset": "GunPoint",
+      "model": "cnn1d",
+      "gap": 0.0111,
+      "sdg_effect": 0.0059
+    },
+    {
+      "dataset": "GunPoint",
+      "model": "minirocket",
+      "gap": 0.0022,
+      "sdg_effect": 0.0
+    },
+    {
+      "dataset": "ItalyPowerDemand",
+      "model": "cnn1d",
+      "gap": 0.0375,
+      "sdg_effect": 0.0003
+    },
+    {
+      "dataset": "ItalyPowerDemand",
+      "model": "minirocket",
+      "gap": 0.0353,
+      "sdg_effect": -0.0013
+    },
+    {
+      "dataset": "MoteStrain",
+      "model": "cnn1d",
+      "gap": 0.0895,
+      "sdg_effect": 0.1992
+    },
+    {
+      "dataset": "MoteStrain",
+      "model": "minirocket",
+      "gap": 0.0644,
+      "sdg_effect": -0.0034
+    },
+    {
+      "dataset": "Plane",
+      "model": "cnn1d",
+      "gap": 0.0,
+      "sdg_effect": 0.0
+    },
+    {
+      "dataset": "Plane",
+      "model": "minirocket",
+      "gap": 0.0,
+      "sdg_effect": 0.0
+    },
+    {
+      "dataset": "SonyAIBORobotSurface1",
+      "model": "cnn1d",
+      "gap": 0.1697,
+      "sdg_effect": 0.1289
+    },
+    {
+      "dataset": "SonyAIBORobotSurface1",
+      "model": "minirocket",
+      "gap": 0.1836,
+      "sdg_effect": 0.0009
+    },
+    {
+      "dataset": "TwoLeadECG",
+      "model": "cnn1d",
+      "gap": -0.0004,
+      "sdg_effect": 0.158
+    },
+    {
+      "dataset": "TwoLeadECG",
+      "model": "minirocket",
+      "gap": 0.0053,
+      "sdg_effect": 0.0014
+    },
+    {
+      "dataset": "Wafer",
+      "model": "cnn1d",
+      "gap": 0.0035,
+      "sdg_effect": 0.0009
+    },
+    {
+      "dataset": "Wafer",
+      "model": "minirocket",
+      "gap": 0.0016,
+      "sdg_effect": -0.0006
+    }
+  ]
+}

@@ -71,3 +71,14 @@ def test_draft_config_rejected(tmp_path):
                                      "datasets": [], "augmentations": [], "models": [], "seeds": []}))
     with pytest.raises(ValueError, match="draft"):
         run_experiment(draft, config_dir="config", runs_dir=tmp_path / "runs")
+
+
+def test_runs_record_train_accuracy(smoke_result):
+    """train_accuracy is recorded for the generalization-gap analysis (H2, #12)."""
+    import json
+    from pathlib import Path
+    _, results = smoke_result
+    for manifest in results:
+        metrics = json.loads(Path(manifest["metrics_path"]).read_text())
+        assert "train_accuracy" in metrics
+        assert 0.0 <= metrics["train_accuracy"] <= 1.0

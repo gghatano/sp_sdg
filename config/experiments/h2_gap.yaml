@@ -1,0 +1,22 @@
+# H2 (issue #12): does SDG effect magnitude correlate with the no-augmentation
+# generalization gap? This grid runs ONLY the none baseline (full data) to
+# record train_accuracy per (dataset, model); the SDG effect is read from the
+# existing Phase 2 results. Distinct name so run_ids do not collide with phase2.
+phase: 2
+name: h2gap
+datasets:
+  - GunPoint
+  - ECG5000
+  - ECG200
+  - TwoLeadECG
+  - ItalyPowerDemand
+  - MoteStrain
+  - SonyAIBORobotSurface1
+  - CBF
+  - Plane
+  - ArrowHead
+  - Coffee
+  - Wafer
+augmentations: [none]
+models: [cnn1d, minirocket]
+seeds: [0, 1, 2]
