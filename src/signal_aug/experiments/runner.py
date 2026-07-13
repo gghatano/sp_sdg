@@ -202,6 +202,11 @@ def execute_run(spec: RunSpec, data: DatasetSplits, runs_dir: str | Path = "runs
         model.fit(X_aug, y_aug)
         y_pred = model.predict(data.X_test)
         metrics = compute_metrics(data.y_test, y_pred)
+        # train accuracy on the original (pre-augmentation) training subsample, for
+        # the generalization-gap analysis (train_accuracy - accuracy); see H2 (issue #12)
+        from sklearn.metrics import accuracy_score
+
+        metrics["train_accuracy"] = float(accuracy_score(y_train, model.predict(X_train)))
         logger.info("metrics=%s", metrics)
 
         metrics_path.parent.mkdir(parents=True, exist_ok=True)
