@@ -23,7 +23,7 @@ from signal_aug.augmentations.methods import apply_augmentation
 from signal_aug.data.loader import DatasetSplits, load_dataset, stratified_subsample
 from signal_aug.evaluation.metrics import compute_metrics
 from signal_aug.experiments import manifest as mf
-from signal_aug.models.minirocket import build_model
+from signal_aug.models import build_model
 
 
 @dataclass
@@ -44,29 +44,71 @@ def load_yaml(path: str | Path) -> dict:
     return yaml.safe_load(Path(path).read_text())
 
 
+def _pid_alive(pid: int) -> bool:
+    """True if a process with this pid exists and is signalable. A live pid we
+    do not own raises PermissionError — still alive, so return True."""
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
+
+
 @contextmanager
 def grid_lock(runs_dir: Path):
     """Prevent two runner processes from executing grids concurrently — the
-    root cause of run_id write races (spec section 7). Stale locks (dead pid)
-    are reclaimed automatically."""
+    root cause of run_id write races (spec section 7). Acquisition is atomic
+    via O_CREAT|O_EXCL so two processes cannot both believe they hold the lock
+    (the previous exists()-then-write left a TOCTOU window). Stale locks whose
+    pid is dead are reclaimed."""
     lock = Path(runs_dir) / ".runner.lock"
     lock.parent.mkdir(parents=True, exist_ok=True)
-    if lock.exists():
+    payload = str(os.getpid())
+
+    def _try_create() -> bool:
+        try:
+            fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError:
+            return False
+        with os.fdopen(fd, "w") as f:
+            f.write(payload)
+        return True
+
+    if not _try_create():
+        # lock exists: reclaim only if the holder pid is dead
         try:
             old_pid = int(lock.read_text().strip())
-            os.kill(old_pid, 0)  # raises if the pid is gone
+            holder_alive = _pid_alive(old_pid)
+        except ValueError:
+            old_pid, holder_alive = None, False  # corrupt lock, treat as stale
+        if holder_alive:
             raise RuntimeError(
                 f"another runner (pid {old_pid}) holds {lock}. "
                 f"Wait for it, or remove the lock if that process is dead."
             )
-        except (ValueError, ProcessLookupError):
-            pass  # stale lock, reclaim it
-    lock.write_text(str(os.getpid()))
+        lock.unlink(missing_ok=True)
+        if not _try_create():
+            raise RuntimeError(f"could not acquire {lock} after reclaiming a stale lock")
+
     try:
         yield
     finally:
-        if lock.exists() and lock.read_text().strip() == str(os.getpid()):
-            lock.unlink()
+        # only the owner removes the lock
+        if lock.exists() and lock.read_text().strip() == payload:
+            lock.unlink(missing_ok=True)
+
+
+def clean_stale_tmp(runs_dir: Path) -> int:
+    """Remove orphaned manifest tmp files left by a process that died between
+    write and atomic replace. Safe to call while holding the grid lock (no other
+    runner is writing). Returns the number removed."""
+    n = 0
+    for tmp in Path(runs_dir).glob("manifests/*.json.tmp.*"):
+        tmp.unlink(missing_ok=True)
+        n += 1
+    return n
 
 
 def expand_grid(experiment_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[RunSpec]:
@@ -101,9 +143,13 @@ def expand_grid(experiment_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[Ru
     return runs
 
 
-def _run_logger(run_id: str, log_path: Path) -> logging.Logger:
+def run_logger(run_id: str, log_path: Path) -> logging.Logger:
+    """Per-run file logger. Closes any pre-existing handlers before replacing
+    them so re-running a run_id in-process does not leak file descriptors."""
     logger = logging.getLogger(f"run.{run_id}")
     logger.setLevel(logging.INFO)
+    for handler in logger.handlers:
+        handler.close()
     logger.handlers.clear()
     log_path.parent.mkdir(parents=True, exist_ok=True)
     fh = logging.FileHandler(log_path, mode="w")
@@ -119,7 +165,7 @@ def execute_run(spec: RunSpec, data: DatasetSplits, runs_dir: str | Path = "runs
     metrics_path = runs_dir / "metrics" / f"{spec.run_id}.json"
     predictions_path = runs_dir / "predictions" / f"{spec.run_id}.csv"
 
-    logger = _run_logger(spec.run_id, log_path)
+    logger = run_logger(spec.run_id, log_path)
     manifest = mf.new_manifest(
         run_id=spec.run_id,
         phase=spec.phase,
@@ -205,6 +251,7 @@ def run_experiment(
 
     n_skip = 0
     with grid_lock(Path(runs_dir)):
+        clean_stale_tmp(Path(runs_dir))
         for spec in runs:
             existing = mf.load_manifest(spec.run_id, manifests_dir)
             if resume and existing and existing.get("status") == "completed":

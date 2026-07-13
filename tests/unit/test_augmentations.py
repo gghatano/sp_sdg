@@ -76,3 +76,27 @@ def test_label_shuffle_randomizes_only_synthetic_labels():
     # every synthetic signal equals some real signal (copy), labels stay in range
     assert len(X_out) == 2 * len(X)
     assert set(np.unique(y_out[len(y):])) <= set(np.unique(y))
+
+
+def test_mixup_produces_only_same_class_combinations():
+    """deviations.md: mixup is restricted to same-class pairs (no soft labels).
+    Build class-separated signals so an inter-class blend would be detectable."""
+    import numpy as np
+    from signal_aug.augmentations.methods import apply_augmentation
+
+    length = 16
+    n_per = 20
+    # class 0 signals are all +1, class 1 signals are all -1 -> any inter-class
+    # convex blend lands strictly between, which we can detect
+    X = np.concatenate([
+        np.ones((n_per, 1, length), dtype=np.float32),
+        -np.ones((n_per, 1, length), dtype=np.float32),
+    ])
+    y = np.array([0] * n_per + [1] * n_per, dtype=np.int64)
+    X_out, y_out = apply_augmentation("mixup", X, y, seed=0, params={"ratio": 1.0})
+    synth_X = X_out[len(X):]
+    synth_y = y_out[len(y):]
+    for xi, yi in zip(synth_X, synth_y):
+        # same-class blends stay at exactly +1 (class 0) or -1 (class 1)
+        expected = 1.0 if yi == 0 else -1.0
+        assert np.allclose(xi, expected), "mixup blended across classes"

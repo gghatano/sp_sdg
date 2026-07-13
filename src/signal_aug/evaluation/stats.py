@@ -8,6 +8,8 @@ train_fraction). Only completed runs participate.
 
 from __future__ import annotations
 
+import math
+
 from scipy.stats import wilcoxon
 
 
@@ -48,11 +50,19 @@ def wilcoxon_vs_none(rows: list[dict], metric: str = "accuracy") -> list[dict]:
             if len(deltas) < 5:
                 continue
             mean_delta = sum(deltas) / len(deltas)
-            try:
-                stat, p_value = wilcoxon(deltas)
-                p_value = float(p_value)
-            except ValueError:  # e.g. all differences are zero
+            if all(d == 0 for d in deltas):
+                # Wilcoxon is undefined when every paired difference is zero.
+                # Depending on the SciPy version this raises or returns NaN;
+                # normalize both to None so callers see a single "undefined".
                 p_value = None
+            else:
+                try:
+                    _, p_value = wilcoxon(deltas)
+                    p_value = float(p_value)
+                    if math.isnan(p_value):
+                        p_value = None
+                except ValueError:
+                    p_value = None
             results.append(
                 {
                     "augmentation": aug,
@@ -64,3 +74,28 @@ def wilcoxon_vs_none(rows: list[dict], metric: str = "accuracy") -> list[dict]:
                 }
             )
     return results
+
+
+def holm_bonferroni(entries: list[dict], alpha: float = 0.05, p_key: str = "p_value") -> list[dict]:
+    """Annotate each entry with `significant_holm` using the Holm-Bonferroni
+    step-down procedure over the family of tests with a non-None p-value.
+
+    Entries are returned sorted by p-value ascending, each gaining a
+    `p_adjusted` field. Correct step-down semantics: the adjusted p-values are
+    made monotone non-decreasing (cumulative max), so once a hypothesis fails to
+    be rejected, no later (larger-p) hypothesis can be rejected. Entries with a
+    None p-value are returned unchanged (not significant) after the tested ones.
+    """
+    testable = sorted([e for e in entries if e.get(p_key) is not None], key=lambda e: e[p_key])
+    untestable = [e for e in entries if e.get(p_key) is None]
+    m = len(testable)
+    running_max = 0.0
+    for i, e in enumerate(testable):
+        adj = min(1.0, e[p_key] * (m - i))
+        running_max = max(running_max, adj)  # enforce monotone non-decreasing
+        e["p_adjusted"] = running_max
+        e["significant_holm"] = bool(running_max < alpha)
+    for e in untestable:
+        e["p_adjusted"] = None
+        e["significant_holm"] = False
+    return testable + untestable

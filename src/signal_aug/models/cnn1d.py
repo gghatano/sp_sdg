@@ -98,7 +98,8 @@ class CNN1DClassifier:
         return self
 
     def predict(self, X: np.ndarray) -> np.ndarray:
-        assert self.model is not None, "fit() must be called before predict()"
+        if self.model is None:
+            raise RuntimeError("fit() must be called before predict()")
         with torch.no_grad():
             logits = self.model(torch.from_numpy(X).float())
         return logits.argmax(dim=1).numpy().astype(np.int64)

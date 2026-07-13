@@ -24,8 +24,8 @@ from signal_aug.data.subject import select_train_subjects, subset_by_subjects
 from signal_aug.data.uci_har import load_uci_har
 from signal_aug.evaluation.metrics import compute_metrics
 from signal_aug.experiments import manifest as mf
-from signal_aug.experiments.runner import grid_lock, load_yaml, _run_logger
-from signal_aug.models.minirocket import build_model
+from signal_aug.experiments.runner import clean_stale_tmp, grid_lock, load_yaml, run_logger
+from signal_aug.models import build_model
 
 
 @dataclass
@@ -76,7 +76,7 @@ def execute_subject_run(spec: SubjectRunSpec, pool, test, runs_dir: Path, repo_r
     log_path = runs_dir / "logs" / f"{spec.run_id}.log"
     metrics_path = runs_dir / "metrics" / f"{spec.run_id}.json"
     predictions_path = runs_dir / "predictions" / f"{spec.run_id}.csv"
-    logger = _run_logger(spec.run_id, log_path)
+    logger = run_logger(spec.run_id, log_path)
 
     # checksums over the fixed test set and the selected subject subset
     chosen = select_train_subjects(pool.subjects, spec.subject_count, seed=spec.seed)
@@ -161,6 +161,7 @@ def run_subject_experiment(
     n_skip = 0
 
     with grid_lock(runs_dir):
+        clean_stale_tmp(runs_dir)
         pool, test = load_uci_har()
         for spec in runs:
             existing = mf.load_manifest(spec.run_id, manifests_dir)
