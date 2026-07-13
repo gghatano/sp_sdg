@@ -11,10 +11,17 @@ import statistics
 from pathlib import Path
 
 
+# Auxiliary/methodological experiments excluded from the study report summary
+# (they duplicate the none baseline for side-analyses, e.g. the H2 gap study).
+AUX_RUN_PREFIXES = ("h2gap_",)
+
+
 def collect_runs(manifests_dir: str | Path = "runs/manifests") -> list[dict]:
     rows = []
     for path in sorted(Path(manifests_dir).glob("*.json")):
         manifest = json.loads(path.read_text())
+        if manifest["run_id"].startswith(AUX_RUN_PREFIXES):
+            continue
         row = {
             "run_id": manifest["run_id"],
             "phase": manifest["phase"],

@@ -45,7 +45,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-13 11:24 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-13 13:35 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -2235,6 +2235,16 @@
           </div>
           <div>negative control(ラベルを無作為化した label_shuffle)が 4.3% の見かけの削減を示し、mixup(4.1%)・scaling(3.9%)と同等だった。すなわち約4%以下の削減はクラス信号のない対照でも再現され、アーティファクトと区別できない</div>
           <div class="text-xs text-slate-500 mt-1">本研究で最も重要な方法論的知見。少データ条件ではデータ量の水増し自体が正則化的に働くため、ラベルが誤っていても見かけ上 N* が下がりうる。DTW(10.8%)のみが対照を上回るが CI は重なり、確定はできない。結論: 本設定ではデータ拡張による被験者削減は『対照を明確に超える』とは言えず、小さな削減の主張は negative control 越えを条件とすべき</div>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-mono text-xs text-slate-400">F-11</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-purple-100 text-purple-800">独自</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">確度 medium</span>
+          </div>
+          <div>仮説 H2(SDG 効果 ∝ 汎化ギャップ)は支持されない。全データ条件で、各(データセット×モデル)の拡張なし汎化ギャップ(train−test 精度)と SDG 平均効果の Spearman 相関は 0.04(24点)で無相関。とくに 1D-CNN と MiniRocket の平均ギャップはほぼ同じ(0.047 vs 0.045)なのに、SDG 効果は CNN +8.4pt / MiniRocket −0.1pt と対照的だった</div>
+          <div class="text-xs text-slate-500 mt-1">H2 の反証。『どれだけ過剰適合しているか(ギャップ)』は SDG が効くかを説明しない。両モデルは同程度に過剰適合するのに MiniRocket だけ拡張が無効。含意: 効くかどうかはモデルが拡張された変動を『表現・利用できるか』で決まる。MiniRocket の固定ランダム畳み込み特徴は本実験の拡張に対してほぼ不変で、ギャップの大小に関わらず合成サンプルが線形分類器に新情報を与えないと解釈できる。これは H4/特徴量空間分析(issue #7 候補5)への動機付けとなる。ただし本検証は全データ条件のみで、低データ域では未検証(H5 と併せ今後)</div>
         </div>
         
       </div>
@@ -21962,7 +21972,7 @@
       </details>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-13 11:24 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-13 13:35 UTC</p>
   </div>
 
 </div>

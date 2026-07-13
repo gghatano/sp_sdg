@@ -1,0 +1,31 @@
+{
+  "run_id": "h2gap_MoteStrain_none_minirocket_s1",
+  "phase": 2,
+  "dataset": "MoteStrain",
+  "dataset_checksum": "5e5f5395368685ca5cc184ca4e392970569f878c3ca6870d2ab9c1d8e08151fc",
+  "split_checksum": "e519f4a3e37bf8b7204381d42663ba2a92d214ac3feb134ddab71c04af2c88f8",
+  "augmentation": "none",
+  "augmentation_params": {},
+  "model": "minirocket",
+  "model_params": {
+    "n_kernels": 10000
+  },
+  "seed": 1,
+  "git_commit": "fddeccab3586b31fdc86e2c8c9b2ab8fc4d4cff4",
+  "git_dirty": false,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-13T13:30:29.352945+00:00",
+  "ended_at": "2026-07-13T13:30:29.942730+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/h2gap_MoteStrain_none_minirocket_s1.json",
+  "predictions_path": "runs/predictions/h2gap_MoteStrain_none_minirocket_s1.csv",
+  "log_path": "runs/logs/h2gap_MoteStrain_none_minirocket_s1.log",
+  "train_fraction": 1.0,
+  "n_train_used": 20
+}

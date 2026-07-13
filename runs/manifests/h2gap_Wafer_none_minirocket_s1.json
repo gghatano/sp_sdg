@@ -1,0 +1,31 @@
+{
+  "run_id": "h2gap_Wafer_none_minirocket_s1",
+  "phase": 2,
+  "dataset": "Wafer",
+  "dataset_checksum": "f0710382759f7fcbb6fdc882c994c7d67abd930fcbcec84c5f0c458fda7f049c",
+  "split_checksum": "a2dfa4af11dca3f319cfa39a39c1fe5cb2876b4cbace70237a10e9d727d0e4eb",
+  "augmentation": "none",
+  "augmentation_params": {},
+  "model": "minirocket",
+  "model_params": {
+    "n_kernels": 10000
+  },
+  "seed": 1,
+  "git_commit": "fddeccab3586b31fdc86e2c8c9b2ab8fc4d4cff4",
+  "git_dirty": false,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-13T13:31:51.439874+00:00",
+  "ended_at": "2026-07-13T13:31:57.086767+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/h2gap_Wafer_none_minirocket_s1.json",
+  "predictions_path": "runs/predictions/h2gap_Wafer_none_minirocket_s1.csv",
+  "log_path": "runs/logs/h2gap_Wafer_none_minirocket_s1.log",
+  "train_fraction": 1.0,
+  "n_train_used": 1000
+}
