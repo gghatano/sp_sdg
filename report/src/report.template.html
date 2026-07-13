@@ -51,15 +51,15 @@
     <!-- TOC -->
     <nav class="mb-8 text-sm figtab text-slate-600 border-y border-slate-200 py-3 leading-7">
       <span class="mr-3"><a href="#abstract">要旨</a></span>
-      <span class="mr-3"><a href="#introduction">1 序論</a></span>
-      <span class="mr-3"><a href="#problem-setup">2 問題設定</a></span>
-      <span class="mr-3"><a href="#proposed-method">3 提案手法(評価枠組み)</a></span>
-      <span class="mr-3"><a href="#related-methods">4 関連手法</a></span>
-      <span class="mr-3"><a href="#setup">5 実験設計</a></span>
-      <span class="mr-3"><a href="#results">6 実験結果</a></span>
-      <span class="mr-3"><a href="#discussion">7 考察</a></span>
-      <span class="mr-3"><a href="#limitations">8 限界</a></span>
-      <span class="mr-3"><a href="#conclusion">9 まとめ</a></span>
+      <span class="mr-3"><a href="#introduction">1. 序論</a></span>
+      <span class="mr-3"><a href="#problem-setup">2. 問題設定</a></span>
+      <span class="mr-3"><a href="#proposed-method">3. 提案手法</a></span>
+      <span class="mr-3"><a href="#related-methods">4. 関連手法</a></span>
+      <span class="mr-3"><a href="#setup">5. 実験設計</a></span>
+      <span class="mr-3"><a href="#results">6. 実験結果</a></span>
+      <span class="mr-3"><a href="#discussion">7. 考察</a></span>
+      <span class="mr-3"><a href="#limitations">8. 限界</a></span>
+      <span class="mr-3"><a href="#conclusion">9. まとめ</a></span>
       <span><a href="#references">参考文献</a></span>
     </nav>
     <p class="cap mb-6">用語の説明・プロジェクト運用・進捗・簡易な予備検証などの傍論は、上部「実験・運用ダッシュボード」タブに分離した。</p>
@@ -76,8 +76,9 @@
         見られず、効果はモデルに強く依存する。被験者数削減では、事前登録した目標精度
         {{ facts.target_value if facts.target_value is not none else "—" }} に必要な実被験者数は拡張なしで約
         {{ facts.n_star_none if facts.n_star_none is not none else "—" }} 名であり、点推定では DTW ベース合成 [{{ ref.forestier2017 }}] が最大
-        {{ facts.dtw_reduction_pct if facts.dtw_reduction_pct is not none else "—" }}% の削減を示す。しかしラベルを無作為化した negative control でも
-        同程度の見かけの削減が生じるため、<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
+        {{ facts.dtw_reduction_pct if facts.dtw_reduction_pct is not none else "—" }}% の削減を示すが、反復が少なく信頼区間がラベル無作為化の negative control と重なるため確定できない。
+        より小さな削減を示す手法は対照と同水準にとどまり、信号のない対照でも生じるアーティファクトと区別できない。したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
+        なお UCR での精度効果は先行研究 [{{ ref.iwana2021 }}] の傾向を追試した結果であり、被験者数削減の評価枠組みと negative control による健全性検証が本研究独自の貢献である。
         すべての結果は目標の事前登録とデータリーク防止プロトコルの下で得られ、実験基盤・レポートは完全に自動生成される。
         </p>
       </div>
@@ -98,10 +99,10 @@
       </p>
       <p class="lead text-sm mt-2">本研究の貢献は以下のとおり。</p>
       <ol class="lead text-sm list-decimal list-inside mt-1 space-y-1">
-        <li>UCR [{{ ref.ucr }}] {{ facts.n_study_datasets }} データセット × 7 拡張 × 2 モデル × 学習比率 5 段階での精度効果の系統評価と、多重比較補正付きの有意性検定(§6.1)。</li>
-        <li>被験者単位の学習曲線から必要被験者数 N* を推定し、削減率・等価被験者数・信頼区間を与える評価枠組みを<strong>本研究の提案</strong>として定式化する(§3、目標性能は事前登録)。</li>
-        <li>ラベル無作為化を用いた negative control による健全性検証。見かけの削減が信号のない対照でも再現されることを示し、削減主張に「対照越え」を課す(§3.3、§6.3)。</li>
-        <li>リーク防止・run manifest・監査・レポート生成まで完全自動化した再現可能な実験基盤(基盤・運用の詳細はダッシュボードタブ)。</li>
+        <li><span class="text-xs rounded px-1 bg-blue-100 text-blue-800">追試</span> UCR [{{ ref.ucr }}] {{ facts.n_study_datasets }} データセット × 7 拡張 × 2 モデル × 学習比率 5 段階での精度効果の系統評価と、多重比較補正付きの有意性検定(§6.1)。先行研究 [{{ ref.iwana2021 }}] の傾向を公開データで確認する。</li>
+        <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> 被験者単位の学習曲線から必要被験者数 N* を推定し、削減率・等価被験者数・信頼区間を与える評価枠組みを<strong>本研究の提案</strong>として定式化する(§3、目標性能は事前登録)。</li>
+        <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> ラベル無作為化を用いた negative control による健全性検証。見かけの削減が信号のない対照でも再現されることを示し、削減主張に「対照越え」を課す(§3.3、§6.3)。</li>
+        <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> リーク防止・run manifest・監査・レポート生成まで完全自動化した再現可能な実験基盤(基盤・運用の詳細はダッシュボードタブ)。</li>
       </ol>
       <p class="lead text-sm mt-2">
       以降、§2 で問題を形式的に設定し、§3 で提案する評価枠組みを述べる。§4 に評価対象の既存拡張手法、§5 に実験設計、§6 に結果、§7–§9 に考察・限界・まとめを示す。
@@ -113,7 +114,7 @@
       <h2 class="sec">2. 問題設定</h2>
       <p class="lead text-sm">
       被験者ID付きの信号分類データを考える。被験者集合 <span class="font-mono">S</span> から学習に用いる被験者部分集合 <span class="font-mono">S<sub>train</sub> ⊆ S</span>
-      を選び、その被験者に由来する系列で分類器を学習する。テストは <span class="font-mono">S<sub>train</sub></span> と<strong>被験者が重ならない</strong>固定 held-out
+      を選び、その被験者に由来する系列で分類器を学習する。テストは <span class="font-mono">S<sub>train</sub></span> と<strong>被験者が重ならない</strong>固定の held-out(評価用に取り置く)
       集合で行う(被験者跨ぎのリークを排除)。データ拡張 <span class="font-mono">A</span> は学習データにのみ適用し、合成系列を追加して学習集合を水増しする。
       </p>
       <p class="lead text-sm mt-2">本研究の研究課題と仮説を次のように定める。</p>
@@ -144,7 +145,7 @@
       <h3 class="sub">3.1 被験者数学習曲線と N* 推定</h3>
       <p class="lead text-sm">
       学習被験者数 <span class="font-mono">N</span> を段階的に増やし(各 N で複数の被験者部分集合を seed 固定で抽選)、固定 held-out test 上の精度を測って学習曲線を描く。
-      拡張手法ごとに曲線を求め、目標 τ を最初に超える点を線形補間して N* を推定する。反復抽選の分散から bootstrap で N* の 95% 信頼区間を与える。
+      拡張手法ごとに曲線を求め、目標 τ を最初に超える点を線形補間して N* を推定する。反復抽選の分散から bootstrap(再標本による区間推定)で N* の 95% 信頼区間を与える。
       同一被験者が学習とテストに跨らない group split をコードで検査し、拡張は各部分集合の学習データにのみ当てる。
       </p>
 
@@ -184,6 +185,11 @@
       <p class="cap mt-1">表1: 評価対象の拡張手法。ratio は元学習データ数に対する追加合成サンプル数の比(1.0 で倍増、元サンプルは保持)。
       原典 [{{ ref.smote }}][{{ ref.mixup }}][{{ ref.um2017 }}][{{ ref.forestier2017 }}]。原論文との実装差分はダッシュボードの deviations を参照。
       label_shuffle はラベルを無作為化した negative control。</p>
+      <p class="lead text-sm mt-2">
+      評価枠組み側の位置づけ: §3 で提案する枠組みは、標準的な学習曲線分析(学習量に対する性能の外挿)と、機械学習評価における対照(negative control)の考え方を、被験者単位・データ拡張の文脈へ組み合わせたものである。
+      時系列拡張のサーベイ [{{ ref.iwana2021 }}] は精度改善の観点が中心で、必要標本(被験者)数の削減を対照付きで定量する枠組みは扱っていない。
+      標本数-性能関係の推定や対照設計に関する既存手法との系統的な比較は本研究の範囲を超えるため、今後の課題とする。
+      </p>
       {% if reproduction_targets and reproduction_targets.targets %}
       <details class="mt-2 text-sm figtab">
         <summary class="cursor-pointer text-blue-700">追試対象論文の一覧</summary>
@@ -268,7 +274,8 @@
         </tbody>
       </table>
       </div>
-      <p class="cap mt-1">表4: 学習比率 100% の主要結果(全 {{ n_runs }} run のうち完了分から集計)。macro-F1 はクラス不均衡なデータ(例 ECG5000)で精度より低くなる。</p>
+      <p class="cap mt-1">表4: 学習比率 100% の主要結果(全 {{ n_runs }} run のうち完了分から集計)。macro-F1 はクラス不均衡なデータ(例 ECG5000)で精度より低くなる。
+      bal. acc.(balanced accuracy)はクラスごとの再現率の平均で、少数クラスを多数クラスと対等に扱う指標。</p>
 
       {% if stats %}
       <p class="lead text-sm mt-4">表5 に Wilcoxon 検定の結果を示す。各行は拡張手法×モデルで、同一(データセット・seed・学習比率)のペア精度差を none と比較したもの。
@@ -351,9 +358,9 @@
       <div class="mt-3 border border-amber-300 bg-amber-50 rounded p-3 text-sm figtab">
         <p class="font-bold text-amber-900 mb-1">Negative control による健全性検証</p>
         <p>ラベルを無作為化した対照 <span class="font-mono">label_shuffle</span>(クラス信号を持たない)は <span class="font-mono">{{ "%+.1f%%" | format(nc.reduction_rate * 100) }}</span> の見かけの削減を示した。
-        これは mixup・scaling の削減率と同等であり、<strong>約 4% 以下の削減は信号のない対照でも再現される=アーティファクトと区別できない</strong>。
-        少データではデータ量の水増し自体が正則化的に働くためと考えられる。したがって削減の主張は「対照を明確に超えるか」を条件とすべきで、本設定でそれを満たす手法はない
-        (DTW の点推定のみが対照を上回るが CI は重なる)。</p>
+        すなわち<strong>この対照と同水準以下の削減は、信号のない操作でも生じるアーティファクトであり真の削減と区別できない</strong>(表6 で対照以下の削減率を示す手法がこれに該当する)。
+        少データではデータ量の水増し自体が正則化的に働くためと考えられる。したがって削減の主張は「対照を明確に超えること」を条件とすべきで(§3.3)、本設定でそれを満たす手法はない。
+        点推定で対照を上回るのは DTW のみだが、その信頼区間は対照と重なり確定しない。</p>
       </div>
       {% endif %}
       {% else %}
@@ -361,7 +368,7 @@
       {% endif %}
     </section>
 
-    <!-- 6. Discussion -->
+    <!-- 7. Discussion -->
     <section id="discussion" class="mb-4">
       <h2 class="sec">7. 考察</h2>
       <p class="lead text-sm">
@@ -388,7 +395,7 @@
       {% endif %}
     </section>
 
-    <!-- 7. Limitations -->
+    <!-- 8. Limitations -->
     <section id="limitations" class="mb-4">
       <h2 class="sec">8. 限界</h2>
       {% if limitations %}
