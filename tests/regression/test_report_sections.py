@@ -57,8 +57,20 @@ def test_report_has_paper_and_dashboard_tabs():
 
 
 def test_paper_tab_has_academic_sections():
-    """Paper tab must carry the academic structure; ops ids live in the dashboard."""
-    for sid in ("abstract", "introduction", "related-work", "setup", "conclusion"):
+    """Paper tab must carry the journal-paper structure (abstract → problem
+    setup → proposed method → related methods → design → results → conclusion);
+    ops/glossary ids live in the dashboard."""
+    for sid in (
+        "abstract",
+        "introduction",
+        "problem-setup",
+        "proposed-method",
+        "related-methods",
+        "setup",
+        "results",
+        "discussion",
+        "conclusion",
+    ):
         assert sid in REQUIRED_SECTION_IDS
-    for sid in ("ops-progress", "ops-audit", "ops-runs", "ops-reproducibility"):
+    for sid in ("ops-progress", "ops-audit", "ops-runs", "ops-reproducibility", "ops-glossary"):
         assert sid in REQUIRED_SECTION_IDS
