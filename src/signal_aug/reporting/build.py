@@ -144,10 +144,14 @@ PHASE_NAMES = {
 }
 
 REQUIRED_SECTION_IDS = [
-    # paper tab (academic structure)
+    # paper tab (journal-paper structure: abstract, intro, problem setup,
+    # proposed framework, related methods, experimental design, results,
+    # discussion, limitations, conclusion, references)
     "abstract",
     "introduction",
-    "related-work",
+    "problem-setup",
+    "proposed-method",
+    "related-methods",
     "setup",
     "results",
     "learning-curves",
@@ -156,11 +160,12 @@ REQUIRED_SECTION_IDS = [
     "limitations",
     "conclusion",
     "references",
-    # dashboard tab (non-paper / operational)
+    # dashboard tab (non-paper: operations, reproducibility, glossary)
     "ops-progress",
     "ops-runs",
     "ops-audit",
     "ops-reproducibility",
+    "ops-glossary",
 ]
 
 
