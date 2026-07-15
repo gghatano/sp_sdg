@@ -1,6 +1,6 @@
 # state.md
 
-最終更新: 2026-07-13(issue #13 レポート体裁ブラッシュアップ)
+最終更新: 2026-07-15(再現・前処理ノートタブ追加)
 
 ## 現在の状態
 
@@ -8,6 +8,7 @@
 - PR #1 が main にマージ済み。レポートは GitHub Pages に自動デプロイ(https://gghatano.github.io/sp_sdg/ )
 - 主要知見は artifacts/findings.json(F-1〜F-10)
 - **issue #13 対応(branch claude/issue-13-resolution-r7ow7w)**: 論文タブを学会誌構成(要旨/序論/問題設定/提案手法(評価枠組み)/関連手法/実験設計/実験結果/考察/限界/まとめ/参考文献)へ再編。傍論(進捗・再現性・簡易実験・用語説明)はダッシュボードタブへ分離。3ペルソナレビュー+結果監査を反映して収束(要旨の削減ロジック精緻化、negative control 箱の固定数値を束縛化、追試/独自の明示、用語インライン注)。数値の手入力なし・test 利用示唆なしを監査確認。build/section テスト green
+- **再現・前処理ノートタブ追加(branch claude/spec-task-planning-ubz1up)**: レポートに第3タブ「再現・前処理ノート」を追加。再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断(sensitivity 付き)・原論文からの実装差分を、`artifacts/{reproduction_steps,preprocessing_notes,judgment_calls}.yaml`・`deviations.md` から自動生成(HTML 手入力なし)。維持手順を skill `/reproducibility-notes` 化し、CLAUDE.md に維持義務を追記。regression テスト追加・全 128 テスト green・ヘッドレス描画で表示確認。
 - 次の候補: Phase 6-7(削減評価の反復数増による確度向上、予備対象 WISDM での再現、拡張強度スイープ、統合レポート)。詳細は GitHub issue #7
 
 ## フェーズ別の経過(時系列)

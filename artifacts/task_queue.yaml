@@ -39,3 +39,6 @@ tasks:
 
   - {id: R13-1, phase: 5, title: "レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化", status: done}
   - {id: R13-2, phase: 5, title: "3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)", status: done}
+
+  - {id: RP-1, phase: 5, title: "再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)", status: done}
+  - {id: RP-2, phase: 5, title: "維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)", status: done}

@@ -1,0 +1,43 @@
+# preprocessing_notes.yaml
+# データ前処理の補足と不定性(reproducibility に効くもの)。
+# レポート「再現・前処理」タブへ自動描画。実装(src/signal_aug/data/)と対応させて更新する。
+# uncertainty: 再現時に結果を左右しうる注意点・判断の余地。
+
+intro: >-
+  前処理は src/signal_aug/data/ に実装され、config ではなくコードで定義される。以下は
+  再現時に効く前処理の要点と、実装上の判断・不定性である。すべての正規化・当てはめは
+  学習データにのみ行い、test データには波及しない設計になっている。
+
+notes:
+  - stage: 正規化(z 正規化)
+    scope: "UCR データセット"
+    detail: "各系列・各チャネルごとに時間軸方向で平均0・分散1へ正規化(_znorm)。train と test に同一処理を当てるが、統計量は系列単位で完結するためデータセット統計の共有(=リーク)は生じない。"
+    uncertainty: "サンプル単位正規化のため系列全体の振幅情報は落ちる。振幅が判別に効くデータでは前処理の選択が精度に影響しうる。"
+  - stage: 正規化(z 正規化)
+    scope: "UCI HAR(被験者数実験の主対象)"
+    detail: "9チャネル慣性信号(body_acc/body_gyro/total_acc の x/y/z)を原スケール(g 単位)のまま用い、z 正規化は適用しない。"
+    uncertainty: "UCR とは正規化方針が異なる。total_acc は重力込み・body_acc は重力除去済みという配布元の前処理に依存しており、追加正規化を入れると学習曲線・N* が変わりうる。ここは意図的な判断(judgment_calls: J-HAR-NORM)。"
+  - stage: 窓化(windowing)
+    scope: "UCI HAR"
+    detail: "配布元が生成した固定窓(128サンプル=2.56秒、50% オーバーラップ)をそのまま使用し、再窓化はしない。窓ごとに被験者IDが付与される。"
+    uncertainty: "同一被験者の重複窓が複数現れるが、被験者跨ぎリークは group split で防止(同一被験者は train と test に同時に現れない)。窓長・オーバーラップは配布元定義に固定。"
+  - stage: ラベル符号化
+    scope: "全データセット"
+    detail: "出現クラスをソートして 0..K-1 に写像。UCI HAR は元ラベル 1..6 を 0..5 へシフト。"
+    uncertainty: "クラス順序は決定的(ソート順)。混同行列・クラス別指標を他実装と比較する際はこの順序に注意。"
+  - stage: 層化サブサンプリング(学習比率スイープ)
+    scope: "Phase 2(UCR)"
+    detail: "学習データのみを対象に、クラスごとに seed 由来の決定的サンプリングで比率を絞る。各クラス最低1サンプルを保持。test には一切適用しない。"
+    uncertainty: "小比率ではクラスあたり枚数が少なく、部分集合の引きにより分散が出る。seed 固定で再現可能。"
+  - stage: train/val 分割(early stopping 用)
+    scope: "1D-CNN"
+    detail: "学習データから層化抽出した検証セットで early stopping を行う。val は train 由来のみで、test は early stopping に使わない(spec §8)。"
+    uncertainty: "val_fraction は config 定義。分割 seed により学習の停止点が変わりうるが run seed で固定。"
+  - stage: 被験者選択(学習曲線)
+    scope: "UCI HAR(Phase 4-5)"
+    detail: "被験者数 N の各点で、プール(公式 train の21被験者)から丸ごと N 被験者を seed 決定的に抽選する。サンプル単位ではなく被験者単位で増やす。"
+    uncertainty: "反復は3回のみで N* の信頼区間が広い(本研究の主要な限界)。固定 held-out test は公式 test の9被験者。"
+  - stage: 欠損・異常値処理
+    scope: "全データセット"
+    detail: "UCR アーカイブ・UCI HAR とも配布時点で整形済みのため、欠損補完・外れ値除去は行わない。"
+    uncertainty: "独自データへ移植する場合は、この前提(前処理済み・欠損なし)が成り立つか確認が必要。"

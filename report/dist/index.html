@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>時系列データ拡張による被験者数削減の実証評価</title>
-<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sticky{position:sticky}.top-0{top:0}.mx-auto{margin-left:auto;margin-right:auto}.my-2{margin-top:.5rem;margin-bottom:.5rem}.my-3{margin-top:.75rem;margin-bottom:.75rem}.mb-0{margin-bottom:0}.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mr-3{margin-right:.75rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-3{height:.75rem}.h-auto{height:auto}.max-h-96{max-height:24rem}.w-3{width:.75rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.shrink-0{flex-shrink:0}.cursor-pointer{cursor:pointer}.list-inside{list-style-position:inside}.list-decimal{list-style-type:decimal}.list-disc{list-style-type:disc}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-x-6{-moz-column-gap:1.5rem;column-gap:1.5rem}.gap-y-3{row-gap:.75rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.break-all{word-break:break-all}.rounded{border-radius:.25rem}.rounded-lg{border-radius:.5rem}.rounded-sm{border-radius:.125rem}.rounded-b{border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.rounded-t{border-top-left-radius:.25rem}.rounded-t,.rounded-tr{border-top-right-radius:.25rem}.border{border-width:1px}.border-y{border-top-width:1px}.border-b,.border-y{border-bottom-width:1px}.border-t{border-top-width:1px}.border-amber-300{--tw-border-opacity:1;border-color:rgb(252 211 77/var(--tw-border-opacity,1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254/var(--tw-bg-opacity,1))}.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.px-1{padding-left:.25rem;padding-right:.25rem}.px-1\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.leading-7{line-height:1.75rem}.leading-snug{line-height:1.375}.tracking-wide{letter-spacing:.025em}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15/var(--tw-text-opacity,1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175/var(--tw-text-opacity,1))}.text-green-700{--tw-text-opacity:1;color:rgb(21 128 61/var(--tw-text-opacity,1))}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168/var(--tw-text-opacity,1))}.text-red-700{--tw-text-opacity:1;color:rgb(185 28 28/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:px-10{padding-left:2.5rem;padding-right:2.5rem}.sm\:px-12{padding-left:3rem;padding-right:3rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}@media (min-width:768px){.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}@media (min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}</style>
+<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sticky{position:sticky}.top-0{top:0}.mx-auto{margin-left:auto;margin-right:auto}.my-2{margin-top:.5rem;margin-bottom:.5rem}.my-3{margin-top:.75rem;margin-bottom:.75rem}.mb-0{margin-bottom:0}.mb-1{margin-bottom:.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mr-3{margin-right:.75rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-3{height:.75rem}.h-auto{height:auto}.max-h-96{max-height:24rem}.w-3{width:.75rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.shrink-0{flex-shrink:0}.cursor-pointer{cursor:pointer}.list-inside{list-style-position:inside}.list-decimal{list-style-type:decimal}.list-disc{list-style-type:disc}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-baseline{align-items:baseline}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-x-6{-moz-column-gap:1.5rem;column-gap:1.5rem}.gap-y-3{row-gap:.75rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.break-all{word-break:break-all}.rounded{border-radius:.25rem}.rounded-lg{border-radius:.5rem}.rounded-sm{border-radius:.125rem}.rounded-b{border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.rounded-t{border-top-left-radius:.25rem}.rounded-t,.rounded-tr{border-top-right-radius:.25rem}.border{border-width:1px}.border-y{border-top-width:1px}.border-b,.border-y{border-bottom-width:1px}.border-t{border-top-width:1px}.border-amber-300{--tw-border-opacity:1;border-color:rgb(252 211 77/var(--tw-border-opacity,1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254/var(--tw-bg-opacity,1))}.bg-green-100{--tw-bg-opacity:1;background-color:rgb(220 252 231/var(--tw-bg-opacity,1))}.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.px-1{padding-left:.25rem;padding-right:.25rem}.px-1\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.align-top{vertical-align:top}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.leading-7{line-height:1.75rem}.leading-snug{line-height:1.375}.tracking-wide{letter-spacing:.025em}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity,1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15/var(--tw-text-opacity,1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175/var(--tw-text-opacity,1))}.text-green-700{--tw-text-opacity:1;color:rgb(21 128 61/var(--tw-text-opacity,1))}.text-green-800{--tw-text-opacity:1;color:rgb(22 101 52/var(--tw-text-opacity,1))}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168/var(--tw-text-opacity,1))}.text-red-700{--tw-text-opacity:1;color:rgb(185 28 28/var(--tw-text-opacity,1))}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:px-10{padding-left:2.5rem;padding-right:2.5rem}.sm\:px-12{padding-left:3rem;padding-right:3rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}@media (min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}</style>
 <style>
   :root { --ink:#1e293b; --muted:#64748b; --rule:#e2e8f0; --accent:#1d4ed8; }
   body { background:#f1f5f9; }
@@ -36,6 +36,7 @@
   <div class="tabbar flex gap-1 mb-0 text-sm noprint">
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="paper" onclick="showTab('paper')">論文</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="dashboard" onclick="showTab('dashboard')">実験・運用ダッシュボード</button>
+    <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="repro" onclick="showTab('repro')">再現・前処理ノート</button>
   </div>
 
   <!-- ================= PAPER TAB ================= -->
@@ -45,7 +46,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-14 13:51 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-15 12:39 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -62,7 +63,7 @@
       <span class="mr-3"><a href="#conclusion">9. まとめ</a></span>
       <span><a href="#references">参考文献</a></span>
     </nav>
-    <p class="cap mb-6">用語の説明・プロジェクト運用・進捗・簡易な予備検証などの傍論は、上部「実験・運用ダッシュボード」タブに分離した。</p>
+    <p class="cap mb-6">用語の説明・プロジェクト運用・進捗・簡易な予備検証などの傍論は、上部「実験・運用ダッシュボード」タブに分離した。再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断・原論文からの実装差分は「再現・前処理ノート」タブにまとめた。</p>
 
     <!-- Abstract -->
     <section id="abstract" class="mb-6">
@@ -22048,7 +22049,363 @@
       </details>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-14 13:51 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-15 12:39 UTC</p>
+  </div>
+
+  <!-- ================= REPRODUCTION & PREPROCESSING TAB ================= -->
+  <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
+    <p class="text-sm text-slate-500 mb-6">本研究を別環境で再現・移植するための実務情報。再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断・原論文からの実装差分をまとめる。
+    内容はすべて <span class="font-mono">artifacts/*.yaml</span>・<span class="font-mono">*.md</span> から自動生成され、HTML への手入力は行わない(維持手順は skill <span class="font-mono">/reproducibility-notes</span>)。</p>
+
+    <!-- 再現手順 -->
+    <section id="repro-steps" class="mb-10">
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">再現手順</h2>
+      
+      <p class="text-sm text-slate-600 mb-3">クリーンな環境から本研究の主要結果を再現する手順。すべて config/*.yaml で条件を定義し、 各 run は一意 run_id + manifest(git_commit・seed・依存チェックサム)を持つ。乱数 seed は run 単位で固定され、同一 commit・同一 config なら結果は決定的に再現される。</p>
+      
+      <div class="flex flex-wrap gap-2 text-xs mb-4">
+        
+        <span class="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="font-medium text-slate-700">python</span><span class="text-slate-500">3.11</span></span>
+        
+        <span class="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="font-medium text-slate-700">deps</span><span class="text-slate-500">uv.lock で固定(torch は CPU 版、aeon 1.5、scikit-learn、PyTorch)</span></span>
+        
+        <span class="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="font-medium text-slate-700">runtime</span><span class="text-slate-500">CPU のみ(GPU 不要)。実測目安: Phase 1 約1.5h / Phase 2 約2h / 被験者数実験は cnn1d_har 軽量版で数十分〜</span></span>
+        
+      </div>
+      
+      <ol class="space-y-2">
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S1</span>
+            <span class="font-medium text-slate-800 text-sm">環境構築</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>make setup</code></pre>
+          <p class="text-sm text-slate-600 mt-1">uv sync で Python 依存を、report/ で npm install により Tailwind CLI を導入する。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S2</span>
+            <span class="font-medium text-slate-800 text-sm">UCR データ取得と checksum 記録</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>make download</code></pre>
+          <p class="text-sm text-slate-600 mt-1">UCR アーカイブを aeon 経由で取得し data/raw にキャッシュ、checksum を記録する。UCI HAR は被験者数実験の初回実行時に自動ダウンロードされる(CC BY 4.0、data/metadata/uci_har.json に出典記録)。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S3</span>
+            <span class="font-medium text-slate-800 text-sm">テスト(リーク防止ガードを含む)</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>make test</code></pre>
+          <p class="text-sm text-slate-600 mt-1">被験者跨ぎリーク検査・拡張手法・統計・manifest スキーマの全テスト。実験前にここが green であることを確認する。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S4</span>
+            <span class="font-medium text-slate-800 text-sm">smoke 品質ゲート(ネットワーク不要)</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>make smoke</code></pre>
+          <p class="text-sm text-slate-600 mt-1">合成データ(sine vs square)で基盤の動作を確認する Phase 0 ゲート。config/experiments/smoke.yaml。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S5</span>
+            <span class="font-medium text-slate-800 text-sm">Phase 1 実験格子(UCR 最小追試)</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>make phase1</code></pre>
+          <p class="text-sm text-slate-600 mt-1">UCR 3データセット × 7拡張 × 2モデル × 3seeds = 126 runs。resume 対応。config/experiments/phase1.yaml。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S6</span>
+            <span class="font-medium text-slate-800 text-sm">Phase 2 実験格子(横断比較)</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>make phase2</code></pre>
+          <p class="text-sm text-slate-600 mt-1">12データセット × 5学習比率 × 7拡張 × 2モデル × 3seeds = 2520 runs。config/experiments/phase2.yaml。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S7</span>
+            <span class="font-medium text-slate-800 text-sm">被験者数削減実験(Phase 4-5)</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>uv run python scripts/run_subject_experiment.py --config config/experiments/subject_count.yaml</code></pre>
+          <p class="text-sm text-slate-600 mt-1">UCI HAR で被験者数 N∈{3,6,9,12,15,18,21} × 3反復の学習曲線。negative control は config/experiments/negative_control.yaml を追加実行する。目標 accuracy=0.90 は事前登録済み(artifacts/pre_registration.md)。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S8</span>
+            <span class="font-medium text-slate-800 text-sm">集計・監査・レポート生成</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>make all-report</code></pre>
+          <p class="text-sm text-slate-600 mt-1">audit → aggregate → build report の順で実行。runs/・artifacts/ から HTML を自動生成する(数値の手入力なし)。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S9</span>
+            <span class="font-medium text-slate-800 text-sm">整合性検証</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>make validate</code></pre>
+          <p class="text-sm text-slate-600 mt-1">artifacts/ の整合性(manifest・予測ファイル・メトリクス範囲)を検査する。</p>
+        </li>
+        
+      </ol>
+      
+      <h3 class="font-medium text-slate-700 mt-4 mb-1 text-sm">再現の不変条件</h3>
+      <ul class="text-sm list-disc list-inside space-y-1 text-slate-600">
+        <li>全 run に一意 run_id と manifest(条件・環境・git_commit・依存チェックサム)。同一 run_id への並行書き込みは pid ロックで拒否。</li><li>実験グリッド実行前にコード変更をコミットし、manifest の git_commit がソースを一意に特定できる状態を保つ。</li><li>test データは fit・拡張・合成元・early stopping・ハイパラ/手法選択のいずれにも使わない(spec §8)。</li>
+      </ul>
+      
+      
+    </section>
+
+    <!-- データ前処理の補足・不定性 -->
+    <section id="repro-preprocessing" class="mb-10">
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">データ前処理の補足と不定性</h2>
+      
+      <p class="text-sm text-slate-600 mb-3">前処理は src/signal_aug/data/ に実装され、config ではなくコードで定義される。以下は 再現時に効く前処理の要点と、実装上の判断・不定性である。すべての正規化・当てはめは 学習データにのみ行い、test データには波及しない設計になっている。</p>
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">処理</th><th class="p-2">対象</th><th class="p-2">内容</th><th class="p-2">不定性・注意</th>
+        </tr></thead>
+        <tbody>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">正規化(z 正規化)</td>
+            <td class="p-2 text-slate-600">UCR データセット</td>
+            <td class="p-2 text-slate-600">各系列・各チャネルごとに時間軸方向で平均0・分散1へ正規化(_znorm)。train と test に同一処理を当てるが、統計量は系列単位で完結するためデータセット統計の共有(=リーク)は生じない。</td>
+            <td class="p-2 text-amber-800">サンプル単位正規化のため系列全体の振幅情報は落ちる。振幅が判別に効くデータでは前処理の選択が精度に影響しうる。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">正規化(z 正規化)</td>
+            <td class="p-2 text-slate-600">UCI HAR(被験者数実験の主対象)</td>
+            <td class="p-2 text-slate-600">9チャネル慣性信号(body_acc/body_gyro/total_acc の x/y/z)を原スケール(g 単位)のまま用い、z 正規化は適用しない。</td>
+            <td class="p-2 text-amber-800">UCR とは正規化方針が異なる。total_acc は重力込み・body_acc は重力除去済みという配布元の前処理に依存しており、追加正規化を入れると学習曲線・N* が変わりうる。ここは意図的な判断(judgment_calls: J-HAR-NORM)。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">窓化(windowing)</td>
+            <td class="p-2 text-slate-600">UCI HAR</td>
+            <td class="p-2 text-slate-600">配布元が生成した固定窓(128サンプル=2.56秒、50% オーバーラップ)をそのまま使用し、再窓化はしない。窓ごとに被験者IDが付与される。</td>
+            <td class="p-2 text-amber-800">同一被験者の重複窓が複数現れるが、被験者跨ぎリークは group split で防止(同一被験者は train と test に同時に現れない)。窓長・オーバーラップは配布元定義に固定。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">ラベル符号化</td>
+            <td class="p-2 text-slate-600">全データセット</td>
+            <td class="p-2 text-slate-600">出現クラスをソートして 0..K-1 に写像。UCI HAR は元ラベル 1..6 を 0..5 へシフト。</td>
+            <td class="p-2 text-amber-800">クラス順序は決定的(ソート順)。混同行列・クラス別指標を他実装と比較する際はこの順序に注意。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">層化サブサンプリング(学習比率スイープ)</td>
+            <td class="p-2 text-slate-600">Phase 2(UCR)</td>
+            <td class="p-2 text-slate-600">学習データのみを対象に、クラスごとに seed 由来の決定的サンプリングで比率を絞る。各クラス最低1サンプルを保持。test には一切適用しない。</td>
+            <td class="p-2 text-amber-800">小比率ではクラスあたり枚数が少なく、部分集合の引きにより分散が出る。seed 固定で再現可能。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">train/val 分割(early stopping 用)</td>
+            <td class="p-2 text-slate-600">1D-CNN</td>
+            <td class="p-2 text-slate-600">学習データから層化抽出した検証セットで early stopping を行う。val は train 由来のみで、test は early stopping に使わない(spec §8)。</td>
+            <td class="p-2 text-amber-800">val_fraction は config 定義。分割 seed により学習の停止点が変わりうるが run seed で固定。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">被験者選択(学習曲線)</td>
+            <td class="p-2 text-slate-600">UCI HAR(Phase 4-5)</td>
+            <td class="p-2 text-slate-600">被験者数 N の各点で、プール(公式 train の21被験者)から丸ごと N 被験者を seed 決定的に抽選する。サンプル単位ではなく被験者単位で増やす。</td>
+            <td class="p-2 text-amber-800">反復は3回のみで N* の信頼区間が広い(本研究の主要な限界)。固定 held-out test は公式 test の9被験者。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">欠損・異常値処理</td>
+            <td class="p-2 text-slate-600">全データセット</td>
+            <td class="p-2 text-slate-600">UCR アーカイブ・UCI HAR とも配布時点で整形済みのため、欠損補完・外れ値除去は行わない。</td>
+            <td class="p-2 text-amber-800">独自データへ移植する場合は、この前提(前処理済み・欠損なし)が成り立つか確認が必要。</td>
+          </tr>
+          
+        </tbody>
+      </table>
+      </div>
+      
+    </section>
+
+    <!-- エイヤッと決めたこと -->
+    <section id="repro-judgment" class="mb-10">
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">「エイヤッと決めた」判断(judgment calls)</h2>
+      
+      <p class="text-sm text-slate-600 mb-3">以下は、原理的に一意には決まらず本プロジェクトが判断で固定した設定である。追試・移植の際は これらが結論(とくに被験者数削減の可否)にどれだけ効くかを sensitivity 欄で確認すること。 事前登録済み(preregistered=true)の項目は結果を見る前に固定しており、事後調整はしていない。</p>
+      <div class="grid md:grid-cols-2 gap-3">
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-TARGET</span>
+            <span class="font-medium text-slate-800">目標性能 τ(被験者数削減の判定基準)</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> test accuracy = 0.90 を目標に固定。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> Anguita et al. (2013) が561次元特徴+SVM で約0.90を報告。生信号+深層は0.90–0.95が相場。文献由来の丸い値。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 0.85 / 0.95、あるいは macro-F1 基準。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 高。N* は学習曲線上の閾値到達点なので τ を上げ下げすると N* と削減率が動く。事前登録で恣意性を排除。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">artifacts/pre_registration.md</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-REPEATS</span>
+            <span class="font-medium text-slate-800">被験者数の反復回数</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 各被験者数 N で3反復(異なる被験者部分集合)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> CPU 実行時間と網羅性のバランス。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 10–20 反復で検出力を確保。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 高。反復3回のため N* の信頼区間が広く、多くの手法で none や negative control と重なる。削減を確定できない最大の理由(Phase 6 の課題)。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">artifacts/pre_registration.md / limitations.md</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-METHODS</span>
+            <span class="font-medium text-slate-800">被験者データへ持ち込む拡張手法の選定</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> mixup / dtw / smote / oversample / scaling の5手法。jitter は除外、none は基準として常時含む。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> Phase 2 で 1D-CNN において Holm 補正後も有意だった手法を採用。被験者データの主モデルが 1D-CNN のため CNN の結果で選定。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> MiniRocket 基準で選ぶ(ただし MiniRocket では全手法非有意)、または全7手法を持ち込む。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。選定はモデル依存。MiniRocket では拡張効果が出ないため、モデルを変えると持ち込む手法集合が変わりうる。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">decision_log.md(2026-07-12)/ config Phase 4</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-HAR-NORM</span>
+            <span class="font-medium text-slate-800">UCI HAR の正規化方針</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 生信号(g 単位)のまま z 正規化を適用しない。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 配布元が total_acc(重力込み)/ body_acc(重力除去)として整形済みで、被験者間の物理スケールを保持したいため。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> UCR と同様に系列単位 z 正規化を当てる。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。正規化を入れると学習曲線と N* が変わりうる。前処理タブの不定性と対応(preprocessing_notes: UCI HAR)。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">src/signal_aug/data/uci_har.py</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-DTW</span>
+            <span class="font-medium text-slate-800">DTW ベース拡張の実装</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 同一クラス2サンプルの DTW 整列平均(ペアワイズ簡略版)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> Forestier et al. (2017) の DBA(多サンプル重心)の計算コストを避けた簡略版。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> DBA による多サンプル重心平均。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。多様性が DBA より低く、DTW の削減効果を過小評価している可能性。点推定では DTW が最大削減だが確定はしない。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">deviations.md / decision_log.md</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-MIXUP</span>
+            <span class="font-medium text-slate-800">mixup の実装</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 同一クラスペアに限定しハードラベルを維持。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> RidgeClassifier がソフトラベル非対応で、モデル間の条件を揃えるため。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 原論文(Zhang et al. 2018)の異クラス凸結合+ソフトラベル。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。効果は原論文より控えめになりうる。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">deviations.md / decision_log.md</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-SMOTE</span>
+            <span class="font-medium text-slate-800">raw-SMOTE の適用範囲</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 生信号の平坦化ベクトル空間で全クラスに適用。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 特徴量空間を介さず信号レベルで拡張を統一するため。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 原論文(Chawla et al. 2002)どおり特徴量空間・少数クラスのみ。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 低〜中。不均衡データでの挙動が原論文と異なる。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">deviations.md</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-CNN</span>
+            <span class="font-medium text-slate-800">1D-CNN の構成</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 3ブロック(Conv-BN-ReLU-Pool)+ GAP の標準構成。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 特定論文の厳密再現ではなく Fawaz et al. (2019) の FCN 系を簡略化した標準ベースライン。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> ResNet / InceptionTime 等のより深い時系列分類器。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。モデル容量は拡張効果の出方に影響しうる(H2: 効果はモデル依存)。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">deviations.md</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-SMOKE-EPOCHS</span>
+            <span class="font-medium text-slate-800">smoke 用 CNN の epoch 数</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 15 epochs。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 3 epochs では合成データでも未学習(精度0.475)だったため。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 早期打ち切り / 固定10。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 無(smoke は基盤動作確認のみで、研究結果には使わない)。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">decision_log.md / config/models.yaml</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-DATASETS</span>
+            <span class="font-medium text-slate-800">Phase 2 データセット12件の選定</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 小〜中規模・ドメイン多様・2値/多クラス混在で12件を選定。FordA は学習コスト過大のため除外。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 低データ条件を検証しやすく、CPU で現実的な実行時間に収めるため。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> UCR 全128データセット、または FordA を含む大規模データ。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。データセット集合により平均的な拡張効果の見え方が変わる(H2)。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">decision_log.md(2026-07-12)/ config/experiments/phase2.yaml</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-NSTAR</span>
+            <span class="font-medium text-slate-800">N*(必要被験者数)の推定法</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 学習曲線の隣接点を線形補間して目標到達点を求める。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 少数の測定点から閾値到達被験者数を素直に推定するため。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 対数/べき乗則フィット、単調回帰(isotonic)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。曲線が非単調・ノイジーだと補間点が振れる。bootstrap で CI を付す。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">pre_registration.md / reporting/aggregate.py</p>
+        </div>
+        
+      </div>
+      
+    </section>
+
+    <!-- 原論文からの実装差分 -->
+    <section id="repro-deviations" class="mb-4">
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">原論文からの実装差分</h2>
+      <p class="text-sm text-slate-500 mb-3">追試結果の解釈時に参照する、原論文・標準的手法からの実装上の差分(artifacts/deviations.md)。追試と独自検証の区別は論文タブの知見カード(追試/独自バッジ)を参照。</p>
+      
+      <ul class="text-sm list-disc list-inside space-y-1 text-slate-700">
+        <li>**mixup**: 原論文(Zhang et al. 2018)は異クラス間の凸結合とソフトラベルを用いるが、本実装は同一クラスペアに限定しハードラベルを維持する。RidgeClassifier がソフトラベルを扱えないため、モデル間で条件を揃える目的。効果は原論文より控えめになる可能性がある。</li><li>**DTW ベース拡張**: Forestier et al. 2017 の DBA(DTW Barycenter Averaging)による合成ではなく、同一クラス 2 サンプルの DTW 整列平均(ペアワイズ簡略版)。多サンプル平均より多様性は低い。</li><li>**raw-SMOTE**: SMOTE(Chawla et al. 2002)を生信号の平坦化ベクトル空間へ適用。原論文は特徴量空間・少数クラスのみが対象だが、本実装は全クラスに適用する。</li><li>**1D-CNN**: 特定論文の再現ではなく、時系列分類で標準的な 3 ブロック構成(Conv-BN-ReLU-Pool + GAP)。Fawaz et al. 2019 のレビューにおける FCN 系の簡略版。</li>
+      </ul>
+      
+    </section>
+
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-07-15 12:39 UTC</p>
   </div>
 
 </div>
@@ -22060,7 +22417,8 @@
     if (history.replaceState) history.replaceState(null, '', '#tab-'+id);
   }
   document.addEventListener('DOMContentLoaded', function(){
-    var start = (location.hash === '#tab-dashboard') ? 'dashboard' : 'paper';
+    var byHash = {'#tab-dashboard':'dashboard', '#tab-repro':'repro'};
+    var start = byHash[location.hash] || 'paper';
     showTab(start);
     // if a deep link targets a dashboard section, switch to that tab
     var h = location.hash.replace('#','');

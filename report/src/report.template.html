@@ -36,6 +36,7 @@
   <div class="tabbar flex gap-1 mb-0 text-sm noprint">
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="paper" onclick="showTab('paper')">論文</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="dashboard" onclick="showTab('dashboard')">実験・運用ダッシュボード</button>
+    <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="repro" onclick="showTab('repro')">再現・前処理ノート</button>
   </div>
 
   <!-- ================= PAPER TAB ================= -->
@@ -62,7 +63,7 @@
       <span class="mr-3"><a href="#conclusion">9. まとめ</a></span>
       <span><a href="#references">参考文献</a></span>
     </nav>
-    <p class="cap mb-6">用語の説明・プロジェクト運用・進捗・簡易な予備検証などの傍論は、上部「実験・運用ダッシュボード」タブに分離した。</p>
+    <p class="cap mb-6">用語の説明・プロジェクト運用・進捗・簡易な予備検証などの傍論は、上部「実験・運用ダッシュボード」タブに分離した。再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断・原論文からの実装差分は「再現・前処理ノート」タブにまとめた。</p>
 
     <!-- Abstract -->
     <section id="abstract" class="mb-6">
@@ -549,6 +550,115 @@
     <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 {{ generated_at }}</p>
   </div>
 
+  <!-- ================= REPRODUCTION & PREPROCESSING TAB ================= -->
+  <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
+    <p class="text-sm text-slate-500 mb-6">本研究を別環境で再現・移植するための実務情報。再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断・原論文からの実装差分をまとめる。
+    内容はすべて <span class="font-mono">artifacts/*.yaml</span>・<span class="font-mono">*.md</span> から自動生成され、HTML への手入力は行わない(維持手順は skill <span class="font-mono">/reproducibility-notes</span>)。</p>
+
+    <!-- 再現手順 -->
+    <section id="repro-steps" class="mb-10">
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">再現手順</h2>
+      {% if reproduction_steps %}
+      {% if reproduction_steps.overview %}<p class="text-sm text-slate-600 mb-3">{{ reproduction_steps.overview }}</p>{% endif %}
+      {% if reproduction_steps.environment %}
+      <div class="flex flex-wrap gap-2 text-xs mb-4">
+        {% for k, v in reproduction_steps.environment.items() %}
+        <span class="inline-flex items-center gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="font-medium text-slate-700">{{ k }}</span><span class="text-slate-500">{{ v }}</span></span>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <ol class="space-y-2">
+        {% for s in reproduction_steps.get('steps', []) %}
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">{{ s.id }}</span>
+            <span class="font-medium text-slate-800 text-sm">{{ s.title }}</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>{{ s.command }}</code></pre>
+          <p class="text-sm text-slate-600 mt-1">{{ s.detail }}</p>
+        </li>
+        {% endfor %}
+      </ol>
+      {% if reproduction_steps.invariants %}
+      <h3 class="font-medium text-slate-700 mt-4 mb-1 text-sm">再現の不変条件</h3>
+      <ul class="text-sm list-disc list-inside space-y-1 text-slate-600">
+        {% for inv in reproduction_steps.invariants %}<li>{{ inv }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      {% else %}
+      <p class="text-sm text-slate-500">artifacts/reproduction_steps.yaml が未整備です。</p>
+      {% endif %}
+    </section>
+
+    <!-- データ前処理の補足・不定性 -->
+    <section id="repro-preprocessing" class="mb-10">
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">データ前処理の補足と不定性</h2>
+      {% if preprocessing_notes and preprocessing_notes.get('notes') %}
+      {% if preprocessing_notes.intro %}<p class="text-sm text-slate-600 mb-3">{{ preprocessing_notes.intro }}</p>{% endif %}
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">処理</th><th class="p-2">対象</th><th class="p-2">内容</th><th class="p-2">不定性・注意</th>
+        </tr></thead>
+        <tbody>
+          {% for n in preprocessing_notes.notes %}
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">{{ n.stage }}</td>
+            <td class="p-2 text-slate-600">{{ n.scope }}</td>
+            <td class="p-2 text-slate-600">{{ n.detail }}</td>
+            <td class="p-2 text-amber-800">{{ n.uncertainty }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      {% else %}
+      <p class="text-sm text-slate-500">artifacts/preprocessing_notes.yaml が未整備です。</p>
+      {% endif %}
+    </section>
+
+    <!-- エイヤッと決めたこと -->
+    <section id="repro-judgment" class="mb-10">
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">「エイヤッと決めた」判断(judgment calls)</h2>
+      {% if judgment_calls and judgment_calls.get('calls') %}
+      {% if judgment_calls.intro %}<p class="text-sm text-slate-600 mb-3">{{ judgment_calls.intro }}</p>{% endif %}
+      <div class="grid md:grid-cols-2 gap-3">
+        {% for c in judgment_calls.calls %}
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">{{ c.id }}</span>
+            <span class="font-medium text-slate-800">{{ c.topic }}</span>
+            {% if c.preregistered %}<span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>{% endif %}
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> {{ c.decision }}</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> {{ c.why }}</p>
+          {% if c.alternatives %}<p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> {{ c.alternatives }}</p>{% endif %}
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> {{ c.sensitivity }}</p>
+          {% if c.source %}<p class="text-xs text-slate-400 mt-1 font-mono">{{ c.source }}</p>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="text-sm text-slate-500">artifacts/judgment_calls.yaml が未整備です。</p>
+      {% endif %}
+    </section>
+
+    <!-- 原論文からの実装差分 -->
+    <section id="repro-deviations" class="mb-4">
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">原論文からの実装差分</h2>
+      <p class="text-sm text-slate-500 mb-3">追試結果の解釈時に参照する、原論文・標準的手法からの実装上の差分(artifacts/deviations.md)。追試と独自検証の区別は論文タブの知見カード(追試/独自バッジ)を参照。</p>
+      {% if deviations %}
+      <ul class="text-sm list-disc list-inside space-y-1 text-slate-700">
+        {% for d in deviations %}<li>{{ d }}</li>{% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-sm text-slate-500">artifacts/deviations.md の項目がここに表示されます。</p>
+      {% endif %}
+    </section>
+
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 {{ generated_at }}</p>
+  </div>
+
 </div>
 
 <script>
@@ -558,7 +668,8 @@
     if (history.replaceState) history.replaceState(null, '', '#tab-'+id);
   }
   document.addEventListener('DOMContentLoaded', function(){
-    var start = (location.hash === '#tab-dashboard') ? 'dashboard' : 'paper';
+    var byHash = {'#tab-dashboard':'dashboard', '#tab-repro':'repro'};
+    var start = byHash[location.hash] || 'paper';
     showTab(start);
     // if a deep link targets a dashboard section, switch to that tab
     var h = location.hash.replace('#','');

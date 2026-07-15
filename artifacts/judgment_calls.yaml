@@ -1,0 +1,100 @@
+# judgment_calls.yaml
+# 「エイヤッと決めたこと」= 一意に定まらず判断で決めた設定。再現・追試時の解釈に必須。
+# 原論文からの実装差分(deviations.md)と重なるものは source に明記。
+# fields: id / topic / decision / why / alternatives / sensitivity(結論への影響) / preregistered / source
+# 更新規約は skill /reproducibility-notes を参照。
+
+intro: >-
+  以下は、原理的に一意には決まらず本プロジェクトが判断で固定した設定である。追試・移植の際は
+  これらが結論(とくに被験者数削減の可否)にどれだけ効くかを sensitivity 欄で確認すること。
+  事前登録済み(preregistered=true)の項目は結果を見る前に固定しており、事後調整はしていない。
+
+calls:
+  - id: J-TARGET
+    topic: 目標性能 τ(被験者数削減の判定基準)
+    decision: "test accuracy = 0.90 を目標に固定。"
+    why: "Anguita et al. (2013) が561次元特徴+SVM で約0.90を報告。生信号+深層は0.90–0.95が相場。文献由来の丸い値。"
+    alternatives: "0.85 / 0.95、あるいは macro-F1 基準。"
+    sensitivity: "高。N* は学習曲線上の閾値到達点なので τ を上げ下げすると N* と削減率が動く。事前登録で恣意性を排除。"
+    preregistered: true
+    source: "artifacts/pre_registration.md"
+  - id: J-REPEATS
+    topic: 被験者数の反復回数
+    decision: "各被験者数 N で3反復(異なる被験者部分集合)。"
+    why: "CPU 実行時間と網羅性のバランス。"
+    alternatives: "10–20 反復で検出力を確保。"
+    sensitivity: "高。反復3回のため N* の信頼区間が広く、多くの手法で none や negative control と重なる。削減を確定できない最大の理由(Phase 6 の課題)。"
+    preregistered: true
+    source: "artifacts/pre_registration.md / limitations.md"
+  - id: J-METHODS
+    topic: 被験者データへ持ち込む拡張手法の選定
+    decision: "mixup / dtw / smote / oversample / scaling の5手法。jitter は除外、none は基準として常時含む。"
+    why: "Phase 2 で 1D-CNN において Holm 補正後も有意だった手法を採用。被験者データの主モデルが 1D-CNN のため CNN の結果で選定。"
+    alternatives: "MiniRocket 基準で選ぶ(ただし MiniRocket では全手法非有意)、または全7手法を持ち込む。"
+    sensitivity: "中。選定はモデル依存。MiniRocket では拡張効果が出ないため、モデルを変えると持ち込む手法集合が変わりうる。"
+    preregistered: false
+    source: "decision_log.md(2026-07-12)/ config Phase 4"
+  - id: J-HAR-NORM
+    topic: UCI HAR の正規化方針
+    decision: "生信号(g 単位)のまま z 正規化を適用しない。"
+    why: "配布元が total_acc(重力込み)/ body_acc(重力除去)として整形済みで、被験者間の物理スケールを保持したいため。"
+    alternatives: "UCR と同様に系列単位 z 正規化を当てる。"
+    sensitivity: "中。正規化を入れると学習曲線と N* が変わりうる。前処理タブの不定性と対応(preprocessing_notes: UCI HAR)。"
+    preregistered: false
+    source: "src/signal_aug/data/uci_har.py"
+  - id: J-DTW
+    topic: DTW ベース拡張の実装
+    decision: "同一クラス2サンプルの DTW 整列平均(ペアワイズ簡略版)。"
+    why: "Forestier et al. (2017) の DBA(多サンプル重心)の計算コストを避けた簡略版。"
+    alternatives: "DBA による多サンプル重心平均。"
+    sensitivity: "中。多様性が DBA より低く、DTW の削減効果を過小評価している可能性。点推定では DTW が最大削減だが確定はしない。"
+    preregistered: false
+    source: "deviations.md / decision_log.md"
+  - id: J-MIXUP
+    topic: mixup の実装
+    decision: "同一クラスペアに限定しハードラベルを維持。"
+    why: "RidgeClassifier がソフトラベル非対応で、モデル間の条件を揃えるため。"
+    alternatives: "原論文(Zhang et al. 2018)の異クラス凸結合+ソフトラベル。"
+    sensitivity: "中。効果は原論文より控えめになりうる。"
+    preregistered: false
+    source: "deviations.md / decision_log.md"
+  - id: J-SMOTE
+    topic: raw-SMOTE の適用範囲
+    decision: "生信号の平坦化ベクトル空間で全クラスに適用。"
+    why: "特徴量空間を介さず信号レベルで拡張を統一するため。"
+    alternatives: "原論文(Chawla et al. 2002)どおり特徴量空間・少数クラスのみ。"
+    sensitivity: "低〜中。不均衡データでの挙動が原論文と異なる。"
+    preregistered: false
+    source: "deviations.md"
+  - id: J-CNN
+    topic: 1D-CNN の構成
+    decision: "3ブロック(Conv-BN-ReLU-Pool)+ GAP の標準構成。"
+    why: "特定論文の厳密再現ではなく Fawaz et al. (2019) の FCN 系を簡略化した標準ベースライン。"
+    alternatives: "ResNet / InceptionTime 等のより深い時系列分類器。"
+    sensitivity: "中。モデル容量は拡張効果の出方に影響しうる(H2: 効果はモデル依存)。"
+    preregistered: false
+    source: "deviations.md"
+  - id: J-SMOKE-EPOCHS
+    topic: smoke 用 CNN の epoch 数
+    decision: "15 epochs。"
+    why: "3 epochs では合成データでも未学習(精度0.475)だったため。"
+    alternatives: "早期打ち切り / 固定10。"
+    sensitivity: "無(smoke は基盤動作確認のみで、研究結果には使わない)。"
+    preregistered: false
+    source: "decision_log.md / config/models.yaml"
+  - id: J-DATASETS
+    topic: Phase 2 データセット12件の選定
+    decision: "小〜中規模・ドメイン多様・2値/多クラス混在で12件を選定。FordA は学習コスト過大のため除外。"
+    why: "低データ条件を検証しやすく、CPU で現実的な実行時間に収めるため。"
+    alternatives: "UCR 全128データセット、または FordA を含む大規模データ。"
+    sensitivity: "中。データセット集合により平均的な拡張効果の見え方が変わる(H2)。"
+    preregistered: false
+    source: "decision_log.md(2026-07-12)/ config/experiments/phase2.yaml"
+  - id: J-NSTAR
+    topic: N*(必要被験者数)の推定法
+    decision: "学習曲線の隣接点を線形補間して目標到達点を求める。"
+    why: "少数の測定点から閾値到達被験者数を素直に推定するため。"
+    alternatives: "対数/べき乗則フィット、単調回帰(isotonic)。"
+    sensitivity: "中。曲線が非単調・ノイジーだと補間点が振れる。bootstrap で CI を付す。"
+    preregistered: true
+    source: "pre_registration.md / reporting/aggregate.py"

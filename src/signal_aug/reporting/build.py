@@ -166,6 +166,11 @@ REQUIRED_SECTION_IDS = [
     "ops-audit",
     "ops-reproducibility",
     "ops-glossary",
+    # reproduction & preprocessing tab (reproducibility / portability)
+    "repro-steps",
+    "repro-preprocessing",
+    "repro-judgment",
+    "repro-deviations",
 ]
 
 
@@ -316,6 +321,12 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "audit": results.get("audit"),
         "reproducibility": reproducibility,
         "references": references,
+        # reproduction & preprocessing tab (data-driven from artifacts/*.yaml;
+        # nothing hand-typed into the HTML, spec 3.10 / 9)
+        "reproduction_steps": _load_yaml(root / "artifacts/reproduction_steps.yaml"),
+        "preprocessing_notes": _load_yaml(root / "artifacts/preprocessing_notes.yaml"),
+        "judgment_calls": _load_yaml(root / "artifacts/judgment_calls.yaml"),
+        "deviations": _markdown_bullets(root / "artifacts/deviations.md"),
     }
 
 

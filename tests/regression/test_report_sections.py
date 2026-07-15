@@ -56,6 +56,31 @@ def test_report_has_paper_and_dashboard_tabs():
     assert 'data-tab="paper"' in html and 'data-tab="dashboard"' in html
 
 
+def test_report_has_reproduction_tab():
+    """Reproduction & preprocessing tab must exist and carry its sections
+    (reproduction steps, preprocessing notes/uncertainties, judgment calls,
+    deviations) so reproducibility/portability info is always surfaced."""
+    context = gather_context(".")
+    html = render_report(context, "report/src", css="")
+    assert 'data-tabbtn="repro"' in html and 'data-tab="repro"' in html
+    for sid in ("repro-steps", "repro-preprocessing", "repro-judgment", "repro-deviations"):
+        assert f'id="{sid}"' in html, f"missing reproduction section: {sid}"
+
+
+def test_reproduction_tab_is_data_driven():
+    """Reproduction content comes from artifacts/*.yaml (not hand-typed HTML):
+    the loaded context must expose the source structures and the rendered HTML
+    must reflect at least one concrete item from each."""
+    context = gather_context(".")
+    assert context["reproduction_steps"].get("steps")
+    assert context["preprocessing_notes"].get("notes")
+    assert context["judgment_calls"].get("calls")
+    html = render_report(context, "report/src", css="")
+    # a known judgment-call id and a step command must appear from the data
+    assert context["judgment_calls"]["calls"][0]["id"] in html
+    assert "make all-report" in html
+
+
 def test_paper_tab_has_academic_sections():
     """Paper tab must carry the journal-paper structure (abstract → problem
     setup → proposed method → related methods → design → results → conclusion);
