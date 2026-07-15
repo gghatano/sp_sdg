@@ -1,0 +1,57 @@
+# reproduction_steps.yaml
+# 再現手順(可搬性確保用)。レポート「再現・前処理」タブへ自動描画される。
+# 手順を変えたら本ファイルを更新し `make all-report` で再生成する(HTML 直接編集は禁止)。
+# skill: /reproducibility-notes 参照。
+
+overview: >-
+  クリーンな環境から本研究の主要結果を再現する手順。すべて config/*.yaml で条件を定義し、
+  各 run は一意 run_id + manifest(git_commit・seed・依存チェックサム)を持つ。乱数 seed は
+  run 単位で固定され、同一 commit・同一 config なら結果は決定的に再現される。
+
+environment:
+  python: "3.11"
+  deps: "uv.lock で固定(torch は CPU 版、aeon 1.5、scikit-learn、PyTorch)"
+  runtime: "CPU のみ(GPU 不要)。実測目安: Phase 1 約1.5h / Phase 2 約2h / 被験者数実験は cnn1d_har 軽量版で数十分〜"
+
+steps:
+  - id: S1
+    title: 環境構築
+    command: "make setup"
+    detail: "uv sync で Python 依存を、report/ で npm install により Tailwind CLI を導入する。"
+  - id: S2
+    title: UCR データ取得と checksum 記録
+    command: "make download"
+    detail: "UCR アーカイブを aeon 経由で取得し data/raw にキャッシュ、checksum を記録する。UCI HAR は被験者数実験の初回実行時に自動ダウンロードされる(CC BY 4.0、data/metadata/uci_har.json に出典記録)。"
+  - id: S3
+    title: テスト(リーク防止ガードを含む)
+    command: "make test"
+    detail: "被験者跨ぎリーク検査・拡張手法・統計・manifest スキーマの全テスト。実験前にここが green であることを確認する。"
+  - id: S4
+    title: smoke 品質ゲート(ネットワーク不要)
+    command: "make smoke"
+    detail: "合成データ(sine vs square)で基盤の動作を確認する Phase 0 ゲート。config/experiments/smoke.yaml。"
+  - id: S5
+    title: Phase 1 実験格子(UCR 最小追試)
+    command: "make phase1"
+    detail: "UCR 3データセット × 7拡張 × 2モデル × 3seeds = 126 runs。resume 対応。config/experiments/phase1.yaml。"
+  - id: S6
+    title: Phase 2 実験格子(横断比較)
+    command: "make phase2"
+    detail: "12データセット × 5学習比率 × 7拡張 × 2モデル × 3seeds = 2520 runs。config/experiments/phase2.yaml。"
+  - id: S7
+    title: 被験者数削減実験(Phase 4-5)
+    command: "uv run python scripts/run_subject_experiment.py --config config/experiments/subject_count.yaml"
+    detail: "UCI HAR で被験者数 N∈{3,6,9,12,15,18,21} × 3反復の学習曲線。negative control は config/experiments/negative_control.yaml を追加実行する。目標 accuracy=0.90 は事前登録済み(artifacts/pre_registration.md)。"
+  - id: S8
+    title: 集計・監査・レポート生成
+    command: "make all-report"
+    detail: "audit → aggregate → build report の順で実行。runs/・artifacts/ から HTML を自動生成する(数値の手入力なし)。"
+  - id: S9
+    title: 整合性検証
+    command: "make validate"
+    detail: "artifacts/ の整合性(manifest・予測ファイル・メトリクス範囲)を検査する。"
+
+invariants:
+  - "全 run に一意 run_id と manifest(条件・環境・git_commit・依存チェックサム)。同一 run_id への並行書き込みは pid ロックで拒否。"
+  - "実験グリッド実行前にコード変更をコミットし、manifest の git_commit がソースを一意に特定できる状態を保つ。"
+  - "test データは fit・拡張・合成元・early stopping・ハイパラ/手法選択のいずれにも使わない(spec §8)。"
