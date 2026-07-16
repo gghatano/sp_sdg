@@ -1,118 +1,99 @@
-# 信号データ拡張・論文追試プロジェクト
+# 時系列データ拡張は所定性能に必要な実被験者数を削減できるか
 
-公開時系列データ(UCR Time Series Classification Archive)を用いてデータ拡張手法の効果を系統的に追試し、その知見を被験者ID付きデータへ展開して「所定の分類性能に必要な実被験者数をデータ拡張でどこまで削減できるか」を定量評価する研究プロジェクトです。
+時系列データ拡張(data augmentation, 以下 SDG)が分類精度に与える効果を公開ベンチマーク(UCR)で系統的に評価し、その知見を被験者ID付きデータ(UCI HAR)へ展開して「**所定の分類性能に必要な実被験者数を、データ拡張でどれだけ削減できるか**」を、誤検出に頑健な評価枠組みで定量した研究の公開実装です。
 
-- 仕様: [`docs/spec.md`](docs/spec.md)
-- 実行計画: [`docs/plan.md`](docs/plan.md)
-- 進捗レポート: `report/dist/index.html`(オフライン閲覧可)。公開版: https://gghatano.github.io/sp_sdg/
+**主結論(先取り)**: 拡張の効果はモデルに強く依存し、被験者数削減は本設定では統計的に確定できませんでした。見かけの削減の多くは、ラベルを壊した対照(negative control)でも同程度に再現される正則化アーティファクトです。
 
-## 対象論文・追試条件
+- 📄 **レポート(論文形式の全文)**: https://gghatano.github.io/sp_sdg/ (オフライン版 `report/dist/index.html`)
+- 仕様・設計: [`docs/spec.md`](docs/spec.md) / 研究設計: [`RESEARCH_PLAN.md`](RESEARCH_PLAN.md)
 
-追試対象は [`references/reproduction_targets.yaml`](references/reproduction_targets.yaml) で構造化管理し、論文横断比較は `references/paper_matrix.csv` に記録します。主要な参照文献は時系列データ拡張のサーベイ(Iwana & Uchida, PLOS ONE 2021)、MiniRocket(Dempster et al., KDD 2021)などです(レポートの参考文献セクション参照)。
+## 研究課題
+
+被験者ごとの計測が必要な生体・行動信号の収集は高コストです。データ拡張は少データ性能を補う代表的手法ですが、時系列では効果が手法・データ・モデルに依存することが知られています(Iwana & Uchida 2021)。本研究は次の2点を問います。
+
+- **RQ1(精度効果)**: 時系列拡張はどの条件で分類精度を改善するか。
+- **RQ2(被験者数削減)**: 所定の目標性能 τ の達成に必要な実被験者数を、拡張はどれだけ削減できるか。
+
+## 主な結果
+
+| # | 知見 | 確度 | 種別 |
+|---|------|:---:|:---:|
+| F-5 | **1D-CNN** では複数の拡張が精度を有意に改善(mixup +6.2pt, dtw +5.7pt, smote +5.1pt ほか。Holm 補正後 α=0.05) | 高 | 独自 |
+| F-6 | **MiniRocket** ではどの拡張も精度を有意に改善しない(効果はモデル依存) | 高 | 独自 |
+| F-7 | 拡張効果(1D-CNN)は学習データが中〜低量(25–50%)で相対的に大きい | 中 | 追試 |
+| F-8 | UCI HAR で目標精度 0.90 に必要な実被験者数は拡張なしで約 8.85 名。点推定では DTW が最大削減(10.8%, 約1名)だが CI が広く確定しない | 低 | 独自 |
+| F-10 | **negative control(ラベル無作為化)ですら 4.3% の見かけの削減**を示し、mixup(4.1%)・scaling(3.9%)と同等。約4%以下の削減はアーティファクトと区別できない | 高 | 独自 |
+| F-11 | 「拡張が効くか」は拡張なしモデルの汎化ギャップ(過剰適合の度合い)では説明できない。効き目はモデルが拡張された変動を表現・利用できるかで決まる | 中 | 独自 |
+
+**本研究の中心的貢献は、被験者数削減の評価に negative control による「対照越え」判定を課したこと**です。少データではデータ量の水増し自体が正則化的に働き、クラス情報を持たない操作でも見かけ上 N* が下がりえます。この対照を明確に超える削減は本設定のどの手法にも見られず、「データ拡張が実被験者を代替する」という主張は本設定では支持されませんでした。
+
+詳細な統計・図表・考察は[レポート全文](https://gghatano.github.io/sp_sdg/)を参照してください。
 
 ## セットアップ
 
-前提条件: Python 3.11+、[uv](https://docs.astral.sh/uv/) 0.4+、Node.js 18+。**GPU は不要**です(torch は CPU 版 wheel に固定してあり、全実験が CPU で完結します)。コマンドはすべて**リポジトリのルートディレクトリで**実行してください(config や runs を相対パスで参照するため)。
+前提: Python 3.11+、[uv](https://docs.astral.sh/uv/) 0.4+、Node.js 18+。**GPU 不要**(torch は CPU 版に固定、全実験が CPU で完結)。コマンドはリポジトリのルートで実行してください。
 
 ```bash
-make setup        # uv sync + report/ の npm install
+make setup     # uv sync + report/ の npm install
+make test      # 全テスト(リーク防止ガードを含む)
 ```
 
-## Smoke test(Phase 0 品質ゲート)
+## 結果の再現
 
-ネットワーク不要・1分未満で完走します。
-
-```bash
-make test         # 全テスト(unit / integration / regression)
-make smoke        # 合成データでの最小実験(manifest 付き)
-```
-
-## Phase 1 実行
+各実験は `config/*.yaml` で条件を定義し、全 run に一意 run_id + manifest(git_commit・seed・依存チェックサム)が付きます。同一 commit・同一 config なら結果は決定的に再現されます。runner は completed の run をスキップするため、中断後は同じコマンドの再実行で再開します。
 
 ```bash
-make download     # UCR 3データセットの取得と checksum 記録(数分・数十MB)
-make phase1       # 3データセット x 7拡張 x 2モデル x 3seeds = 126 runs
-```
+# RQ1: UCR での精度効果(F-5〜F-7)
+make download                       # UCR データ取得 + checksum 記録
+make phase1                         # 3データセット×7拡張×2モデル×3seeds = 126 runs
+make phase2                         # 12データセット×5学習比率×… = 2520 runs
 
-`make phase1` の所要時間の目安は **4 コア CPU で約 2 時間**です(FordA の 1D-CNN 学習が支配的。1 run 最長で 6〜7 分)。進捗は `ls runs/manifests | wc -l` で確認できます。実験開始前にコード変更をコミットしておくと、manifest の `git_commit` から実行時のコードを一意に特定できます。
-
-## Resume(中断・再実行)
-
-runner は manifest の status を確認し、**completed の run をスキップ**します。中断後は同じコマンドを再実行するだけで残り(failed や実行途中で止まった running 含む)が実行されます。
-
-```bash
-uv run python scripts/run_experiment.py --config config/experiments/phase1.yaml
-```
-
-注意: resume の判定は run_id と status のみで、**config のパラメータ変更は検知しません**。実験条件を変えて再実行する場合は `--no-resume` を付けるか、該当する `runs/manifests/*.json` を削除してください。
-
-## Phase 2 実行(UCR 横断比較)
-
-12 データセット × 5 学習比率(10-100%)× 7 拡張 × 2 モデル × 3 seeds = 2520 runs。学習比率スイープと Wilcoxon 検定・学習曲線を含みます(4 コア CPU で約 2 時間目安)。
-
-```bash
-make download     # 未取得の Phase 2 データセットも取得
-make phase2       # config/experiments/phase2.yaml のグリッド(resume 対応)
-```
-
-## Phase 4-5 実行(被験者数削減評価)
-
-被験者ID付きデータ(UCI HAR)で「目標性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を評価します。UCI HAR は初回実行時に自動ダウンロードされ、公式の被験者非跨り分割(train 21名 / test 9名)を用います。
-
-```bash
-# 目標性能は config/experiments/subject_count.yaml に事前登録済み(実行前に固定)
+# RQ2: 被験者数削減(F-8〜F-10)。UCI HAR は初回実行時に自動取得(公式の被験者非跨り分割)
 uv run python scripts/run_subject_experiment.py --config config/experiments/subject_count.yaml
-# negative control(ラベル無作為化拡張が削減を示さないことの確認)
 uv run python scripts/run_subject_experiment.py --config config/experiments/negative_control.yaml
-make all-report   # N*・削減率・信頼区間・学習曲線をレポートへ反映
+
+make all-report                     # 監査 → 集計 → report/dist/index.html を自動生成
 ```
 
-被験者数削減の分析(N* 推定・削減率・bootstrap 信頼区間)は `src/signal_aug/evaluation/reduction.py`。目標性能は結果を見る前に `artifacts/pre_registration.md` に登録します(事後設定の禁止)。
+所要時間の目安(4コア CPU): Phase 1 約1.5h、Phase 2 約2h、被験者数実験は軽量版で数十分〜。目標性能 τ=0.90 は結果を見る前に [`artifacts/pre_registration.md`](artifacts/pre_registration.md) へ事前登録しています(事後設定の禁止)。**再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断は、レポートの「再現・前処理ノート」タブにまとめています。**
 
-## Audit(結果監査)
+## やっていないこと・今後の課題
 
-```bash
-make audit        # manifest スキーマ・metrics 範囲・予測ファイル整合性の機械検査
-```
+本研究の結論は以下の範囲に限定されます。これらは重要な留保であり、レポートの「限界」および GitHub issue #7 に対応します。
 
-## Report 生成
+- **被験者数削減は統計的に未確定**。Phase 4-5 の反復は各被験者数で3回のみで N* の信頼区間が広く、拡張手法の削減は none や negative control と CI が重なります。確度には反復数の増加(例: 各点10回以上)と検出力設計が必要です(最優先の未解決点)。
+- **被験者データは UCI HAR 1件のみ**。一般化には予備対象 WISDM(51名)等での再現が必要です。
+- **拡張強度は各手法1点固定**(ratio, sigma, alpha, k 等)。「手法の効果」と「強度選択の効果」が交絡しており、強度スイープでの分離は未実施です。
+- **negative control は label_shuffle 1本のみ**。純ノイズ拡張・時間シャッフル等の対照拡充は今後の課題です。
+- **原論文からの実装差分**があります(mixup は同一クラス限定・ハードラベル、DTW はペアワイズ簡略版、raw-SMOTE は全クラス適用)。数値の厳密一致ではなく傾向の追試を目的としています(詳細は [`artifacts/deviations.md`](artifacts/deviations.md))。
+- **目標 τ=0.90** は 6クラス行動認識では比較的容易に到達する水準で、より難しい目標では削減の様相が変わりえます。
+- 1D-CNN の**ハイパーパラメータ探索は未実施**(拡張条件間は固定条件で公平に比較)。生成モデル系拡張(TimeGAN 等)や MiniRocket 無効の機序(特徴量空間分析)も未着手です。
 
-```bash
-make all-report   # 監査 → 集計 → report/dist/index.html 生成
-```
-
-結果は `runs/` と `artifacts/` から自動生成され、HTML への手入力は行いません。`all-report` は監査が失敗すると意図的にそこで停止します(不正な結果をレポートに載せないためのゲート)。
-
-### GitHub Pages への自動デプロイ
-
-`.github/workflows/deploy-pages.yml` が committed データからレポートを再生成し、GitHub Pages(https://gghatano.github.io/sp_sdg/ )へ公開します。
-
-- **ビルド検証**はどのブランチの push でも実行され、レポートが生成できることを確認します(PR チェック)。
-- **公開(deploy)は既定ブランチ `main` からのみ**行われます。GitHub Pages の `github-pages` 環境が既定で非既定ブランチのデプロイを制限するためで、この挙動に合わせています。したがってレポートは PR が main にマージされた時点で公開されます。手動実行(workflow_dispatch)を main 上で行うこともできます。
-- 前提: リポジトリの Settings → Pages で「Source: GitHub Actions」を設定しておく必要があります(設定済み)。フィーチャーブランチから先に公開したい場合は、Settings → Environments → github-pages の "Deployment branches" に当該ブランチを許可してください。
-
-## 実験条件の追加方法
-
-- **データセット追加**: `config/datasets.yaml` に登録 → 実験 config(`config/experiments/*.yaml`)の `datasets` に追加 → `make download`
-- **拡張手法追加**: `src/signal_aug/augmentations/methods.py` に関数を実装して `REGISTRY` に登録 → `config/augmentations.yaml` にパラメータを定義(YAML の追記だけでは動きません)
-- **モデル追加**: `src/signal_aug/models/minirocket.py` の `build_model()` に分岐を追加 → `config/models.yaml` に登録
-
-## ディレクトリ構成
+## リポジトリ構成
 
 | ディレクトリ | 役割 |
 |---|---|
-| `config/` | データセット・拡張・モデル・実験条件(YAML、コード埋め込み禁止) |
+| `config/` | データセット・拡張・モデル・実験条件(YAML。実験条件はコードに埋め込まない) |
 | `src/signal_aug/` | 研究コード本体(data / augmentations / models / experiments / evaluation / reporting) |
-| `data/` | raw(原データ・変更禁止)/ interim / processed / metadata(checksum 等) |
-| `runs/` | manifests / metrics / predictions / logs / checkpoints(run_id 単位) |
-| `artifacts/` | state.md・task_queue.yaml(唯一の順序管理簿)・decision_log.md 等 |
-| `report/` | Tailwind CSS 静的 HTML レポート |
-| `references/` | 論文・ノート・追試対象定義 |
-| `tests/` | unit / integration / regression / fixtures |
+| `scripts/` | 実験実行・集計・監査・レポート生成のエントリポイント |
+| `runs/` | run_id 単位の manifest / metrics / predictions / logs |
+| `artifacts/` | 事前登録・知見(findings)・意思決定ログ・再現ノート等 |
+| `report/` | 論文形式の静的 HTML レポート(`runs/`・`artifacts/` から自動生成) |
+| `references/` | 参考文献・追試対象の定義 |
+| `tests/` | unit / integration / regression |
 
-## 制約
+## 方法論上の制約(リーク防止)
 
-- test データを fit・拡張・モデル選択等に使用しない(リーケージ = テストデータの情報が学習側へ漏れ込むことの防止、`docs/spec.md` §8)
-- 被験者ID付きデータでは同一被験者を train/test に跨がせない
-- UCR のサンプル数を被験者数として解釈しない
-- サブエージェントの同時実行は最大 3
+- test データを fit・拡張・合成元・early stopping・ハイパラ/手法選択のいずれにも使用しない([`docs/spec.md`](docs/spec.md) §8)。
+- 被験者ID付きデータでは同一被験者を train/test に跨がせない(group split をコードで検査)。
+- レポートの数値は `runs/`・`artifacts/` から自動生成し、HTML への手入力は行わない。
+
+## 主要参考文献
+
+- B. K. Iwana and S. Uchida, "An empirical survey of data augmentation for time series classification," *PLOS ONE*, 2021.
+- A. Dempster, D. F. Schmidt, and G. I. Webb, "MiniRocket: A Very Fast (Almost) Deterministic Transform for Time Series Classification," *KDD*, 2021.
+- G. Forestier, F. Petitjean, H. A. Dau, G. I. Webb, and E. Keogh, "Generating synthetic time series to augment sparse datasets," *ICDM*, 2017.
+- D. Anguita, A. Ghio, L. Oneto, X. Parra, and J. L. Reyes-Ortiz, "A Public Domain Dataset for Human Activity Recognition Using Smartphones," *ESANN*, 2013.
+- H. A. Dau et al., "The UCR Time Series Archive," *IEEE/CAA J. Autom. Sinica*, 2019.
+
+全参考文献はレポートの参考文献セクション([`report/assets/data/references.json`](report/assets/data/references.json))を参照してください。データセットは UCR アーカイブおよび UCI HAR(CC BY 4.0)を利用しています。
