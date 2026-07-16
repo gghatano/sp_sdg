@@ -8,6 +8,7 @@
 - PR #1 が main にマージ済み。レポートは GitHub Pages に自動デプロイ(https://gghatano.github.io/sp_sdg/ )
 - 主要知見は artifacts/findings.json(F-1〜F-10)
 - **issue #13 対応(branch claude/issue-13-resolution-r7ow7w)**: 論文タブを学会誌構成(要旨/序論/問題設定/提案手法(評価枠組み)/関連手法/実験設計/実験結果/考察/限界/まとめ/参考文献)へ再編。傍論(進捗・再現性・簡易実験・用語説明)はダッシュボードタブへ分離。3ペルソナレビュー+結果監査を反映して収束(要旨の削減ロジック精緻化、negative control 箱の固定数値を束縛化、追試/独自の明示、用語インライン注)。数値の手入力なし・test 利用示唆なしを監査確認。build/section テスト green
+- **README 公開実装向け再構成(issue #18, branch claude/spec-task-planning-ubz1up)**: README を「フェーズ実行手順書」から論文公開実装向けへ書き換え。研究の問い(RQ1/RQ2)・主結果(F-5/6/7/8/10/11 の要約表)・再現手順・「やっていないこと/今後の課題」を明記し、進捗/計画記録(Phase 番号・内部 issue 参照・RESEARCH_PLAN リンク)を除去。3ペルソナレビュー反映(SDG 略語廃止→データ拡張、手法グロッサリ・N*/削減率定義・UCR/UCI HAR 正式名追加)。LICENSE・引用節はユーザー判断でいずれも保留。PR #19(draft)。
 - **再現・前処理ノートタブ追加(branch claude/spec-task-planning-ubz1up)**: レポートに第3タブ「再現・前処理ノート」を追加。再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断(sensitivity 付き)・原論文からの実装差分を、`artifacts/{reproduction_steps,preprocessing_notes,judgment_calls}.yaml`・`deviations.md` から自動生成(HTML 手入力なし)。維持手順を skill `/reproducibility-notes` 化し、CLAUDE.md に維持義務を追記。regression テスト追加・全 128 テスト green・ヘッドレス描画で表示確認。
 - 次の候補: Phase 6-7(削減評価の反復数増による確度向上、予備対象 WISDM での再現、拡張強度スイープ、統合レポート)。詳細は GitHub issue #7
 

@@ -42,3 +42,5 @@ tasks:
 
   - {id: RP-1, phase: 5, title: "再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)", status: done}
   - {id: RP-2, phase: 5, title: "維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)", status: done}
+
+  - {id: RM-1, phase: 5, title: "README を公開実装向けに再構成 (issue #18): 結果紹介・再現手順・やっていないこと/今後の課題。進捗/計画記録を除去し3ペルソナレビュー反映", status: done}
