@@ -56,6 +56,11 @@
     "url": "https://www.cis.fordham.edu/wisdm/dataset.php"
   },
   {
+    "key": "reiss2012",
+    "text": "A. Reiss and D. Stricker, \"Introducing a New Benchmarked Dataset for Activity Monitoring,\" in Proc. 16th Int. Symp. on Wearable Computers (ISWC), Newcastle, UK, 2012, pp. 108–109. Dataset: PAMAP2 Physical Activity Monitoring, UCI Machine Learning Repository, DOI:10.24432/C5NW2H (License: CC BY 4.0).",
+    "url": "https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring"
+  },
+  {
     "key": "wagner2020",
     "text": "P. Wagner, N. Strodthoff, R.-D. Bousseljot, D. Kreiseler, F. I. Lunze, W. Samek, and T. Schaeffter, \"PTB-XL, a large publicly available electrocardiography dataset,\" Scientific Data, vol. 7, no. 154, 2020.",
     "url": "https://physionet.org/content/ptb-xl/1.0.1/"

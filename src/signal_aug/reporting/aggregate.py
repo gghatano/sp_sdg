@@ -176,6 +176,84 @@ def _reduction_both_metrics(manifests_dir: Path, cfg_path: Path, prefix: str):
     return out
 
 
+def _cross_dataset_reduction(manifests_dir: Path, config_dir: Path):
+    """Unified-rule cross-dataset reduction for the DS-2 comparison (issue #21).
+
+    To compare datasets whose pre-registered primary targets differ, every
+    dataset+metric here uses the SAME target-determination rule:
+        target = floor_0.05(full-pool none mean - 0.05)
+    This rule was pre-registered for PAMAP2 (1 grid-run before any number was
+    computed); for UCI HAR / WISDM, whose data were finalized under their own
+    pre-registered accuracy targets (0.90 / 0.80), it is a POST-HOC descriptive
+    re-analysis. The primary F-8/F-10/F-12 conclusions rest on each dataset's
+    pre-registered target and are unchanged; this block is a separate lens whose
+    conclusion (null) happens to agree with the primary analysis.
+
+    left_censored flags a dataset+metric whose none baseline already meets the
+    target at the smallest grid point (n_star_none <= grid_min): N*(none) is then
+    unresolved on the left, so its reduction rates are not estimable and must not
+    be presented as real numbers (design 2.2 stopping condition).
+    """
+    import yaml
+
+    from signal_aug.evaluation.reduction import reduction_analysis
+
+    specs = [
+        ("UCI HAR", "subject_count_", "subject_count.yaml", False),
+        ("WISDM", "wisdm_subject_count_", "wisdm_subject_count.yaml", False),
+        ("PAMAP2", "pamap2_subject_count_", "pamap2_subject_count.yaml", True),
+    ]
+    datasets = []
+    for label, prefix, cfg_name, unified_prereg in specs:
+        rows_s = _subject_metric_rows(manifests_dir, prefix=prefix)
+        cfg_path = config_dir / "experiments" / cfg_name
+        if not (rows_s and cfg_path.exists()):
+            continue
+        cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8"))
+        counts = sorted({int(r["subject_count"]) for r in rows_s if r.get("subject_count") is not None})
+        grid_min, pool_max = (counts[0], counts[-1]) if counts else (None, None)
+        entry = {
+            "dataset": cfg.get("dataset", label),
+            "pool_max": pool_max,
+            "grid_min": grid_min,
+            "primary_metric": cfg.get("target_metric"),
+            # the dataset's OWN pre-registered primary target (differs from the
+            # unified-rule target for UCI HAR / WISDM) — kept so the report can
+            # be transparent about the post-hoc reinterpretation
+            "pre_registered_primary": {
+                "metric": cfg.get("target_metric"),
+                "value": float(cfg["target_value"]),
+            },
+            "unified_pre_registered": unified_prereg,
+            "by_metric": {},
+        }
+        for metric in ("accuracy", "macro_f1"):
+            mean, n_max, n_rep = _fullpool_none_mean(rows_s, metric)
+            if mean is None:
+                continue
+            target = _rule_target(mean)
+            red = reduction_analysis(rows_s, target=target, metric=metric)
+            nsn = red.get("n_star_none")
+            red["fullpool_none_mean"] = round(mean, 4)
+            red["fullpool_n"] = n_max
+            red["fullpool_repeats"] = n_rep
+            red["left_censored"] = bool(
+                nsn is not None and grid_min is not None and nsn <= grid_min
+            )
+            entry["by_metric"][metric] = red
+        datasets.append(entry)
+    datasets.sort(key=lambda d: (d["pool_max"] is None, d["pool_max"] or 0))
+    return {
+        "target_rule": "floor_0.05(full_pool_none_mean - 0.05)",
+        "metrics": ["accuracy", "macro_f1"],
+        "note": (
+            "unified target-determination rule across datasets; pre-registered "
+            "for PAMAP2, post-hoc descriptive for UCI HAR / WISDM"
+        ),
+        "datasets": datasets,
+    }
+
+
 def build_results_json(
     manifests_dir: str | Path = "runs/manifests",
     audit_path: str | Path = "artifacts/audit_report.json",
@@ -228,6 +306,11 @@ def build_results_json(
         prefix="pamap2_subject_count_",
     )
 
+    # Cross-dataset comparison (issue #21 DS-2): all 3 subject datasets, both
+    # metrics, on the UNIFIED target rule so the reduction-vs-pool-size figure
+    # is comparable. See _cross_dataset_reduction for the post-hoc caveat.
+    reduction_cross = _cross_dataset_reduction(Path(manifests_dir), Path(config_dir))
+
     data = {
         "runs": rows,
         "summary": summary,
@@ -236,6 +319,7 @@ def build_results_json(
         "reduction": reduction,
         "reduction_wisdm": reduction_wisdm,
         "reduction_pamap2": reduction_pamap2,
+        "reduction_cross": reduction_cross,
         "failed_runs": [r for r in rows if r["status"] == "failed"],
         "audit": audit,
     }
