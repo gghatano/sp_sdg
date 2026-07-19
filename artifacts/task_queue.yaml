@@ -50,6 +50,11 @@ tasks:
   - {id: DS1-2, phase: 6, title: "WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新", status: done}
   - {id: DS1-3, phase: 6, title: "WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)", status: done}
 
+  # Phase 6: 外的妥当性(issue #21 DS-2 = 第3の被験者データ PAMAP2 を横断比較に追加)
+  - {id: DS2-1, phase: 6, title: "PAMAP2 ローダ新規 (data/pamap2.py: .dat parse/transient除外/protocol12マッピング/±16g加速度9ch選択/NaN窓破棄/100→33.3Hzダウンサンプル/168窓/窓ごとznorm/seed-0 K=3 split) + dispatch登録 + metadata drift検査 + テスト", status: done}
+  - {id: DS2-2, phase: 6, title: "per-subject 活動サポート実測で subject 109 の除外/保持を機械決定 + pamap2 config作成 (subject_count/negative_control) + pre_registration に PAMAP2 target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出 → 統括報告(停止)", status: in_progress}
+  - {id: DS2-3, phase: 6, title: "PAMAP2 被験者数削減グリッド実行 + negative control → 集計・横断図(3データ削減率 vs pool被験者数, accuracy/macro-F1両版)・レポート反映 (統括GO後)", status: todo}
+
   # issue #23: DS-1(WISDM/F-12)へのレッドチーム検証の是正
   - {id: RT23-1, phase: 6, title: "文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー", status: done}
   - {id: RT23-2, phase: 6, title: "コード/config是正 (V9 dataset_params昇格+manifest記録 / V10 実データchecksum / V1 docstring)", status: done}
