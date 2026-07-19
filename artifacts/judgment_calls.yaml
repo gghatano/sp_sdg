@@ -135,9 +135,9 @@ calls:
     decision: "主指標 macro-F1。target = full-pool(N=5, aug=none)の held-out macro-F1 平均 − 0.05 を 0.05 刻みで切り捨てた値(ルールを数値確定前に登録)。UCI HAR 0.90 / WISDM 0.80 は流用しない。"
     why: "PAMAP2 は 12活動でクラス不均衡のため主指標を macro-F1 に(#23 V2 の教訓)。target は none baseline のみに依存する手続きで決め、拡張手法の結果に依存させない(手法有利化の排除)。曲線急峻部に置き天井/床を回避。"
     alternatives: "固定丸め値(0.60/0.65 等)、accuracy 基準、−0.10 マージン。"
-    sensitivity: "高。N* は τ 到達点なので値で削減率が動く。ルール駆動で恣意性を排除。target 絶対値は 3 データで異なるが削減率(無次元)で横断比較する。"
+    sensitivity: "高。N* は τ 到達点なので値で削減率が動く。ルール駆動で恣意性を排除。target 絶対値は 3 データで異なるが削減率(無次元)で横断比較する。実測: full-pool none macro-F1 平均 0.766 に対しルールで target=0.70 となったが、none 曲線は最小格子点 N=2 で既に平均 0.706(≥target)。→ **N*(none) は格子下限 2 に左側打ち切り**され、{2..5} の測定レンジでは sub-target 域を捉えられず**削減率は推定不能**(事前登録の停止条件どおり定性記述に格下げ)。negative control label_shuffle は target 未到達(N*=None)で対照として妥当。この左側打ち切りは『τ を下げ過ぎた』ではなくルール適用結果であり、少 N・高 baseline データでの構造的限界。"
     preregistered: true
-    source: "artifacts/pre_registration.md(PAMAP2 DS-2 節)/ config/experiments/pamap2_subject_count.yaml"
+    source: "artifacts/pre_registration.md(PAMAP2 DS-2 節)/ config/experiments/pamap2_subject_count.yaml / results.json(reduction_pamap2)"
   - id: J-PAMAP2-EXCLUDE109
     topic: subject 109 の除外(データ有無で機械決定)
     decision: "subject 109 を除外(pool=5 [101,102,106,107,108]、test=3 [103,104,105]、subject_counts={2,3,4,5})。"
