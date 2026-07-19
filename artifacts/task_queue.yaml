@@ -55,6 +55,7 @@ tasks:
   - {id: DS2-2, phase: 6, title: "per-subject 活動サポート実測で subject 109 の除外/保持を機械決定 + pamap2 config作成 (subject_count/negative_control) + pre_registration に PAMAP2 target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.70) → 統括GO取得", status: done}
   - {id: DS2-3, phase: 6, title: "PAMAP2 被験者数削減グリッド実行 (主120 + negative control 20, 失敗0/git_dirty=false) + reduction_pamap2 集計(accuracy/macro_f1両版) + 横断数値算出(N*(none) 左側打ち切りで削減率推定不能を明示) → Reporting レーンへ数値受け渡し", status: done}
   - {id: DS2-4, phase: 6, title: "[Reporting レーン] PAMAP2 DS-2 の横断図(削減率 vs pool被験者数, accuracy/macro_f1両版)・レポート本文・findings・ペルソナレビュー・make all-report", status: done}
+  - {id: DS2-5, phase: 6, title: "[Audit レーン] DS-2 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/post-hoc開示/データ駆動/事前登録完全/記述限定/再現性メタ)→ 公開可判定", status: done}
 
   # issue #23: DS-1(WISDM/F-12)へのレッドチーム検証の是正
   - {id: RT23-1, phase: 6, title: "文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー", status: done}
