@@ -89,11 +89,13 @@ def learning_curves(summary: list[dict]) -> dict:
     return curves
 
 
-def _subject_metric_rows(manifests_dir: Path) -> list[dict]:
-    """Phase 4 rows carry subject_count in the manifest, not the metrics file,
-    so join them here for the reduction analysis."""
+def _subject_metric_rows(manifests_dir: Path, prefix: str = "subject_count_") -> list[dict]:
+    """Subject-count rows carry subject_count in the manifest, not the metrics
+    file, so join them here for the reduction analysis. `prefix` selects the
+    dataset's run family (e.g. "subject_count_" for UCI HAR, "wisdm_subject_count_"
+    for WISDM); the two families never overlap by run_id."""
     rows = []
-    for path in sorted(Path(manifests_dir).glob("subject_count_*.json")):
+    for path in sorted(Path(manifests_dir).glob(f"{prefix}*.json")):
         m = json.loads(path.read_text())
         if m.get("status") != "completed" or not m.get("metrics_path"):
             continue
@@ -137,17 +139,22 @@ def build_results_json(
 
     # Phase 4-5: subject-count reduction analysis, target read from the
     # pre-registered config (never chosen post-hoc; spec section 8)
-    reduction = None
-    subject_rows = _subject_metric_rows(Path(manifests_dir))
-    subj_cfg_path = Path(config_dir) / "experiments/subject_count.yaml"
-    if subject_rows and subj_cfg_path.exists():
-        subj_cfg = yaml.safe_load(subj_cfg_path.read_text())
-        reduction = reduction_analysis(
-            subject_rows,
-            target=float(subj_cfg["target_value"]),
-            metric=subj_cfg["target_metric"],
+    def _reduction_for(prefix: str, cfg_name: str):
+        rows_s = _subject_metric_rows(Path(manifests_dir), prefix=prefix)
+        cfg_path = Path(config_dir) / "experiments" / cfg_name
+        if not (rows_s and cfg_path.exists()):
+            return None
+        cfg = yaml.safe_load(cfg_path.read_text())
+        red = reduction_analysis(
+            rows_s, target=float(cfg["target_value"]), metric=cfg["target_metric"]
         )
-        reduction["pre_registered"] = bool(subj_cfg.get("pre_registered"))
+        red["pre_registered"] = bool(cfg.get("pre_registered"))
+        red["dataset"] = cfg.get("dataset")
+        return red
+
+    # UCI HAR (primary, Phase 4-5) and WISDM (external validity, issue #21 DS-1)
+    reduction = _reduction_for("subject_count_", "subject_count.yaml")
+    reduction_wisdm = _reduction_for("wisdm_subject_count_", "wisdm_subject_count.yaml")
 
     data = {
         "runs": rows,
@@ -155,6 +162,7 @@ def build_results_json(
         "learning_curves": learning_curves([s for s in summary if s["dataset"] != "synthetic"]),
         "stats": stats,
         "reduction": reduction,
+        "reduction_wisdm": reduction_wisdm,
         "failed_runs": [r for r in rows if r["status"] == "failed"],
         "audit": audit,
     }

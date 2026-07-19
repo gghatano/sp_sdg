@@ -264,6 +264,15 @@ def gather_context(repo_root: str | Path = ".") -> dict:
                          for m in reduction["methods"]}
         reduction_svg = subject_curve_svg(curves_by_aug, reduction.get("target_value"))
 
+    # WISDM external-validity reduction (issue #21 DS-1) + its chart
+    reduction_wisdm = results.get("reduction_wisdm")
+    reduction_wisdm_svg = ""
+    if reduction_wisdm and reduction_wisdm.get("methods"):
+        curves_w = {m["augmentation"]: [{"train_fraction": p["subject_count"],
+                                         "accuracy_mean": p["mean"]} for p in m["curve"]]
+                    for m in reduction_wisdm["methods"]}
+        reduction_wisdm_svg = subject_curve_svg(curves_w, reduction_wisdm.get("target_value"))
+
     from signal_aug.evaluation.stats import holm_bonferroni
 
     stats = results.get("stats", [])
@@ -304,6 +313,8 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "aug_colors": AUG_COLORS,
         "reduction": reduction,
         "reduction_svg": reduction_svg,
+        "reduction_wisdm": reduction_wisdm,
+        "reduction_wisdm_svg": reduction_wisdm_svg,
         "n_runs": len(results["runs"]),
         "n_completed": len(completed_runs),
         "n_failed": len(results["failed_runs"]),

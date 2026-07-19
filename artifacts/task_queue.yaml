@@ -48,4 +48,4 @@ tasks:
   # Phase 6: 外的妥当性(issue #21 DS-1 = 第2の被験者データ WISDM で被験者数削減を再現)
   - {id: DS1-1, phase: 6, title: "subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト", status: done}
   - {id: DS1-2, phase: 6, title: "WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新", status: done}
-  - {id: DS1-3, phase: 6, title: "WISDM 被験者数削減グリッド実行 (8×6×3=144 runs) → 集計・レポート反映", status: in_progress}
+  - {id: DS1-3, phase: 6, title: "WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)", status: done}
