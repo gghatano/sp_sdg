@@ -42,6 +42,10 @@ steps:
     title: 被験者数削減実験(Phase 4-5)
     command: "uv run python scripts/run_subject_experiment.py --config config/experiments/subject_count.yaml"
     detail: "UCI HAR で被験者数 N∈{3,6,9,12,15,18,21} × 3反復の学習曲線。negative control は config/experiments/negative_control.yaml を追加実行する。目標 accuracy=0.90 は事前登録済み(artifacts/pre_registration.md)。"
+  - id: S7b
+    title: WISDM 被験者数削減の再現(Phase 6 / issue #21 DS-1)
+    command: "uv run python scripts/run_subject_experiment.py --config config/experiments/wisdm_subject_count.yaml"
+    detail: "第2の被験者データ WISDM v1.1 で N∈{3,6,9,12,15,18,21,24} × 3反復の学習曲線。WISDM は初回実行時に自動ダウンロード(CC BY 4.0、data/metadata/wisdm.json に出典記録)。目標 accuracy=0.80 は UCI HAR と独立に事前登録済み。同一の loader dispatch(data/subject_datasets.py)を経由。"
   - id: S8
     title: 集計・監査・レポート生成
     command: "make all-report"

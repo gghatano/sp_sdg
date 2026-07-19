@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>時系列データ拡張による被験者数削減の実証評価</title>
-<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sticky{position:sticky}.top-0{top:0}.mx-auto{margin-left:auto;margin-right:auto}.my-2{margin-top:.5rem;margin-bottom:.5rem}.my-3{margin-top:.75rem;margin-bottom:.75rem}.mb-0{margin-bottom:0}.mb-1{margin-bottom:.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mr-3{margin-right:.75rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-3{height:.75rem}.h-auto{height:auto}.max-h-96{max-height:24rem}.w-3{width:.75rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.shrink-0{flex-shrink:0}.cursor-pointer{cursor:pointer}.list-inside{list-style-position:inside}.list-decimal{list-style-type:decimal}.list-disc{list-style-type:disc}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-baseline{align-items:baseline}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-x-6{-moz-column-gap:1.5rem;column-gap:1.5rem}.gap-y-3{row-gap:.75rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.break-all{word-break:break-all}.rounded{border-radius:.25rem}.rounded-lg{border-radius:.5rem}.rounded-sm{border-radius:.125rem}.rounded-b{border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.rounded-t{border-top-left-radius:.25rem}.rounded-t,.rounded-tr{border-top-right-radius:.25rem}.border{border-width:1px}.border-y{border-top-width:1px}.border-b,.border-y{border-bottom-width:1px}.border-t{border-top-width:1px}.border-amber-300{--tw-border-opacity:1;border-color:rgb(252 211 77/var(--tw-border-opacity,1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254/var(--tw-bg-opacity,1))}.bg-green-100{--tw-bg-opacity:1;background-color:rgb(220 252 231/var(--tw-bg-opacity,1))}.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.px-1{padding-left:.25rem;padding-right:.25rem}.px-1\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.align-top{vertical-align:top}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.leading-7{line-height:1.75rem}.leading-snug{line-height:1.375}.tracking-wide{letter-spacing:.025em}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity,1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15/var(--tw-text-opacity,1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175/var(--tw-text-opacity,1))}.text-green-700{--tw-text-opacity:1;color:rgb(21 128 61/var(--tw-text-opacity,1))}.text-green-800{--tw-text-opacity:1;color:rgb(22 101 52/var(--tw-text-opacity,1))}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168/var(--tw-text-opacity,1))}.text-red-700{--tw-text-opacity:1;color:rgb(185 28 28/var(--tw-text-opacity,1))}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:px-10{padding-left:2.5rem;padding-right:2.5rem}.sm\:px-12{padding-left:3rem;padding-right:3rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}@media (min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}</style>
+<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sticky{position:sticky}.top-0{top:0}.mx-auto{margin-left:auto;margin-right:auto}.my-2{margin-top:.5rem;margin-bottom:.5rem}.my-3{margin-top:.75rem;margin-bottom:.75rem}.mb-0{margin-bottom:0}.mb-1{margin-bottom:.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mr-3{margin-right:.75rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-3{height:.75rem}.h-auto{height:auto}.max-h-96{max-height:24rem}.w-3{width:.75rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.shrink-0{flex-shrink:0}.cursor-pointer{cursor:pointer}.list-inside{list-style-position:inside}.list-decimal{list-style-type:decimal}.list-disc{list-style-type:disc}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-baseline{align-items:baseline}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-x-6{-moz-column-gap:1.5rem;column-gap:1.5rem}.gap-y-3{row-gap:.75rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.break-all{word-break:break-all}.rounded{border-radius:.25rem}.rounded-lg{border-radius:.5rem}.rounded-sm{border-radius:.125rem}.rounded-b{border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.rounded-t{border-top-left-radius:.25rem}.rounded-t,.rounded-tr{border-top-right-radius:.25rem}.border{border-width:1px}.border-y{border-top-width:1px}.border-b,.border-y{border-bottom-width:1px}.border-t{border-top-width:1px}.border-amber-300{--tw-border-opacity:1;border-color:rgb(252 211 77/var(--tw-border-opacity,1))}.border-emerald-300{--tw-border-opacity:1;border-color:rgb(110 231 183/var(--tw-border-opacity,1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254/var(--tw-bg-opacity,1))}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245/var(--tw-bg-opacity,1))}.bg-green-100{--tw-bg-opacity:1;background-color:rgb(220 252 231/var(--tw-bg-opacity,1))}.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.px-1{padding-left:.25rem;padding-right:.25rem}.px-1\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.align-top{vertical-align:top}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.leading-7{line-height:1.75rem}.leading-snug{line-height:1.375}.tracking-wide{letter-spacing:.025em}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity,1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15/var(--tw-text-opacity,1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175/var(--tw-text-opacity,1))}.text-emerald-900{--tw-text-opacity:1;color:rgb(6 78 59/var(--tw-text-opacity,1))}.text-green-700{--tw-text-opacity:1;color:rgb(21 128 61/var(--tw-text-opacity,1))}.text-green-800{--tw-text-opacity:1;color:rgb(22 101 52/var(--tw-text-opacity,1))}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168/var(--tw-text-opacity,1))}.text-red-700{--tw-text-opacity:1;color:rgb(185 28 28/var(--tw-text-opacity,1))}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:px-10{padding-left:2.5rem;padding-right:2.5rem}.sm\:px-12{padding-left:3rem;padding-right:3rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}@media (min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}</style>
 <style>
   :root { --ink:#1e293b; --muted:#64748b; --rule:#e2e8f0; --accent:#1d4ed8; }
   body { background:#f1f5f9; }
@@ -46,7 +46,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-15 12:39 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-19 05:28 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -71,7 +71,7 @@
         <h2 class="text-sm font-bold figtab tracking-wide text-slate-700 mb-2">要旨</h2>
         <p class="lead text-sm">
         本研究は、時系列データ拡張が分類精度に与える効果を UCR Time Series Classification Archive [1] の
-        14 データセット上で系統的に評価し(2793 run)、被験者ID付きデータ
+        15 データセット上で系統的に評価し(2961 run)、被験者ID付きデータ
         (UCI HAR [12])へ展開して「所定の分類性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を定量する。
         1D-CNN では 5 手法の拡張が精度を統計的に有意に改善する一方、MiniRocket [4] では有意な改善が
         見られず、効果はモデルに強く依存する。被験者数削減では、事前登録した目標精度
@@ -100,7 +100,7 @@
       </p>
       <p class="lead text-sm mt-2">本研究の貢献は以下のとおり。</p>
       <ol class="lead text-sm list-decimal list-inside mt-1 space-y-1">
-        <li><span class="text-xs rounded px-1 bg-blue-100 text-blue-800">追試</span> UCR [1] 14 データセット × 7 拡張 × 2 モデル × 学習比率 5 段階での精度効果の系統評価と、多重比較補正付きの有意性検定(§6.1)。先行研究 [8] の傾向を公開データで確認する。</li>
+        <li><span class="text-xs rounded px-1 bg-blue-100 text-blue-800">追試</span> UCR [1] 15 データセット × 7 拡張 × 2 モデル × 学習比率 5 段階での精度効果の系統評価と、多重比較補正付きの有意性検定(§6.1)。先行研究 [8] の傾向を公開データで確認する。</li>
         <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> 被験者単位の学習曲線から必要被験者数 N* を推定し、削減率・等価被験者数・信頼区間を与える評価枠組みを<strong>本研究の提案</strong>として定式化する(§3、目標性能は事前登録)。</li>
         <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> ラベル無作為化を用いた negative control による健全性検証。見かけの削減が信号のない対照でも再現されることを示し、削減主張に「対照越え」を課す(§3.3、§6.3)。</li>
         <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> リーク防止・run manifest・監査・レポート生成まで完全自動化した再現可能な実験基盤(基盤・運用の詳細はダッシュボードタブ)。</li>
@@ -226,7 +226,7 @@
       <h2 class="sec">5. 実験設計</h2>
 
       <h3 class="sub">5.1 データセット</h3>
-      <p class="lead text-sm">UCR アーカイブ [1] から小〜中規模の 14 データセットで RQ1 を評価し、RQ2(被験者数削減)の主対象には
+      <p class="lead text-sm">UCR アーカイブ [1] から小〜中規模の 15 データセットで RQ1 を評価し、RQ2(被験者数削減)の主対象には
       被験者ID付きの UCI HAR [12] を、予備対象に WISDM [13] を選定した。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
@@ -1717,6 +1717,62 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">WISDM</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7394 ± 0.1259</td>
+            <td class="p-2 text-right text-slate-400">-0.0055</td>
+            <td class="p-2 text-right">0.6760</td>
+            <td class="p-2 text-right">0.7345</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">WISDM</td><td class="p-2 font-mono">label_shuffle</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7146 ± 0.1264</td>
+            <td class="p-2 text-right text-slate-400">-0.0303</td>
+            <td class="p-2 text-right">0.5724</td>
+            <td class="p-2 text-right">0.5911</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">WISDM</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7477 ± 0.1195</td>
+            <td class="p-2 text-right text-green-700">+0.0028</td>
+            <td class="p-2 text-right">0.6806</td>
+            <td class="p-2 text-right">0.7368</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">WISDM</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7449 ± 0.1181</td>
+            <td class="p-2 text-right text-slate-400">—</td>
+            <td class="p-2 text-right">0.6747</td>
+            <td class="p-2 text-right">0.7288</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">WISDM</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7404 ± 0.1220</td>
+            <td class="p-2 text-right text-slate-400">-0.0045</td>
+            <td class="p-2 text-right">0.6708</td>
+            <td class="p-2 text-right">0.7282</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">WISDM</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7469 ± 0.1267</td>
+            <td class="p-2 text-right text-green-700">+0.0020</td>
+            <td class="p-2 text-right">0.6745</td>
+            <td class="p-2 text-right">0.7295</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">WISDM</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7492 ± 0.1345</td>
+            <td class="p-2 text-right text-green-700">+0.0043</td>
+            <td class="p-2 text-right">0.6839</td>
+            <td class="p-2 text-right">0.7349</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-2 font-mono">Wafer</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
             <td class="p-2 text-right">0.9979 ± 0.0011</td>
             <td class="p-2 text-right text-green-700">+0.0021</td>
@@ -1831,7 +1887,7 @@
         </tbody>
       </table>
       </div>
-      <p class="cap mt-1">表4: 学習比率 100% の主要結果(全 2797 run のうち完了分から集計)。macro-F1 はクラス不均衡なデータ(例 ECG5000)で精度より低くなる。
+      <p class="cap mt-1">表4: 学習比率 100% の主要結果(全 2965 run のうち完了分から集計)。macro-F1 はクラス不均衡なデータ(例 ECG5000)で精度より低くなる。
       bal. acc.(balanced accuracy)はクラスごとの再現率の平均で、少数クラスを多数クラスと対等に扱う指標。</p>
 
       
@@ -2182,6 +2238,89 @@
       </div>
       
       
+
+      
+      <h3 class="sub mt-6" id="subject-reduction-wisdm">6.4 外的妥当性:WISDM での再現(RQ2)</h3>
+      <p class="lead text-sm">UCI HAR 単一データセットへの依存を減らすため、第2の被験者ID付きデータ WISDM v1.1 [13]
+      (36名のスマホ加速度・6活動)で同じ削減評価を反復する。目標 <span class="font-mono">accuracy = 0.80</span> は
+      UCI HAR の 0.90 を流用せず<strong>実験前に独立して固定</strong>した(artifacts/pre_registration.md)。基準は N*(none) =
+      <span class="font-mono">14.04</span> 名(95%CI 11.18–14.68)。</p>
+      <figure class="border border-slate-200 rounded p-2 my-3"><svg viewBox="0 0 560 300" class="w-full h-auto" role="img" aria-label="subject-count learning curve"><line x1="46" y1="14" x2="46" y2="266" stroke="#cbd5e1"/><line x1="46" y1="266" x2="470" y2="266" stroke="#cbd5e1"/><text x="41" y="262.1" text-anchor="end" font-size="10" fill="#64748b">0.51</text><line x1="46" y1="259.1" x2="470" y2="259.1" stroke="#f1f5f9"/><text x="41" y="143.0" text-anchor="end" font-size="10" fill="#64748b">0.69</text><line x1="46" y1="140.0" x2="470" y2="140.0" stroke="#f1f5f9"/><text x="41" y="23.9" text-anchor="end" font-size="10" fill="#64748b">0.86</text><line x1="46" y1="20.9" x2="470" y2="20.9" stroke="#f1f5f9"/><text x="46.0" y="280" text-anchor="middle" font-size="10" fill="#64748b">3</text><text x="106.6" y="280" text-anchor="middle" font-size="10" fill="#64748b">6</text><text x="167.1" y="280" text-anchor="middle" font-size="10" fill="#64748b">9</text><text x="227.7" y="280" text-anchor="middle" font-size="10" fill="#64748b">12</text><text x="288.3" y="280" text-anchor="middle" font-size="10" fill="#64748b">15</text><text x="348.9" y="280" text-anchor="middle" font-size="10" fill="#64748b">18</text><text x="409.4" y="280" text-anchor="middle" font-size="10" fill="#64748b">21</text><text x="470.0" y="280" text-anchor="middle" font-size="10" fill="#64748b">24</text><text x="258" y="296" text-anchor="middle" font-size="10" fill="#475569">被験者数</text><line x1="46" y1="63.4" x2="470" y2="63.4" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/><text x="474" y="66.4" font-size="10" fill="#ef4444">目標 0.8</text><path d="M46.0,245.7 L106.6,205.4 L167.1,124.7 L227.7,105.4 L288.3,46.6 L348.9,37.2 L409.4,43.1 L470.0,31.5" fill="none" stroke="#8b5cf6" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="245.7" r="2.5" fill="#8b5cf6"/><circle cx="106.6" cy="205.4" r="2.5" fill="#8b5cf6"/><circle cx="167.1" cy="124.7" r="2.5" fill="#8b5cf6"/><circle cx="227.7" cy="105.4" r="2.5" fill="#8b5cf6"/><circle cx="288.3" cy="46.6" r="2.5" fill="#8b5cf6"/><circle cx="348.9" cy="37.2" r="2.5" fill="#8b5cf6"/><circle cx="409.4" cy="43.1" r="2.5" fill="#8b5cf6"/><circle cx="470.0" cy="31.5" r="2.5" fill="#8b5cf6"/><text x="474" y="34.5" font-size="9" fill="#8b5cf6">dtw</text><path d="M46.0,255.4 L106.6,225.5 L167.1,142.2 L227.7,113.1 L288.3,65.0 L348.9,68.7 L409.4,64.4 L470.0,40.8" fill="none" stroke="#94a3b8" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="255.4" r="2.5" fill="#94a3b8"/><circle cx="106.6" cy="225.5" r="2.5" fill="#94a3b8"/><circle cx="167.1" cy="142.2" r="2.5" fill="#94a3b8"/><circle cx="227.7" cy="113.1" r="2.5" fill="#94a3b8"/><circle cx="288.3" cy="65.0" r="2.5" fill="#94a3b8"/><circle cx="348.9" cy="68.7" r="2.5" fill="#94a3b8"/><circle cx="409.4" cy="64.4" r="2.5" fill="#94a3b8"/><circle cx="470.0" cy="40.8" r="2.5" fill="#94a3b8"/><text x="474" y="43.8" font-size="9" fill="#94a3b8">label_shuffle</text><path d="M46.0,243.1 L106.6,166.5 L167.1,135.4 L227.7,93.6 L288.3,65.2 L348.9,28.1 L409.4,31.5 L470.0,30.2" fill="none" stroke="#ec4899" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="243.1" r="2.5" fill="#ec4899"/><circle cx="106.6" cy="166.5" r="2.5" fill="#ec4899"/><circle cx="167.1" cy="135.4" r="2.5" fill="#ec4899"/><circle cx="227.7" cy="93.6" r="2.5" fill="#ec4899"/><circle cx="288.3" cy="65.2" r="2.5" fill="#ec4899"/><circle cx="348.9" cy="28.1" r="2.5" fill="#ec4899"/><circle cx="409.4" cy="31.5" r="2.5" fill="#ec4899"/><circle cx="470.0" cy="30.2" r="2.5" fill="#ec4899"/><text x="474" y="33.2" font-size="9" fill="#ec4899">mixup</text><path d="M46.0,241.3 L106.6,185.1 L167.1,130.3 L227.7,84.4 L288.3,53.5 L348.9,26.6 L409.4,42.8 L470.0,45.3" fill="none" stroke="#64748b" stroke-width="2" /><circle cx="46.0" cy="241.3" r="2.5" fill="#64748b"/><circle cx="106.6" cy="185.1" r="2.5" fill="#64748b"/><circle cx="167.1" cy="130.3" r="2.5" fill="#64748b"/><circle cx="227.7" cy="84.4" r="2.5" fill="#64748b"/><circle cx="288.3" cy="53.5" r="2.5" fill="#64748b"/><circle cx="348.9" cy="26.6" r="2.5" fill="#64748b"/><circle cx="409.4" cy="42.8" r="2.5" fill="#64748b"/><circle cx="470.0" cy="45.3" r="2.5" fill="#64748b"/><text x="474" y="48.3" font-size="9" fill="#64748b">none</text><path d="M46.0,256.8 L106.6,184.3 L167.1,121.2 L227.7,88.7 L288.3,53.5 L348.9,36.3 L409.4,49.0 L470.0,43.9" fill="none" stroke="#0ea5e9" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="256.8" r="2.5" fill="#0ea5e9"/><circle cx="106.6" cy="184.3" r="2.5" fill="#0ea5e9"/><circle cx="167.1" cy="121.2" r="2.5" fill="#0ea5e9"/><circle cx="227.7" cy="88.7" r="2.5" fill="#0ea5e9"/><circle cx="288.3" cy="53.5" r="2.5" fill="#0ea5e9"/><circle cx="348.9" cy="36.3" r="2.5" fill="#0ea5e9"/><circle cx="409.4" cy="49.0" r="2.5" fill="#0ea5e9"/><circle cx="470.0" cy="43.9" r="2.5" fill="#0ea5e9"/><text x="474" y="46.9" font-size="9" fill="#0ea5e9">oversample</text><path d="M46.0,255.5 L106.6,182.0 L167.1,120.5 L227.7,97.5 L288.3,38.5 L348.9,33.2 L409.4,41.5 L470.0,29.4" fill="none" stroke="#eab308" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="255.5" r="2.5" fill="#eab308"/><circle cx="106.6" cy="182.0" r="2.5" fill="#eab308"/><circle cx="167.1" cy="120.5" r="2.5" fill="#eab308"/><circle cx="227.7" cy="97.5" r="2.5" fill="#eab308"/><circle cx="288.3" cy="38.5" r="2.5" fill="#eab308"/><circle cx="348.9" cy="33.2" r="2.5" fill="#eab308"/><circle cx="409.4" cy="41.5" r="2.5" fill="#eab308"/><circle cx="470.0" cy="29.4" r="2.5" fill="#eab308"/><text x="474" y="32.4" font-size="9" fill="#eab308">scaling</text><path d="M46.0,259.1 L106.6,196.0 L167.1,128.2 L227.7,68.0 L288.3,43.2 L348.9,38.1 L409.4,32.1 L470.0,20.9" fill="none" stroke="#f97316" stroke-width="1.5" opacity=0.85/><circle cx="46.0" cy="259.1" r="2.5" fill="#f97316"/><circle cx="106.6" cy="196.0" r="2.5" fill="#f97316"/><circle cx="167.1" cy="128.2" r="2.5" fill="#f97316"/><circle cx="227.7" cy="68.0" r="2.5" fill="#f97316"/><circle cx="288.3" cy="43.2" r="2.5" fill="#f97316"/><circle cx="348.9" cy="38.1" r="2.5" fill="#f97316"/><circle cx="409.4" cy="32.1" r="2.5" fill="#f97316"/><circle cx="470.0" cy="20.9" r="2.5" fill="#f97316"/><text x="474" y="23.9" font-size="9" fill="#f97316">smote</text></svg><figcaption class="cap mt-1">図3: WISDM の被験者数に対する精度の学習曲線と目標線。</figcaption></figure>
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">拡張</th><th class="p-2 text-right">N*</th><th class="p-2 text-right">95% CI</th><th class="p-2 text-right">削減率</th><th class="p-2 text-right">節約被験者数</th>
+        </tr></thead>
+        <tbody>
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2 font-mono">dtw</td>
+            <td class="p-2 text-right">14.14</td>
+            <td class="p-2 text-right text-slate-500">13.32–15.32</td>
+            <td class="p-2 text-right text-red-700">-0.8%</td>
+            <td class="p-2 text-right">-0.11</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2 font-mono">label_shuffle</td>
+            <td class="p-2 text-right">21.13</td>
+            <td class="p-2 text-right text-slate-500">13.54–21.97</td>
+            <td class="p-2 text-right text-red-700">-50.5%</td>
+            <td class="p-2 text-right">-7.09</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2 font-mono">mixup</td>
+            <td class="p-2 text-right">15.14</td>
+            <td class="p-2 text-right text-slate-500">11.74–16.57</td>
+            <td class="p-2 text-right text-red-700">-7.9%</td>
+            <td class="p-2 text-right">-1.11</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 bg-slate-50">
+            <td class="p-2 font-mono">none</td>
+            <td class="p-2 text-right">14.04</td>
+            <td class="p-2 text-right text-slate-500">11.18–14.68</td>
+            <td class="p-2 text-right text-slate-400">+0.0%</td>
+            <td class="p-2 text-right">+0.00</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2 font-mono">oversample</td>
+            <td class="p-2 text-right">14.15</td>
+            <td class="p-2 text-right text-slate-500">8.86–16.25</td>
+            <td class="p-2 text-right text-red-700">-0.8%</td>
+            <td class="p-2 text-right">-0.12</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2 font-mono">scaling</td>
+            <td class="p-2 text-right">13.73</td>
+            <td class="p-2 text-right text-slate-500">12.44–14.35</td>
+            <td class="p-2 text-right text-green-700">+2.2%</td>
+            <td class="p-2 text-right">+0.30</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2 font-mono">smote</td>
+            <td class="p-2 text-right">12.55</td>
+            <td class="p-2 text-right text-slate-500">11.23–13.81</td>
+            <td class="p-2 text-right text-green-700">+10.5%</td>
+            <td class="p-2 text-right">+1.48</td>
+          </tr>
+          
+        </tbody>
+      </table>
+      </div>
+      <p class="cap mt-1">表7: WISDM の必要被験者数 N* と削減率。点推定の最大削減も none の CI と重なり、CI 分離で基準を明確に超える手法はない。</p>
+      
+      <div class="mt-3 border border-emerald-300 bg-emerald-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-emerald-900 mb-1">2データセットでの一貫した結論</p>
+        <p>WISDM でも、点推定の削減率は手法間で符号がばらつき(最大でも smote 程度)、いずれの手法も none の信頼区間と分離しない。
+        negative control <span class="font-mono">label_shuffle</span> は WISDM では <span class="font-mono">-50.5%</span>(むしろ必要被験者数が増加)で、UCI HAR で対照が見かけの削減を示したのとは対照的——WISDM では量水増し由来のアーティファクトは弱い。
+        いずれにせよ<strong>「拡張が所定性能に必要な実被験者を明確に代替する」ことは UCI HAR・WISDM のどちらでも確証されず</strong>、RQ2 の結論(本設定では削減を統計的に確定できない)は単一データセット固有ではない。反復数が少なく CI が広い点は両データ共通の限界(issue #6/#7)。</p>
+      </div>
+      
     </section>
 
     <!-- 7. Discussion -->
@@ -2307,6 +2446,16 @@
           <div class="text-xs text-slate-500 mt-1">H2 の反証。『どれだけ過剰適合しているか(ギャップ)』は SDG が効くかを説明しない。両モデルは同程度に過剰適合するのに MiniRocket だけ拡張が無効。含意: 効くかどうかはモデルが拡張された変動を『表現・利用できるか』で決まる。MiniRocket の固定ランダム畳み込み特徴は本実験の拡張に対してほぼ不変で、ギャップの大小に関わらず合成サンプルが線形分類器に新情報を与えないと解釈できる。これは H4/特徴量空間分析(issue #7 候補5)への動機付けとなる。ただし本検証は全データ条件のみで、低データ域では未検証(H5 と併せ今後)</div>
         </div>
         
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-mono text-xs text-slate-400">F-12</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-purple-100 text-purple-800">独自</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">確度 low</span>
+          </div>
+          <div>第2の被験者データ WISDM v1.1 でも被験者数削減は確定できない。目標 accuracy=0.80 に必要な実被験者数は拡張なしで N*≈14.0(95%CI [11.2,14.7])。点推定の最大削減は smote(+10.5%, N*≈12.6)だが 95%CI [11.2,13.8] は none と重なり、CI 分離で baseline を明確に超える手法は無い。削減率は手法間で符号がばらつく(mixup −7.9% 〜 smote +10.5%)。UCI HAR(F-8/F-10)の結論を第2データセットで再現し、RQ2 の外的妥当性を補強する</div>
+          <div class="text-xs text-slate-500 mt-1">反復3回のため N* の CI は広く(issue #6 と同じ構造的制約)、点推定の順位づけには実質情報が乏しい。ただし『拡張は所定性能に必要な実被験者を明確には代替しない』という結論は UCI HAR と WISDM の2データセットで一貫。negative control(label_shuffle)は WISDM では削減を示さず N*≈21(−50.5%、むしろ多くの被験者を要する)で、UCI HAR で対照が見かけ +4.3% の削減を示したのとは対照的——WISDM では『量水増し』由来の見かけ削減アーティファクトは弱い。検出力確保(反復増、issue #7 候補1)が両データセット共通の後続課題。</div>
+        </div>
+        
       </div>
       
     </section>
@@ -2378,7 +2527,7 @@
     <!-- summary tiles -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
       <div class="rounded-lg border border-slate-200 p-4">
-        <div class="text-2xl font-bold text-slate-900">2797</div>
+        <div class="text-2xl font-bold text-slate-900">2965</div>
         <div class="text-xs text-slate-500 mt-1">完了した run</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
@@ -2386,7 +2535,7 @@
         <div class="text-xs text-slate-500 mt-1">失敗した run</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
-        <div class="text-2xl font-bold text-slate-900">33 / 33</div>
+        <div class="text-2xl font-bold text-slate-900">38 / 39</div>
         <div class="text-xs text-slate-500 mt-1">完了タスク</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
@@ -2399,12 +2548,12 @@
       <h2 class="text-lg font-semibold text-slate-900 mb-3">実験進捗(タスク状況)</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <div>
-          <h3 class="font-medium text-green-700 mb-2">完了 (33)</h3>
-          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic, checksum, znorm, train/val split)</li><li class="border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression)</li><li class="border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN, MiniRocket+Ridge)</li><li class="border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 12 件の選定</li><li class="border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="border border-slate-200 rounded px-2 py-1">P2-3: 統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加</li><li class="border border-slate-200 rounded px-2 py-1">P2-5: Phase 2 実験格子の実行 (2520 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P2-6: Phase 2 集計・検定・レポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)</li><li class="border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="border border-slate-200 rounded px-2 py-1">P3-2: 主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)</li><li class="border border-slate-200 rounded px-2 py-1">P4-1: 被験者単位 group split 基盤 (subject.py)</li><li class="border border-slate-200 rounded px-2 py-1">P4-2: 目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)</li><li class="border border-slate-200 rounded px-2 py-1">P4-3: UCI HAR ローダ + 被験者数 runner 実装</li><li class="border border-slate-200 rounded px-2 py-1">P4-4: 被験者数学習曲線グリッド実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P5-1: 必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P5-2: negative control (label_shuffle) の追加と削減の健全性検証</li><li class="border border-slate-200 rounded px-2 py-1">R13-1: レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化</li><li class="border border-slate-200 rounded px-2 py-1">R13-2: 3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)</li></ul>
+          <h3 class="font-medium text-green-700 mb-2">完了 (38)</h3>
+          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic, checksum, znorm, train/val split)</li><li class="border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression)</li><li class="border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN, MiniRocket+Ridge)</li><li class="border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 12 件の選定</li><li class="border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="border border-slate-200 rounded px-2 py-1">P2-3: 統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加</li><li class="border border-slate-200 rounded px-2 py-1">P2-5: Phase 2 実験格子の実行 (2520 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P2-6: Phase 2 集計・検定・レポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)</li><li class="border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="border border-slate-200 rounded px-2 py-1">P3-2: 主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)</li><li class="border border-slate-200 rounded px-2 py-1">P4-1: 被験者単位 group split 基盤 (subject.py)</li><li class="border border-slate-200 rounded px-2 py-1">P4-2: 目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)</li><li class="border border-slate-200 rounded px-2 py-1">P4-3: UCI HAR ローダ + 被験者数 runner 実装</li><li class="border border-slate-200 rounded px-2 py-1">P4-4: 被験者数学習曲線グリッド実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P5-1: 必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P5-2: negative control (label_shuffle) の追加と削減の健全性検証</li><li class="border border-slate-200 rounded px-2 py-1">R13-1: レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化</li><li class="border border-slate-200 rounded px-2 py-1">R13-2: 3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)</li><li class="border border-slate-200 rounded px-2 py-1">RP-1: 再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)</li><li class="border border-slate-200 rounded px-2 py-1">RP-2: 維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)</li><li class="border border-slate-200 rounded px-2 py-1">RM-1: README を公開実装向けに再構成 (issue #18): 結果紹介・再現手順・やっていないこと/今後の課題。進捗/計画記録を除去し3ペルソナレビュー反映</li><li class="border border-slate-200 rounded px-2 py-1">DS1-1: subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS1-2: WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新</li></ul>
         </div>
         <div>
-          <h3 class="font-medium text-amber-700 mb-2">実行中 (0)</h3>
-          <ul class="space-y-1"></ul>
+          <h3 class="font-medium text-amber-700 mb-2">実行中 (1)</h3>
+          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">DS1-3: WISDM 被験者数削減グリッド実行 (8×6×3=144 runs) → 集計・レポート反映</li></ul>
         </div>
         <div>
           <h3 class="font-medium text-slate-500 mb-2">未実施 (0)</h3>
@@ -2435,8 +2584,8 @@
       <h2 class="text-lg font-semibold text-slate-900 mb-3">再現性・環境</h2>
       <ul class="text-sm list-disc list-inside space-y-1">
         <li>全 run は一意な run_id と manifest(条件・環境・Git commit・依存関係チェックサム)を持つ</li>
-        <li>最後に完了した run(ended_at 基準)のコード版: <span class="font-mono">1c5ed3b15c5a</span>、Python 3.11.15</li>
-        <li class="text-amber-700">git_dirty=true の run が 2734/2797 件(実験中に生成される未追跡の run 成果物を含む判定。詳細は論文タブの限界)</li>
+        <li>最後に完了した run(ended_at 基準)のコード版: <span class="font-mono">c196aa506c20</span>、Python 3.11.15</li>
+        <li class="text-amber-700">git_dirty=true の run が 2745/2965 件(実験中に生成される未追跡の run 成果物を含む判定。詳細は論文タブの限界)</li>
         <li>乱数 seed は run 単位で固定(分割・拡張・初期化に適用)</li>
         <li>依存関係は uv.lock で固定(torch は CPU 版)。実験条件は config/ の YAML で管理しコードに埋め込まない</li>
         <li>実装基盤: aeon [11](UCR 取得・MiniRocket・DTW)、PyTorch(1D-CNN)、scikit-learn(Ridge・評価指標)</li>
@@ -2446,8 +2595,8 @@
     <section id="ops-audit" class="mb-8">
       <h2 class="text-lg font-semibold text-slate-900 mb-3">監査結果</h2>
       
-      <p class="text-sm">機械監査(manifest スキーマ・metrics 範囲・予測ファイル整合性): 2797 runs 中
-        <span class="font-medium text-green-700">2797 件合格 / 問題 0 件</span></p>
+      <p class="text-sm">機械監査(manifest スキーマ・metrics 範囲・予測ファイル整合性): 3037 runs 中
+        <span class="font-medium text-green-700">3037 件合格 / 問題 0 件</span></p>
       
       <h3 class="font-medium text-slate-700 mt-4 mb-1">失敗した run</h3>
       
@@ -2456,7 +2605,7 @@
     </section>
 
     <section id="ops-runs" class="mb-4">
-      <h2 class="text-lg font-semibold text-slate-900 mb-3">全 run 一覧(2797 runs)</h2>
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">全 run 一覧(2965 runs)</h2>
       <details class="text-sm">
         <summary class="cursor-pointer text-blue-700">一覧を展開</summary>
         <div class="overflow-x-auto mt-2 max-h-96 overflow-y-auto">
@@ -22043,13 +22192,1189 @@
               <td class="p-2 font-mono">5228baa651cb</td>
             </tr>
             
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7487</td>
+              <td class="p-2 text-right">0.6947</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6949</td>
+              <td class="p-2 text-right">0.6064</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7726</td>
+              <td class="p-2 text-right">0.7070</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7978</td>
+              <td class="p-2 text-right">0.6508</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6137</td>
+              <td class="p-2 text-right">0.5946</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7709</td>
+              <td class="p-2 text-right">0.6170</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7680</td>
+              <td class="p-2 text-right">0.6985</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6867</td>
+              <td class="p-2 text-right">0.6273</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8130</td>
+              <td class="p-2 text-right">0.7358</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8369</td>
+              <td class="p-2 text-right">0.7610</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7271</td>
+              <td class="p-2 text-right">0.6540</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7440</td>
+              <td class="p-2 text-right">0.6970</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7797</td>
+              <td class="p-2 text-right">0.7165</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6973</td>
+              <td class="p-2 text-right">0.6280</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8124</td>
+              <td class="p-2 text-right">0.7335</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7715</td>
+              <td class="p-2 text-right">0.7067</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6838</td>
+              <td class="p-2 text-right">0.6471</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7954</td>
+              <td class="p-2 text-right">0.7165</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8217</td>
+              <td class="p-2 text-right">0.7583</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7557</td>
+              <td class="p-2 text-right">0.6805</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n12_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8025</td>
+              <td class="p-2 text-right">0.7264</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7931</td>
+              <td class="p-2 text-right">0.7298</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8252</td>
+              <td class="p-2 text-right">0.7299</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8551</td>
+              <td class="p-2 text-right">0.7864</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7838</td>
+              <td class="p-2 text-right">0.5078</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7861</td>
+              <td class="p-2 text-right">0.6579</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8229</td>
+              <td class="p-2 text-right">0.6675</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7434</td>
+              <td class="p-2 text-right">0.6975</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7995</td>
+              <td class="p-2 text-right">0.7357</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8492</td>
+              <td class="p-2 text-right">0.7774</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8212</td>
+              <td class="p-2 text-right">0.7334</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8188</td>
+              <td class="p-2 text-right">0.7277</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8036</td>
+              <td class="p-2 text-right">0.6977</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7656</td>
+              <td class="p-2 text-right">0.6764</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8101</td>
+              <td class="p-2 text-right">0.7361</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8679</td>
+              <td class="p-2 text-right">0.8172</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8293</td>
+              <td class="p-2 text-right">0.7268</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8212</td>
+              <td class="p-2 text-right">0.7285</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8586</td>
+              <td class="p-2 text-right">0.8079</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8171</td>
+              <td class="p-2 text-right">0.7385</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8223</td>
+              <td class="p-2 text-right">0.7260</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n15_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8492</td>
+              <td class="p-2 text-right">0.7850</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8586</td>
+              <td class="p-2 text-right">0.7911</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8597</td>
+              <td class="p-2 text-right">0.7812</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7966</td>
+              <td class="p-2 text-right">0.7346</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8083</td>
+              <td class="p-2 text-right">0.6536</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7674</td>
+              <td class="p-2 text-right">0.5962</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8013</td>
+              <td class="p-2 text-right">0.6126</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8621</td>
+              <td class="p-2 text-right">0.8052</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8720</td>
+              <td class="p-2 text-right">0.8046</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8206</td>
+              <td class="p-2 text-right">0.7576</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8597</td>
+              <td class="p-2 text-right">0.7934</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8504</td>
+              <td class="p-2 text-right">0.7717</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8510</td>
+              <td class="p-2 text-right">0.7739</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8334</td>
+              <td class="p-2 text-right">0.7660</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8586</td>
+              <td class="p-2 text-right">0.7858</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8264</td>
+              <td class="p-2 text-right">0.7689</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8404</td>
+              <td class="p-2 text-right">0.7745</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8469</td>
+              <td class="p-2 text-right">0.7772</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8451</td>
+              <td class="p-2 text-right">0.7834</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8223</td>
+              <td class="p-2 text-right">0.7611</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8381</td>
+              <td class="p-2 text-right">0.7653</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n18_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8504</td>
+              <td class="p-2 text-right">0.7944</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8042</td>
+              <td class="p-2 text-right">0.7470</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8469</td>
+              <td class="p-2 text-right">0.7743</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8381</td>
+              <td class="p-2 text-right">0.7407</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7855</td>
+              <td class="p-2 text-right">0.6061</td>
+              <td class="p-2 font-mono">c196aa506c20</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8095</td>
+              <td class="p-2 text-right">0.6924</td>
+              <td class="p-2 font-mono">c196aa506c20</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8007</td>
+              <td class="p-2 text-right">0.6610</td>
+              <td class="p-2 font-mono">c196aa506c20</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8352</td>
+              <td class="p-2 text-right">0.7663</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8434</td>
+              <td class="p-2 text-right">0.7668</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8609</td>
+              <td class="p-2 text-right">0.7698</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8095</td>
+              <td class="p-2 text-right">0.7522</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8340</td>
+              <td class="p-2 text-right">0.7792</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8469</td>
+              <td class="p-2 text-right">0.7593</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8177</td>
+              <td class="p-2 text-right">0.7521</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8141</td>
+              <td class="p-2 text-right">0.7473</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8311</td>
+              <td class="p-2 text-right">0.7640</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8276</td>
+              <td class="p-2 text-right">0.7543</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8369</td>
+              <td class="p-2 text-right">0.7669</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8311</td>
+              <td class="p-2 text-right">0.7535</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8498</td>
+              <td class="p-2 text-right">0.7782</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8527</td>
+              <td class="p-2 text-right">0.7863</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n21_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8346</td>
+              <td class="p-2 text-right">0.7613</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8387</td>
+              <td class="p-2 text-right">0.7664</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8568</td>
+              <td class="p-2 text-right">0.7892</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8440</td>
+              <td class="p-2 text-right">0.7921</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8533</td>
+              <td class="p-2 text-right">0.7299</td>
+              <td class="p-2 font-mono">c196aa506c20</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8457</td>
+              <td class="p-2 text-right">0.6759</td>
+              <td class="p-2 font-mono">c196aa506c20</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8001</td>
+              <td class="p-2 text-right">0.6730</td>
+              <td class="p-2 font-mono">c196aa506c20</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8124</td>
+              <td class="p-2 text-right">0.7430</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8773</td>
+              <td class="p-2 text-right">0.7970</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8556</td>
+              <td class="p-2 text-right">0.7952</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8469</td>
+              <td class="p-2 text-right">0.7726</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8054</td>
+              <td class="p-2 text-right">0.7345</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8270</td>
+              <td class="p-2 text-right">0.7641</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8171</td>
+              <td class="p-2 text-right">0.7683</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8375</td>
+              <td class="p-2 text-right">0.7524</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8305</td>
+              <td class="p-2 text-right">0.7564</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8434</td>
+              <td class="p-2 text-right">0.7891</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8475</td>
+              <td class="p-2 text-right">0.7671</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8580</td>
+              <td class="p-2 text-right">0.7868</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8328</td>
+              <td class="p-2 text-right">0.7692</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8738</td>
+              <td class="p-2 text-right">0.8006</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n24_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8796</td>
+              <td class="p-2 text-right">0.8246</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4348</td>
+              <td class="p-2 text-right">0.4483</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4868</td>
+              <td class="p-2 text-right">0.4439</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6803</td>
+              <td class="p-2 text-right">0.6103</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.3986</td>
+              <td class="p-2 text-right">0.3714</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5441</td>
+              <td class="p-2 text-right">0.4466</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6166</td>
+              <td class="p-2 text-right">0.4839</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4793</td>
+              <td class="p-2 text-right">0.4605</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4646</td>
+              <td class="p-2 text-right">0.3946</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6692</td>
+              <td class="p-2 text-right">0.5853</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4418</td>
+              <td class="p-2 text-right">0.4660</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5155</td>
+              <td class="p-2 text-right">0.4417</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6639</td>
+              <td class="p-2 text-right">0.5614</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4436</td>
+              <td class="p-2 text-right">0.4493</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4500</td>
+              <td class="p-2 text-right">0.3931</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6598</td>
+              <td class="p-2 text-right">0.5837</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4331</td>
+              <td class="p-2 text-right">0.4500</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4413</td>
+              <td class="p-2 text-right">0.3651</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6844</td>
+              <td class="p-2 text-right">0.5991</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4009</td>
+              <td class="p-2 text-right">0.4531</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4652</td>
+              <td class="p-2 text-right">0.4305</td>
+              <td class="p-2 font-mono">9aa449eb0985</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n3_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6768</td>
+              <td class="p-2 text-right">0.5782</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6511</td>
+              <td class="p-2 text-right">0.6004</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.4956</td>
+              <td class="p-2 text-right">0.5015</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6318</td>
+              <td class="p-2 text-right">0.5387</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6616</td>
+              <td class="p-2 text-right">0.5098</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5015</td>
+              <td class="p-2 text-right">0.4607</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5272</td>
+              <td class="p-2 text-right">0.4050</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6844</td>
+              <td class="p-2 text-right">0.6157</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5722</td>
+              <td class="p-2 text-right">0.5377</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6920</td>
+              <td class="p-2 text-right">0.5649</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6750</td>
+              <td class="p-2 text-right">0.6207</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5634</td>
+              <td class="p-2 text-right">0.5516</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6289</td>
+              <td class="p-2 text-right">0.5071</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6657</td>
+              <td class="p-2 text-right">0.5768</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5786</td>
+              <td class="p-2 text-right">0.5502</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6265</td>
+              <td class="p-2 text-right">0.5133</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6750</td>
+              <td class="p-2 text-right">0.5626</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5774</td>
+              <td class="p-2 text-right">0.5488</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6283</td>
+              <td class="p-2 text-right">0.5239</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6365</td>
+              <td class="p-2 text-right">0.5491</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5272</td>
+              <td class="p-2 text-right">0.5513</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n6_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6558</td>
+              <td class="p-2 text-right">0.5387</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7072</td>
+              <td class="p-2 text-right">0.6435</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6639</td>
+              <td class="p-2 text-right">0.6007</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7604</td>
+              <td class="p-2 text-right">0.6648</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7306</td>
+              <td class="p-2 text-right">0.5328</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5792</td>
+              <td class="p-2 text-right">0.4305</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7452</td>
+              <td class="p-2 text-right">0.5013</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6604</td>
+              <td class="p-2 text-right">0.6338</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6645</td>
+              <td class="p-2 text-right">0.5984</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7598</td>
+              <td class="p-2 text-right">0.6654</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6774</td>
+              <td class="p-2 text-right">0.6090</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6441</td>
+              <td class="p-2 text-right">0.5951</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7855</td>
+              <td class="p-2 text-right">0.6674</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6604</td>
+              <td class="p-2 text-right">0.5961</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6768</td>
+              <td class="p-2 text-right">0.5932</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8095</td>
+              <td class="p-2 text-right">0.6752</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6803</td>
+              <td class="p-2 text-right">0.6036</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6745</td>
+              <td class="p-2 text-right">0.5879</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7954</td>
+              <td class="p-2 text-right">0.6607</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6692</td>
+              <td class="p-2 text-right">0.6156</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6482</td>
+              <td class="p-2 text-right">0.5900</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">wisdm_subject_count_WISDM_n9_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7989</td>
+              <td class="p-2 text-right">0.6521</td>
+              <td class="p-2 font-mono">e1c616c9d4c6</td>
+            </tr>
+            
           </tbody>
         </table>
         </div>
       </details>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-15 12:39 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-19 05:28 UTC</p>
   </div>
 
   <!-- ================= REPRODUCTION & PREPROCESSING TAB ================= -->
@@ -22140,6 +23465,15 @@
         
         <li class="border border-slate-200 rounded p-3">
           <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S7b</span>
+            <span class="font-medium text-slate-800 text-sm">WISDM 被験者数削減の再現(Phase 6 / issue</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>uv run python scripts/run_subject_experiment.py --config config/experiments/wisdm_subject_count.yaml</code></pre>
+          <p class="text-sm text-slate-600 mt-1">第2の被験者データ WISDM v1.1 で N∈{3,6,9,12,15,18,21,24} × 3反復の学習曲線。WISDM は初回実行時に自動ダウンロード(CC BY 4.0、data/metadata/wisdm.json に出典記録)。目標 accuracy=0.80 は UCI HAR と独立に事前登録済み。同一の loader dispatch(data/subject_datasets.py)を経由。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
             <span class="text-xs font-mono text-slate-400">S8</span>
             <span class="font-medium text-slate-800 text-sm">集計・監査・レポート生成</span>
           </div>
@@ -22197,6 +23531,27 @@
             <td class="p-2 text-slate-600">UCI HAR</td>
             <td class="p-2 text-slate-600">配布元が生成した固定窓(128サンプル=2.56秒、50% オーバーラップ)をそのまま使用し、再窓化はしない。窓ごとに被験者IDが付与される。</td>
             <td class="p-2 text-amber-800">同一被験者の重複窓が複数現れるが、被験者跨ぎリークは group split で防止(同一被験者は train と test に同時に現れない)。窓長・オーバーラップは配布元定義に固定。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">正規化(z 正規化)</td>
+            <td class="p-2 text-slate-600">WISDM v1.1(第2の被験者データ、issue #21 DS-1)</td>
+            <td class="p-2 text-slate-600">3チャネル加速度を窓ごと・チャネルごとに平均0・分散1へ z 正規化(_znorm_window)。各窓が自分の統計のみ使うためリークは生じない。UCI HAR(非正規化)とは方針が異なる(judgment_calls: J-WISDM-NORM)。</td>
+            <td class="p-2 text-amber-800">WISDM 生値は m/s^2 スケールで CNN 初段の想定より大きいため正規化する。振幅情報は落ちるが波形パターンが主判別要因。UCI HAR と正規化方針が異なる点は結果比較時に留意。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">窓化(windowing)</td>
+            <td class="p-2 text-slate-600">WISDM v1.1</td>
+            <td class="p-2 text-slate-600">生の逐次データを (subject,activity) 連続区間ごとに 200サンプル(約10秒@20Hz)の非重複窓へ再窓化。区間内窓化のため各窓は単一活動・単一被験者。不正行(全体の約1%)はスキップ(judgment_calls: J-WISDM-WINDOW)。</td>
+            <td class="p-2 text-amber-800">窓長・非重複は WISDM 標準に準拠。オーバーラップを入れると窓数増だが相関増。被験者跨ぎリークは group split で防止。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">被験者選択(学習曲線)</td>
+            <td class="p-2 text-slate-600">WISDM v1.1</td>
+            <td class="p-2 text-slate-600">公式 split が無いため seed-0 シャッフルで 12被験者を固定 held-out test、残り24被験者を pool とする(data/metadata/wisdm.json に記録)。pool から丸ごと N 被験者を seed 決定的に抽選(judgment_calls: J-WISDM-SPLIT)。</td>
+            <td class="p-2 text-amber-800">test 被験者の引きで到達精度が変わりうるが pool 側の被験者数曲線が主対象。反復3回のため N* の CI は広い見込み(検出力確保は issue #7 候補1 の後続課題)。</td>
           </tr>
           
           <tr class="border-b border-slate-100 align-top">
@@ -22284,6 +23639,58 @@
           <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> MiniRocket 基準で選ぶ(ただし MiniRocket では全手法非有意)、または全7手法を持ち込む。</p>
           <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。選定はモデル依存。MiniRocket では拡張効果が出ないため、モデルを変えると持ち込む手法集合が変わりうる。</p>
           <p class="text-xs text-slate-400 mt-1 font-mono">decision_log.md(2026-07-12)/ config Phase 4</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-WISDM-TARGET</span>
+            <span class="font-medium text-slate-800">WISDM v1.1 の目標性能 τ(issue</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> test accuracy = 0.80 を目標に固定(UCI HAR の 0.90 は流用しない)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> WISDM v1.1 は手作り特徴+被験者混在で ~0.90+ の文献値だが、生信号 CNN+被験者分離では相場が下がる。天井/床を避け曲線最急部を狙う round 値。結果を見る前に登録。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 0.75 / 0.85、または macro-F1 基準。UCI HAR の 0.90 を流用(不適: データ・評価条件が異なる)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 高。N* は τ 到達点なので値で削減率が動く。UCI HAR と独立に事前登録して恣意性を排除。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">artifacts/pre_registration.md(WISDM 節)</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-WISDM-WINDOW</span>
+            <span class="font-medium text-slate-800">WISDM の窓化</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> (subject,activity) 連続区間内で 200 サンプル(約10秒)非重複窓。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 20Hz で 200 サンプルは WISDM 標準の窓長。非重複でセット内窓相関を避け、区間内窓化で単一ラベルを保証。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 50% オーバーラップ(サンプル数増だが窓相関増)、窓長 128/256。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。窓長・重複は窓数と相関構造を変え学習曲線に影響しうる。被験者跨ぎリークは group split で別途防止。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">src/signal_aug/data/wisdm.py(make_windows)</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-WISDM-NORM</span>
+            <span class="font-medium text-slate-800">WISDM の正規化方針(UCI HAR とは逆)</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 窓ごと・チャネルごとに z 正規化を適用する。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> WISDM 生値は m/s^2 スケール(~±20)で CNN 初段の想定より大きい。窓単位正規化はリーク無し(各窓が自分の統計のみ使用)。UCI HAR は配布元整形済みのため非正規化(J-HAR-NORM)だが、WISDM は生値のため方針が異なる。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 非正規化(スケール差で学習不安定の恐れ)、被験者/データセット統計での正規化(リーク or 追加設計が必要)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。振幅情報が落ちるが HAR は波形パターンが主判別要因。UCI HAR と正規化方針が異なる点は結果比較時に留意。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">src/signal_aug/data/wisdm.py(_znorm_window)</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-WISDM-SPLIT</span>
+            <span class="font-medium text-slate-800">WISDM の固定 test 被験者選定(公式 split 無し)</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> seed-0 シャッフルでソート済み被験者から 12 名を test、残り 24 名を pool。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> WISDM に公式 train/test split が無いため。12/36 ≈ UCI HAR の約30% test 比率に合わせた。決定的で再現可能、data/metadata/wisdm.json に記録。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 別 seed、別比率(例 9/27)、被験者を跨ぐ交差検証。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。test 被験者の引きで到達精度が変わりうるが、pool 側の被験者数曲線が主対象。seed 固定で再現。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">src/signal_aug/data/wisdm.py(_split_subjects)</p>
         </div>
         
         <div class="border border-slate-200 rounded p-3 text-sm">
@@ -22405,7 +23812,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-07-15 12:39 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-07-19 05:28 UTC</p>
   </div>
 
 </div>

@@ -21,6 +21,18 @@ notes:
     scope: "UCI HAR"
     detail: "配布元が生成した固定窓(128サンプル=2.56秒、50% オーバーラップ)をそのまま使用し、再窓化はしない。窓ごとに被験者IDが付与される。"
     uncertainty: "同一被験者の重複窓が複数現れるが、被験者跨ぎリークは group split で防止(同一被験者は train と test に同時に現れない)。窓長・オーバーラップは配布元定義に固定。"
+  - stage: 正規化(z 正規化)
+    scope: "WISDM v1.1(第2の被験者データ、issue #21 DS-1)"
+    detail: "3チャネル加速度を窓ごと・チャネルごとに平均0・分散1へ z 正規化(_znorm_window)。各窓が自分の統計のみ使うためリークは生じない。UCI HAR(非正規化)とは方針が異なる(judgment_calls: J-WISDM-NORM)。"
+    uncertainty: "WISDM 生値は m/s^2 スケールで CNN 初段の想定より大きいため正規化する。振幅情報は落ちるが波形パターンが主判別要因。UCI HAR と正規化方針が異なる点は結果比較時に留意。"
+  - stage: 窓化(windowing)
+    scope: "WISDM v1.1"
+    detail: "生の逐次データを (subject,activity) 連続区間ごとに 200サンプル(約10秒@20Hz)の非重複窓へ再窓化。区間内窓化のため各窓は単一活動・単一被験者。不正行(全体の約1%)はスキップ(judgment_calls: J-WISDM-WINDOW)。"
+    uncertainty: "窓長・非重複は WISDM 標準に準拠。オーバーラップを入れると窓数増だが相関増。被験者跨ぎリークは group split で防止。"
+  - stage: 被験者選択(学習曲線)
+    scope: "WISDM v1.1"
+    detail: "公式 split が無いため seed-0 シャッフルで 12被験者を固定 held-out test、残り24被験者を pool とする(data/metadata/wisdm.json に記録)。pool から丸ごと N 被験者を seed 決定的に抽選(judgment_calls: J-WISDM-SPLIT)。"
+    uncertainty: "test 被験者の引きで到達精度が変わりうるが pool 側の被験者数曲線が主対象。反復3回のため N* の CI は広い見込み(検出力確保は issue #7 候補1 の後続課題)。"
   - stage: ラベル符号化
     scope: "全データセット"
     detail: "出現クラスをソートして 0..K-1 に写像。UCI HAR は元ラベル 1..6 を 0..5 へシフト。"

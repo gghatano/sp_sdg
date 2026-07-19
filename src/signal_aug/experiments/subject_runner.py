@@ -21,7 +21,7 @@ import numpy as np
 
 from signal_aug.augmentations.methods import apply_augmentation
 from signal_aug.data.subject import select_train_subjects, subset_by_subjects
-from signal_aug.data.uci_har import load_uci_har
+from signal_aug.data.subject_datasets import load_subject_dataset
 from signal_aug.evaluation.metrics import compute_metrics
 from signal_aug.experiments import manifest as mf
 from signal_aug.experiments.runner import clean_stale_tmp, grid_lock, load_yaml, run_logger
@@ -87,7 +87,7 @@ def execute_subject_run(spec: SubjectRunSpec, pool, test, runs_dir: Path, repo_r
         run_id=spec.run_id,
         phase=spec.phase,
         dataset=spec.dataset,
-        dataset_checksum="uci_har_pool",
+        dataset_checksum=f"{spec.dataset.lower()}_pool",
         split_checksum="subjects:" + ",".join(map(str, chosen)),
         augmentation=spec.augmentation,
         augmentation_params=spec.augmentation_params,
@@ -162,7 +162,7 @@ def run_subject_experiment(
 
     with grid_lock(runs_dir):
         clean_stale_tmp(runs_dir)
-        pool, test = load_uci_har()
+        pool, test = load_subject_dataset(exp_cfg["dataset"])
         for spec in runs:
             existing = mf.load_manifest(spec.run_id, manifests_dir)
             if resume and existing and existing.get("status") == "completed":

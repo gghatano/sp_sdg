@@ -1,0 +1,30 @@
+# Phase 6 (issue #21 DS-1): subject-count learning curves on WISDM v1.1.
+# Second subject-labelled dataset, to test whether the UCI HAR subject-count
+# reduction result generalises (external validity; issue #6, issue #7 cand. 3).
+#
+# WISDM v1.1 has no official split, so we hold out 12 fixed subjects as a
+# subject-disjoint test set (seed-0 shuffle; recorded in data/metadata/wisdm.json)
+# and build curves from the remaining 24 pool subjects, adding whole subjects at
+# a time (never individual windows; spec section 8).
+phase: 6
+name: wisdm_subject_count
+dataset: WISDM
+model: cnn1d_har      # same primary model as UCI HAR curves, for comparability
+subject_counts: [3, 6, 9, 12, 15, 18, 21, 24]
+repeats: 3            # distinct random subject subsets per count (seed-controlled)
+# same 5 augmentations as the UCI HAR curve (Phase 5) plus the none baseline
+augmentations: [none, oversample, scaling, mixup, dtw, smote]
+
+# --- Pre-registration (spec section 5) ---
+# Registered BEFORE any WISDM subject-count run, NOT tuned to results.
+# WISDM v1.1 papers report ~0.90+ accuracy with hand-crafted features and
+# subject-MIXED evaluation (Kwapisz et al. 2011). Under raw-signal CNN with a
+# subject-DISJOINT split the operating point is lower, so we register a round
+# target of 0.80 to sit on the steep part of the curve (avoiding floor/ceiling)
+# and ask: how many real subjects are needed to reach it, with vs without
+# augmentation? Reduction = 1 - N*(aug)/N*(none). The 0.90 UCI HAR target is
+# deliberately NOT reused (issue #21: register the WISDM target separately).
+target_metric: accuracy
+target_value: 0.80
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md

@@ -67,8 +67,13 @@ def _bootstrap_nstar_ci(
 def reduction_analysis(
     rows: list[dict], target: float, metric: str = "accuracy", augmentations: list[str] | None = None, seed: int = 0
 ) -> dict:
-    """Full reduction table vs the none baseline."""
-    subject_rows = [r for r in rows if r.get("phase") == 4 and "subject_count" in r]
+    """Full reduction table vs the none baseline.
+
+    Subject-count rows are identified by carrying a subject_count (not by a fixed
+    phase number), so both UCI HAR (phase 4) and later subject datasets such as
+    WISDM (phase 6, issue #21) reuse this analysis unchanged.
+    """
+    subject_rows = [r for r in rows if r.get("subject_count") is not None]
     if augmentations is None:
         augmentations = sorted({r["augmentation"] for r in subject_rows})
 

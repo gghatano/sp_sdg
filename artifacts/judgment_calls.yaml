@@ -34,6 +34,38 @@ calls:
     sensitivity: "中。選定はモデル依存。MiniRocket では拡張効果が出ないため、モデルを変えると持ち込む手法集合が変わりうる。"
     preregistered: false
     source: "decision_log.md(2026-07-12)/ config Phase 4"
+  - id: J-WISDM-TARGET
+    topic: WISDM v1.1 の目標性能 τ(issue #21 DS-1)
+    decision: "test accuracy = 0.80 を目標に固定(UCI HAR の 0.90 は流用しない)。"
+    why: "WISDM v1.1 は手作り特徴+被験者混在で ~0.90+ の文献値だが、生信号 CNN+被験者分離では相場が下がる。天井/床を避け曲線最急部を狙う round 値。結果を見る前に登録。"
+    alternatives: "0.75 / 0.85、または macro-F1 基準。UCI HAR の 0.90 を流用(不適: データ・評価条件が異なる)。"
+    sensitivity: "高。N* は τ 到達点なので値で削減率が動く。UCI HAR と独立に事前登録して恣意性を排除。"
+    preregistered: true
+    source: "artifacts/pre_registration.md(WISDM 節)"
+  - id: J-WISDM-WINDOW
+    topic: WISDM の窓化
+    decision: "(subject,activity) 連続区間内で 200 サンプル(約10秒)非重複窓。"
+    why: "20Hz で 200 サンプルは WISDM 標準の窓長。非重複でセット内窓相関を避け、区間内窓化で単一ラベルを保証。"
+    alternatives: "50% オーバーラップ(サンプル数増だが窓相関増)、窓長 128/256。"
+    sensitivity: "中。窓長・重複は窓数と相関構造を変え学習曲線に影響しうる。被験者跨ぎリークは group split で別途防止。"
+    preregistered: true
+    source: "src/signal_aug/data/wisdm.py(make_windows)"
+  - id: J-WISDM-NORM
+    topic: WISDM の正規化方針(UCI HAR とは逆)
+    decision: "窓ごと・チャネルごとに z 正規化を適用する。"
+    why: "WISDM 生値は m/s^2 スケール(~±20)で CNN 初段の想定より大きい。窓単位正規化はリーク無し(各窓が自分の統計のみ使用)。UCI HAR は配布元整形済みのため非正規化(J-HAR-NORM)だが、WISDM は生値のため方針が異なる。"
+    alternatives: "非正規化(スケール差で学習不安定の恐れ)、被験者/データセット統計での正規化(リーク or 追加設計が必要)。"
+    sensitivity: "中。振幅情報が落ちるが HAR は波形パターンが主判別要因。UCI HAR と正規化方針が異なる点は結果比較時に留意。"
+    preregistered: true
+    source: "src/signal_aug/data/wisdm.py(_znorm_window)"
+  - id: J-WISDM-SPLIT
+    topic: WISDM の固定 test 被験者選定(公式 split 無し)
+    decision: "seed-0 シャッフルでソート済み被験者から 12 名を test、残り 24 名を pool。"
+    why: "WISDM に公式 train/test split が無いため。12/36 ≈ UCI HAR の約30% test 比率に合わせた。決定的で再現可能、data/metadata/wisdm.json に記録。"
+    alternatives: "別 seed、別比率(例 9/27)、被験者を跨ぐ交差検証。"
+    sensitivity: "中。test 被験者の引きで到達精度が変わりうるが、pool 側の被験者数曲線が主対象。seed 固定で再現。"
+    preregistered: true
+    source: "src/signal_aug/data/wisdm.py(_split_subjects)"
   - id: J-HAR-NORM
     topic: UCI HAR の正規化方針
     decision: "生信号(g 単位)のまま z 正規化を適用しない。"

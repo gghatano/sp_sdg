@@ -1,0 +1,43 @@
+{
+  "run_id": "wisdm_subject_count_WISDM_n6_none_cnn1d_har_r1",
+  "phase": 6,
+  "dataset": "WISDM",
+  "dataset_checksum": "wisdm_pool",
+  "split_checksum": "subjects:8,20,23,25,30,32",
+  "augmentation": "none",
+  "augmentation_params": {},
+  "model": "cnn1d_har",
+  "model_params": {
+    "epochs": 40,
+    "patience": 8,
+    "batch_size": 64,
+    "lr": 0.001,
+    "val_fraction": 0.2,
+    "hidden": 64
+  },
+  "seed": 1,
+  "git_commit": "e1c616c9d4c6245c0a43af92359404a3a7e18604",
+  "git_dirty": false,
+  "python_version": "3.11.15",
+  "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
+  "hardware": {
+    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
+    "machine": "x86_64",
+    "cpu_count": 4
+  },
+  "started_at": "2026-07-18T14:41:01.751870+00:00",
+  "ended_at": "2026-07-18T14:41:08.081189+00:00",
+  "status": "completed",
+  "metrics_path": "runs/metrics/wisdm_subject_count_WISDM_n6_none_cnn1d_har_r1.json",
+  "predictions_path": "runs/predictions/wisdm_subject_count_WISDM_n6_none_cnn1d_har_r1.csv",
+  "log_path": "runs/logs/wisdm_subject_count_WISDM_n6_none_cnn1d_har_r1.log",
+  "subject_count": 6,
+  "subjects_used": [
+    8,
+    20,
+    23,
+    25,
+    30,
+    32
+  ]
+}
