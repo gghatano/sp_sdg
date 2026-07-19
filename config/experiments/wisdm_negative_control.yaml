@@ -1,0 +1,14 @@
+# WISDM negative control (issue #21 DS-1): the label_shuffle augmentation must
+# NOT reduce the required subject count. Same setup as wisdm_subject_count.yaml,
+# one augmentation. Runs land alongside the WISDM main curves (same name).
+phase: 6
+name: wisdm_subject_count   # same name so runs join the WISDM curves
+dataset: WISDM
+model: cnn1d_har
+subject_counts: [3, 6, 9, 12, 15, 18, 21, 24]
+repeats: 3
+augmentations: [label_shuffle]
+target_metric: accuracy
+target_value: 0.80
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md
