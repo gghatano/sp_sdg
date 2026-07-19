@@ -1,0 +1,56 @@
+# Phase 6 (issue #21 DS-2): subject-count learning curves on PAMAP2.
+# Third subject-labelled dataset — the low-subject-count (~7-9 subjects) end-point
+# of the cross-dataset "reduction rate vs population size" comparison
+# (artifacts/ds2_design.md). Design decisions confirmed by the lead:
+#   * test = single fixed held-out K=3 (seed-0 shuffle), same procedure as WISDM.
+#   * subject 109 EXCLUDED by measured protocol-activity support (data-driven, not
+#     accuracy-driven): 109 has only 10 windows across 1/12 protocol activities
+#     (rope_jumping only) vs 247-301 windows / 8-12 activities for 101-108, and a
+#     3.9 MB raw file vs 118-207 MB. -> pool = 5 subjects [101,102,106,107,108],
+#     test = 3 subjects [103,104,105]; subject_counts = {2,3,4,5}.
+#   * channels = accelerometer +-16g only, 9ch (orientation/HR/+-6g/gyro/mag out).
+#   * primary metric = macro_f1 (PAMAP2 is imbalanced; #23 V2 lesson), accuracy co-reported.
+phase: 6
+name: pamap2_subject_count
+dataset: PAMAP2
+model: cnn1d_har         # same primary model as UCI HAR / WISDM curves, for comparability
+subject_counts: [2, 3, 4, 5]   # pool = 5 after excluding subject 109
+repeats: 5               # more repeats than UCI HAR/WISDM (3): PAMAP2 has few N points,
+                         # so tighten each point's CI (design 2.1)
+augmentations: [none, oversample, scaling, mixup, dtw, smote]
+
+# --- Preprocessing (config-driven; recorded in each run manifest) ---
+# PAMAP2 has no official split, so the windowing/split/channel knobs are
+# experiment conditions, not code constants (CLAUDE.md: config-driven). Values
+# below reproduce the pre-registered setup; changing any of them changes the
+# manifest dataset_checksum and data/metadata/pamap2.json (drift-checked).
+dataset_params:
+  window: 168             # ~5.0 s at 33.3 Hz, non-overlapping (real-time length ~ WISDM/HAR)
+  split_seed: 0           # seed for the deterministic K=3 test / pool shuffle
+  n_test_subjects: 3      # fixed held-out subjects; pool = the rest (5 after exclusion)
+  normalize: per_window_z # leak-free per-window per-channel z-norm (or "none")
+  downsample_hz: 33       # 100 -> 33.3 Hz (stride-3 decimation)
+  exclude_subjects: [109] # data-driven exclusion (deficient protocol-activity support)
+  channels:               # +-16g accelerometer, 9 channels (hand/chest/ankle x/y/z)
+    - hand_acc16_x
+    - hand_acc16_y
+    - hand_acc16_z
+    - chest_acc16_x
+    - chest_acc16_y
+    - chest_acc16_z
+    - ankle_acc16_x
+    - ankle_acc16_y
+    - ankle_acc16_z
+  archive_sha256: "76b3580bd5a804121f507717cb498c66a312ef5c774f4a78ac470e6558add352"
+
+# --- Pre-registration (spec section 5) ---
+# Registered BEFORE any PAMAP2 subject-count grid run (artifacts/pre_registration.md,
+# "PAMAP2 DS-2" section). The 0.90 (UCI HAR) / 0.80 (WISDM) targets are NOT reused.
+# target_value is a placeholder until it is set from the full-pool none baseline by
+# the registered rule (full-pool none held-out macro_f1 mean - 0.05, floored to 0.05).
+# The rule was committed before the baseline was run and does NOT depend on any
+# augmentation's result.
+target_metric: macro_f1
+target_value: null        # placeholder; set from full-pool none baseline per the registered rule
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md

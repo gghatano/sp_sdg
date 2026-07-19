@@ -49,6 +49,10 @@ notes:
     scope: "UCI HAR(Phase 4-5)"
     detail: "被験者数 N の各点で、プール(公式 train の21被験者)から丸ごと N 被験者を seed 決定的に抽選する。サンプル単位ではなく被験者単位で増やす。"
     uncertainty: "反復は3回のみで N* の信頼区間が広い(本研究の主要な限界)。固定 held-out test は公式 test の9被験者。"
+  - stage: 被験者選択・前処理(PAMAP2, issue #21 DS-2)
+    scope: "PAMAP2(Phase 6)"
+    detail: "54列 .dat をパース → transient(0)・optional 6活動を除外し 12 protocol 活動へ写像 → 加速度 ±16g 9ch(hand/chest/ankle x/y/z)を選択(orientation/HR/±6g/gyro/mag 除外)→ 100→33.3Hz(stride-3)間引き → (subject,activity) 連続区間内で 168サンプル非重複窓 → 選択チャネルに NaN を含む窓は破棄 → 窓ごと z 正規化。subject 109 は活動サポート実測(総窓10・1/12活動)で機械的に除外し pool=5[101,102,106,107,108]/test=3[103,104,105](seed-0)。被験者単位で N を増やす。"
+    uncertainty: "被験者8名(除外後)は下限付近で N* CI が広い。rope_jumping は除外後 pool 4窓・test 0窓と希少でクラス欠落が macro-F1 を不安定化しうる。反復5回・CI 提示で緩和。前処理条件(チャネル数・レート・窓長)は UCI HAR/WISDM と非対称で横断比較の交絡(『dataset に合わせた追試』の位置づけ)。"
   - stage: 欠損・異常値処理
     scope: "全データセット"
     detail: "UCR アーカイブ・UCI HAR とも配布時点で整形済みのため、欠損補完・外れ値除去は行わない。"

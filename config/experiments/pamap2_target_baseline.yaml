@@ -1,0 +1,36 @@
+# PAMAP2 target-determination baseline (issue #21 DS-2). A registered procedure,
+# NOT a result-driven choice: run ONLY the full-pool none baseline (N = pool max
+# = 5, aug = none, 5 repeats) so its held-out macro_f1 mean can set the target via
+# the pre-registered rule (pre_registration.md "PAMAP2 DS-2"). Uses the SAME name
+# as pamap2_subject_count.yaml so these 5 runs join the main grid and are reused
+# (resume) when the full grid runs after the lead's GO. This baseline does NOT
+# look at any augmentation's result before the target is fixed (design 2.2).
+phase: 6
+name: pamap2_subject_count   # same name so the 5 baseline runs join the PAMAP2 curves
+dataset: PAMAP2
+model: cnn1d_har
+subject_counts: [5]          # full pool only
+repeats: 5
+augmentations: [none]
+dataset_params:
+  window: 168
+  split_seed: 0
+  n_test_subjects: 3
+  normalize: per_window_z
+  downsample_hz: 33
+  exclude_subjects: [109]
+  channels:
+    - hand_acc16_x
+    - hand_acc16_y
+    - hand_acc16_z
+    - chest_acc16_x
+    - chest_acc16_y
+    - chest_acc16_z
+    - ankle_acc16_x
+    - ankle_acc16_y
+    - ankle_acc16_z
+  archive_sha256: "76b3580bd5a804121f507717cb498c66a312ef5c774f4a78ac470e6558add352"
+target_metric: macro_f1
+target_value: null
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md
