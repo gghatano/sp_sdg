@@ -14,13 +14,13 @@ from __future__ import annotations
 import json
 import logging
 import traceback
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import numpy as np
 
 from signal_aug.augmentations.methods import apply_augmentation
-from signal_aug.data.subject import select_train_subjects, subset_by_subjects
+from signal_aug.data.subject import select_train_subjects, subset_by_subjects, windows_checksum
 from signal_aug.data.subject_datasets import load_subject_dataset
 from signal_aug.evaluation.metrics import compute_metrics
 from signal_aug.experiments import manifest as mf
@@ -40,6 +40,7 @@ class SubjectRunSpec:
     model_params: dict
     seed: int
     subject_count: int
+    dataset_params: dict = field(default_factory=dict)
 
 
 def expand_subject_grid(exp_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[SubjectRunSpec]:
@@ -48,6 +49,7 @@ def expand_subject_grid(exp_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[S
     dataset = exp_cfg["dataset"]
     model = exp_cfg["model"]
     model_spec = model_cfg["models"][model]
+    dataset_params = dict(exp_cfg.get("dataset_params") or {})
     runs = []
     for n_subj in exp_cfg["subject_counts"]:
         for rep in range(int(exp_cfg["repeats"])):
@@ -66,6 +68,7 @@ def expand_subject_grid(exp_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[S
                         model_params=dict(model_spec.get("params") or {}),
                         seed=rep,
                         subject_count=int(n_subj),
+                        dataset_params=dict(dataset_params),
                     )
                 )
     return runs
@@ -83,11 +86,16 @@ def execute_subject_run(spec: SubjectRunSpec, pool, test, runs_dir: Path, repo_r
     pool_dict = {"X_train": pool.X, "y_train": pool.y, "subjects_train": pool.subjects}
     X_train, y_train = subset_by_subjects(pool_dict, chosen)
 
+    # Real content hash of the full pool + test window arrays (not a per-run
+    # placeholder), so a silent change in the windowed dataset is visible in the
+    # manifest even though the same pool/test is reused across the grid.
+    dataset_checksum = f"{spec.dataset.lower()}:{windows_checksum(pool.X, test.X)}"
+
     manifest = mf.new_manifest(
         run_id=spec.run_id,
         phase=spec.phase,
         dataset=spec.dataset,
-        dataset_checksum=f"{spec.dataset.lower()}_pool",
+        dataset_checksum=dataset_checksum,
         split_checksum="subjects:" + ",".join(map(str, chosen)),
         augmentation=spec.augmentation,
         augmentation_params=spec.augmentation_params,
@@ -99,6 +107,7 @@ def execute_subject_run(spec: SubjectRunSpec, pool, test, runs_dir: Path, repo_r
     manifest["log_path"] = str(log_path)
     manifest["subject_count"] = spec.subject_count
     manifest["subjects_used"] = chosen
+    manifest["dataset_params"] = dict(spec.dataset_params)
     mf.save_manifest(manifest, manifests_dir)
 
     try:
@@ -160,9 +169,10 @@ def run_subject_experiment(
     results = []
     n_skip = 0
 
+    dataset_params = dict(exp_cfg.get("dataset_params") or {})
     with grid_lock(runs_dir):
         clean_stale_tmp(runs_dir)
-        pool, test = load_subject_dataset(exp_cfg["dataset"])
+        pool, test = load_subject_dataset(exp_cfg["dataset"], **dataset_params)
         for spec in runs:
             existing = mf.load_manifest(spec.run_id, manifests_dir)
             if resume and existing and existing.get("status") == "completed":

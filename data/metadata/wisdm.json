@@ -20,8 +20,10 @@
     "Sitting",
     "Standing"
   ],
-  "preprocessing": "non-overlapping windows within (subject,activity) runs; per-window per-channel z-norm",
+  "preprocessing": "non-overlapping windows within (subject,activity) runs; normalize=per_window_z",
+  "normalize": "per_window_z",
   "split_seed": 0,
+  "n_test_subjects": 12,
   "pool_subjects": [
     6,
     7,
@@ -63,5 +65,7 @@
     35
   ],
   "n_pool_windows": 3515,
-  "n_test_windows": 1711
+  "n_test_windows": 1711,
+  "pool_windows_checksum": "18088f19bbeeeab9",
+  "test_windows_checksum": "b433dca732353f2d"
 }

@@ -51,9 +51,9 @@
     "url": "https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones"
   },
   {
-    "key": "weiss2019",
-    "text": "G. M. Weiss, K. Yoneda, and T. Hayajneh, \"Smartphone and Smartwatch-Based Biometrics Using Activities of Daily Living,\" IEEE Access, vol. 7, pp. 133190–133202, 2019.",
-    "url": "https://archive.ics.uci.edu/dataset/507/wisdm+smartphone+and+smartwatch+activity+and+biometrics+dataset"
+    "key": "kwapisz2011",
+    "text": "J. R. Kwapisz, G. M. Weiss, and S. A. Moore, \"Activity Recognition using Cell Phone Accelerometers,\" ACM SIGKDD Explorations Newsletter, vol. 12, no. 2, pp. 74–82, 2011.",
+    "url": "https://www.cis.fordham.edu/wisdm/dataset.php"
   },
   {
     "key": "wagner2020",

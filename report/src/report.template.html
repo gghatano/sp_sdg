@@ -71,14 +71,15 @@
         <h2 class="text-sm font-bold figtab tracking-wide text-slate-700 mb-2">要旨</h2>
         <p class="lead text-sm">
         本研究は、時系列データ拡張が分類精度に与える効果を UCR Time Series Classification Archive [{{ ref.ucr }}] の
-        {{ facts.n_study_datasets }} データセット上で系統的に評価し({{ facts.n_study_runs }} run)、被験者ID付きデータ
+        {{ facts.n_ucr_datasets }} データセットで系統的に評価し(被験者ID付きデータ {{ facts.n_subject_datasets }} 件を含め計 {{ facts.n_study_runs }} run)、被験者ID付きデータ
         (UCI HAR [{{ ref.anguita2013 }}])へ展開して「所定の分類性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を定量する。
         1D-CNN では {{ facts.n_significant }} 手法の拡張が精度を統計的に有意に改善する一方、MiniRocket [{{ ref.minirocket }}] では有意な改善が
         見られず、効果はモデルに強く依存する。被験者数削減では、事前登録した目標精度
         {{ "%.2f" | format(facts.target_value) if facts.target_value is not none else "—" }} に必要な実被験者数は拡張なしで約
         {{ facts.n_star_none if facts.n_star_none is not none else "—" }} 名であり、点推定では DTW ベース合成 [{{ ref.forestier2017 }}] が最大
-        {{ facts.dtw_reduction_pct if facts.dtw_reduction_pct is not none else "—" }}% の削減を示すが、反復が少なく信頼区間がラベル無作為化の negative control と重なるため確定できない。
-        より小さな削減を示す手法は対照と同水準にとどまり、信号のない対照でも生じるアーティファクトと区別できない。したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
+        {{ facts.dtw_reduction_pct if facts.dtw_reduction_pct is not none else "—" }}% の削減を示すが、反復が少なく信頼区間が対照と重なるため確定できない。
+        この「削減を確定できない(帰無)」という結論は第2の被験者データ WISDM v1.1 [{{ ref.kwapisz2011 }}] でも一貫して再現された(ただし最良手法の順位は再現せず、指標にも依存する。§6.4)。
+        したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
         なお UCR での精度効果は先行研究 [{{ ref.iwana2021 }}] の傾向を追試した結果であり、被験者数削減の評価枠組みと negative control による健全性検証が本研究独自の貢献である。
         すべての結果は目標の事前登録とデータリーク防止プロトコルの下で得られ、実験基盤・レポートは完全に自動生成される。
         </p>
@@ -100,9 +101,9 @@
       </p>
       <p class="lead text-sm mt-2">本研究の貢献は以下のとおり。</p>
       <ol class="lead text-sm list-decimal list-inside mt-1 space-y-1">
-        <li><span class="text-xs rounded px-1 bg-blue-100 text-blue-800">追試</span> UCR [{{ ref.ucr }}] {{ facts.n_study_datasets }} データセット × 7 拡張 × 2 モデル × 学習比率 5 段階での精度効果の系統評価と、多重比較補正付きの有意性検定(§6.1)。先行研究 [{{ ref.iwana2021 }}] の傾向を公開データで確認する。</li>
+        <li><span class="text-xs rounded px-1 bg-blue-100 text-blue-800">追試</span> UCR [{{ ref.ucr }}] {{ facts.n_ucr_datasets }} データセット × 7 拡張 × 2 モデル × 学習比率 5 段階での精度効果の系統評価と、多重比較補正付きの有意性検定(§6.1)。先行研究 [{{ ref.iwana2021 }}] の傾向を公開データで確認する。</li>
         <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> 被験者単位の学習曲線から必要被験者数 N* を推定し、削減率・等価被験者数・信頼区間を与える評価枠組みを<strong>本研究の提案</strong>として定式化する(§3、目標性能は事前登録)。</li>
-        <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> ラベル無作為化を用いた negative control による健全性検証。見かけの削減が信号のない対照でも再現されることを示し、削減主張に「対照越え」を課す(§3.3、§6.3)。</li>
+        <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> 対照(negative control)による健全性検証。見かけの削減が、ラベルを壊す・量だけ増やす対照でも再現されることを示し、削減主張に「対照越え」を課す(§3.3、§6.3)。</li>
         <li><span class="text-xs rounded px-1 bg-purple-100 text-purple-800">独自</span> リーク防止・run manifest・監査・レポート生成まで完全自動化した再現可能な実験基盤(基盤・運用の詳細はダッシュボードタブ)。</li>
       </ol>
       <p class="lead text-sm mt-2">
@@ -159,9 +160,9 @@
 
       <h3 class="sub">3.3 Negative control と「対照越え」判定</h3>
       <p class="lead text-sm">
-      少データではデータ量の水増しそれ自体が正則化的に働き、クラス情報を持たない操作でも見かけ上 N* が下がりうる。そこで<strong>ラベルを無作為化した対照</strong>
-      <span class="font-mono">label_shuffle</span> を同じ枠組みに通し、そこで生じる「見かけの削減率」を<strong>ノイズ床</strong>とみなす。ある拡張の削減主張は、
-      点推定がこの対照を明確に上回り、かつ信頼区間が対照と分離して初めて支持される(<strong>対照越え基準</strong>)。この基準により、正則化アーティファクトを真の削減と取り違えることを防ぐ。
+      少データでは、量を単純に増やす・ラベルを壊すといった操作でも見かけ上 N* が下がりうる。そこで<strong>対照</strong>
+      <span class="font-mono">label_shuffle</span>——正しいラベルの元データを残し複製分にだけ乱ラベルを与える(<strong>元データ保持+ラベルノイズ</strong>)悲観的対照——を同じ枠組みに通し、そこで生じる「見かけの削減率」を<strong>ノイズ床</strong>とみなす。ある拡張の削減主張は、
+      点推定がこの対照(および純粋な量の水増しである <span class="font-mono">oversample</span>)を明確に上回り、かつ信頼区間が分離して初めて支持される(<strong>対照越え基準</strong>)。この基準により、正則化や偶然の変動によるアーティファクトを真の削減と取り違えることを防ぐ。
       </p>
     </section>
 
@@ -185,7 +186,7 @@
       </div>
       <p class="cap mt-1">表1: 評価対象の拡張手法。ratio は元学習データ数に対する追加合成サンプル数の比(1.0 で倍増、元サンプルは保持)。
       原典 [{{ ref.smote }}][{{ ref.mixup }}][{{ ref.um2017 }}][{{ ref.forestier2017 }}]。原論文との実装差分はダッシュボードの deviations を参照。
-      label_shuffle はラベルを無作為化した negative control。</p>
+      label_shuffle は正しいラベルの元データを保持し複製分にだけ乱ラベルを与える negative control(元データ保持+ラベルノイズ、§3.3)。</p>
       <p class="lead text-sm mt-2">
       評価枠組み側の位置づけ: §3 で提案する枠組みは、標準的な学習曲線分析(学習量に対する性能の外挿)と、機械学習評価における対照(negative control)の考え方を、被験者単位・データ拡張の文脈へ組み合わせたものである。
       時系列拡張のサーベイ [{{ ref.iwana2021 }}] は精度改善の観点が中心で、必要標本(被験者)数の削減を対照付きで定量する枠組みは扱っていない。
@@ -208,8 +209,8 @@
       <h2 class="sec">5. 実験設計</h2>
 
       <h3 class="sub">5.1 データセット</h3>
-      <p class="lead text-sm">UCR アーカイブ [{{ ref.ucr }}] から小〜中規模の {{ facts.n_study_datasets }} データセットで RQ1 を評価し、RQ2(被験者数削減)の主対象には
-      被験者ID付きの UCI HAR [{{ ref.anguita2013 }}] を、予備対象に WISDM [{{ ref.weiss2019 }}] を選定した。</p>
+      <p class="lead text-sm">UCR アーカイブ [{{ ref.ucr }}] から小〜中規模の {{ facts.n_ucr_datasets }} データセットで RQ1 を評価し、RQ2(被験者数削減)の主対象には
+      被験者ID付きの UCI HAR [{{ ref.anguita2013 }}](30名)を、第2の被験者データに WISDM v1.1 [{{ ref.kwapisz2011 }}](36名)を選定した(表2 の synthetic を除く計 {{ facts.n_study_datasets }} データセット)。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50"><th class="p-2">名前</th><th class="p-2">ソース</th><th class="p-2">備考</th></tr></thead>
@@ -355,13 +356,16 @@
       </div>
       <p class="cap mt-1">表6: 必要被験者数 N* と削減率。N* の CI は反復数が少なく広いため、多くの手法で none の CI と重なる。負の削減率は必要被験者数の増加(有害)を意味する。</p>
       {% set nc = reduction.methods | selectattr('augmentation','equalto','label_shuffle') | first %}
+      {% set osc = reduction.methods | selectattr('augmentation','equalto','oversample') | first %}
       {% if nc and nc.reduction_rate is not none %}
       <div class="mt-3 border border-amber-300 bg-amber-50 rounded p-3 text-sm figtab">
-        <p class="font-bold text-amber-900 mb-1">Negative control による健全性検証</p>
-        <p>ラベルを無作為化した対照 <span class="font-mono">label_shuffle</span>(クラス信号を持たない)は <span class="font-mono">{{ "%+.1f%%" | format(nc.reduction_rate * 100) }}</span> の見かけの削減を示した。
-        すなわち<strong>この対照と同水準以下の削減は、信号のない操作でも生じるアーティファクトであり真の削減と区別できない</strong>(表6 で対照以下の削減率を示す手法がこれに該当する)。
-        少データではデータ量の水増し自体が正則化的に働くためと考えられる。したがって削減の主張は「対照を明確に超えること」を条件とすべきで(§3.3)、本設定でそれを満たす手法はない。
-        点推定で対照を上回るのは DTW のみだが、その信頼区間は対照と重なり確定しない。</p>
+        <p class="font-bold text-amber-900 mb-1">対照による健全性検証</p>
+        <p>負の対照 <span class="font-mono">label_shuffle</span> は、正しいラベルの元データをそのまま残し複製分にだけ乱ラベルを与える(=<strong>元データ保持+ラベルノイズ</strong>の悲観的・有害寄りの対照であり、クラス信号を全く持たない床ではない)。
+        純粋な「量の水増し」の基準はむしろ <span class="font-mono">oversample</span>(既存サンプルの単純複製){% if osc and osc.reduction_rate is not none %}で、UCI HAR では <span class="font-mono">{{ "%+.1f%%" | format(osc.reduction_rate * 100) }}</span>(必要被験者数はむしろ増加){% endif %}。
+        その label_shuffle でさえ <span class="font-mono">{{ "%+.1f%%" | format(nc.reduction_rate * 100) }}</span> の見かけの削減を示した。
+        すなわち<strong>この対照と同水準以下の削減は、ラベルを壊す/量だけ増やす操作でも生じうるアーティファクトであり真の削減と区別できない</strong>(表6 で対照以下の削減率を示す手法がこれに該当する)。
+        したがって削減の主張は「対照を明確に超えること」を条件とすべきで(§3.3)、本設定でそれを満たす手法はない。
+        点推定で label_shuffle を上回るのは DTW のみだが、その信頼区間は対照と重なり確定しない。</p>
       </div>
       {% endif %}
       {% else %}
@@ -369,12 +373,12 @@
       {% endif %}
 
       {% if reduction_wisdm and reduction_wisdm.methods %}
-      <h3 class="sub mt-6" id="subject-reduction-wisdm">6.4 外的妥当性:WISDM での再現(RQ2)</h3>
-      <p class="lead text-sm">UCI HAR 単一データセットへの依存を減らすため、第2の被験者ID付きデータ WISDM v1.1 [{{ ref.weiss2019 }}]
-      (36名のスマホ加速度・6活動)で同じ削減評価を反復する。目標 <span class="font-mono">{{ reduction_wisdm.target_metric }} = {{ "%.2f" | format(reduction_wisdm.target_value) }}</span> は
+      <h3 class="sub mt-6" id="subject-reduction-wisdm">6.4 外的妥当性:WISDM での追試(RQ2)</h3>
+      <p class="lead text-sm">UCI HAR 単一データセットへの依存を減らすため、第2の被験者ID付きデータ WISDM v1.1 [{{ ref.kwapisz2011 }}]
+      (36名のスマホ加速度・6活動、pool 24 名 + test 12 名)で削減評価を追試する。前処理は各データセットに合わせており(UCI HAR は配布元整形済みの非正規化、WISDM は生値のため窓ごと z 正規化。§5.1・再現ノートタブ J-WISDM-NORM)、<strong>同一枠組みの厳密な再現ではなく、前処理を dataset に適合させた追試</strong>である点に注意する。目標 <span class="font-mono">{{ reduction_wisdm.target_metric }} = {{ "%.2f" | format(reduction_wisdm.target_value) }}</span> は
       UCI HAR の 0.90 を流用せず<strong>実験前に独立して固定</strong>した(artifacts/pre_registration.md)。基準は N*(none) =
-      <span class="font-mono">{{ reduction_wisdm.n_star_none }}</span> 名{% if reduction_wisdm.n_star_none_ci %}(95%CI {{ reduction_wisdm.n_star_none_ci[0] }}–{{ reduction_wisdm.n_star_none_ci[1] }}){% endif %}。</p>
-      <figure class="border border-slate-200 rounded p-2 my-3">{{ reduction_wisdm_svg | safe }}<figcaption class="cap mt-1">図3: WISDM の被験者数に対する精度の学習曲線と目標線。</figcaption></figure>
+      <span class="font-mono">{{ reduction_wisdm.n_star_none }}</span> 名{% if reduction_wisdm.n_star_none_ci %}(95%CI {{ reduction_wisdm.n_star_none_ci[0] }}–{{ reduction_wisdm.n_star_none_ci[1] }}){% endif %}。図3 の学習曲線に示すとおり none の精度は被験者数に対して<strong>非単調</strong>(中盤で最大に達し以降やや低下)で、目標 0.80 の交差は 12→15 名の単一の上向き交差に依存する。N* はこの区間の線形補間で定めており(J-NSTAR)、非単調性は N* 不確実性の一因である。加えて 0.80 は none 曲線のプラトー肩付近にあたり手法差が圧縮されやすい。</p>
+      <figure class="border border-slate-200 rounded p-2 my-3">{{ reduction_wisdm_svg | safe }}<figcaption class="cap mt-1">図3: WISDM の被験者数に対する精度の学習曲線と目標線。none は非単調で、目標線との交差は 12→15 名区間に依存する。</figcaption></figure>
       <div class="overflow-x-auto">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
@@ -395,11 +399,16 @@
       </div>
       <p class="cap mt-1">表7: WISDM の必要被験者数 N* と削減率。点推定の最大削減も none の CI と重なり、CI 分離で基準を明確に超える手法はない。</p>
       {% set ncw = reduction_wisdm.methods | selectattr('augmentation','equalto','label_shuffle') | first %}
+      {% set osw = reduction_wisdm.methods | selectattr('augmentation','equalto','oversample') | first %}
+      {% set smw = reduction_wisdm.methods | selectattr('augmentation','equalto','smote') | first %}
+      <p class="lead text-sm mt-3">表7 のとおり、WISDM でも点推定の削減率は手法間で符号がばらつき、いずれの手法も none の 95%CI と分離しない。
+      ここで<strong>再現できたのは「削減を確定できない(帰無)」の一点のみ</strong>である。最良手法の順位は再現しておらず、UCI HAR では DTW が最良・SMOTE がむしろ有害寄りだったのに対し、WISDM では{% if smw %} SMOTE が点推定で最大(<span class="font-mono">{{ "%+.1f%%" | format(smw.reduction_rate * 100) }}</span>){% endif %}・DTW はほぼ 0 と入れ替わる。手法間の N* 差(最大でも被験者 1〜2 名弱)は被験者格子の間隔(3 名)・セル内のばらつき・反復 3 回の bootstrap CI のいずれより小さく、<strong>反復数を増やすまで手法順位は報告しない</strong>。</p>
+      <p class="lead text-sm mt-2">またこの <span class="font-mono">smote</span> の点推定削減は <strong>accuracy 固有</strong>である。WISDM はクラス不均衡で accuracy が多数クラスに偏る。同じ被験者数曲線を macro-F1 で再集計すると手法順位が変わり、<span class="font-mono">smote</span> のみが僅かに正で <span class="font-mono">dtw</span>・<span class="font-mono">scaling</span> は負に転じる(いずれも none の信頼区間と大きく重なる。閾値別の数値は F-12・限界節)。すなわち <strong>WISDM の被験者数削減は macro-F1 でも確認されず</strong>、accuracy 基準の帰無と整合する。不均衡データでは accuracy と macro-F1 / balanced accuracy を併記して解釈すべきである。</p>
       <div class="mt-3 border border-emerald-300 bg-emerald-50 rounded p-3 text-sm figtab">
-        <p class="font-bold text-emerald-900 mb-1">2データセットでの一貫した結論</p>
-        <p>WISDM でも、点推定の削減率は手法間で符号がばらつき(最大でも smote 程度)、いずれの手法も none の信頼区間と分離しない。
-        {% if ncw and ncw.reduction_rate is not none %}negative control <span class="font-mono">label_shuffle</span> は WISDM では <span class="font-mono">{{ "%+.1f%%" | format(ncw.reduction_rate * 100) }}</span>(むしろ必要被験者数が増加)で、UCI HAR で対照が見かけの削減を示したのとは対照的——WISDM では量水増し由来のアーティファクトは弱い。{% endif %}
-        いずれにせよ<strong>「拡張が所定性能に必要な実被験者を明確に代替する」ことは UCI HAR・WISDM のどちらでも確証されず</strong>、RQ2 の結論(本設定では削減を統計的に確定できない)は単一データセット固有ではない。反復数が少なく CI が広い点は両データ共通の限界(issue #6/#7)。</p>
+        <p class="font-bold text-emerald-900 mb-1">2データセットで一貫するのは帰無のみ</p>
+        <p>純粋な「量の水増し」の対照は <span class="font-mono">oversample</span> であり、WISDM では{% if osw and osw.reduction_rate is not none %} <span class="font-mono">{{ "%+.1f%%" | format(osw.reduction_rate * 100) }}</span>(ほぼ 0){% endif %}——量を増やすだけでは N* は下がらない。
+        {% if ncw and ncw.reduction_rate is not none %}悲観的対照 <span class="font-mono">label_shuffle</span>(元データ保持+ラベルノイズ)は WISDM では <span class="font-mono">{{ "%+.1f%%" | format(ncw.reduction_rate * 100) }}</span> と必要被験者数がむしろ増える。これは複製分の乱ラベルが有害に働いた結果であって、UCI HAR で見た見かけの削減の有無を「量水増しアーティファクトの強弱」として対比できるものではない(対照の性質が「量の水増し」ではなくラベルノイズだからである)。{% endif %}
+        いずれにせよ<strong>「拡張が所定性能に必要な実被験者を明確に代替する」ことは UCI HAR・WISDM のどちらでも確証されない</strong>。再現したのは帰無であって手法順位ではなく、RQ2 の結論(本設定では削減を統計的に確定できない)が単一データセット固有でないことを示す。反復数が少なく CI が広い点は両データ共通の限界(issue #6/#7)。</p>
       </div>
       {% endif %}
     </section>
@@ -448,9 +457,11 @@
       <h2 class="sec">9. まとめ</h2>
       <p class="lead text-sm">
       時系列データ拡張の効果は手法・モデル・データに強く依存する。1D-CNN では複数手法が精度を有意に改善するが MiniRocket では改善せず、
-      被験者数削減に至っては negative control と区別できるレベルの効果は本設定では得られなかった。この結論は、削減を主張する際に
-      「対照越え」と反復数の確保が不可欠であることを示す。今後は反復数を増やした検出力設計、予備対象 WISDM [{{ ref.weiss2019 }}] での再現、
-      拡張強度と手法効果の分離が課題である。
+      被験者数削減に至っては対照と区別できるレベルの効果は本設定では得られなかった。この「削減を確定できない(帰無)」という結論は
+      第2の被験者データ WISDM v1.1 [{{ ref.kwapisz2011 }}] でも再現され、単一データセット固有でないことを確認した(ただし前処理を各データセットに合わせた追試であり、
+      再現したのは帰無であって最良手法の順位ではない。順位は評価指標にも依存する。§6.4)。以上は、削減を主張する際に
+      「対照越え」と反復数の確保が不可欠であることを示す。今後は反復数を増やした検出力設計、macro-F1 / balanced accuracy を含む指標横断の評価、
+      拡張強度と手法効果の分離、および第3の被験者データや別ドメインへの拡張が課題である。
       </p>
     </section>
 
@@ -523,7 +534,7 @@
         <div><dt class="font-medium text-slate-800">被験者跨ぎリーク</dt><dd class="text-slate-600">同一被験者の系列が学習とテストの双方に入ると、被験者固有の癖を覚えるだけで精度が過大評価される問題。group split で防ぐ。</dd></div>
         <div><dt class="font-medium text-slate-800">N*(必要被験者数)</dt><dd class="text-slate-600">目標精度 τ を初めて超えるのに要する学習被験者数。学習曲線の線形補間で推定する(§3.1)。</dd></div>
         <div><dt class="font-medium text-slate-800">削減率</dt><dd class="text-slate-600">1 − N*(拡張) / N*(none)。拡張で必要被験者数がどれだけ減ったかの割合。負値は増加(有害)を意味する。</dd></div>
-        <div><dt class="font-medium text-slate-800">Negative control(label_shuffle)</dt><dd class="text-slate-600">ラベルを無作為化しクラス情報を壊した対照。ここで生じる見かけの削減を「ノイズ床」とし、真の削減はこれを超える必要がある(§3.3)。</dd></div>
+        <div><dt class="font-medium text-slate-800">Negative control(label_shuffle)</dt><dd class="text-slate-600">正しいラベルの元データを保持し、複製分にだけ乱ラベルを与える対照(元データ保持+ラベルノイズの悲観的対照)。ここで生じる見かけの削減を「ノイズ床」とし、真の削減はこれを超える必要がある(§3.3)。</dd></div>
         <div><dt class="font-medium text-slate-800">事前登録(pre-registration)</dt><dd class="text-slate-600">目標値・指標・手続きを結果を見る前に固定すること。後付けで基準を選ぶバイアスを防ぐ。</dd></div>
         <div><dt class="font-medium text-slate-800">Wilcoxon 符号順位検定</dt><dd class="text-slate-600">対応のある 2 条件の差が 0 かを調べるノンパラメトリック検定。拡張なしとのペア精度差に適用する。</dd></div>
         <div><dt class="font-medium text-slate-800">Holm–Bonferroni 補正</dt><dd class="text-slate-600">多数の検定を同時に行う際、偽陽性が増えるのを抑える多重比較補正(step-down 法)。</dd></div>

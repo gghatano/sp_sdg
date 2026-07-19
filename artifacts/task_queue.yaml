@@ -49,3 +49,10 @@ tasks:
   - {id: DS1-1, phase: 6, title: "subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト", status: done}
   - {id: DS1-2, phase: 6, title: "WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新", status: done}
   - {id: DS1-3, phase: 6, title: "WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)", status: done}
+
+  # issue #23: DS-1(WISDM/F-12)へのレッドチーム検証の是正
+  - {id: RT23-1, phase: 6, title: "文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー", status: done}
+  - {id: RT23-2, phase: 6, title: "コード/config是正 (V9 dataset_params昇格+manifest記録 / V10 実データchecksum / V1 docstring)", status: done}
+  - {id: RT23-3, phase: 6, title: "V5 再現性: git_dirty をソース限定判定に修正 + negative control 11 run を clean 再実行 (git_dirty=false)", status: done}
+  - {id: RT23-4, phase: 6, title: "Windows 移植性修正 (UTF-8 encoding + os.kill WinError87): make all-report とテストのブロック解消・全144テスト green", status: done}
+  - {id: RT23-5, phase: 6, title: "result-auditor 最終監査 (8観点 CONFIRMED・手入力乖離なし・リーケージガード有効) + 参照メタデータ整合", status: done}
