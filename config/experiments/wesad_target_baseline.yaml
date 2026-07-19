@@ -1,0 +1,33 @@
+# WESAD target-determination baseline (issue #21 DS-3). A registered procedure,
+# NOT a result-driven choice: run ONLY the full-pool none baseline (N = pool max =
+# 10, aug = none, 5 repeats) so its held-out macro_f1 mean can set the target via
+# the pre-registered rule (pre_registration.md "WESAD DS-3"). Uses the SAME name
+# as wesad_subject_count.yaml so these 5 runs join the main grid and are reused
+# (resume) when the full grid runs after the lead's GO. This baseline does NOT
+# look at any augmentation's result before the target is fixed.
+phase: 6
+name: wesad_subject_count   # same name so the 5 baseline runs join the WESAD curves
+dataset: WESAD
+model: cnn1d_har
+subject_counts: [10]         # full pool only
+repeats: 5
+augmentations: [none]
+dataset_params:
+  window: 2100
+  split_seed: 0
+  n_test_subjects: 5
+  normalize: per_window_z
+  downsample_hz: 70
+  overlap: 0.0
+  modality: chest
+  channels:
+    - ECG
+    - EDA
+    - EMG
+    - RESP
+    - TEMP
+  archive_sha256: "5e15d2606adf16d819ba535c1786d92e94bae5ff5392f7ae01fb63f9938fd71c"
+target_metric: macro_f1
+target_value: null
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md

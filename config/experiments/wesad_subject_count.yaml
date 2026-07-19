@@ -1,0 +1,65 @@
+# Phase 6 (issue #21 DS-3): subject-count learning curves on WESAD.
+# Fourth subject-labelled dataset and the FIRST non-HAR signal type: chest
+# physiology (ECG/EDA/EMG/RESP/TEMP) + a 3-class affect task
+# (baseline/stress/amusement), vs the accelerometry / activity-recognition of the
+# HAR three (UCI HAR / WISDM / PAMAP2). It tests whether the "augmentation does
+# not reduce the required subject count" result holds across signal *type*
+# (artifacts/ds3_design.md). Design decisions confirmed by the lead:
+#   * task = 3-class baseline/stress/amusement (labels {1,2,3}; {0,4,5,6,7} dropped).
+#   * channels = chest physiology 5ch only (chest ACC + wrist E4 excluded, so the
+#     "non-HAR physiological" claim is not diluted).
+#   * 700 -> 70 Hz anti-aliased decimation, 30 s (2100-sample) non-overlapping
+#     windows, per-window per-channel z-norm.
+#   * test = fixed held-out K=5 (seed-0, same procedure as WISDM/PAMAP2), pool =
+#     the remaining 10; subject_counts = {2..10}; repeats = 5.
+#   * primary metric = macro_f1 (imbalanced: amusement is the minority at 12
+#     windows/subject; #23 V2 lesson), accuracy co-reported.
+# Measured (data/metadata/wesad.json): 15 subjects [S2..S17, S1 & S12 absent],
+# seed-0 test=[2,4,5,13,14] pool=[3,6,7,8,9,10,11,15,16,17]; ~70-75 windows/subj
+# (baseline ~38-39 / stress ~20-24 / amusement 12). Pool 728 / test 359 windows.
+phase: 6
+name: wesad_subject_count
+dataset: WESAD
+model: cnn1d_har         # same primary model as the HAR curves, for comparability
+subject_counts: [2, 3, 4, 5, 6, 7, 8, 9, 10]   # pool = 10 (K=5 held-out of 15)
+repeats: 5              # more repeats than UCI HAR/WISDM (3): few N points + small N
+augmentations: [none, oversample, scaling, mixup, dtw, smote]
+
+# --- Preprocessing (config-driven; recorded in each run manifest) ---
+# WESAD has no official split, so windowing/split/channel/downsample knobs are
+# experiment conditions, not code constants (CLAUDE.md: config-driven). Values
+# below reproduce the pre-registered setup and MUST match data/metadata/wesad.json
+# (drift-checked) and the two companion configs below.
+dataset_params:
+  window: 2100            # ~30 s at 70 Hz, non-overlapping
+  split_seed: 0           # deterministic K=5 test / pool shuffle
+  n_test_subjects: 5      # fixed held-out subjects; pool = remaining 10
+  normalize: per_window_z # leak-free per-window per-channel z-norm (or "none")
+  downsample_hz: 70       # 700 -> 70 Hz, anti-aliased (scipy.signal.decimate)
+  overlap: 0.0            # non-overlapping windows (may be raised to 0.5 as a
+                          # judgment call ONLY if 30 s non-overlap is too few for
+                          # N* estimation; see J-WESAD-DS. Not needed: ~70 win/subj)
+  modality: chest         # chest RespiBAN physiology (wrist E4 not implemented)
+  channels:               # chest physiology, 5 channels (ACC/wrist excluded)
+    - ECG
+    - EDA
+    - EMG
+    - RESP
+    - TEMP
+  # WESAD ships as an on-the-fly-generated Sciebo zip, so the ARCHIVE sha256 may
+  # not be byte-reproducible across downloads; the authoritative reproducibility
+  # anchor is the per-content window checksums in data/metadata/wesad.json. The
+  # value below is the observed hash of the 2,249,444,501-byte archive.
+  archive_sha256: "5e15d2606adf16d819ba535c1786d92e94bae5ff5392f7ae01fb63f9938fd71c"
+
+# --- Pre-registration (spec section 5) ---
+# Registered BEFORE any WESAD subject-count grid run (artifacts/pre_registration.md,
+# "WESAD DS-3" section). The 0.90 (UCI HAR) / 0.80 (WISDM) / 0.70 (PAMAP2) targets
+# are NOT reused. target_value is a placeholder until it is set from the full-pool
+# none baseline by the registered rule: floor_0.05(full-pool none held-out macro_f1
+# mean - 0.05). The rule is committed before that number is computed and depends
+# only on the none baseline, not on any augmentation's result.
+target_metric: macro_f1
+target_value: null   # set from full-pool (N=10, none, 5 repeats) baseline per the rule
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md
