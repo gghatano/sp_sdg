@@ -51,6 +51,11 @@ dataset_params:
 # The rule was committed before the baseline was run and does NOT depend on any
 # augmentation's result.
 target_metric: macro_f1
-target_value: null        # placeholder; set from full-pool none baseline per the registered rule
+# Set from the full-pool none baseline (N=5, aug=none, 5 repeats) by the registered
+# rule: floor_0.05(macro_f1_mean - 0.05) = floor_0.05(0.7656 - 0.05) = 0.70
+# (baseline macro_f1 mean=0.7656 sd=0.037; margin above target = +0.066). The rule
+# was committed (766f803) before this number was computed; it depends only on the
+# none baseline, not on any augmentation's result.
+target_value: 0.70
 pre_registered: true
 pre_registration_note: artifacts/pre_registration.md
