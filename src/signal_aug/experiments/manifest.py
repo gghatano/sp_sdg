@@ -42,16 +42,30 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+# Generated / output directories. Changes here are produced by running the
+# experiment itself (manifests, metrics, checkpoints under runs/), by data
+# download (data/), or by report generation (report/dist/). They must not make
+# git_dirty true: the flag exists to record whether the *source* that produced a
+# run was committed, so that git_commit uniquely identifies the code + config.
+GIT_DIRTY_EXCLUDE = ("runs", "data", "report/dist")
+
+
 def git_info(repo_root: str | Path = ".") -> tuple[str, bool]:
     try:
         commit = subprocess.run(
             ["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=repo_root, check=True
         ).stdout.strip()
-        # -uno: untracked files (e.g. run outputs written during the grid) must
-        # not mark the source tree dirty
+        # -uno ignores untracked files; the exclude pathspecs drop tracked output
+        # dirs so git_dirty reflects only uncommitted *source* (src/config/tests/
+        # artifacts/report src). Output churn during the grid does not count.
+        excludes = [f":(exclude){p}" for p in GIT_DIRTY_EXCLUDE]
         dirty = bool(
             subprocess.run(
-                ["git", "status", "--porcelain", "-uno"], capture_output=True, text=True, cwd=repo_root, check=True
+                ["git", "status", "--porcelain", "-uno", "--", ".", *excludes],
+                capture_output=True,
+                text=True,
+                cwd=repo_root,
+                check=True,
             ).stdout.strip()
         )
         return commit, dirty
