@@ -15,6 +15,18 @@ repeats: 3            # distinct random subject subsets per count (seed-controll
 # same 5 augmentations as the UCI HAR curve (Phase 5) plus the none baseline
 augmentations: [none, oversample, scaling, mixup, dtw, smote]
 
+# --- Preprocessing (config-driven; recorded in each run manifest) ---
+# WISDM has no official split, so the windowing/split knobs are experiment
+# conditions, not code constants (CLAUDE.md: config-driven). Values below
+# reproduce the pre-registered setup; changing any of them changes the manifest
+# dataset_checksum and data/metadata/wisdm.json (sensitivity vars J-WISDM-WINDOW,
+# J-WISDM-SPLIT stay traceable).
+dataset_params:
+  window: 200            # samples per window (~10 s at 20 Hz), non-overlapping
+  split_seed: 0          # seed for the deterministic test/pool subject shuffle
+  n_test_subjects: 12    # fixed held-out subjects (of 36); pool = remaining 24
+  normalize: per_window_z  # leak-free per-window per-channel z-norm (or "none")
+
 # --- Pre-registration (spec section 5) ---
 # Registered BEFORE any WISDM subject-count run, NOT tuned to results.
 # WISDM v1.1 papers report ~0.90+ accuracy with hand-crafted features and

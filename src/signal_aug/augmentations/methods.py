@@ -149,10 +149,13 @@ def augment_smote(
 def augment_label_shuffle(
     X: np.ndarray, y: np.ndarray, rng: np.random.Generator, ratio: float = 1.0
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Negative control (spec section 5, Phase 5): copy real samples but assign
-    RANDOM labels. This injects label noise and carries no genuine class signal,
-    so a sound pipeline must NOT show a subject-count reduction for it. If it did,
-    the measured reductions would be suspect artifacts."""
+    """Negative control (spec section 5, Phase 5). The original (X, y) are kept
+    UNCHANGED with their correct labels; only the *added* synthetic copies are
+    real samples assigned RANDOM labels. This is therefore not a zero-signal
+    "floor" (the true labels remain), but a pessimistic / harmful control that
+    layers label noise on top of the real data. A sound pipeline must NOT show a
+    subject-count reduction for it; if it did, the measured reductions would be
+    suspect artifacts."""
     idx = rng.integers(0, len(X), size=_n_synthetic(len(X), ratio))
     classes = np.unique(y)
     X_new = [X[i].copy() for i in idx]

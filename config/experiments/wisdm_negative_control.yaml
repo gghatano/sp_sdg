@@ -8,6 +8,12 @@ model: cnn1d_har
 subject_counts: [3, 6, 9, 12, 15, 18, 21, 24]
 repeats: 3
 augmentations: [label_shuffle]
+# must match wisdm_subject_count.yaml so the control shares the same window set
+dataset_params:
+  window: 200
+  split_seed: 0
+  n_test_subjects: 12
+  normalize: per_window_z
 target_metric: accuracy
 target_value: 0.80
 pre_registered: true

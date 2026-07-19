@@ -289,9 +289,16 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         (m["reduction_rate"] for m in (reduction or {}).get("methods", []) if m["augmentation"] == "dtw"),
         None,
     )
+    # separate distinct UCR datasets (RQ1) from subject-ID datasets (RQ2) so the
+    # abstract/intro/§5.1 don't conflate them (UCR count must not include UCI HAR/WISDM)
+    _study_datasets = {r["dataset"] for r in study_runs}
+    _ucr_names = {n for n, s in _load_yaml(root / "config/datasets.yaml").get("datasets", {}).items()
+                  if s.get("source") == "ucr"}
     facts = {
         "n_study_runs": len(study_runs),
-        "n_study_datasets": len({r["dataset"] for r in study_runs}),
+        "n_study_datasets": len(_study_datasets),
+        "n_ucr_datasets": len(_study_datasets & _ucr_names),
+        "n_subject_datasets": len(_study_datasets - _ucr_names - {"synthetic"}),
         "n_significant": sum(1 for s in stats_sorted if s.get("significant_holm")),
         "target_metric": (reduction or {}).get("target_metric"),
         "target_value": (reduction or {}).get("target_value"),
