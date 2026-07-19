@@ -114,6 +114,68 @@ def _subject_metric_rows(manifests_dir: Path, prefix: str = "subject_count_") ->
     return rows
 
 
+def _fullpool_none_mean(rows_s: list[dict], metric: str) -> tuple[float | None, int | None, int]:
+    """Mean of the none baseline at the largest subject_count (the full pool),
+    for the registered target rule. Returns (mean, n_max, n_repeats)."""
+    none = [r for r in rows_s if r["augmentation"] == "none" and r.get("subject_count") is not None]
+    if not none:
+        return None, None, 0
+    n_max = max(r["subject_count"] for r in none)
+    vals = [r[metric] for r in none if r["subject_count"] == n_max and metric in r]
+    if not vals:
+        return None, n_max, 0
+    return statistics.mean(vals), n_max, len(vals)
+
+
+def _rule_target(mean: float) -> float:
+    """Registered target rule: floor to 0.05 of (full-pool none mean - 0.05)."""
+    import math
+
+    return round(math.floor((mean - 0.05) / 0.05) * 0.05, 2)
+
+
+def _reduction_both_metrics(manifests_dir: Path, cfg_path: Path, prefix: str):
+    """Reduction analysis in BOTH macro_f1 and accuracy for one subject dataset.
+
+    The config's target_metric uses the pre-registered config target; the other
+    metric's target is derived by the same registered rule from that dataset's
+    full-pool none baseline (design 2.3: unified target-determination procedure
+    across metrics). Returns {dataset, pre_registered, by_metric: {metric: red}}.
+    """
+    import yaml
+
+    from signal_aug.evaluation.reduction import reduction_analysis
+
+    rows_s = _subject_metric_rows(manifests_dir, prefix=prefix)
+    if not (rows_s and cfg_path.exists()):
+        return None
+    cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8"))
+    primary_metric = cfg["target_metric"]
+    out = {
+        "dataset": cfg.get("dataset"),
+        "pre_registered": bool(cfg.get("pre_registered")),
+        "primary_metric": primary_metric,
+        "by_metric": {},
+    }
+    for metric in ("macro_f1", "accuracy"):
+        mean, n_max, n_rep = _fullpool_none_mean(rows_s, metric)
+        if metric == primary_metric:
+            target = float(cfg["target_value"])
+            target_source = "pre-registered (config target_value)"
+        else:
+            if mean is None:
+                continue
+            target = _rule_target(mean)
+            target_source = "registered rule from full-pool none baseline"
+        red = reduction_analysis(rows_s, target=target, metric=metric)
+        red["target_source"] = target_source
+        red["fullpool_none_mean"] = round(mean, 4) if mean is not None else None
+        red["fullpool_n"] = n_max
+        red["fullpool_repeats"] = n_rep
+        out["by_metric"][metric] = red
+    return out
+
+
 def build_results_json(
     manifests_dir: str | Path = "runs/manifests",
     audit_path: str | Path = "artifacts/audit_report.json",
@@ -156,6 +218,16 @@ def build_results_json(
     reduction = _reduction_for("subject_count_", "subject_count.yaml")
     reduction_wisdm = _reduction_for("wisdm_subject_count_", "wisdm_subject_count.yaml")
 
+    # PAMAP2 (external validity, issue #21 DS-2): imbalanced -> report BOTH metrics.
+    # macro_f1 is the pre-registered primary (config target); accuracy is a
+    # secondary whose target is derived by the SAME registered rule from the
+    # full-pool none baseline (floor_0.05(full-pool-none-mean - 0.05)), so the
+    # target-determination procedure is identical across metrics (design 2.3).
+    reduction_pamap2 = _reduction_both_metrics(
+        Path(manifests_dir), Path(config_dir) / "experiments" / "pamap2_subject_count.yaml",
+        prefix="pamap2_subject_count_",
+    )
+
     data = {
         "runs": rows,
         "summary": summary,
@@ -163,6 +235,7 @@ def build_results_json(
         "stats": stats,
         "reduction": reduction,
         "reduction_wisdm": reduction_wisdm,
+        "reduction_pamap2": reduction_pamap2,
         "failed_runs": [r for r in rows if r["status"] == "failed"],
         "audit": audit,
     }
