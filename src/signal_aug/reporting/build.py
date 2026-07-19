@@ -175,11 +175,11 @@ REQUIRED_SECTION_IDS = [
 
 
 def _load_yaml(path: Path) -> dict:
-    return yaml.safe_load(path.read_text()) if path.exists() else {}
+    return yaml.safe_load(path.read_text(encoding="utf-8")) if path.exists() else {}
 
 
 def _load_json(path: Path):
-    return json.loads(path.read_text()) if path.exists() else None
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
 def _markdown_bullets(path: Path) -> list[str]:
@@ -188,7 +188,7 @@ def _markdown_bullets(path: Path) -> list[str]:
         return []
     return [
         line.strip()[2:].strip()
-        for line in path.read_text().splitlines()
+        for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip().startswith("- ")
     ]
 
@@ -377,7 +377,7 @@ def build_css(repo_root: str | Path = ".", rendered_html_path: Path | None = Non
             capture_output=True,
         )
     if css_cache.exists():
-        return css_cache.read_text()
+        return css_cache.read_text(encoding="utf-8")
     return ""  # unstyled but valid HTML
 
 
@@ -390,10 +390,10 @@ def build_report(repo_root: str | Path = ".") -> Path:
     # two-pass: render for Tailwind content scan, then inline the built CSS
     tmp = root / "report/dist/assets/index.tmp.html"
     tmp.parent.mkdir(parents=True, exist_ok=True)
-    tmp.write_text(render_report(context, root / "report/src", css=""))
+    tmp.write_text(render_report(context, root / "report/src", css=""), encoding="utf-8")
     css = build_css(root, rendered_html_path=tmp)
     tmp.unlink(missing_ok=True)
 
     out = dist / "index.html"
-    out.write_text(render_report(context, root / "report/src", css=css))
+    out.write_text(render_report(context, root / "report/src", css=css), encoding="utf-8")
     return out

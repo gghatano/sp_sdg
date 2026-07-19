@@ -149,7 +149,7 @@ def save_manifest(manifest: dict, manifests_dir: str | Path) -> Path:
     # writes to one run_id; this hardening keeps a stray double-run from
     # corrupting the store rather than condoning it).
     tmp = path.with_suffix(f".json.tmp.{os.getpid()}")
-    tmp.write_text(json.dumps(manifest, indent=2, ensure_ascii=False))
+    tmp.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     os.replace(tmp, path)
     return path
 
@@ -158,4 +158,4 @@ def load_manifest(run_id: str, manifests_dir: str | Path) -> dict | None:
     path = Path(manifests_dir) / f"{run_id}.json"
     if not path.exists():
         return None
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))

@@ -295,7 +295,7 @@ def _record_metadata(
     path = metadata_dir / "wisdm.json"
     if path.exists():
         try:
-            existing = json.loads(path.read_text())
+            existing = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError):
             existing = None
         # Only enforce against records already carrying the checksum schema; a
