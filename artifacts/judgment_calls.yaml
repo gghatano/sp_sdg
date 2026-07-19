@@ -178,3 +178,51 @@ calls:
     sensitivity: "高(解釈)。UCI HAR・WISDM はデータ確定済みのため、統一ルール適用は両データにとって post-hoc の記述的再解析であり、統一 target(macro-F1 で UCI HAR 0.85・WISDM 0.70)は事前登録主 target(accuracy 0.90/0.80)と異なる。主結論 F-8/F-10/F-12 は各データの事前登録 τ に基づき不変で、横断の統一ルール版は別レンズ(結論の帰無は主解析と一致し補強方向)。統一ルールは baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)で N* を格子下限近傍に寄せ削減率を格子分解能で圧縮する(PAMAP2 は左側打ち切りで推定不能、UCI HAR も N*(none)≈3.4)。3点のため回帰・相関は求めない。"
     preregistered: false
     source: "src/signal_aug/reporting/aggregate.py(_cross_dataset_reduction)/ results.json(reduction_cross)/ report §6.5 / findings F-13"
+  - id: J-WESAD-TASK
+    topic: WESAD のタスク定義(issue #21 DS-3)
+    decision: "3クラス baseline(label 1)/ stress(2)/ amusement(3) のみ採用し 0..2 へ写像。label {0,4,5,6,7}(transient/meditation/ignore)は窓化せず破棄。"
+    why: "原論文の主タスクで『非HAR 生理信号』の外的妥当性に直球。binary(stress vs non-stress)は報告 F1 が天井(~95%)で target を曲線急峻部に置きにくい。3クラスは raw-CNN + 被験者非跨りでより低い動作点に落ち床/天井を回避しやすい。meditation を混ぜないことでタスク定義を曖昧化しない。"
+    alternatives: "binary stress vs non-stress(non-stress に meditation を含める/含めない)。3クラス full-pool none が天井/床に張り付く場合の切替候補。"
+    sensitivity: "高。クラス数・定義で分類難度と target が変わる。amusement は少数派でクラス不均衡(→主指標 macro-F1)。"
+    preregistered: true
+    source: "src/signal_aug/data/wesad.py(LABEL_IDS/LABEL_TO_CLASS)/ pre_registration.md(WESAD DS-3)"
+  - id: J-WESAD-CHANNELS
+    topic: WESAD のモダリティ・チャネル選択
+    decision: "胸 RespiBAN の生理 5ch = ECG/EDA/EMG/RESP/TEMP のみ。胸 ACC(運動)と手首 E4(BVP/EDA/TEMP/ACC)は除外。modality=chest 固定。"
+    why: "DS-3 の主眼が『非HAR 生理信号』。ACC は運動=HAR 的で主張を濁す。手首 E4 はレート不揃い・低品質。マルチモーダル拡張は DS-5 の主題で切り分け。5ch の defensible な既定。"
+    alternatives: "胸5ch+胸ACC(HAR的運動混入)、手首 E4。チャネル数(5)は HAR 3データ(3/6/9ch)と異なり横断交絡。"
+    sensitivity: "中。チャネル集合で分類難度・削減率が変わりうる。§6.5 HAR 横断図に同列で載せず信号種で層別(別表/別図)。"
+    preregistered: true
+    source: "src/signal_aug/data/wesad.py(DEFAULT_CHANNELS/_CHEST_KEY)/ ds3_design.md §2.2"
+  - id: J-WESAD-DS
+    topic: WESAD のダウンサンプル・窓長・重複
+    decision: "700→70Hz(factor-10)を反エイリアス LPF(scipy.signal.decimate, zero-phase IIR Chebyshev-I)経由で間引き。30秒窓(2100サンプル)非重複(overlap=0)を既定。窓不足で N* 不能なら 30秒/50%重複を judgment call で許容(被験者非跨りは厳守、重複は注記)。"
+    why: "700Hz 生は窓が巨大(2100サンプル)。EDA/TEMP/RESP は数Hz 未満で 70Hz 十分、ECG は QRS 微細形状は落ちるが心拍リズム・HR 変動は保持。単純間引き(stride)は ECG/EMG 高域を折り返すため反エイリアス LPF が定石。30秒非重複で被験者あたり窓数を確保しつつセット内窓相関を回避。"
+    alternatives: "DSレート 64Hz(手首BVP整合)/100Hz(ECG形状保持・窓大);窓長 60秒(慣例だが窓少);50%重複(窓増だが相関増)。"
+    sensitivity: "中〜高。窓長・重複は窓数と N* 分解能に直結。少 N・少数派 amusement で窓数が CNN 学習下限に近く、打ち切りリスク(実測は Stage 2)。"
+    preregistered: true
+    source: "src/signal_aug/data/wesad.py(_decimate_block/make_windows/downsample_factor)/ ds3_design.md §2.2"
+  - id: J-WESAD-NORM
+    topic: WESAD の正規化方針
+    decision: "窓ごと・チャネルごと z 正規化(WISDM/PAMAP2 と同じ、リーク無し)。選択チャネルに NaN を含む窓は破棄。"
+    why: "生理信号はチャネル間スケール差が桁で大きい(ECG mV vs EDA μS vs TEMP °C)ため必須。各窓が自分の統計のみ使いリーク無し。E4 不使用のため NaN は主に無いが安全側でガード。"
+    alternatives: "非正規化、被験者/データセット統計での正規化(リーク or 追加設計)、NaN の補間。"
+    sensitivity: "中。振幅の絶対情報は落ちるが波形・リズムが主判別。UCI HAR(非正規化)とは非対称で『dataset に合わせた追試』の位置づけ(WISDM/PAMAP2 と同扱い)。"
+    preregistered: true
+    source: "src/signal_aug/data/wesad.py(_znorm_window)"
+  - id: J-WESAD-SPLIT
+    topic: WESAD の test 分割・被験者選択
+    decision: "seed-0 シャッフルで K=5 被験者を固定 held-out test、残り 10名を pool。subject_counts={2..10}、repeats=5。WISDM/PAMAP2 と同手続き。実在被験者ID(S2–S17 の欠番あり 15名)は実データで確定。"
+    why: "K/N=5/15≈1/3 で WISDM(12/36)・PAMAP2(3/9)と held-out 比率が揃い横断手続きを一貫。pool=10 で N 格子を {2..10} と細かく取れる。repeats=5 は少被験者で点が粗いため各点 CI を締める。"
+    alternatives: "K=4/pool11(pool レンジ↑だが test 小で指標分散↑)。"
+    sensitivity: "中。test 被験者の引きで到達性能が変わりうるが pool 側の被験者数曲線が主対象。欠番ID・実在被験者集合は Stage 2 で実データから確定し metadata に記録。"
+    preregistered: true
+    source: "src/signal_aug/data/wesad.py(_split_subjects)/ pre_registration.md(WESAD DS-3)"
+  - id: J-WESAD-TARGET
+    topic: WESAD の目標性能 τ とその選択ルール(issue #21 DS-3)
+    decision: "主指標 macro-F1(不均衡・amusement 少数)、accuracy 併記。target = full-pool(N=10, aug=none, 5反復)の held-out macro-F1 平均 − 0.05 を 0.05 刻みで切り捨てた値。ルールを数値確定前に登録。UCI HAR 0.90 / WISDM 0.80 / PAMAP2 0.70 は流用しない。"
+    why: "target は none baseline のみに依存する手続きで決め、拡張手法の結果に非依存(手法有利化の排除)。曲線急峻部に置き天井/床を回避。3クラス不均衡で macro-F1 主・accuracy 副(#23 V2)。"
+    alternatives: "固定丸め値、accuracy 基準、−0.10 マージン。"
+    sensitivity: "高。N* は τ 到達点。少 N・少数派クラスで macro-F1 が跳ねると N* が不安定。full-pool none が floor 付近(マージン<0.05)や曲線が寝る場合は N* 推定不能として定性記述に格下げ(停止条件)。target 数値は Stage 2 の baseline 実測後に確定。"
+    preregistered: true
+    source: "artifacts/pre_registration.md(WESAD DS-3 節)/ config/experiments/wesad_subject_count.yaml"

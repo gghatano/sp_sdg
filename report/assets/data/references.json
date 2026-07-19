@@ -64,5 +64,10 @@
     "key": "wagner2020",
     "text": "P. Wagner, N. Strodthoff, R.-D. Bousseljot, D. Kreiseler, F. I. Lunze, W. Samek, and T. Schaeffter, \"PTB-XL, a large publicly available electrocardiography dataset,\" Scientific Data, vol. 7, no. 154, 2020.",
     "url": "https://physionet.org/content/ptb-xl/1.0.1/"
+  },
+  {
+    "key": "schmidt2018",
+    "text": "P. Schmidt, A. Reiss, R. Duerichen, C. Marberger, and K. Van Laerhoven, \"Introducing WESAD, a Multimodal Dataset for Wearable Stress and Affect Detection,\" in Proc. 20th ACM International Conference on Multimodal Interaction (ICMI), 2018, pp. 400–408. Dataset: WESAD (Wearable Stress and Affect Detection), DOI:10.1145/3242969.3242985 (License: scientific/non-commercial use with attribution; not CC BY).",
+    "url": "https://ubi29.informatik.uni-siegen.de/usi/data_wesad.html"
   }
 ]

@@ -50,6 +50,10 @@ steps:
     title: PAMAP2 被験者数削減の横断追加(Phase 6 / issue #21 DS-2)
     command: "uv run python scripts/run_subject_experiment.py --config config/experiments/pamap2_subject_count.yaml"
     detail: "第3の被験者データ PAMAP2 で N∈{2,3,4,5} × 5反復の学習曲線。PAMAP2 は初回実行時に自動ダウンロード(UCI #231, CC BY 4.0, DOI:10.24432/C5NW2H, archive sha256=76b3580b…; data/metadata/pamap2.json に出典・per-subject 活動サポート記録)。加速度±16g 9ch・100→33.3Hz・168窓・窓ごとznorm、subject 109 は活動サポートで機械除外。主指標 macro-F1、target は full-pool none baseline から登録ルールで確定。negative control は config/experiments/pamap2_negative_control.yaml。target 決定用 baseline のみは config/experiments/pamap2_target_baseline.yaml。同一 loader dispatch(data/subject_datasets.py)経由。"
+  - id: S7d
+    title: WESAD 被験者数削減の外的妥当性(信号種軸, Phase 6 / issue #21 DS-3)
+    command: "uv run python scripts/run_subject_experiment.py --config config/experiments/wesad_subject_count.yaml"
+    detail: "第4の被験者データ WESAD(非HAR 生理信号)で N∈{2..10} × 5反復の学習曲線。胸 RespiBAN 生理 5ch(ECG/EDA/EMG/RESP/TEMP)、label {1,2,3}=baseline/stress/amusement の 3クラス、700→70Hz 反エイリアス間引き・30秒非重複窓・窓ごと znorm、seed-0 で K=5 held-out。主指標 macro-F1(不均衡)、target は full-pool none baseline から登録ルール(平均−0.05 を 0.05 刻み切り捨て)で確定(UCI HAR 0.90/WISDM 0.80/PAMAP2 0.70 は流用しない)。negative control は config/experiments/wesad_negative_control.yaml、target 決定用 baseline のみは config/experiments/wesad_target_baseline.yaml。同一 loader dispatch(data/subject_datasets.py)経由。データは著者配布 Sciebo zip(~2.5GB、DOI:10.1145/3242969.3242985、data/metadata/wesad.json に checksum・実在被験者ID・クラス別窓数を記録)。**ライセンスは非商用+帰属・再配布不可のため生データは非コミット。SX.pkl は Python2 pickle で latin1 デコード。**"
   - id: S8
     title: 集計・監査・レポート生成
     command: "make all-report"
