@@ -1,0 +1,155 @@
+{
+  "dataset": "WESAD",
+  "license": "Scientific / non-commercial use with attribution (NOT CC BY 4.0; redistribution not granted)",
+  "doi": "10.1145/3242969.3242985",
+  "source": "Schmidt, Reiss, Duerichen, Marberger & Van Laerhoven (2018), Introducing WESAD, ICMI 2018, pp. 400-408, DOI:10.1145/3242969.3242985; UCI ML Repository dataset 465",
+  "url": "https://uni-siegen.sciebo.de/s/HGdUkoNlW1Ub0Gx/download",
+  "redistribution": "not granted (raw data never committed; checksums + metadata only)",
+  "modality": "chest",
+  "channels": [
+    "ECG",
+    "EDA",
+    "EMG",
+    "RESP",
+    "TEMP"
+  ],
+  "native_hz": 700.0,
+  "downsample_hz": 70,
+  "downsample_factor": 10,
+  "effective_hz": 70.0,
+  "anti_alias": "scipy.signal.decimate (zero-phase IIR Chebyshev-I) before decimation",
+  "window_length": 2100,
+  "overlap": 0.0,
+  "n_classes": 3,
+  "class_names": [
+    "baseline",
+    "stress",
+    "amusement"
+  ],
+  "label_ids": [
+    1,
+    2,
+    3
+  ],
+  "preprocessing": "chest physiology 5ch; labels {1,2,3} only (baseline/stress/amusement), {0,4,5,6,7} dropped; anti-aliased 700->70.0 Hz decimation; 2100-sample windows (overlap=0.0) within (subject,label) runs; NaN windows dropped; normalize=per_window_z",
+  "normalize": "per_window_z",
+  "split_seed": 0,
+  "n_test_subjects": 5,
+  "pool_subjects": [
+    3,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    15,
+    16,
+    17
+  ],
+  "test_subjects": [
+    2,
+    4,
+    5,
+    13,
+    14
+  ],
+  "subject_ids": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "n_pool_windows": 728,
+  "n_test_windows": 359,
+  "pool_windows_checksum": "ba1a7297fb58001c",
+  "test_windows_checksum": "d757aced8fc4d820",
+  "per_subject_class_support": {
+    "2": {
+      "baseline": 38,
+      "stress": 20,
+      "amusement": 12
+    },
+    "3": {
+      "baseline": 38,
+      "stress": 21,
+      "amusement": 12
+    },
+    "4": {
+      "baseline": 38,
+      "stress": 21,
+      "amusement": 12
+    },
+    "5": {
+      "baseline": 39,
+      "stress": 21,
+      "amusement": 12
+    },
+    "6": {
+      "baseline": 39,
+      "stress": 21,
+      "amusement": 12
+    },
+    "7": {
+      "baseline": 39,
+      "stress": 21,
+      "amusement": 12
+    },
+    "8": {
+      "baseline": 38,
+      "stress": 22,
+      "amusement": 12
+    },
+    "9": {
+      "baseline": 39,
+      "stress": 21,
+      "amusement": 12
+    },
+    "10": {
+      "baseline": 39,
+      "stress": 24,
+      "amusement": 12
+    },
+    "11": {
+      "baseline": 39,
+      "stress": 22,
+      "amusement": 12
+    },
+    "13": {
+      "baseline": 39,
+      "stress": 22,
+      "amusement": 12
+    },
+    "14": {
+      "baseline": 39,
+      "stress": 22,
+      "amusement": 12
+    },
+    "15": {
+      "baseline": 39,
+      "stress": 22,
+      "amusement": 12
+    },
+    "16": {
+      "baseline": 39,
+      "stress": 22,
+      "amusement": 12
+    },
+    "17": {
+      "baseline": 39,
+      "stress": 24,
+      "amusement": 12
+    }
+  }
+}

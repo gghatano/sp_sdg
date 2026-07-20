@@ -215,6 +215,65 @@ def cross_reduction_svg(cross: dict, metric: str, width: int = 580, height: int 
     return "".join(parts)
 
 
+def wesad_curve_svg(methods: list, target: float | None, width: int = 560, height: int = 300) -> str:
+    """Subject-count learning curve for WESAD (issue #21 DS-3, non-HAR physio).
+    Plots the chosen metric (mean) vs subject count, one line per augmentation.
+    The real-data baseline ``none`` and the negative control ``label_shuffle``
+    are drawn boldly (the DS-3 story is that they overlap = near-chance), other
+    methods are faint context. The pre-registered target is a dashed reference.
+    Data-driven from results.json['reduction_wesad']; no values are hand-typed."""
+    curves = {m["augmentation"]: sorted(m.get("curve", []), key=lambda p: p["subject_count"])
+              for m in methods if m.get("curve")}
+    if not curves:
+        return ""
+    pad_l, pad_r, pad_t, pad_b = 46, 96, 16, 34
+    all_pts = [p for pts in curves.values() for p in pts]
+    ys = [p["mean"] for p in all_pts] + ([target] if target is not None else [])
+    y_min, y_max = min(ys) - 0.02, max(ys) + 0.02
+    xs = sorted({p["subject_count"] for p in all_pts})
+    x_min, x_max = min(xs), max(xs)
+
+    def sx(x):
+        return pad_l + (x - x_min) / (x_max - x_min or 1) * (width - pad_l - pad_r)
+
+    def sy(a):
+        return pad_t + (1 - (a - y_min) / (y_max - y_min or 1)) * (height - pad_t - pad_b)
+
+    parts = [f'<svg viewBox="0 0 {width} {height}" class="w-full h-auto" role="img" '
+             f'aria-label="WESAD subject-count learning curve (physiological, 3-class)">']
+    parts.append(f'<line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{height-pad_b}" stroke="#cbd5e1"/>')
+    parts.append(f'<line x1="{pad_l}" y1="{height-pad_b}" x2="{width-pad_r}" y2="{height-pad_b}" stroke="#cbd5e1"/>')
+    for a in (y_min + 0.02, (y_min + y_max) / 2, y_max - 0.02):
+        parts.append(f'<text x="{pad_l-5}" y="{sy(a)+3:.1f}" text-anchor="end" font-size="10" fill="#64748b">{a:.2f}</text>')
+        parts.append(f'<line x1="{pad_l}" y1="{sy(a):.1f}" x2="{width-pad_r}" y2="{sy(a):.1f}" stroke="#f1f5f9"/>')
+    for x in xs:
+        parts.append(f'<text x="{sx(x):.1f}" y="{height-pad_b+14}" text-anchor="middle" font-size="10" fill="#64748b">{int(x)}</text>')
+    parts.append(f'<text x="{(pad_l+width-pad_r)/2:.0f}" y="{height-4}" text-anchor="middle" font-size="10" fill="#475569">被験者数</text>')
+    if target is not None:
+        parts.append(f'<line x1="{pad_l}" y1="{sy(target):.1f}" x2="{width-pad_r}" y2="{sy(target):.1f}" '
+                     f'stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/>')
+        parts.append(f'<text x="{width-pad_r+4}" y="{sy(target)+3:.1f}" font-size="10" fill="#ef4444">目標 {target:.2f}</text>')
+    highlight = {"none", "label_shuffle"}
+    # faint context methods first, then highlighted lines on top
+    for aug in sorted(curves, key=lambda a: a in highlight):
+        pts = curves[aug]
+        color = aug_color(aug)
+        strong = aug in highlight
+        d = " ".join(f"{'M' if i == 0 else 'L'}{sx(p['subject_count']):.1f},{sy(p['mean']):.1f}"
+                     for i, p in enumerate(pts))
+        dash = ' stroke-dasharray="5 3"' if aug == "label_shuffle" else ""
+        parts.append(f'<path d="{d}" fill="none" stroke="{color}" '
+                     f'stroke-width="{2.2 if strong else 1}"{dash} opacity="{1 if strong else 0.4}"/>')
+        if strong:
+            for p in pts:
+                parts.append(f'<circle cx="{sx(p["subject_count"]):.1f}" cy="{sy(p["mean"]):.1f}" r="2.5" fill="{color}"/>')
+        last = pts[-1]
+        parts.append(f'<text x="{width-pad_r+4}" y="{sy(last["mean"])+3:.1f}" font-size="9" '
+                     f'fill="{color}" opacity="{1 if strong else 0.55}">{aug}</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
 PHASE_NAMES = {
     0: "Phase 0: 基盤構築",
     1: "Phase 1: UCR最小追試",
@@ -240,6 +299,7 @@ REQUIRED_SECTION_IDS = [
     "learning-curves",
     "subject-reduction",
     "subject-reduction-cross",
+    "subject-reduction-wesad",
     "discussion",
     "limitations",
     "conclusion",
@@ -357,6 +417,22 @@ def gather_context(repo_root: str | Path = ".") -> dict:
                     for m in reduction_wisdm["methods"]}
         reduction_wisdm_svg = subject_curve_svg(curves_w, reduction_wisdm.get("target_value"))
 
+    # WESAD external-validity reduction (issue #21 DS-3, non-HAR physiological
+    # signal). Independent "signal-type axis": NOT merged into the HAR cross
+    # figure (§6.5) because task/signal-type/class-count are confounded. Its
+    # primary-metric (macro-F1) curve highlights none vs label_shuffle overlap.
+    reduction_wesad = results.get("reduction_wesad")
+    reduction_wesad_svg = ""
+    wesad_primary = None
+    wesad_primary_block = None
+    if reduction_wesad and reduction_wesad.get("by_metric"):
+        wesad_primary = reduction_wesad.get("primary_metric", "macro_f1")
+        wesad_primary_block = reduction_wesad["by_metric"].get(wesad_primary)
+        if wesad_primary_block and wesad_primary_block.get("methods"):
+            reduction_wesad_svg = wesad_curve_svg(
+                wesad_primary_block["methods"], wesad_primary_block.get("target_value")
+            )
+
     # PAMAP2 external-validity reduction (issue #21 DS-2), both metrics
     reduction_pamap2 = results.get("reduction_pamap2")
 
@@ -427,6 +503,10 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "reduction_wisdm": reduction_wisdm,
         "reduction_wisdm_svg": reduction_wisdm_svg,
         "reduction_pamap2": reduction_pamap2,
+        "reduction_wesad": reduction_wesad,
+        "reduction_wesad_svg": reduction_wesad_svg,
+        "wesad_primary": wesad_primary,
+        "wesad_primary_block": wesad_primary_block,
         "reduction_cross": reduction_cross,
         "reduction_cross_svg": reduction_cross_svg,
         "cross_method_order": ["oversample", "scaling", "mixup", "dtw", "smote", "label_shuffle"],

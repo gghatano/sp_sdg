@@ -122,3 +122,55 @@ full-pool none baseline(N=5, aug=none, 5反復、seed 0-4、git_dirty=false)の 
 - クラス欠落(特に rope_jumping)による macro-F1 不安定は反復増 + CI で緩和、それでも不安定なら停止条件として記録
 - 被験者 8名(除外後)は「10名以上が望ましい」下限付近。DS-2 は**主張を張る主対象ではなく横断の少 N 端点(記述用)**という位置づけ。3データ=3点では回帰・相関は出さず「点 + CI + 定性考察」に留める
 - 拡張は各被験者部分集合の学習データにのみ適用し、test には一切適用しない
+
+---
+
+# 事前登録(追加) — WESAD 被験者数削減の外的妥当性(信号種軸, issue #21 DS-3)
+
+登録日: 2026-07-20(WESAD の被験者数グリッドを **1 run も実行する前**、かつ target 数値を算出する前に登録)
+
+これまでの帰結「拡張による必要実被験者数の削減は帰無」は **HAR(運動信号・行動認識)3データ**(UCI HAR 30名 / WISDM 36名 / PAMAP2 ~9名)に立脚する。本節はこれを **信号種を運動信号から非HAR の生理信号(情動・ストレス)に変えても成り立つか**で検証する。DS-2(母集団サイズ軸)とは独立の**信号種軸**の外的妥当性。設計の全体像は `artifacts/ds3_design.md`。UCI HAR(0.90)/ WISDM(0.80)/ PAMAP2(0.70)の target は**流用しない**。本データ用に独立して手続きを固定する。
+
+## 対象データ
+
+- データセット: WESAD(Schmidt et al. 2018, ICMI)。**ライセンス = 学術・非商用 + 帰属表示(CC BY ではない)・再配布不可**、DOI:10.1145/3242969.3242985。生データは非コミット、`data/metadata/wesad.json` に checksum・実在被験者ID・クラス別窓数のみ記録。archive sha256=5e15d260…8fd71c(著者配布 Sciebo zip、2,249,444,501 bytes。動的生成 zip のため archive hash は再現しない可能性があり、真の再現アンカーは窓 checksum)
+- チャネル: **胸 RespiBAN 生理 5ch = ECG/EDA/EMG/RESP/TEMP**。胸 ACC(運動=HAR的)・手首 E4 は除外(「非HAR 生理信号」の主張のため)
+- タスク: **3クラス baseline(label 1)/ stress(2)/ amusement(3)**。label {0,4,5,6,7}(transient/meditation/ignore)は破棄し 0..2 へ写像
+- 700Hz → **70Hz(反エイリアス LPF → factor-10 間引き。単純 stride は ECG/EMG 高域を折り返すため decimate を使用)**、**2100サンプル(~30s)非重複窓**、(subject,label) 連続区間内、窓ごと・チャネルごと z 正規化(リーク無し)、選択チャネルに NaN を含む窓は破棄
+- **test = 固定 held-out K=5 被験者**(seed-0 シャッフル、WISDM/PAMAP2 と同手続き)。pool = 残り 10名。**実測**: 15名 [S2–S17、S1(パイロット)と S12 は配布データに欠番]、seed-0 で test=[2,4,5,13,14]・pool=[3,6,7,8,9,10,11,15,16,17]。**subject_counts = {2,3,4,5,6,7,8,9,10}**
+
+## クラス不均衡と窓数(実測、結果精度に非依存のデータ記述)
+
+`data/metadata/wesad.json`(window=2100/70Hz)実測: 被験者あたり総窓数 ~70–75(**baseline ~38–39 / stress ~20–24 / amusement 12**)。pool 728窓 / test 359窓。**amusement が少数派(全被験者で 12窓/名)**で、小 N でのサポートが薄い(N=2 で train amusement ~24窓)。→ **主指標 = macro-F1**(#23 V2 の教訓で不均衡は両指標併記)、**accuracy 併記**。30秒非重複でも被験者あたり ~70窓確保でき、amusement も各被験者に必ず存在するため、当初懸念した窓不足による打ち切りリスクは相対的に低い(それでも少数派の跳ねは反復5+CI で緩和)。
+
+## 主指標と target 選択ルール(数値ではなく手続き)
+
+- **主指標 = macro-F1**、**accuracy を副次併記**。横断図は両指標版を用意
+- **target 選択ルール**: **「full-pool(N = pool 最大 = 10, aug = none, 5反復)の held-out test macro-F1 の平均から 0.05 を引き、0.05 刻みで切り捨てた値」を target とする。**
+  - このルールは **none baseline のみ**に依存し、拡張手法(oversample/scaling/mixup/dtw/smote/label_shuffle)の結果に依存しない(手法有利化の余地なし)。曲線急峻部に target を置き天井/床を回避。
+  - full-pool none を測る run は「target 決定用の登録済み手続き」であり、**target 確定前に他手法の結果を一切参照しない**。
+  - **UCI HAR 0.90 / WISDM 0.80 / PAMAP2 0.70 は流用しない。**
+
+### 確定 target(baseline 実測後、ルール適用)
+
+full-pool none baseline(N=10, aug=none, 5反復、seed 0-4、git_dirty=false)の held-out test 実測: **macro-F1 平均 = 0.4835**(sd 0.0218、5反復: 0.484/0.453/0.507/0.473/0.500)、**accuracy 平均 = 0.5053**。
+
+登録ルール適用: `floor_0.05(0.4835 − 0.05) = floor_0.05(0.4335)` = **target = 0.40(macro_f1)**。target 上のマージン +0.084(>0.05、floor 付近ではなく健全)。ルールは b4c0b34(数値算出前)でコミット済み、none baseline のみに依存し拡張手法の結果に非依存。config の target_value=0.40 は本節確定後に記入(実験前コミット)。
+
+**重要(near-chance の明示)**: この 3クラス full-pool none baseline は **near-chance** である(accuracy ~0.50 は多数派クラス率 0.54 を下回る。macro-F1 0.48 は多数派 baseline 予測の macro-F1 より高く、モデルは弱いながら学習はしている)。生信号 5ch + 1D-CNN + **窓ごと z 正規化**を生理信号にそのまま流用したことが弱い動作点の一因の疑いがある(z 正規化は EDA/TEMP の絶対レベルというストレス識別の主要手がかりを消す。judgment_calls J-WESAD-NORM / deviations D-WESAD に記録)。ユーザー判断で **HAR 3データとの比較可能性のため枠組み(前処理・モデル・評価)は一切変更せず、事前登録どおり 3クラス・前処理変更なしで完遂**する。この near-chance は「効果は信号種依存(生理信号では動作点が低い)」という DS-3 の結論の一部として誠実に扱い、target を下げ過ぎたのではなくルール適用結果である。near-chance baseline 上で N* 交差が定まらない/左側打ち切りになる場合は削減率を算出せず「N* 推定不能」を明記する(過大主張回避)。
+
+## 評価手続き(事前確定)
+
+1. subject_count N ∈ {2,3,4,5,6,7,8,9,10} について、各 N で **5 反復**(異なる被験者部分集合、seed 制御。N=10 は pool 全員のため反復は seed の学習ゆらぎのみ)学習し、固定 test の macro-F1 / accuracy を測る
+2. 手法ごとに学習曲線(macro-F1 対 被験者数)を描く
+3. 上記ルールで確定した target を最初に超える N*(手法)を線形補間で推定
+4. **削減率 = 1 − N*(aug)/N*(none)**(無次元。target が HAR 3データと異なっても横断比較可)。等価節約被験者数はスケール依存のため参考記載のみ
+5. 5 反復の分散から bootstrap で N* の CI を付す
+6. negative control(**label_shuffle**)が削減を示さないことを確認。純量水増しの基準は **oversample**
+
+## 事前に定めた停止・注意条件
+
+- **N* 推定不能**: 曲線が寝て target 交差点が単一に定まらない/外挿になる、または full-pool none がルール適用後に floor 付近(target 差<0.05 を確保できない)なら「N* 推定不能」を明記し、削減率は算出せず**定性記述に格下げ**(過大主張回避)
+- 少数派 amusement のクラス欠落/不安定による macro-F1 の跳ねは反復5 + CI で緩和、それでも不安定なら停止条件として記録
+- **§6.5 HAR 横断図には同列で載せない**: WESAD は信号種(生理 vs 運動)・タスク(情動 vs 行動)・クラス数(3 vs 6/12)・チャネル数(5)が HAR 3データと異なる。信号種で層別した別表/別図で提示し、横断図に載せる場合は交絡を図注で厳格注記・別マーカー。因果・外挿はしない(4点・広 CI・多交絡)
+- 拡張は各被験者部分集合の学習データにのみ適用し、test には一切適用しない

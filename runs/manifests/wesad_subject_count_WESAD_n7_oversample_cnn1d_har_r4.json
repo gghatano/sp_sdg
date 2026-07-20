@@ -1,0 +1,63 @@
+{
+  "run_id": "wesad_subject_count_WESAD_n7_oversample_cnn1d_har_r4",
+  "phase": 6,
+  "dataset": "WESAD",
+  "dataset_checksum": "wesad:34eb55554b6fe5b1",
+  "split_checksum": "subjects:6,7,8,9,10,15,17",
+  "augmentation": "oversample",
+  "augmentation_params": {
+    "ratio": 1.0
+  },
+  "model": "cnn1d_har",
+  "model_params": {
+    "epochs": 40,
+    "patience": 8,
+    "batch_size": 64,
+    "lr": 0.001,
+    "val_fraction": 0.2,
+    "hidden": 64
+  },
+  "seed": 4,
+  "git_commit": "2c1f7d346a2722433b211fb999ce99510ba08f8b",
+  "git_dirty": false,
+  "python_version": "3.12.13",
+  "package_lock_checksum": "93f5b25a0dbbe8e93f3fa7792520a611e444d1f9dd73b295aea9d3e55817023d",
+  "hardware": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "cpu_count": 12
+  },
+  "started_at": "2026-07-20T03:15:36.072038+00:00",
+  "ended_at": "2026-07-20T03:16:20.464271+00:00",
+  "status": "completed",
+  "metrics_path": "runs\\metrics\\wesad_subject_count_WESAD_n7_oversample_cnn1d_har_r4.json",
+  "predictions_path": "runs\\predictions\\wesad_subject_count_WESAD_n7_oversample_cnn1d_har_r4.csv",
+  "log_path": "runs\\logs\\wesad_subject_count_WESAD_n7_oversample_cnn1d_har_r4.log",
+  "subject_count": 7,
+  "subjects_used": [
+    6,
+    7,
+    8,
+    9,
+    10,
+    15,
+    17
+  ],
+  "dataset_params": {
+    "window": 2100,
+    "split_seed": 0,
+    "n_test_subjects": 5,
+    "normalize": "per_window_z",
+    "downsample_hz": 70,
+    "overlap": 0.0,
+    "modality": "chest",
+    "channels": [
+      "ECG",
+      "EDA",
+      "EMG",
+      "RESP",
+      "TEMP"
+    ],
+    "archive_sha256": "5e15d2606adf16d819ba535c1786d92e94bae5ff5392f7ae01fb63f9938fd71c"
+  }
+}
