@@ -274,6 +274,111 @@ def wesad_curve_svg(methods: list, target: float | None, width: int = 560, heigh
     return "".join(parts)
 
 
+def synthesis_reduction_svg(synthesis: dict, width: int = 640) -> str:
+    """Single integrated view (issue #21 §6.7) of subject-count reduction across
+    the four subject datasets. A forest plot on the *reduction-rate* axis: for
+    the two measurable datasets (UCI HAR / WISDM, each under its own
+    pre-registered primary target) every augmentation is a point with a
+    horizontal CI whisker; the ``none`` baseline is x=0 with a shaded band for
+    its own N* uncertainty. Datasets whose reduction is not estimable (PAMAP2 =
+    left-censored, WESAD = near-chance) are NOT given a false reduction value —
+    they get an explicit "推定不能" annotation row. Data-driven from the
+    per-dataset reduction blocks in results.json; no values are hand-typed."""
+    rows = synthesis.get("rows", [])
+    measurable = [r for r in rows if r.get("measurable")]
+    censored = [r for r in rows if not r.get("measurable")]
+    if not measurable:
+        return ""
+    # x extent from estimable reductions, method CIs and none bands
+    xs = [0.0]
+    for r in measurable:
+        xs += [v for v in r.get("none_band", []) if v is not None]
+        for m in r["methods"]:
+            xs += [v for v in m.get("red_ci", []) if v is not None]
+            if m.get("reduction_rate") is not None:
+                xs.append(m["reduction_rate"])
+    x_min, x_max = min(xs), max(xs)
+    span = max(x_max - x_min, 0.1)
+    x_min, x_max = x_min - 0.05 * span, x_max + 0.05 * span
+
+    pad_l, pad_r, pad_t = 150, 20, 56
+    row_h, header_h, note_h = 19, 22, 26
+    # total height
+    h = pad_t
+    for r in measurable:
+        h += header_h + len(r["methods"]) * row_h
+    for _ in censored:
+        h += header_h + note_h
+    h += 10
+    height = int(h)
+
+    def sx(v: float) -> float:
+        return pad_l + (v - x_min) / (x_max - x_min or 1) * (width - pad_l - pad_r)
+
+    parts = [f'<svg viewBox="0 0 {width} {height}" class="w-full h-auto" role="img" '
+             f'aria-label="cross-dataset subject-count reduction synthesis (forest plot)">']
+    plot_bottom = height - 6
+    # x grid + ticks (reduction %)
+    for frac in (0.0, 0.25, 0.5, 0.75, 1.0):
+        v = x_min + frac * (x_max - x_min)
+        parts.append(f'<line x1="{sx(v):.1f}" y1="{pad_t-6}" x2="{sx(v):.1f}" y2="{plot_bottom}" stroke="#f1f5f9"/>')
+        parts.append(f'<text x="{sx(v):.1f}" y="{pad_t-10}" text-anchor="middle" font-size="9" fill="#64748b">{v*100:+.0f}%</text>')
+    # zero line = none baseline
+    parts.append(f'<line x1="{sx(0):.1f}" y1="{pad_t-6}" x2="{sx(0):.1f}" y2="{plot_bottom}" '
+                 f'stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/>')
+    parts.append(f'<text x="{sx(0):.1f}" y="14" text-anchor="middle" font-size="9" fill="#ef4444">none 基準(削減 0)</text>')
+    parts.append(f'<text x="8" y="28" font-size="9" fill="#475569">← 実被験者が増(悪化)</text>')
+    parts.append(f'<text x="{width-pad_r}" y="28" text-anchor="end" font-size="9" fill="#475569">実被験者が減(削減) →</text>')
+    parts.append(f'<text x="{(pad_l+width-pad_r)/2:.0f}" y="28" text-anchor="middle" font-size="9" fill="#94a3b8">削減率 = 1 − N*(aug)/N*(none)</text>')
+
+    y = pad_t
+    for r in measurable:
+        # group header
+        parts.append(f'<text x="8" y="{y+13:.0f}" font-size="10" font-weight="bold" fill="#0f172a">{r["dataset"]}</text>')
+        parts.append(f'<text x="8" y="{y+13:.0f}" font-size="10" fill="#0f172a" text-anchor="start" dx="{len(r["dataset"])*6.6:.0f}">'
+                     f'({r["target_metric"]} {r["target_value"]:.2f}, pool {r["pool_max"]})</text>')
+        gy0 = y + header_h - 4
+        gy1 = gy0 + len(r["methods"]) * row_h
+        # none uncertainty band
+        nb = r.get("none_band") or []
+        if len(nb) == 2 and None not in nb:
+            bx0, bx1 = sx(min(nb)), sx(max(nb))
+            parts.append(f'<rect x="{bx0:.1f}" y="{gy0:.1f}" width="{max(bx1-bx0,1):.1f}" height="{gy1-gy0:.1f}" '
+                         f'fill="#64748b" opacity="0.08"/>')
+        y += header_h
+        for m in r["methods"]:
+            cy = y + row_h / 2
+            color = aug_color(m["augmentation"])
+            is_ctrl = m.get("is_control")
+            label = m["augmentation"] + ("(対照)" if is_ctrl else "")
+            parts.append(f'<text x="{pad_l-8}" y="{cy+3:.1f}" text-anchor="end" font-size="9" '
+                         f'fill="{"#94a3b8" if is_ctrl else "#334155"}">{label}</text>')
+            ci = m.get("red_ci") or []
+            if len(ci) == 2 and None not in ci:
+                dash = ' stroke-dasharray="3 2"' if is_ctrl else ""
+                parts.append(f'<line x1="{sx(ci[0]):.1f}" y1="{cy:.1f}" x2="{sx(ci[1]):.1f}" y2="{cy:.1f}" '
+                             f'stroke="{color}" stroke-width="1.4" opacity="0.7"{dash}/>')
+                for e in ci:
+                    parts.append(f'<line x1="{sx(e):.1f}" y1="{cy-3:.1f}" x2="{sx(e):.1f}" y2="{cy+3:.1f}" stroke="{color}" stroke-width="1"/>')
+            if m.get("reduction_rate") is not None:
+                parts.append(f'<circle cx="{sx(m["reduction_rate"]):.1f}" cy="{cy:.1f}" r="3.1" fill="{color}" stroke="#fff" stroke-width="0.6"/>')
+            y += row_h
+
+    for r in censored:
+        parts.append(f'<text x="8" y="{y+13:.0f}" font-size="10" font-weight="bold" fill="#0f172a">{r["dataset"]}</text>')
+        parts.append(f'<text x="8" y="{y+13:.0f}" font-size="10" fill="#0f172a" dx="{len(r["dataset"])*6.6:.0f}">'
+                     f'({r["target_metric"]} {r["target_value"]:.2f}, pool {r["pool_max"]})</text>')
+        y += header_h
+        cy = y + note_h / 2
+        parts.append(f'<rect x="{pad_l}" y="{y:.1f}" width="{width-pad_l-pad_r}" height="{note_h-4:.1f}" fill="#94a3b8" opacity="0.10"/>')
+        parts.append(f'<text x="{(pad_l+width-pad_r)/2:.0f}" y="{cy+3:.1f}" text-anchor="middle" font-size="9.5" fill="#64748b">'
+                     f'削減率は推定不能({r["censor_reason"]})</text>')
+        y += note_h
+
+    parts.append("</svg>")
+    return "".join(parts)
+
+
 PHASE_NAMES = {
     0: "Phase 0: 基盤構築",
     1: "Phase 1: UCR最小追試",
@@ -300,6 +405,7 @@ REQUIRED_SECTION_IDS = [
     "subject-reduction",
     "subject-reduction-cross",
     "subject-reduction-wesad",
+    "subject-reduction-synthesis",
     "discussion",
     "limitations",
     "conclusion",
@@ -453,6 +559,85 @@ def gather_context(repo_root: str | Path = ".") -> dict:
             if _none:
                 pamap2_none_n2 = next((p["mean"] for p in _none["curve"] if p["subject_count"] == 2), None)
 
+    # ---- issue #21 §6.7: four-dataset synthesis of subject-count reduction ----
+    # Uses each dataset's OWN pre-registered primary target (the same lens as
+    # F-8/F-10/F-12), so the synthesis restates the main conclusions unchanged.
+    # Descriptive labels (signal type / class count) are structural facts, not
+    # experiment outputs; every number (target, N*, CI, reduction, pool) is
+    # data-driven from the reduction blocks above — nothing hand-typed.
+    METHOD_ORDER = ["dtw", "mixup", "scaling", "smote", "oversample", "label_shuffle"]
+    pool_by_ds = {d["dataset"]: d["pool_max"] for d in (reduction_cross or {}).get("datasets", [])}
+
+    def _measurable_row(block, dataset, signal, n_classes, pool_max, control_relation):
+        nn = block.get("n_star_none")
+        nn_ci = block.get("n_star_none_ci") or [None, None]
+        mmap = {m["augmentation"]: m for m in block.get("methods", [])}
+        methods = []
+        for a in METHOD_ORDER:
+            m = mmap.get(a)
+            if not m or m.get("n_star") is None:
+                continue
+            ci = m.get("n_star_ci") or [None, None]
+            red_ci = [None, None]
+            if nn and None not in ci:
+                red_ci = [round(1 - ci[1] / nn, 4), round(1 - ci[0] / nn, 4)]
+            methods.append({
+                "augmentation": a,
+                "reduction_rate": m.get("reduction_rate"),
+                "red_ci": red_ci,
+                "n_star": m.get("n_star"),
+                "is_control": a == "label_shuffle",
+            })
+        none_band = [None, None]
+        if nn and None not in nn_ci:
+            none_band = [round(1 - nn_ci[1] / nn, 4), round(1 - nn_ci[0] / nn, 4)]
+        return {
+            "dataset": dataset, "signal": signal, "n_classes": n_classes,
+            "pool_max": pool_max, "measurable": True,
+            "target_metric": block.get("target_metric"),
+            "target_value": block.get("target_value"),
+            "n_star_none": nn, "n_star_none_ci": nn_ci,
+            "methods": methods, "none_band": none_band,
+            "conclusion": "帰無", "control_relation": control_relation,
+        }
+
+    synthesis = None
+    synthesis_svg = ""
+    if reduction and reduction_wisdm:
+        rows = [
+            _measurable_row(reduction, "UCI HAR", "慣性 6ch(加速度+ジャイロ)", 6,
+                            pool_by_ds.get("UCI_HAR", 21),
+                            "全手法の N* CI が none と重複。悲観的対照 label_shuffle を CI 分離で超える手法なし"),
+            _measurable_row(reduction_wisdm, "WISDM", "加速度 3ch", 6,
+                            pool_by_ds.get("WISDM", 24),
+                            "同上。点推定最良の手法も CI が none と重複、対照越えなし"),
+        ]
+        p2 = next((d for d in (reduction_cross or {}).get("datasets", []) if d["dataset"] == "PAMAP2"), None)
+        if p2:
+            pr = p2.get("pre_registered_primary", {})
+            rows.append({
+                "dataset": "PAMAP2", "signal": "多IMU 9ch(加速度+ジャイロ+磁気)", "n_classes": 12,
+                "pool_max": p2.get("pool_max"), "measurable": False,
+                "target_metric": pr.get("metric", "macro_f1"), "target_value": pr.get("value", 0.70),
+                "conclusion": "推定不能(左側打ち切り)", "censor_reason": "左側打ち切り",
+                "control_relation": "none が最小格子 N で既に target 超過。対照も target 未到達で削減を示さず",
+            })
+        if reduction_wesad and wesad_primary_block:
+            rows.append({
+                "dataset": "WESAD", "signal": "胸部生理 5ch(ECG/EDA/EMG/RESP/TEMP)", "n_classes": 3,
+                "pool_max": wesad_primary_block.get("fullpool_n"), "measurable": False,
+                "target_metric": reduction_wesad.get("primary_metric", "macro_f1"),
+                "target_value": wesad_primary_block.get("target_value"),
+                "conclusion": "推定不能(near-chance / 枠組み非転移)", "censor_reason": "near-chance",
+                "control_relation": "label_shuffle ≈ none(モデル未学習)。削減の前提が不成立",
+            })
+        synthesis = {
+            "rows": rows,
+            "n_measurable": sum(1 for r in rows if r["measurable"]),
+            "n_datasets": len(rows),
+        }
+        synthesis_svg = synthesis_reduction_svg(synthesis)
+
     from signal_aug.evaluation.stats import holm_bonferroni
 
     stats = results.get("stats", [])
@@ -511,6 +696,8 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "reduction_cross_svg": reduction_cross_svg,
         "cross_method_order": ["oversample", "scaling", "mixup", "dtw", "smote", "label_shuffle"],
         "pamap2_none_n2": pamap2_none_n2,
+        "synthesis": synthesis,
+        "synthesis_svg": synthesis_svg,
         "n_runs": len(results["runs"]),
         "n_completed": len(completed_runs),
         "n_failed": len(results["failed_runs"]),

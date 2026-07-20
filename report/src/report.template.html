@@ -80,6 +80,7 @@
         {{ facts.dtw_reduction_pct if facts.dtw_reduction_pct is not none else "—" }}% の削減を示すが、反復が少なく信頼区間が対照と重なるため確定できない。
         この「削減を確定できない(帰無)」という結論は第2の被験者データ WISDM v1.1 [{{ ref.kwapisz2011 }}] でも一貫して再現され(ただし最良手法の順位は再現せず、指標にも依存する。§6.4)、第3の PAMAP2 [{{ ref.reiss2012 }}] を加えた3データ横断でも母集団被験者数(5〜24名)に沿う系統トレンドは検出されない(PAMAP2 は少 N・高 baseline で左側打ち切り=削減率推定不能。§6.5)。
         さらに信号種を変えた第4データ WESAD [{{ ref.schmidt2018 }}](生理信号)では full-pool baseline が near-chance(乱ラベル対照と同水準)で、そもそも削減を論じる前提が成立せず、HAR 向け枠組みの<strong>非転移(信号種依存)</strong>が示された(§6.6)。
+        これら4データを統合すると、削減は<strong>測定可能なら帰無・それ以外は推定不能</strong>で、対照を明確に超えて実被験者を削減できたデータは1つも無い(§6.7)。
         したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
         なお UCR での精度効果は先行研究 [{{ ref.iwana2021 }}] の傾向を追試した結果であり、被験者数削減の評価枠組みと negative control による健全性検証が本研究独自の貢献である。
         すべての結果は目標の事前登録とデータリーク防止プロトコルの下で得られ、実験基盤・レポートは完全に自動生成される。
@@ -510,6 +511,49 @@
         <p>WESAD で<strong>拡張の効果は評価不能</strong>である(前提となるタスク学習が成立しない)。DS-3 の結論は「拡張が被験者数を削減する/しない」ではなく、<strong>HAR 向けの枠組み(窓ごと z 正規化 + cnn1d_har)が生理信号に転移せず near-chance にとどまる=信号種依存</strong>という一点に限定される。near-chance を「WESAD が難しいから」だけに帰さない:候補要因として、<strong>HAR 由来の窓ごと z 正規化が EDA / 体温の絶対レベル</strong>(ストレスで上昇する皮膚コンダクタンス・体温——生理信号の主情報)を各窓内で消すことが挙げられる(再現ノートタブ J-WESAD-NORM / deviations D-WESAD に記録)。原論文 [{{ ref.schmidt2018 }}] は手作り生理特徴で 3クラス accuracy ~93% を報告しており、near-chance は WESAD 自体の限界ではなく<strong>前処理・モデルの選択</strong>に強く依存することを示唆する。<strong>それでも比較可能性のため枠組みは固定し(前処理変更なし=#23 の規律)</strong>、信号種を変えた別軸として本結果を記録する。WESAD は交絡(タスク・信号種・クラス数)を避けるため §6.5 の HAR 横断図には同列で載せていない。データは<strong>非商用+帰属</strong>ライセンス(CC BY ではない)で、生データは非コミット・利用時は Schmidt et al. 2018 の帰属表示が必須。</p>
       </div>
       {% endif %}
+
+      {% if synthesis and synthesis.rows %}
+      <!-- 6.7 Synthesis: external validity of subject-count reduction across 4 datasets (issue #21) -->
+      <h3 class="sub mt-6" id="subject-reduction-synthesis">6.7 被験者数削減の外的妥当性:4データ統合</h3>
+      <p class="lead text-sm">§6.3–6.6 の4つの被験者ID付きデータ(UCI HAR / WISDM / PAMAP2 / WESAD)を1つのビューに束ね、「データ拡張による必要実被験者数の削減」の外的妥当性を締めくくる。母集団被験者数(pool {{ synthesis.rows | map(attribute='pool_max') | min }}〜{{ synthesis.rows | map(attribute='pool_max') | max }}名)・信号種(慣性/加速度/生理)・タスク(HAR 6/12クラス・affect 3クラス)を跨いでも、<strong>削減は「測定可能な場合は<strong>帰無</strong>(対照を CI 分離で超える手法なし)」「それ以外は<strong>推定不能</strong>(左側打ち切り/near-chance)」であり、悲観的対照 label_shuffle や純量水増しの oversample を明確に超えて実被験者を削減できたデータは 1 つも無い</strong>。ここで<strong>帰無</strong>は「削減を測れたが差が対照と区別できない」、<strong>推定不能</strong>は「そもそも削減を測る前提(baseline が目標を安定して跨ぐ・モデルが学習している)が崩れている」を指す——「削減できたデータは無い」はこの<strong>両方</strong>を含む。</p>
+
+      <div class="mt-2 border border-amber-300 bg-amber-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-amber-900 mb-1">レンズと解釈の限定</p>
+        <p>本節は<strong>各データの事前登録した primary target</strong>({% for r in synthesis.rows %}{{ r.dataset }} {{ r.target_metric }} {{ "%.2f" | format(r.target_value) }}{% if not loop.last %} / {% endif %}{% endfor %})を用いる——すなわち<strong>主結論 F-8/F-10/F-12 と同一レンズであり、これらは本統合でも不変</strong>である。§6.5 の統一ルール target は UCI HAR / WISDM にとっては post-hoc の別レンズだが、そこでも結論(削減は帰無)は一致した。解釈は<strong>記述的・帰無前提</strong>に限る:{{ synthesis.n_datasets }}点(うち {{ synthesis.n_datasets - synthesis.n_measurable }}点は推定不能)のため回帰・相関・因果は求めず、母集団サイズや信号種に沿う系統トレンドは<strong>非検出/測定不能</strong>とする。交絡(タスク・クラス数・前処理・pool 上限・正規化)により、データ間の削減率差を単一要因に帰属することはできない。WESAD は信号種が異なり near-chance のため、削減率での横並び比較ではなく<strong>「枠組み非転移」の事例</strong>として区別して置く。</p>
+      </div>
+
+      <figure class="border border-slate-200 rounded p-2 my-3">{{ synthesis_svg | safe }}<figcaption class="cap mt-1">図7: 4データ統合の削減率フォレストプロット(各データの事前登録 primary target)。点=削減率の点推定、横棒=95%CI(各手法の N* bootstrap CI を none 点推定で規格化)、網掛け帯=<span class="font-mono">none</span> 自身の N* 不確実性。<strong>測定可能な UCI HAR・WISDM では、どの手法の CI も none の帯と重複し、悲観的対照 label_shuffle を CI 分離で超える手法は無い</strong>。PAMAP2(左側打ち切り)・WESAD(near-chance)は偽の削減値を置かず「推定不能」と明示する。</figcaption></figure>
+
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">データ</th><th class="p-2 text-right">pool</th><th class="p-2">信号種</th>
+          <th class="p-2 text-right">クラス</th><th class="p-2">主指標(target)</th>
+          <th class="p-2">削減の測定</th><th class="p-2">結論</th><th class="p-2">対照との関係</th>
+        </tr></thead>
+        <tbody>
+          {% for r in synthesis.rows %}
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium">{{ r.dataset }}</td>
+            <td class="p-2 text-right font-mono">{{ r.pool_max }}</td>
+            <td class="p-2">{{ r.signal }}</td>
+            <td class="p-2 text-right font-mono">{{ r.n_classes }}</td>
+            <td class="p-2 font-mono">{{ r.target_metric }} {{ "%.2f" | format(r.target_value) }}</td>
+            <td class="p-2">{% if r.measurable %}<span class="text-emerald-700">測定可能</span> <span class="text-xs text-slate-500">(N*(none)≈{{ r.n_star_none }})</span>{% else %}<span class="text-amber-700">推定不能</span>{% endif %}</td>
+            <td class="p-2 {{ 'text-slate-700' if r.measurable else 'text-amber-800' }}">{{ r.conclusion }}</td>
+            <td class="p-2 text-xs text-slate-600">{{ r.control_relation }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      <p class="cap mt-1">表10: 4データ統合。すべての数値(pool・target・N*)は results.json の各データ reduction ブロックから自動生成。測定可能な 2 データはいずれも帰無(対照越えなし)、残る 2 データは推定不能。<strong>削減率で対照を明確に超えたデータは皆無</strong>。信号種・クラス数はデータ構造の記述。各データの取得・前処理・config・N* 推定手順は §6.3–6.6 と「再現・前処理ノート」タブを参照。</p>
+
+      <div class="mt-3 border border-slate-300 bg-slate-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-slate-800 mb-1">マルチモーダル(チャネル横断)拡張を対象外とする根拠</p>
+        <p>「センサ/モダリティを跨ぐ拡張が被験者数削減に効くか」を測るには、<strong>多モーダルかつ削減が測定可能</strong>な基盤——多チャネル入力の上で none baseline の N* が格子内に推定でき、モデルが実際にタスクを学習している——が要る。しかし本統合の 4 データはこの条件を満たさない:多モーダルの PAMAP2 は<strong>左側打ち切り</strong>、真の異種モダリティを持つ WESAD は<strong>near-chance</strong>で、いずれも削減を測る土台を欠く。削減が測れる UCI HAR・WISDM は<strong>単一モダリティに近く</strong>チャネル横断拡張の対象になりにくい(加速度とジャイロは物理量が異なり、混ぜると信号として壊れやすい)。したがってマルチモーダル拡張は<strong>本研究の対象外</strong>とし、この統合まとめで外的妥当性のアークを締める(実行価値の評価は付随メモ ds5_assessment.md)。<strong>将来の発火条件</strong>:多モーダルデータで N*(none) が格子内に推定でき、かつ label_shuffle ≪ none(モデルがクラス構造を学習)を確認できた時に限り、チャネル群単位・ラベル保存のセンサ間拡張を起動する。</p>
+      </div>
+      {% endif %}
     </section>
 
     <!-- 7. Discussion -->
@@ -558,7 +602,7 @@
       時系列データ拡張の効果は手法・モデル・データに強く依存する。1D-CNN では複数手法が精度を有意に改善するが MiniRocket では改善せず、
       被験者数削減に至っては対照と区別できるレベルの効果は本設定では得られなかった。この「削減を確定できない(帰無)」という結論は
       第2の被験者データ WISDM v1.1 [{{ ref.kwapisz2011 }}] でも再現され、単一データセット固有でないことを確認した(ただし前処理を各データセットに合わせた追試であり、
-      再現したのは帰無であって最良手法の順位ではない。順位は評価指標にも依存する。§6.4)。信号種を変えた WESAD(生理信号)では baseline が near-chance で削減の前提すら成立せず、HAR 向け枠組みが転移しない(信号種依存。§6.6)。以上は、削減を主張する際に
+      再現したのは帰無であって最良手法の順位ではない。順位は評価指標にも依存する。§6.4)。信号種を変えた WESAD(生理信号)では baseline が near-chance で削減の前提すら成立せず、HAR 向け枠組みが転移しない(信号種依存。§6.6)。4データを統合すると、削減は測定可能なら帰無・それ以外は推定不能で、対照を明確に超えて実被験者を削減できたデータは無い(§6.7)。以上は、削減を主張する際に
       「対照越え」と反復数の確保が不可欠であることを示す。今後は反復数を増やした検出力設計、macro-F1 / balanced accuracy を含む指標横断の評価、
       拡張強度と手法効果の分離、および第3の被験者データや別ドメインへの拡張が課題である。
       </p>
