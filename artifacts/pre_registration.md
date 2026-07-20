@@ -153,7 +153,11 @@ full-pool none baseline(N=5, aug=none, 5反復、seed 0-4、git_dirty=false)の 
 
 ### 確定 target(baseline 実測後、ルール適用)
 
-（本節はルール確定コミットの後、full-pool none baseline 実測値を記入する。ルールは数値算出前にコミット済み。）
+full-pool none baseline(N=10, aug=none, 5反復、seed 0-4、git_dirty=false)の held-out test 実測: **macro-F1 平均 = 0.4835**(sd 0.0218、5反復: 0.484/0.453/0.507/0.473/0.500)、**accuracy 平均 = 0.5053**。
+
+登録ルール適用: `floor_0.05(0.4835 − 0.05) = floor_0.05(0.4335)` = **target = 0.40(macro_f1)**。target 上のマージン +0.084(>0.05、floor 付近ではなく健全)。ルールは b4c0b34(数値算出前)でコミット済み、none baseline のみに依存し拡張手法の結果に非依存。config の target_value=0.40 は本節確定後に記入(実験前コミット)。
+
+**重要(near-chance の明示)**: この 3クラス full-pool none baseline は **near-chance** である(accuracy ~0.50 は多数派クラス率 0.54 を下回る。macro-F1 0.48 は多数派 baseline 予測の macro-F1 より高く、モデルは弱いながら学習はしている)。生信号 5ch + 1D-CNN + **窓ごと z 正規化**を生理信号にそのまま流用したことが弱い動作点の一因の疑いがある(z 正規化は EDA/TEMP の絶対レベルというストレス識別の主要手がかりを消す。judgment_calls J-WESAD-NORM / deviations D-WESAD に記録)。ユーザー判断で **HAR 3データとの比較可能性のため枠組み(前処理・モデル・評価)は一切変更せず、事前登録どおり 3クラス・前処理変更なしで完遂**する。この near-chance は「効果は信号種依存(生理信号では動作点が低い)」という DS-3 の結論の一部として誠実に扱い、target を下げ過ぎたのではなくルール適用結果である。near-chance baseline 上で N* 交差が定まらない/左側打ち切りになる場合は削減率を算出せず「N* 推定不能」を明記する(過大主張回避)。
 
 ## 評価手続き(事前確定)
 

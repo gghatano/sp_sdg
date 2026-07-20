@@ -206,10 +206,10 @@ calls:
     topic: WESAD の正規化方針
     decision: "窓ごと・チャネルごと z 正規化(WISDM/PAMAP2 と同じ、リーク無し)。選択チャネルに NaN を含む窓は破棄。"
     why: "生理信号はチャネル間スケール差が桁で大きい(ECG mV vs EDA μS vs TEMP °C)ため必須。各窓が自分の統計のみ使いリーク無し。E4 不使用のため NaN は主に無いが安全側でガード。"
-    alternatives: "非正規化、被験者/データセット統計での正規化(リーク or 追加設計)、NaN の補間。"
-    sensitivity: "中。振幅の絶対情報は落ちるが波形・リズムが主判別。UCI HAR(非正規化)とは非対称で『dataset に合わせた追試』の位置づけ(WISDM/PAMAP2 と同扱い)。"
+    alternatives: "非正規化、被験者/データセット統計での正規化(リーク or 追加設計)、NaN の補間、チャネル別に正規化方針を分ける(EDA/TEMP は絶対レベル保持・ECG/EMG は z 正規化)。"
+    sensitivity: "**高(観察)。** full-pool none baseline が near-chance(macro-F1 0.4835, accuracy 0.5053 < 多数派率 0.54)。窓ごと z 正規化は **EDA/TEMP の絶対レベル**(ストレスで上昇する皮膚コンダクタンス・体温はストレス識別の主要手がかり)を各窓内で消すため、near-chance の一因の疑いがある。HAR(波形パターンが主判別)では有効だが、生理信号(絶対レベルが情報)では不利に働きうる。**ただしユーザー判断で HAR 3データとの比較可能性のため枠組みを一切変えず固定**(前処理・モデル・評価を揃える)。この観察は『効果は信号種依存(生理信号では動作点が低い)』という DS-3 の結論の一部として記録し、前処理は変更しない(deviations D-WESAD)。UCI HAR(非正規化)とは非対称で『dataset に合わせた追試』の位置づけ。"
     preregistered: true
-    source: "src/signal_aug/data/wesad.py(_znorm_window)"
+    source: "src/signal_aug/data/wesad.py(_znorm_window)/ deviations.md(D-WESAD)/ runs/metrics(full-pool none)"
   - id: J-WESAD-SPLIT
     topic: WESAD の test 分割・被験者選択
     decision: "seed-0 シャッフルで K=5 被験者を固定 held-out test、残り 10名を pool。subject_counts={2..10}、repeats=5。WISDM/PAMAP2 と同手続き。実在被験者ID(S2–S17 の欠番あり 15名)は実データで確定。"
@@ -223,6 +223,6 @@ calls:
     decision: "主指標 macro-F1(不均衡・amusement 少数)、accuracy 併記。target = full-pool(N=10, aug=none, 5反復)の held-out macro-F1 平均 − 0.05 を 0.05 刻みで切り捨てた値。ルールを数値確定前に登録。UCI HAR 0.90 / WISDM 0.80 / PAMAP2 0.70 は流用しない。"
     why: "target は none baseline のみに依存する手続きで決め、拡張手法の結果に非依存(手法有利化の排除)。曲線急峻部に置き天井/床を回避。3クラス不均衡で macro-F1 主・accuracy 副(#23 V2)。"
     alternatives: "固定丸め値、accuracy 基準、−0.10 マージン。"
-    sensitivity: "高。N* は τ 到達点。少 N・少数派クラスで macro-F1 が跳ねると N* が不安定。full-pool none が floor 付近(マージン<0.05)や曲線が寝る場合は N* 推定不能として定性記述に格下げ(停止条件)。target 数値は Stage 2 の baseline 実測後に確定。"
+    sensitivity: "高。N* は τ 到達点。少 N・少数派クラスで macro-F1 が跳ねると N* が不安定。full-pool none が floor 付近(マージン<0.05)や曲線が寝る場合は N* 推定不能として定性記述に格下げ(停止条件)。**実測**: full-pool none macro-F1 平均 0.4835(sd 0.0218)・accuracy 0.5053 でルールにより target=0.40(margin +0.084、floor 付近ではない)。ただし baseline は **near-chance**(J-WESAD-NORM 参照)であり、near-chance 曲線上で N* 交差が定まらない/左側打ち切りなら削減率は捏造せず『推定不能』を明示(PAMAP2 と同じ扱い)。"
     preregistered: true
-    source: "artifacts/pre_registration.md(WESAD DS-3 節)/ config/experiments/wesad_subject_count.yaml"
+    source: "artifacts/pre_registration.md(WESAD DS-3 節)/ config/experiments/wesad_subject_count.yaml / runs/metrics(full-pool none)"

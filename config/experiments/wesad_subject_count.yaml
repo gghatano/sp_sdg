@@ -60,6 +60,16 @@ dataset_params:
 # mean - 0.05). The rule is committed before that number is computed and depends
 # only on the none baseline, not on any augmentation's result.
 target_metric: macro_f1
-target_value: null   # set from full-pool (N=10, none, 5 repeats) baseline per the rule
+# Set from the full-pool none baseline (N=10, aug=none, 5 repeats, seed 0-4,
+# git_dirty=false) by the registered rule: floor_0.05(macro_f1_mean - 0.05) =
+# floor_0.05(0.4835 - 0.05) = 0.40 (baseline macro_f1 mean=0.4835 sd=0.0218,
+# accuracy mean=0.5053; margin above target = +0.084). The rule was committed
+# (b4c0b34) before this number was computed and depends only on the none
+# baseline. NOTE: the 3-class full-pool none baseline is NEAR-CHANCE
+# (accuracy ~0.50, below the 0.54 majority-class rate); this weak operating point
+# is itself part of the DS-3 finding (raw-CNN + per-window z-norm on chest
+# physiology), recorded honestly rather than tuned away (framework kept fixed for
+# HAR comparability). See pre_registration.md / deviations.md (D-WESAD).
+target_value: 0.40
 pre_registered: true
 pre_registration_note: artifacts/pre_registration.md

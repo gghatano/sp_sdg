@@ -28,6 +28,6 @@ dataset_params:
     - TEMP
   archive_sha256: "5e15d2606adf16d819ba535c1786d92e94bae5ff5392f7ae01fb63f9938fd71c"
 target_metric: macro_f1
-target_value: null   # from full-pool none baseline per the registered rule (see wesad_subject_count.yaml)
+target_value: 0.40   # from full-pool none baseline per the registered rule (see wesad_subject_count.yaml)
 pre_registered: true
 pre_registration_note: artifacts/pre_registration.md
