@@ -1,12 +1,13 @@
 # state.md
 
-最終更新: 2026-07-15(再現・前処理ノートタブ追加)
+最終更新: 2026-07-19(issue #23 レッドチーム検証: WISDM/F-12 の文書・解釈是正)
 
 ## 現在の状態
 
-- **Phase 0〜5 完了**。全 2797 runs・失敗 0・監査全合格。テストは `make test` で全通過(件数は増減するためここには固定値を書かない)
+- **Phase 0〜5 完了 + Phase 6 の WISDM 外的妥当性(issue #21 DS-1)完了**。全 2965 runs・失敗 0・監査全合格。テストは `make test` で全通過(件数は増減するためここには固定値を書かない)
 - PR #1 が main にマージ済み。レポートは GitHub Pages に自動デプロイ(https://gghatano.github.io/sp_sdg/ )
-- 主要知見は artifacts/findings.json(F-1〜F-10)
+- 主要知見は artifacts/findings.json(F-1〜F-12)
+- **issue #23 対応(レッドチーム検証の文書・解釈是正)**: F-12/§6.4 の二次解釈を是正。(1) label_shuffle を「クラス信号ゼロの床」から「元データ保持+ラベルノイズの悲観的対照」に訂正し、純量水増しの基準は oversample に統一(F-10 にも波及)。(2) F-12 の「F-8/F-10 を再現」を「再現したのは F-8 の帰無のみ、F-10 の核は WISDM で非再現」に格下げ。(3) smote +10.5% は accuracy 固有で macro-F1 では順位反転(smote のみ僅かに正、dtw 最下位。いずれも CI 重複)を明記。(4) 引用を weiss2019(2019, 51名)から kwapisz2011(v1.1, 36名)へ差し替え。(5) UCR データセット数を distinct 13 と被験者データ 2 に分離(二重計上是正)。(6) none 曲線の非単調性・target=0.80 のプラトー肩・前処理非対称(追試 framing)を明記。数値は results.json / 統括検算値と整合、HTML 手入力なし
 - **issue #13 対応(branch claude/issue-13-resolution-r7ow7w)**: 論文タブを学会誌構成(要旨/序論/問題設定/提案手法(評価枠組み)/関連手法/実験設計/実験結果/考察/限界/まとめ/参考文献)へ再編。傍論(進捗・再現性・簡易実験・用語説明)はダッシュボードタブへ分離。3ペルソナレビュー+結果監査を反映して収束(要旨の削減ロジック精緻化、negative control 箱の固定数値を束縛化、追試/独自の明示、用語インライン注)。数値の手入力なし・test 利用示唆なしを監査確認。build/section テスト green
 - **WISDM 被験者数削減の再現に着手(Phase 6 / issue #21 DS-1, branch claude/spec-task-planning-ubz1up)**: RQ2 の外的妥当性拡張。subject loader を dispatch 化(`data/subject_datasets.py`: UCI_HAR / WISDM)、WISDM v1.1 ローダ新規(`data/wisdm.py`: 自動DL・不正行スキップ・(subject,activity)区間内200サンプル非重複窓・窓ごとz正規化・seed-0固定split=test12/pool24)。config `wisdm_subject_count.yaml`(target=0.80 を UCI HAR と独立に事前登録、N∈{3,6,9,12,15,18,21,24}×3反復×6拡張=144 runs)。pre_registration/judgment_calls(J-WISDM-*)/preprocessing_notes/reproduction_steps を更新。全 133 テスト green。**グリッド完走(144 runs + negative control 24 runs、失敗0)**。結果: N*(none)=14.0、点推定の最大削減は smote +10.5% だが CI が none と重なり CI 分離で baseline を超える手法なし。label_shuffle 対照は WISDM では削減を示さず(−50.5%)。→ **UCI HAR(F-8/F-10)の結論を第2データセットで再現(F-12)、RQ2 の外的妥当性を補強**。集計を dataset 別に汎用化(reduction.py の phase 依存除去、aggregate に reduction_wisdm 追加)、レポートに §6.4「外的妥当性: WISDM」を自動生成。make all-report / validate green。
 - **README 公開実装向け再構成(issue #18, branch claude/spec-task-planning-ubz1up)**: README を「フェーズ実行手順書」から論文公開実装向けへ書き換え。研究の問い(RQ1/RQ2)・主結果(F-5/6/7/8/10/11 の要約表)・再現手順・「やっていないこと/今後の課題」を明記し、進捗/計画記録(Phase 番号・内部 issue 参照・RESEARCH_PLAN リンク)を除去。3ペルソナレビュー反映(SDG 略語廃止→データ拡張、手法グロッサリ・N*/削減率定義・UCR/UCI HAR 正式名追加)。LICENSE・引用節はユーザー判断でいずれも保留。PR #19(draft)。
@@ -26,7 +27,7 @@
 - 初回実行は runner の二重起動で同一 run_id を並行書き込みし競合クラッシュ(約183 runs 時点)。対策: pid ロック(runs/.runner.lock)で二重起動拒否 + manifest の tmp 名を pid 付きに変更(test_grid_lock.py で担保)。単一プロセスで resume し完走。
 
 ### Phase 3 完了
-被験者ID付き公開データを調査(全 CC BY 4.0)。主対象 UCI HAR(30名)、予備 WISDM(51名)を決定。
+被験者ID付き公開データを調査(全 CC BY 4.0)。主対象 UCI HAR(30名)、第2の被験者データ WISDM v1.1(Kwapisz et al. 2011, 36名)を決定(より大規模な 2019 年 biometrics 版 51名とは別データ)。
 
 ### Phase 4-5 完了
 UCI HAR で被験者数学習曲線 126 runs + negative control 21 runs 完走・監査合格。事前登録どおり target=0.90 を結果前に固定。知見 F-8/F-9/F-10: 目標 0.90 に必要な実被験者数は none で約 8.85 名。点推定では DTW が最大削減(N*=7.9, 10.8%, 約1名節約)だが、negative control(label_shuffle)ですら約 4.3% の見かけの削減を示すため、約 4% 以下の削減はアーティファクトと区別できず、**本設定でデータ拡張が被験者数を確実に削減するとは言えない**。反復 3 回で CI が広い。

@@ -22,10 +22,11 @@
 | F-6 | **MiniRocket** ではどの拡張も精度を有意に改善しない(効果はモデル依存) | 高 | 独自 |
 | F-7 | 拡張効果(1D-CNN)は学習データが中〜低量(25–50%)で相対的に大きい | 中 | 追試 |
 | F-8 | UCI HAR で目標精度 0.90 に必要な実被験者数は拡張なしで約 8.85 名。点推定では DTW が最大削減(10.8%, 約1名)だが CI が広く確定しない | 低 | 独自 |
-| F-10 | **negative control(ラベル無作為化)ですら 4.3% の見かけの削減**を示し、mixup(4.1%)・scaling(3.9%)と同等。約4%以下の削減はアーティファクトと区別できない | 高 | 独自 |
+| F-10 | **対照 label_shuffle(元データ保持+ラベルノイズ)ですら 4.3% の見かけの削減**を示し、mixup(4.1%)・scaling(3.9%)と同等。約4%以下の削減はアーティファクトと区別できない | 高 | 独自 |
 | F-11 | 「拡張が効くか」は拡張なしモデルの汎化ギャップ(過剰適合の度合い)では説明できない。効き目はモデルが拡張された変動を表現・利用できるかで決まる | 中 | 独自 |
+| F-12 | 第2の被験者データ **WISDM v1.1(36名)でも削減は確定できない**(帰無を再現)。ただし最良手法の順位は再現せず(UCI HAR は DTW 最良、WISDM は SMOTE 最良)、順位は評価指標にも依存する | 低 | 独自 |
 
-**本研究の中心的貢献は、被験者数削減の評価に negative control による「対照越え」判定を課したこと**です。少データではデータ量の水増し自体が正則化的に働き、クラス情報を持たない操作でも見かけ上 N* が下がりえます。この対照を明確に超える削減は本設定のどの手法にも見られず、「データ拡張が実被験者を代替する」という主張は本設定では支持されませんでした。
+**本研究の中心的貢献は、被験者数削減の評価に対照による「対照越え」判定を課したこと**です。少データでは、ラベルを壊す・量を単純に増やすといった操作でも見かけ上 N* が下がりえます(対照 label_shuffle は「元データ保持+ラベルノイズ」の悲観的対照、oversample は純粋な量の水増し)。これらの対照を明確に超える削減は本設定のどの手法にも見られず、「データ拡張が実被験者を代替する」という主張は本設定では支持されませんでした。
 
 詳細な統計・図表・考察は[レポート全文](https://gghatano.github.io/sp_sdg/)を参照してください。
 
@@ -40,7 +41,7 @@
 | `mixup` | 2サンプルの線形補間(本実装は同一クラス限定・ハードラベル) |
 | `smote` | 近傍内挿による合成(本実装は生信号ベクトル空間・全クラス) |
 | `dtw` | DTW 整列に基づく系列平均合成(本実装はペアワイズ簡略版) |
-| `label_shuffle` | **negative control**。ラベルを無作為化しクラス信号を壊した対照 |
+| `label_shuffle` | **対照(negative control)**。正しいラベルの元データを残し、複製分にだけ乱ラベルを与える(元データ保持+ラベルノイズの悲観的対照) |
 
 **モデル**: `1D-CNN`(標準的な深層時系列分類器)/ `MiniRocket`(ROCKET 系の高速な特徴変換 + 線形分類器)。
 
@@ -69,6 +70,10 @@ make phase2                         # 12データセット×5学習比率×… =
 uv run python scripts/run_subject_experiment.py --config config/experiments/subject_count.yaml
 uv run python scripts/run_subject_experiment.py --config config/experiments/negative_control.yaml
 
+# RQ2 外的妥当性: WISDM v1.1(36名)での追試(F-12)。初回実行時に自動取得(CC BY、seed-0 で pool24/test12 に分割)
+uv run python scripts/run_subject_experiment.py --config config/experiments/wisdm_subject_count.yaml
+uv run python scripts/run_subject_experiment.py --config config/experiments/wisdm_negative_control.yaml
+
 # 補足分析(F-11): 拡張効果と汎化ギャップの相関
 uv run python scripts/analyze_gap.py --config config/experiments/h2_gap.yaml
 
@@ -82,7 +87,7 @@ make all-report                     # 監査 → 集計 → report/dist/index.ht
 本研究の結論は以下の範囲に限定されます。これらは重要な留保であり、レポートの「限界」セクションに対応します。
 
 - **被験者数削減は統計的に未確定**。被験者数実験の反復は各被験者数で3回のみで N* の信頼区間が広く、拡張手法の削減は none や negative control と CI が重なります。確度には反復数の増加(例: 各点10回以上)と検出力設計が必要です(最優先の未解決点)。
-- **被験者データは UCI HAR 1件のみ**。一般化には予備対象 WISDM(51名)等での再現が必要です。
+- **被験者データは UCI HAR(30名)と WISDM v1.1(36名)の2件**。ただし2データセットで再現できたのは「削減を確定できない(帰無)」の一点のみで、最良手法の順位は入れ替わります(UCI HAR は DTW 最良、WISDM は SMOTE 最良)。WISDM への展開は前処理を各データセットに合わせた追試(UCI HAR 非正規化 vs WISDM 窓ごと z 正規化)であり、同一枠組みの厳密再現ではありません。第3の被験者データ・別ドメインへの一般化は未検証です。加えて WISDM はクラス不均衡で、点推定の手法順位は accuracy 固有です(macro-F1 / balanced accuracy では変わりうる)。
 - **拡張強度は各手法1点固定**(ratio, sigma, alpha, k 等)。「手法の効果」と「強度選択の効果」が交絡しており、強度スイープでの分離は未実施です。
 - **negative control は label_shuffle 1本のみ**。純ノイズ拡張・時間シャッフル等の対照拡充は今後の課題です。
 - **原論文からの実装差分**があります(mixup は同一クラス限定・ハードラベル、DTW はペアワイズ簡略版、raw-SMOTE は全クラス適用)。数値の厳密一致ではなく傾向の追試を目的としています(詳細は [`artifacts/deviations.md`](artifacts/deviations.md))。

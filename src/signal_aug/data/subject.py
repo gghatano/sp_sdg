@@ -9,9 +9,27 @@ subject-id vector, so UCI HAR / WISDM / any subject-tagged dataset reuse it.
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass
 
 import numpy as np
+
+
+def windows_checksum(*arrays: np.ndarray, digest_size: int = 16) -> str:
+    """Stable content hash of one or more window arrays (shape + dtype + bytes).
+
+    Recorded in run manifests / dataset metadata so that a silent change in the
+    actual window set (e.g. a different windowing or normalisation) is detected
+    instead of every run sharing a fixed placeholder checksum (spec section 7).
+    Dataset-agnostic: operates on raw ndarrays, so any subject dataset reuses it.
+    """
+    h = hashlib.sha256()
+    for a in arrays:
+        arr = np.ascontiguousarray(a)
+        h.update(str(arr.shape).encode())
+        h.update(str(arr.dtype).encode())
+        h.update(arr.tobytes())
+    return h.hexdigest()[:digest_size]
 
 
 @dataclass

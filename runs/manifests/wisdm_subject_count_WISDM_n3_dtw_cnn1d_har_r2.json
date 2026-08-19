@@ -2,7 +2,7 @@
   "run_id": "wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r2",
   "phase": 6,
   "dataset": "WISDM",
-  "dataset_checksum": "wisdm_pool",
+  "dataset_checksum": "wisdm:a1913eac4cef00d0",
   "split_checksum": "subjects:13,15,32",
   "augmentation": "dtw",
   "augmentation_params": {
@@ -19,25 +19,31 @@
     "hidden": 64
   },
   "seed": 2,
-  "git_commit": "9aa449eb0985d0aaaf745dc57b793ef3b1a27a25",
-  "git_dirty": true,
-  "python_version": "3.11.15",
-  "package_lock_checksum": "03063e4d344151deaade417463683a82a5e3416fcdca20f41ec5d48c603b286c",
+  "git_commit": "1c949690a27c57a003c704ceb7487e50203af19e",
+  "git_dirty": false,
+  "python_version": "3.12.13",
+  "package_lock_checksum": "93f5b25a0dbbe8e93f3fa7792520a611e444d1f9dd73b295aea9d3e55817023d",
   "hardware": {
-    "platform": "Linux-6.18.5-x86_64-with-glibc2.39",
-    "machine": "x86_64",
-    "cpu_count": 4
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "cpu_count": 12
   },
-  "started_at": "2026-07-18T14:39:39.882173+00:00",
-  "ended_at": "2026-07-18T14:39:47.704917+00:00",
+  "started_at": "2026-07-19T13:47:35.969042+00:00",
+  "ended_at": "2026-07-19T13:47:46.642176+00:00",
   "status": "completed",
-  "metrics_path": "runs/metrics/wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r2.json",
-  "predictions_path": "runs/predictions/wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r2.csv",
-  "log_path": "runs/logs/wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r2.log",
+  "metrics_path": "runs\\metrics\\wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r2.json",
+  "predictions_path": "runs\\predictions\\wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r2.csv",
+  "log_path": "runs\\logs\\wisdm_subject_count_WISDM_n3_dtw_cnn1d_har_r2.log",
   "subject_count": 3,
   "subjects_used": [
     13,
     15,
     32
-  ]
+  ],
+  "dataset_params": {
+    "window": 200,
+    "split_seed": 0,
+    "n_test_subjects": 12,
+    "normalize": "per_window_z"
+  }
 }

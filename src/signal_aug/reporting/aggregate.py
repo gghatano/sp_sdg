@@ -19,7 +19,7 @@ AUX_RUN_PREFIXES = ("h2gap_",)
 def collect_runs(manifests_dir: str | Path = "runs/manifests") -> list[dict]:
     rows = []
     for path in sorted(Path(manifests_dir).glob("*.json")):
-        manifest = json.loads(path.read_text())
+        manifest = json.loads(path.read_text(encoding="utf-8"))
         if manifest["run_id"].startswith(AUX_RUN_PREFIXES):
             continue
         row = {
@@ -39,7 +39,7 @@ def collect_runs(manifests_dir: str | Path = "runs/manifests") -> list[dict]:
         if manifest["status"] == "completed" and manifest.get("metrics_path"):
             metrics_path = Path(manifest["metrics_path"])
             if metrics_path.exists():
-                row.update(json.loads(metrics_path.read_text()))
+                row.update(json.loads(metrics_path.read_text(encoding="utf-8")))
         rows.append(row)
     return rows
 
@@ -96,7 +96,7 @@ def _subject_metric_rows(manifests_dir: Path, prefix: str = "subject_count_") ->
     for WISDM); the two families never overlap by run_id."""
     rows = []
     for path in sorted(Path(manifests_dir).glob(f"{prefix}*.json")):
-        m = json.loads(path.read_text())
+        m = json.loads(path.read_text(encoding="utf-8"))
         if m.get("status") != "completed" or not m.get("metrics_path"):
             continue
         metrics_path = Path(m["metrics_path"])
@@ -109,7 +109,7 @@ def _subject_metric_rows(manifests_dir: Path, prefix: str = "subject_count_") ->
             "subject_count": m.get("subject_count"),
             "status": "completed",
         }
-        row.update(json.loads(metrics_path.read_text()))
+        row.update(json.loads(metrics_path.read_text(encoding="utf-8")))
         rows.append(row)
     return rows
 
@@ -130,7 +130,7 @@ def build_results_json(
     audit = None
     audit_path = Path(audit_path)
     if audit_path.exists():
-        audit = json.loads(audit_path.read_text())
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
         audit.pop("runs", None)  # keep the report data compact
 
     # Wilcoxon test is meaningful once fractions/datasets give >=5 pairs (Phase 2)
@@ -144,7 +144,7 @@ def build_results_json(
         cfg_path = Path(config_dir) / "experiments" / cfg_name
         if not (rows_s and cfg_path.exists()):
             return None
-        cfg = yaml.safe_load(cfg_path.read_text())
+        cfg = yaml.safe_load(cfg_path.read_text(encoding="utf-8"))
         red = reduction_analysis(
             rows_s, target=float(cfg["target_value"]), metric=cfg["target_metric"]
         )
@@ -168,5 +168,5 @@ def build_results_json(
     }
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+    output_path.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
     return data

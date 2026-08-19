@@ -11,5 +11,6 @@ forestier2017,Forestier et al.,2017,ICDM,拡張,UCR,DBA合成,追試対象T3
 fawaz2019,Ismail Fawaz et al.,2019,DMKD,DLレビュー,UCR85,FCN/ResNet等,CNN設計の参照
 aeon,Middlehurst et al.,2024,JMLR,ツールキット,-,-,実装基盤
 anguita2013,Anguita et al.,2013,ESANN,被験者データ,UCI HAR (30名),-,Phase3-5 主対象
-weiss2019,Weiss et al.,2019,IEEE Access,被験者データ,WISDM (51名),-,Phase3-5 予備対象
+weiss2019,Weiss et al.,2019,IEEE Access,被験者データ,WISDM (51名),-,Phase3 候補調査時に検討(未使用。実装は v1.1/kwapisz2011 を採用)
+kwapisz2011,"Kwapisz, Weiss, Moore",2011,SIGKDD Explorations,被験者データ,WISDM v1.1 (36名),-,Phase6 実使用(被験者数削減の追試 F-12)
 wagner2020,Wagner et al.,2020,Scientific Data,被験者データ,PTB-XL (18885名),-,Phase6-7 予備候補

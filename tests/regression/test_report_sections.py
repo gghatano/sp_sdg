@@ -35,7 +35,7 @@ def test_reference_indices_are_key_based():
     """Inline citations come from the ref map, so inserting a reference cannot
     silently shift citation numbers."""
     context = gather_context(".")
-    template = open("report/src/report.template.html").read()
+    template = open("report/src/report.template.html", encoding="utf-8").read()
     assert "ref.ucr" in template and "ref.minirocket" in template
     for key in ("ucr", "minirocket", "iwana2021", "aeon"):
         assert key in context["ref"]

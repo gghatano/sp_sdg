@@ -23,8 +23,8 @@ notes:
     uncertainty: "同一被験者の重複窓が複数現れるが、被験者跨ぎリークは group split で防止(同一被験者は train と test に同時に現れない)。窓長・オーバーラップは配布元定義に固定。"
   - stage: 正規化(z 正規化)
     scope: "WISDM v1.1(第2の被験者データ、issue #21 DS-1)"
-    detail: "3チャネル加速度を窓ごと・チャネルごとに平均0・分散1へ z 正規化(_znorm_window)。各窓が自分の統計のみ使うためリークは生じない。UCI HAR(非正規化)とは方針が異なる(judgment_calls: J-WISDM-NORM)。"
-    uncertainty: "WISDM 生値は m/s^2 スケールで CNN 初段の想定より大きいため正規化する。振幅情報は落ちるが波形パターンが主判別要因。UCI HAR と正規化方針が異なる点は結果比較時に留意。"
+    detail: "3チャネル加速度を窓ごと・チャネルごとに平均0・分散1へ z 正規化(_znorm_window)。各窓が自分の統計のみ使うためリークは生じない。UCI HAR(非正規化)とは方針が異なる(judgment_calls: J-WISDM-NORM)。使用データは WISDM v1.1(Kwapisz et al. 2011, 36名)であり、より大規模な 2019 年の biometrics 版(Weiss et al. 2019, 51名)とは別データである。"
+    uncertainty: "WISDM 生値は m/s^2 スケールで CNN 初段の想定より大きいため正規化する。振幅情報は落ちるが波形パターンが主判別要因。UCI HAR(非正規化)と WISDM(窓ごと z 正規化)で前処理が非対称なため、scaling/jitter のような振幅系の摂動は正規化後と生データで作用が異なる。したがって WISDM への展開は『同一枠組みの厳密再現』ではなく『前処理を dataset に合わせた追試』であり、結果比較時に留意する。"
   - stage: 窓化(windowing)
     scope: "WISDM v1.1"
     detail: "生の逐次データを (subject,activity) 連続区間ごとに 200サンプル(約10秒@20Hz)の非重複窓へ再窓化。区間内窓化のため各窓は単一活動・単一被験者。不正行(全体の約1%)はスキップ(judgment_calls: J-WISDM-WINDOW)。"

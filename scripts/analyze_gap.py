@@ -12,7 +12,7 @@ from pathlib import Path
 def _collect_none_rows(manifests_dir: Path) -> list[dict]:
     rows = []
     for path in sorted(manifests_dir.glob("h2gap_*.json")):
-        m = json.loads(path.read_text())
+        m = json.loads(path.read_text(encoding="utf-8"))
         if m.get("status") != "completed" or not m.get("metrics_path"):
             continue
         mp = Path(m["metrics_path"])
@@ -20,7 +20,7 @@ def _collect_none_rows(manifests_dir: Path) -> list[dict]:
             continue
         row = {"dataset": m["dataset"], "model": m["model"], "augmentation": m["augmentation"],
                "status": "completed"}
-        row.update(json.loads(mp.read_text()))
+        row.update(json.loads(mp.read_text(encoding="utf-8")))
         rows.append(row)
     return rows
 
@@ -29,12 +29,12 @@ def main() -> None:
     from signal_aug.evaluation.gap_analysis import analyze_gap
 
     none_rows = _collect_none_rows(Path("runs/manifests"))
-    results = json.loads(Path("report/assets/data/results.json").read_text())
+    results = json.loads(Path("report/assets/data/results.json").read_text(encoding="utf-8"))
     summary = results.get("summary", [])
     analysis = analyze_gap(none_rows, summary, train_fraction=1.0)
 
     out = Path("artifacts/h2_gap_analysis.json")
-    out.write_text(json.dumps(analysis, indent=2, ensure_ascii=False))
+    out.write_text(json.dumps(analysis, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"[h2] {analysis['n_points']} (dataset,model) points, "
           f"overall Spearman={analysis['spearman_overall']}")
     for model, s in analysis["per_model"].items():

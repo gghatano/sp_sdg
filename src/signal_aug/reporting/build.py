@@ -175,11 +175,11 @@ REQUIRED_SECTION_IDS = [
 
 
 def _load_yaml(path: Path) -> dict:
-    return yaml.safe_load(path.read_text()) if path.exists() else {}
+    return yaml.safe_load(path.read_text(encoding="utf-8")) if path.exists() else {}
 
 
 def _load_json(path: Path):
-    return json.loads(path.read_text()) if path.exists() else None
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
 def _markdown_bullets(path: Path) -> list[str]:
@@ -188,7 +188,7 @@ def _markdown_bullets(path: Path) -> list[str]:
         return []
     return [
         line.strip()[2:].strip()
-        for line in path.read_text().splitlines()
+        for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip().startswith("- ")
     ]
 
@@ -289,9 +289,16 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         (m["reduction_rate"] for m in (reduction or {}).get("methods", []) if m["augmentation"] == "dtw"),
         None,
     )
+    # separate distinct UCR datasets (RQ1) from subject-ID datasets (RQ2) so the
+    # abstract/intro/§5.1 don't conflate them (UCR count must not include UCI HAR/WISDM)
+    _study_datasets = {r["dataset"] for r in study_runs}
+    _ucr_names = {n for n, s in _load_yaml(root / "config/datasets.yaml").get("datasets", {}).items()
+                  if s.get("source") == "ucr"}
     facts = {
         "n_study_runs": len(study_runs),
-        "n_study_datasets": len({r["dataset"] for r in study_runs}),
+        "n_study_datasets": len(_study_datasets),
+        "n_ucr_datasets": len(_study_datasets & _ucr_names),
+        "n_subject_datasets": len(_study_datasets - _ucr_names - {"synthetic"}),
         "n_significant": sum(1 for s in stats_sorted if s.get("significant_holm")),
         "target_metric": (reduction or {}).get("target_metric"),
         "target_value": (reduction or {}).get("target_value"),
@@ -370,7 +377,7 @@ def build_css(repo_root: str | Path = ".", rendered_html_path: Path | None = Non
             capture_output=True,
         )
     if css_cache.exists():
-        return css_cache.read_text()
+        return css_cache.read_text(encoding="utf-8")
     return ""  # unstyled but valid HTML
 
 
@@ -383,10 +390,10 @@ def build_report(repo_root: str | Path = ".") -> Path:
     # two-pass: render for Tailwind content scan, then inline the built CSS
     tmp = root / "report/dist/assets/index.tmp.html"
     tmp.parent.mkdir(parents=True, exist_ok=True)
-    tmp.write_text(render_report(context, root / "report/src", css=""))
+    tmp.write_text(render_report(context, root / "report/src", css=""), encoding="utf-8")
     css = build_css(root, rendered_html_path=tmp)
     tmp.unlink(missing_ok=True)
 
     out = dist / "index.html"
-    out.write_text(render_report(context, root / "report/src", css=css))
+    out.write_text(render_report(context, root / "report/src", css=css), encoding="utf-8")
     return out

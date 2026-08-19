@@ -3,6 +3,9 @@ exercised on a tiny synthetic raw string). See src/signal_aug/data/wisdm.py."""
 
 from __future__ import annotations
 
+import hashlib
+import json
+
 import numpy as np
 import pytest
 
@@ -69,6 +72,88 @@ def test_split_subjects_disjoint_and_deterministic():
     assert len(pool_a) == 36 - wisdm.N_TEST_SUBJECTS
     assert not (set(pool_a) & set(test_a))               # disjoint
     assert set(pool_a) | set(test_a) == set(range(1, 37))
+
+
+def test_split_subjects_honours_config_params():
+    subj = np.repeat(np.arange(1, 37), 3)
+    pool, test = wisdm._split_subjects(subj, n_test_subjects=6, split_seed=1)
+    assert len(test) == 6 and len(pool) == 30
+    # a different seed yields a different held-out set (config actually flows in)
+    _, test_seed0 = wisdm._split_subjects(subj, n_test_subjects=6, split_seed=0)
+    assert set(test) != set(test_seed0)
+
+
+def test_make_windows_normalize_none_keeps_raw_scale():
+    xyz, labels, subjects = wisdm.parse_raw(_synthetic_raw(per_block=250))
+    X, _, _ = wisdm.make_windows(xyz, labels, subjects, window=200, normalize="none")
+    # raw accel is on ~sigma-5 scale, so at least one window channel std >> 1
+    assert X.std() > 2.0
+    # and it differs from the z-normed windows (config knob has an effect)
+    Xz, _, _ = wisdm.make_windows(xyz, labels, subjects, window=200, normalize="per_window_z")
+    assert not np.allclose(X, Xz)
+
+
+def test_make_windows_rejects_unknown_normalize():
+    xyz, labels, subjects = wisdm.parse_raw(_synthetic_raw(per_block=250))
+    with pytest.raises(ValueError, match="unknown normalize"):
+        wisdm.make_windows(xyz, labels, subjects, window=200, normalize="bogus")
+
+
+def test_record_metadata_records_config_and_checksums(tmp_path):
+    xyz, labels, subjects = wisdm.parse_raw(_synthetic_raw(per_block=450))
+    X, _, subj = wisdm.make_windows(xyz, labels, subjects, window=200)
+    pool_s, test_s = wisdm._split_subjects(subj, n_test_subjects=1, split_seed=0)
+    wisdm._record_metadata(
+        tmp_path, X, labels, subj, pool_s, test_s,
+        window=200, split_seed=0, n_test_subjects=1, normalize="per_window_z",
+    )
+    meta = json.loads((tmp_path / "wisdm.json").read_text())
+    assert meta["window_length"] == 200
+    assert meta["split_seed"] == 0
+    assert meta["n_test_subjects"] == 1
+    assert meta["normalize"] == "per_window_z"
+    assert meta["pool_windows_checksum"] and meta["test_windows_checksum"]
+
+
+def test_record_metadata_detects_window_drift(tmp_path):
+    xyz, labels, subjects = wisdm.parse_raw(_synthetic_raw(per_block=450))
+    subj_all = wisdm.make_windows(xyz, labels, subjects, window=200)[2]
+    pool_s, test_s = wisdm._split_subjects(subj_all, n_test_subjects=1, split_seed=0)
+
+    def record(window):
+        X, _, subj = wisdm.make_windows(xyz, labels, subjects, window=window)
+        wisdm._record_metadata(
+            tmp_path, X, labels, subj, pool_s, test_s,
+            window=window, split_seed=0, n_test_subjects=1, normalize="per_window_z",
+        )
+
+    record(200)                       # first write
+    record(200)                       # identical -> no error, left in place
+    with pytest.raises(ValueError, match="metadata drift"):
+        record(225)                   # different window set -> drift caught
+
+
+def test_record_metadata_migrates_precheckum_file(tmp_path):
+    # An old-schema metadata file (no checksum) must be overwritten, not error.
+    (tmp_path / "wisdm.json").write_text(json.dumps({"dataset": "WISDM", "window_length": 200}))
+    xyz, labels, subjects = wisdm.parse_raw(_synthetic_raw(per_block=450))
+    X, _, subj = wisdm.make_windows(xyz, labels, subjects, window=200)
+    pool_s, test_s = wisdm._split_subjects(subj, n_test_subjects=1, split_seed=0)
+    wisdm._record_metadata(
+        tmp_path, X, labels, subj, pool_s, test_s,
+        window=200, split_seed=0, n_test_subjects=1, normalize="per_window_z",
+    )
+    meta = json.loads((tmp_path / "wisdm.json").read_text())
+    assert "pool_windows_checksum" in meta  # migrated to the checksum schema
+
+
+def test_download_verifies_tar_checksum(tmp_path):
+    tar_path = tmp_path / "wisdm.tar.gz"
+    tar_path.write_bytes(b"\x00" * 1_100_000)   # >1MB so no download is attempted
+    good = hashlib.sha256(tar_path.read_bytes()).hexdigest()
+    wisdm._download(tar_path, expected_sha256=good)  # matches -> no error
+    with pytest.raises(ValueError, match="tar checksum mismatch"):
+        wisdm._download(tar_path, expected_sha256="deadbeef")
 
 
 def test_dispatch_registry_and_unknown_key():

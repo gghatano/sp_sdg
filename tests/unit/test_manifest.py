@@ -1,12 +1,48 @@
 """Run manifest schema checks (spec 3.6, 7)."""
 
+import subprocess
+
 from signal_aug.experiments.manifest import (
     REQUIRED_KEYS,
+    git_info,
     load_manifest,
     new_manifest,
     save_manifest,
     validate_manifest,
 )
+
+
+def _git(repo, *args):
+    subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True)
+
+
+def test_git_dirty_ignores_output_dirs_counts_source(tmp_path):
+    """git_dirty must reflect only uncommitted source: churn under runs/ or data/
+    (produced by running the grid) is not dirtiness; a source edit is."""
+    repo = tmp_path
+    _git(repo, "init")
+    _git(repo, "config", "user.email", "t@t")
+    _git(repo, "config", "user.name", "t")
+    (repo / "src").mkdir()
+    (repo / "src" / "mod.py").write_text("x = 1\n")
+    (repo / "runs").mkdir()
+    (repo / "runs" / "manifest.json").write_text("{}\n")
+    _git(repo, "add", "-A")
+    _git(repo, "commit", "-m", "init")
+
+    # clean tree
+    _, dirty = git_info(repo)
+    assert dirty is False
+
+    # output-dir churn (as during a grid run) -> still clean
+    (repo / "runs" / "manifest.json").write_text('{"run": 1}\n')
+    _, dirty = git_info(repo)
+    assert dirty is False, "tracked runs/ output changes must not mark source dirty"
+
+    # a real source edit -> dirty
+    (repo / "src" / "mod.py").write_text("x = 2\n")
+    _, dirty = git_info(repo)
+    assert dirty is True
 
 
 def make_manifest():

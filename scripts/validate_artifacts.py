@@ -23,7 +23,7 @@ def main() -> None:
     problems = [f"missing: {p}" for p in REQUIRED if not Path(p).exists()]
     queue_path = Path("artifacts/task_queue.yaml")
     if queue_path.exists():
-        queue = yaml.safe_load(queue_path.read_text())
+        queue = yaml.safe_load(queue_path.read_text(encoding="utf-8"))
         for task in queue.get("tasks", []):
             if not {"id", "title", "status", "phase"} <= set(task):
                 problems.append(f"task missing keys: {task}")

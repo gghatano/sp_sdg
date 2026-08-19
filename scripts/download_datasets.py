@@ -18,11 +18,11 @@ def main() -> None:
     parser.add_argument("--datasets", nargs="*", help="subset of dataset names (default: all ucr)")
     args = parser.parse_args()
 
-    cfg = yaml.safe_load(Path("config/datasets.yaml").read_text())
+    cfg = yaml.safe_load(Path("config/datasets.yaml").read_text(encoding="utf-8"))
     names = args.datasets or [n for n, s in cfg["datasets"].items() if s["source"] == "ucr"]
 
     metadata_path = Path("data/metadata/checksums.json")
-    checksums = json.loads(metadata_path.read_text()) if metadata_path.exists() else {}
+    checksums = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.exists() else {}
     for name in names:
         print(f"[download] {name}")
         data = load_dataset(name, cfg)
@@ -37,7 +37,7 @@ def main() -> None:
         }
         print(f"  train={len(data.y_train)} test={len(data.y_test)} length={data.X_train.shape[2]}")
     metadata_path.parent.mkdir(parents=True, exist_ok=True)
-    metadata_path.write_text(json.dumps(checksums, indent=2))
+    metadata_path.write_text(json.dumps(checksums, indent=2), encoding="utf-8")
     print(f"[done] checksums written to {metadata_path}")
 
 

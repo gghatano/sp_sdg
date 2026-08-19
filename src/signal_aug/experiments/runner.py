@@ -41,7 +41,7 @@ class RunSpec:
 
 
 def load_yaml(path: str | Path) -> dict:
-    return yaml.safe_load(Path(path).read_text())
+    return yaml.safe_load(Path(path).read_text(encoding="utf-8"))
 
 
 def _pid_alive(pid: int) -> bool:
@@ -53,6 +53,12 @@ def _pid_alive(pid: int) -> bool:
         return False
     except PermissionError:
         return True
+    except OSError as exc:
+        # Windows: os.kill(pid, 0) on a non-existent pid raises OSError with
+        # winerror 87 (ERROR_INVALID_PARAMETER) instead of ProcessLookupError.
+        if getattr(exc, "winerror", None) == 87:
+            return False
+        raise
     return True
 
 
@@ -72,14 +78,14 @@ def grid_lock(runs_dir: Path):
             fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
         except FileExistsError:
             return False
-        with os.fdopen(fd, "w") as f:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
             f.write(payload)
         return True
 
     if not _try_create():
         # lock exists: reclaim only if the holder pid is dead
         try:
-            old_pid = int(lock.read_text().strip())
+            old_pid = int(lock.read_text(encoding="utf-8").strip())
             holder_alive = _pid_alive(old_pid)
         except ValueError:
             old_pid, holder_alive = None, False  # corrupt lock, treat as stale
@@ -96,7 +102,7 @@ def grid_lock(runs_dir: Path):
         yield
     finally:
         # only the owner removes the lock
-        if lock.exists() and lock.read_text().strip() == payload:
+        if lock.exists() and lock.read_text(encoding="utf-8").strip() == payload:
             lock.unlink(missing_ok=True)
 
 

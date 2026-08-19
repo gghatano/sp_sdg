@@ -39,7 +39,7 @@ calls:
     decision: "test accuracy = 0.80 を目標に固定(UCI HAR の 0.90 は流用しない)。"
     why: "WISDM v1.1 は手作り特徴+被験者混在で ~0.90+ の文献値だが、生信号 CNN+被験者分離では相場が下がる。天井/床を避け曲線最急部を狙う round 値。結果を見る前に登録。"
     alternatives: "0.75 / 0.85、または macro-F1 基準。UCI HAR の 0.90 を流用(不適: データ・評価条件が異なる)。"
-    sensitivity: "高。N* は τ 到達点なので値で削減率が動く。UCI HAR と独立に事前登録して恣意性を排除。"
+    sensitivity: "高。N* は τ 到達点なので値で削減率が動く。UCI HAR と独立に事前登録して恣意性を排除。加えて 0.80 は none 曲線のプラトー肩付近にあたり手法差が圧縮されやすい(急峻部でより敏感になりうる)。判定指標も accuracy 固定だが、WISDM はクラス不均衡のため macro-F1 では手法順位が変わる(smote のみ僅かに正、dtw が最下位。いずれも none の CI と重なり削減は macro-F1 でも非確認)。指標依存は限界節・F-12 に記録。"
     preregistered: true
     source: "artifacts/pre_registration.md(WISDM 節)"
   - id: J-WISDM-WINDOW
@@ -55,7 +55,7 @@ calls:
     decision: "窓ごと・チャネルごとに z 正規化を適用する。"
     why: "WISDM 生値は m/s^2 スケール(~±20)で CNN 初段の想定より大きい。窓単位正規化はリーク無し(各窓が自分の統計のみ使用)。UCI HAR は配布元整形済みのため非正規化(J-HAR-NORM)だが、WISDM は生値のため方針が異なる。"
     alternatives: "非正規化(スケール差で学習不安定の恐れ)、被験者/データセット統計での正規化(リーク or 追加設計が必要)。"
-    sensitivity: "中。振幅情報が落ちるが HAR は波形パターンが主判別要因。UCI HAR と正規化方針が異なる点は結果比較時に留意。"
+    sensitivity: "中。振幅情報が落ちるが HAR は波形パターンが主判別要因。UCI HAR(非正規化)と WISDM(窓ごと z 正規化)で前処理が非対称なため、scaling/jitter のような振幅系の摂動は正規化後と生データで作用が異なる。ゆえに WISDM への展開は『同一枠組みの厳密再現』ではなく『前処理を dataset に合わせた追試』と位置づける。両データの結果差には前処理の非対称も寄与しうる。"
     preregistered: true
     source: "src/signal_aug/data/wisdm.py(_znorm_window)"
   - id: J-WISDM-SPLIT
@@ -127,6 +127,6 @@ calls:
     decision: "学習曲線の隣接点を線形補間して目標到達点を求める。"
     why: "少数の測定点から閾値到達被験者数を素直に推定するため。"
     alternatives: "対数/べき乗則フィット、単調回帰(isotonic)。"
-    sensitivity: "中。曲線が非単調・ノイジーだと補間点が振れる。bootstrap で CI を付す。"
+    sensitivity: "中〜高。曲線が非単調・ノイジーだと補間点が振れる。実際 WISDM の none 曲線は非単調(中盤で最大に達し以降やや低下)で、目標 0.80 の交差は 12→15 名の単一の上向き交差に依存する。複数交差時は最初の到達点を採る(interpolate)。この非単調性は N* 不確実性の一因で、手法間 N* 差(WISDM smote で被験者 1.48 名)は被験者格子間隔(3)・セル内 std・bootstrap CI より小さいため、反復増まで手法順位は報告しない。bootstrap で CI を付す。"
     preregistered: true
     source: "pre_registration.md / reporting/aggregate.py"
