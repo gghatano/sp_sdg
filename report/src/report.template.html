@@ -35,6 +35,7 @@
   <!-- Tab bar -->
   <div class="tabbar flex gap-1 mb-0 text-sm noprint">
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="paper" onclick="showTab('paper')">論文</button>
+    <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="datasets" onclick="showTab('datasets')">データセット</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="dashboard" onclick="showTab('dashboard')">実験・運用ダッシュボード</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="repro" onclick="showTab('repro')">再現・前処理ノート</button>
   </div>
@@ -740,6 +741,144 @@
   </div>
 
   <!-- ================= REPRODUCTION & PREPROCESSING TAB ================= -->
+  <!-- ================= DATASETS TAB (issue #29) ================= -->
+  <div data-tab="datasets" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
+    <h2 class="text-lg font-semibold text-slate-900 mb-2">評価に使ったデータセット</h2>
+    <p class="text-sm text-slate-600 mb-1">本研究が扱う時系列データを、全データセット同じ構成(役割 / どんなデータか / タスク / 1レコードの構造 / クラス / 実データの波形 / 注意点)で並べる。</p>
+    <p class="text-xs text-slate-500 mb-6">説明文は <span class="font-mono">references/dataset_profiles.yaml</span>、件数・チャネル・分割は <span class="font-mono">data/metadata/*.json</span>、波形とクラス分布は <span class="font-mono">report/assets/data/dataset_samples.json</span>(実データから生成)に由来する。波形・数値はすべて<strong>学習側(train / pool)split のみ</strong>から取っており、test データは表示にも使っていない(spec §8)。</p>
+
+    <!-- dataset index -->
+    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
+      {% for gkey, g in dataset_tab.groups.items() %}
+      <div class="mb-1">
+        <span class="text-slate-500 mr-2">{{ g.title }}:</span>
+        {% for d in dataset_tab.entries.get(gkey, []) %}<a class="mr-2" href="#{{ d.anchor }}">{{ d.key }}</a>{% endfor %}
+      </div>
+      {% endfor %}
+    </nav>
+
+    {% for gkey, g in dataset_tab.groups.items() %}
+    <section id="datasets-{{ gkey }}" class="mb-10">
+      <h3 class="text-base font-semibold text-slate-900 mb-1">{{ g.title }}</h3>
+      <p class="text-sm text-slate-600 mb-5">{{ g.lead }}</p>
+
+      {% for d in dataset_tab.entries.get(gkey, []) %}
+      <article id="{{ d.anchor }}" class="border border-slate-200 rounded p-4 mb-5">
+        <div class="flex items-baseline gap-2 flex-wrap mb-2">
+          <h4 class="font-semibold text-slate-900">{{ d.display }}</h4>
+          <span class="text-xs font-mono text-slate-400">{{ d.key }}</span>
+          {% if d.ref_no %}<span class="text-xs text-slate-500">[{{ d.ref_no }}]</span>{% endif %}
+          {% if d.license %}<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">{{ d.license }}</span>{% endif %}
+        </div>
+
+        <!-- structural facts, from loader metadata / generated samples -->
+        <div class="flex flex-wrap gap-2 text-xs mb-3">
+          {% if d.sample.n_train %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">学習</span><span class="font-medium text-slate-700">{{ d.sample.n_train }} 件</span></span>{% endif %}
+          {% if d.sample.n_test %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">テスト</span><span class="font-medium text-slate-700">{{ d.sample.n_test }} 件</span></span>{% endif %}
+          {% if d.sample.n_subjects %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">pool 被験者</span><span class="font-medium text-slate-700">{{ d.sample.n_subjects }} 名</span></span>{% endif %}
+          {% if d.meta.pool_subjects %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">被験者分割</span><span class="font-medium text-slate-700">pool {{ d.meta.pool_subjects|length }} / test {{ d.meta.test_subjects|length }} 名</span></span>{% endif %}
+          {% if d.sample.n_pool_windows %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">pool 窓数</span><span class="font-medium text-slate-700">{{ d.sample.n_pool_windows }}</span></span>{% elif d.meta.n_pool_windows %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">pool 窓数</span><span class="font-medium text-slate-700">{{ d.meta.n_pool_windows }}</span></span>{% endif %}
+          {% set nch = d.sample.n_channels or d.stats.n_channels or (d.meta.channels|length if d.meta.channels else None) %}
+          {% if nch %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">チャネル</span><span class="font-medium text-slate-700">{{ nch }} ch</span></span>{% endif %}
+          {% set len_ = d.sample.length or d.stats.length or d.meta.window_length %}
+          {% if len_ %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">系列長</span><span class="font-medium text-slate-700">{{ len_ }} 点</span></span>{% endif %}
+          {% set ncls = d.sample.n_classes or d.stats.n_classes or d.meta.n_classes %}
+          {% if ncls %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">クラス</span><span class="font-medium text-slate-700">{{ ncls }}</span></span>{% endif %}
+          {% set hz = d.meta.effective_hz or d.meta.sampling_hz %}
+          {% if hz %}<span class="inline-flex gap-1 rounded border border-slate-200 bg-slate-50 px-2 py-1"><span class="text-slate-500">サンプリング</span><span class="font-medium text-slate-700">{{ hz }} Hz{% if d.meta.native_hz and d.meta.native_hz != hz %} (原 {{ d.meta.native_hz }} Hz){% endif %}</span></span>{% endif %}
+        </div>
+
+        <dl class="text-sm space-y-1.5 mb-3">
+          {% if d.role %}<div><dt class="inline text-slate-500">本研究での役割: </dt><dd class="inline text-slate-700">{{ d.role }}</dd></div>{% endif %}
+          {% if d.what %}<div><dt class="inline text-slate-500">どんなデータか: </dt><dd class="inline text-slate-700">{{ d.what }}</dd></div>{% endif %}
+          {% if d.task %}<div><dt class="inline text-slate-500">分類タスク: </dt><dd class="inline text-slate-700">{{ d.task }}</dd></div>{% endif %}
+          {% if d.schema %}<div><dt class="inline text-slate-500">1レコードの構造: </dt><dd class="inline text-slate-700">{{ d.schema }}</dd></div>{% endif %}
+        </dl>
+
+        {% if d.meta.channels %}
+        <p class="text-xs text-slate-500 mb-3">チャネル定義: <span class="font-mono text-slate-600">{{ d.meta.channels|join(', ') }}</span></p>
+        {% endif %}
+
+        <!-- classes: prose meaning + actual counts -->
+        {% if d.classes %}
+        <div class="overflow-x-auto mb-3">
+        <table class="w-full text-sm border border-slate-200 rounded">
+          <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+            <th class="p-2">ラベル</th><th class="p-2">意味</th><th class="p-2 text-right">学習側の件数</th>
+          </tr></thead>
+          <tbody>
+            {% for c in d.classes %}
+            <tr class="border-b border-slate-100 align-top">
+              <td class="p-2 font-mono text-xs text-slate-700">{{ c.name }}</td>
+              <td class="p-2 text-slate-600">{{ c.description }}</td>
+              <td class="p-2 text-right text-slate-700">{% if c.count is not none %}{{ c.count }}{% else %}—{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+        {% endif %}
+
+        <!-- real waveforms -->
+        {% if d.waveform_svg %}
+        <div class="mb-3">
+          <p class="cap mb-1">クラス別の代表波形(各クラスの中心に最も近い1サンプル、チャネル0)</p>
+          {{ d.waveform_svg | safe }}
+        </div>
+        {% endif %}
+        {% if d.channel_svg %}
+        <div class="mb-3">
+          <p class="cap mb-1">1窓のチャネル別波形({{ d.sample.channel_trace_class }} クラスの代表窓)</p>
+          {{ d.channel_svg | safe }}
+        </div>
+        {% endif %}
+        {% if d.balance_svg %}
+        <details class="mb-3 text-sm">
+          <summary class="cursor-pointer text-slate-600">クラス分布(学習側)</summary>
+          <div class="mt-2">{{ d.balance_svg | safe }}</div>
+        </details>
+        {% endif %}
+
+        <!-- raw value excerpt -->
+        {% if d.sample.excerpt %}
+        <details class="mb-3 text-sm">
+          <summary class="cursor-pointer text-slate-600">サンプル値の抜粋</summary>
+          <p class="text-xs text-slate-500 mt-1">{{ d.sample.excerpt_note }}</p>
+          <div class="overflow-x-auto mt-1">
+          <table class="w-full text-xs border border-slate-200 rounded font-mono">
+            <tbody>
+              {% for row in d.sample.excerpt %}
+              <tr class="border-b border-slate-100">
+                <td class="p-1.5 text-slate-400">#{{ loop.index0 }}</td>
+                {% for v in row %}<td class="p-1.5 text-right text-slate-700">{{ '%.3f'|format(v) }}</td>{% endfor %}
+                <td class="p-1.5 text-slate-400">…</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          </div>
+        </details>
+        {% else %}
+        <p class="text-xs text-slate-500 mb-3">このデータセットの波形・サンプル値は本リポジトリに含めていない(取得コストまたは再配布不可のため)。上記の構造情報は <span class="font-mono">data/metadata/{{ d.key|lower }}.json</span> に記録された実測値。</p>
+        {% endif %}
+
+        {% if d.meta.preprocessing %}
+        <p class="text-xs text-slate-500 mb-2">前処理: <span class="text-slate-600">{{ d.meta.preprocessing }}</span></p>
+        {% endif %}
+        {% if d.caveats %}
+        <div class="border border-amber-300 bg-amber-50 rounded p-3 text-sm">
+          <span class="font-medium text-amber-900">注意点: </span><span class="text-amber-900">{{ d.caveats }}</span>
+        </div>
+        {% endif %}
+        {% if d.source %}<p class="text-xs text-slate-400 mt-2">出典: {{ d.source }}</p>{% endif %}
+      </article>
+      {% endfor %}
+    </section>
+    {% endfor %}
+
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 {{ generated_at }}</p>
+  </div>
+
   <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
     <p class="text-sm text-slate-500 mb-6">本研究を別環境で再現・移植するための実務情報。再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断・原論文からの実装差分をまとめる。
     内容はすべて <span class="font-mono">artifacts/*.yaml</span>・<span class="font-mono">*.md</span> から自動生成され、HTML への手入力は行わない(維持手順は skill <span class="font-mono">/reproducibility-notes</span>)。</p>
@@ -857,7 +996,7 @@
     if (history.replaceState) history.replaceState(null, '', '#tab-'+id);
   }
   document.addEventListener('DOMContentLoaded', function(){
-    var byHash = {'#tab-dashboard':'dashboard', '#tab-repro':'repro'};
+    var byHash = {'#tab-datasets':'datasets', '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
     var start = byHash[location.hash] || 'paper';
     showTab(start);
     // if a deep link targets a dashboard section, switch to that tab

@@ -379,6 +379,123 @@ def synthesis_reduction_svg(synthesis: dict, width: int = 640) -> str:
     return "".join(parts)
 
 
+# Palette for per-class waveform traces in the dataset tab (issue #29). Classes
+# are enumerated from the data, so a dataset with more classes than colors wraps
+# around rather than losing a trace.
+CLASS_COLORS = ["#1d4ed8", "#dc2626", "#059669", "#d97706", "#7c3aed",
+                "#0891b2", "#be185d", "#65a30d", "#475569", "#c026d3",
+                "#0284c7", "#ea580c"]
+
+
+def class_color(i: int) -> str:
+    return CLASS_COLORS[i % len(CLASS_COLORS)]
+
+
+def _trace_path(values: list, sx, sy) -> str:
+    return " ".join(
+        f"{'M' if i == 0 else 'L'}{sx(i):.1f},{sy(v):.1f}" for i, v in enumerate(values)
+    )
+
+
+def waveform_svg(traces: list, width: int = 520, row_height: int = 54) -> str:
+    """Small-multiples plot of one representative waveform per class (issue #29).
+
+    Each class gets its own row on a shared y-scale, so the reader sees both the
+    shape of a single sample and how the classes differ. Values come from
+    report/assets/data/dataset_samples.json (built from the training split only)."""
+    if not traces:
+        return ""
+    pad_l, pad_r, pad_t, pad_b = 116, 8, 6, 16
+    height = pad_t + pad_b + row_height * len(traces)
+    all_values = [v for t in traces for v in t["values"]]
+    y_min, y_max = min(all_values), max(all_values)
+    if y_max - y_min < 1e-6:
+        y_min, y_max = y_min - 0.5, y_max + 0.5
+    n_points = max(len(t["values"]) for t in traces)
+
+    def sx(i: float) -> float:
+        return pad_l + i / max(n_points - 1, 1) * (width - pad_l - pad_r)
+
+    parts = [f'<svg viewBox="0 0 {width} {height}" class="w-full h-auto" role="img" '
+             f'aria-label="クラス別の代表波形">']
+    for row, t in enumerate(traces):
+        top = pad_t + row * row_height
+        color = class_color(t["class_index"])
+
+        def sy(v: float, _top=top) -> float:
+            return _top + 6 + (1 - (v - y_min) / (y_max - y_min)) * (row_height - 16)
+
+        parts.append(f'<line x1="{pad_l}" y1="{top + row_height - 5:.1f}" x2="{width - pad_r}" '
+                     f'y2="{top + row_height - 5:.1f}" stroke="#f1f5f9"/>')
+        parts.append(f'<text x="{pad_l - 6}" y="{top + row_height / 2:.1f}" text-anchor="end" '
+                     f'font-size="10" fill="#475569">{t["class_name"]}</text>')
+        parts.append(f'<text x="{pad_l - 6}" y="{top + row_height / 2 + 11:.1f}" text-anchor="end" '
+                     f'font-size="8.5" fill="#94a3b8">n={t["n_samples"]}</text>')
+        parts.append(f'<path d="{_trace_path(t["values"], sx, sy)}" fill="none" stroke="{color}" '
+                     f'stroke-width="1.2"/>')
+    parts.append(f'<text x="{pad_l}" y="{height - 4}" font-size="9" fill="#94a3b8">0</text>')
+    parts.append(f'<text x="{width - pad_r}" y="{height - 4}" text-anchor="end" font-size="9" '
+                 f'fill="#94a3b8">系列終端</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def channel_stack_svg(channel_traces: list, width: int = 520, row_height: int = 40) -> str:
+    """All channels of a single window, stacked (issue #29). Multi-channel
+    subject datasets otherwise look like a single line in the class plot."""
+    if not channel_traces:
+        return ""
+    pad_l, pad_r, pad_t, pad_b = 116, 8, 6, 6
+    height = pad_t + pad_b + row_height * len(channel_traces)
+    all_values = [v for t in channel_traces for v in t["values"]]
+    y_min, y_max = min(all_values), max(all_values)
+    if y_max - y_min < 1e-6:
+        y_min, y_max = y_min - 0.5, y_max + 0.5
+    n_points = max(len(t["values"]) for t in channel_traces)
+
+    def sx(i: float) -> float:
+        return pad_l + i / max(n_points - 1, 1) * (width - pad_l - pad_r)
+
+    parts = [f'<svg viewBox="0 0 {width} {height}" class="w-full h-auto" role="img" '
+             f'aria-label="1窓のチャネル別波形">']
+    for row, t in enumerate(channel_traces):
+        top = pad_t + row * row_height
+
+        def sy(v: float, _top=top) -> float:
+            return _top + 4 + (1 - (v - y_min) / (y_max - y_min)) * (row_height - 10)
+
+        parts.append(f'<text x="{pad_l - 6}" y="{top + row_height / 2 + 3:.1f}" text-anchor="end" '
+                     f'font-size="9.5" fill="#475569" font-family="monospace">{t["channel"]}</text>')
+        parts.append(f'<path d="{_trace_path(t["values"], sx, sy)}" fill="none" stroke="{class_color(row)}" '
+                     f'stroke-width="1.1"/>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def class_balance_svg(distribution: list, width: int = 520, bar_height: int = 18) -> str:
+    """Horizontal bar chart of the training-split class distribution (issue #29):
+    the imbalance that accuracy numbers have to be read against."""
+    if not distribution:
+        return ""
+    pad_l, pad_r, pad_t = 116, 44, 4
+    height = pad_t + bar_height * len(distribution) + 4
+    total = sum(d["count"] for d in distribution) or 1
+    max_count = max(d["count"] for d in distribution) or 1
+    parts = [f'<svg viewBox="0 0 {width} {height}" class="w-full h-auto" role="img" '
+             f'aria-label="クラス分布">']
+    for i, d in enumerate(distribution):
+        y = pad_t + i * bar_height
+        w = d["count"] / max_count * (width - pad_l - pad_r)
+        parts.append(f'<text x="{pad_l - 6}" y="{y + bar_height / 2 + 3:.1f}" text-anchor="end" '
+                     f'font-size="9.5" fill="#475569">{d["class_name"]}</text>')
+        parts.append(f'<rect x="{pad_l}" y="{y + 3}" width="{max(w, 1):.1f}" height="{bar_height - 7}" '
+                     f'fill="{class_color(i)}" opacity="0.75"/>')
+        parts.append(f'<text x="{pad_l + max(w, 1) + 5:.1f}" y="{y + bar_height / 2 + 3:.1f}" '
+                     f'font-size="9" fill="#64748b">{d["count"]} ({d["count"] / total * 100:.0f}%)</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
 PHASE_NAMES = {
     0: "Phase 0: 基盤構築",
     1: "Phase 1: UCR最小追試",
@@ -416,6 +533,10 @@ REQUIRED_SECTION_IDS = [
     "ops-audit",
     "ops-reproducibility",
     "ops-glossary",
+    # dataset tab (issue #29): one section per dataset group, one article per
+    # dataset (anchors are generated from the dataset keys)
+    "datasets-ucr",
+    "datasets-subject",
     # reproduction & preprocessing tab (reproducibility / portability)
     "repro-steps",
     "repro-preprocessing",
@@ -441,6 +562,70 @@ def _markdown_bullets(path: Path) -> list[str]:
         for line in path.read_text(encoding="utf-8").splitlines()
         if line.strip().startswith("- ")
     ]
+
+
+def _dataset_entries(root: Path, references_index: dict) -> dict:
+    """Assemble the dataset tab (issue #29).
+
+    Three data sources are merged, none of them hand-typed into the HTML:
+      * references/dataset_profiles.yaml - prose (what the data is, the task,
+        the record schema, caveats). Carries no counts.
+      * data/metadata/*.json - structural facts recorded by the loaders
+        (channels, window length, sampling rate, split subjects, licence).
+      * report/assets/data/dataset_samples.json - counts, class distribution and
+        waveform traces extracted from the actual training/pool split.
+
+    A dataset described in the YAML but missing from the generated samples still
+    renders (PAMAP2/WESAD are described without waveforms on cost/licence
+    grounds); the template shows what is available.
+    """
+    profiles = _load_yaml(root / "references/dataset_profiles.yaml")
+    samples = (_load_json(root / "report/assets/data/dataset_samples.json") or {}).get("datasets", {})
+    checksums = _load_json(root / "data/metadata/checksums.json") or {}
+    datasets_cfg = _load_yaml(root / "config/datasets.yaml").get("datasets", {})
+
+    groups = profiles.get("groups", {})
+    entries: dict[str, list] = {g: [] for g in groups}
+    for key, prose in (profiles.get("datasets") or {}).items():
+        group = prose.get("group", "ucr")
+        sample = samples.get(key, {})
+        meta = _load_json(root / f"data/metadata/{key.lower()}.json") or {}
+        stats = checksums.get(key, {})
+
+        # class rows: prose descriptions keyed by the class names the data
+        # actually carries, so a mismatch shows up as a missing description
+        # rather than a silently wrong label
+        counts = {d["class_name"]: d["count"] for d in sample.get("class_distribution", [])}
+        class_rows = [
+            {"name": name, "description": desc, "count": counts.get(str(name))}
+            for name, desc in (prose.get("classes") or {}).items()
+        ]
+
+        entries.setdefault(group, []).append({
+            "key": key,
+            "anchor": f"dataset-{key.lower().replace('_', '-')}",
+            "display": prose.get("display", key),
+            "group": group,
+            "role": prose.get("role"),
+            "what": prose.get("what"),
+            "task": prose.get("task"),
+            "schema": prose.get("schema"),
+            "caveats": prose.get("caveats"),
+            "license": prose.get("license") or meta.get("license"),
+            "reference": prose.get("reference"),
+            "ref_no": references_index.get(prose.get("reference")),
+            "source": meta.get("source"),
+            "url": meta.get("url"),
+            "note": (datasets_cfg.get(key) or {}).get("note"),
+            "classes": class_rows,
+            "meta": meta,
+            "stats": stats,
+            "sample": sample,
+            "waveform_svg": waveform_svg(sample.get("traces", [])),
+            "channel_svg": channel_stack_svg(sample.get("channel_traces", [])),
+            "balance_svg": class_balance_svg(sample.get("class_distribution", [])),
+        })
+    return {"groups": groups, "entries": entries}
 
 
 def gather_context(repo_root: str | Path = ".") -> dict:
@@ -711,6 +896,8 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "augmentations_cfg": _load_yaml(root / "config/augmentations.yaml").get("augmentations", {}),
         "models_cfg": _load_yaml(root / "config/models.yaml").get("models", {}),
         "reproduction_targets": _load_yaml(root / "references/reproduction_targets.yaml"),
+        # dataset tab (issue #29): prose + loader metadata + real sample traces
+        "dataset_tab": _dataset_entries(root, references_index),
         "limitations": _markdown_bullets(root / "artifacts/limitations.md"),
         "audit": results.get("audit"),
         "reproducibility": reproducibility,
