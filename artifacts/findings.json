@@ -107,6 +107,15 @@
       "confidence": "low",
       "type": "original",
       "notes": "反復3回のため N* の CI は広く(issue #6 と同じ構造的制約)、手法間 N* 差(smote で被験者 1.48 名)は被験者格子間隔(3)・セル内 std・bootstrap CI より小さく、順位づけには実質情報が乏しい(反復増まで順位は報告しない)。smote の +10.5% は accuracy 固有で、WISDM はクラス不均衡のため macro-F1 では順位が変わる: macro_f1@0.70(N*(none)=11.85)では smote のみ +4.1%、scaling -5.2%、dtw -11.0%(最下位)、macro_f1@0.65(N*(none)=9.98)でも smote +0.8%/dtw -2.6%/scaling -3.7% と、いずれも none の CI と大きく重なる。すなわち WISDM の削減は macro-F1 でも確認されず accuracy 基準の帰無と整合(WISDM run=168、reduction_analysis と同一手法)。目標 0.80 は none 曲線のプラトー肩付近で手法差が圧縮され、none 曲線は非単調(中盤で最大、以降低下)なため N* は 12→15 名の単一上向き交差に依存する(J-NSTAR の線形補間)。前処理は dataset に合わせた追試(UCI HAR 非正規化 vs WISDM 窓ごと z 正規化)で同一枠組みの厳密再現ではない。純量水増しの対照は oversample(WISDM ≈0)。label_shuffle は WISDM では -50.5%(N* 増)だが、これは元データ保持+ラベルノイズ対照の乱ラベルが有害に働いた結果で、UCI HAR の見かけ削減の有無を『量水増しアーティファクトの強弱』として対比することはできない。検出力確保(反復増、issue #7 候補1)が両データセット共通の後続課題。"
+    },
+    {
+      "id": "F-13",
+      "phase": 6,
+      "claim": "第3の被験者データ PAMAP2(Reiss & Stricker 2012, 9名, subject 109 除外で pool 5+test 3)を加えた3データ横断でも、拡張による被験者数削減は帰無:母集団被験者数(5〜24名)に沿う系統的トレンドは検出されない。PAMAP2 は none の macro-F1 が最小格子 N=2 で既に統一 target 0.70 を超え(N2=0.706)、N*(none) が格子下限に張り付く左側打ち切りのため削減率は推定不能(定性記述に格下げ)。推定可能な UCI HAR・WISDM でも統一ルール下の削減率は実手法で概ね ±14% 以内かつ全手法が none 基準から CI 分離せず、悲観的対照 label_shuffle は WISDM・PAMAP2 で目標未到達・UCI HAR で削減最小と対照として妥当に機能した",
+      "evidence": "results.json reduction_cross(3データ×両指標を統一ルール target で再集計)+ reduction_pamap2(PAMAP2 主120 + negative control 20 runs)、config/experiments/pamap2_subject_count.yaml、issue #21 DS-2",
+      "confidence": "low",
+      "type": "original",
+      "notes": "【統一ルールの post-hoc 明示】横断比較のため3データとも同一の target 決定ルール(floor_0.05(full-pool none 平均 −0.05))を用いるが、これは PAMAP2 では事前登録どおり(数値算出前・1グリッド run 前に登録)である一方、データ確定済みの UCI HAR・WISDM にとっては事後(post-hoc)の記述的再解析である。統一 target(macro-F1 で UCI HAR 0.85・WISDM 0.70)は各データの事前登録主 target(UCI HAR accuracy 0.90 / WISDM accuracy 0.80)とは異なる。主結論 F-8/F-10/F-12 は各データの事前登録 τ に基づき不変で、本節は別レンズ。ただし統一レンズの結論(帰無)は主解析と一致するため補強方向。【3点記述限定】3データ=3点のため回帰・相関は求めず点+定性考察に限る。3データはクラス数(12/6/6)・センサ(3IMU/加速度+ジャイロ/加速度)・チャネル数(9/6/3)・サンプリング/窓実時間・pool 上限(5/21/24)・目標絶対値が異なり多数の交絡を含むため、削減率差を母集団サイズに帰属できない。統一ルールは baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)で N* を格子下限近傍に寄せ(PAMAP2 は左側打ち切り、UCI HAR も N*(none)≈3.4)、削減率を格子分解能で圧縮する。PAMAP2 は加速度±16g 9ch・100→33.3Hz・168窓・窓ごと z 正規化の自前前処理で、rope_jumping は test 側 0 窓のため実効11クラス(macro-F1 分母に影響)。DS-1(F-8/F-10/F-12)の帰無の外的妥当性を第3データで補強するが、削減効果の存在は主張しない。反復5回でも少 N ゆえ CI は広く、検出力は依然限界(issue #6/#7)。"
     }
   ],
   "schema": {

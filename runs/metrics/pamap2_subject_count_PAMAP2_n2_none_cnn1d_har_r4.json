@@ -1,0 +1,8 @@
+{
+  "accuracy": 0.7232472324723247,
+  "macro_f1": 0.6887156064789509,
+  "balanced_accuracy": 0.6907193865263769,
+  "n_test": 813,
+  "subject_count": 2,
+  "n_train_windows": 518
+}

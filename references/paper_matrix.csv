@@ -14,3 +14,4 @@ anguita2013,Anguita et al.,2013,ESANN,被験者データ,UCI HAR (30名),-,Phase
 weiss2019,Weiss et al.,2019,IEEE Access,被験者データ,WISDM (51名),-,Phase3 候補調査時に検討(未使用。実装は v1.1/kwapisz2011 を採用)
 kwapisz2011,"Kwapisz, Weiss, Moore",2011,SIGKDD Explorations,被験者データ,WISDM v1.1 (36名),-,Phase6 実使用(被験者数削減の追試 F-12)
 wagner2020,Wagner et al.,2020,Scientific Data,被験者データ,PTB-XL (18885名),-,Phase6-7 予備候補
+reiss2012,Reiss & Stricker,2012,ISWC/PETRA,被験者データ,PAMAP2 (9名),-,issue #21 DS-2 横断評価の少N端点(設計: artifacts/ds2_design.md)

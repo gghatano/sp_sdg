@@ -1,6 +1,2806 @@
 {
   "runs": [
     {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:57:05.804157+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7478474784747847,
+      "macro_f1": 0.7481674869033946,
+      "balanced_accuracy": 0.7665140887338548,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:57:48.345716+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7527675276752768,
+      "macro_f1": 0.7347051238227459,
+      "balanced_accuracy": 0.7353143880153309,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:58:27.763286+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7355473554735548,
+      "macro_f1": 0.7224965929415201,
+      "balanced_accuracy": 0.7165068397995313,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:17.717535+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7810578105781057,
+      "macro_f1": 0.7813944173745576,
+      "balanced_accuracy": 0.7752295343473432,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:58.003375+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7441574415744158,
+      "macro_f1": 0.6921167195945657,
+      "balanced_accuracy": 0.6929670077820523,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 518
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:06.424001+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.5190651906519065,
+      "macro_f1": 0.4473153157506783,
+      "balanced_accuracy": 0.49092884447501817,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:09.393725+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6629766297662977,
+      "macro_f1": 0.6731346690638396,
+      "balanced_accuracy": 0.6540824050375181,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:11.473622+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6125461254612546,
+      "macro_f1": 0.5419131130416314,
+      "balanced_accuracy": 0.5687530797273547,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:13.667721+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6027060270602707,
+      "macro_f1": 0.525962459107363,
+      "balanced_accuracy": 0.5685850593098422,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:15.722087+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.5559655596555966,
+      "macro_f1": 0.3989023488195967,
+      "balanced_accuracy": 0.4351891278783961,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 518
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:56:58.089335+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6728167281672817,
+      "macro_f1": 0.7031519938301186,
+      "balanced_accuracy": 0.6894444045887476,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:57:41.141681+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7503075030750308,
+      "macro_f1": 0.7255693822922002,
+      "balanced_accuracy": 0.7279839196577002,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:58:20.596594+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6888068880688807,
+      "macro_f1": 0.6911512786175661,
+      "balanced_accuracy": 0.6781800855001806,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:08.723383+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7539975399753998,
+      "macro_f1": 0.7580220401073344,
+      "balanced_accuracy": 0.7611226889923602,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:51.594561+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6838868388683886,
+      "macro_f1": 0.5836731261073873,
+      "balanced_accuracy": 0.643969430334414,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 518
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:56:35.413586+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7146371463714637,
+      "macro_f1": 0.6696887090867171,
+      "balanced_accuracy": 0.6760562037940556,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:57:22.353929+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7330873308733087,
+      "macro_f1": 0.7232746099566264,
+      "balanced_accuracy": 0.7145106355876442,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:58:02.936370+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7207872078720787,
+      "macro_f1": 0.6958330136025827,
+      "balanced_accuracy": 0.693670904571476,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:58:46.013773+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7453874538745388,
+      "macro_f1": 0.7537591194837954,
+      "balanced_accuracy": 0.7379405779681929,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:33.917158+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7232472324723247,
+      "macro_f1": 0.6887156064789509,
+      "balanced_accuracy": 0.6907193865263769,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 518
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:56:42.926977+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7306273062730627,
+      "macro_f1": 0.685318279533743,
+      "balanced_accuracy": 0.6795373768942929,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:57:28.591993+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7416974169741697,
+      "macro_f1": 0.705435529899263,
+      "balanced_accuracy": 0.7106044270886632,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:58:09.381242+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7367773677736777,
+      "macro_f1": 0.692046151794793,
+      "balanced_accuracy": 0.7120577888315216,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:58:53.479654+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6986469864698647,
+      "macro_f1": 0.739620345226411,
+      "balanced_accuracy": 0.7297579442655185,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:40.567188+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7257072570725708,
+      "macro_f1": 0.5969200417141513,
+      "balanced_accuracy": 0.6519093490219398,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 518
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:56:50.772331+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7318573185731857,
+      "macro_f1": 0.6883002049562132,
+      "balanced_accuracy": 0.6941030303426807,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:57:34.863727+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7269372693726938,
+      "macro_f1": 0.7045168620256269,
+      "balanced_accuracy": 0.7044283879841946,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:58:14.802797+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7466174661746617,
+      "macro_f1": 0.6922914437565632,
+      "balanced_accuracy": 0.7100824101962787,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:01.122894+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6998769987699877,
+      "macro_f1": 0.7455661708398851,
+      "balanced_accuracy": 0.7333911576678142,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:45.996213+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7392373923739237,
+      "macro_f1": 0.6712695310019491,
+      "balanced_accuracy": 0.668873704284963,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 518
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:57:18.939543+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7318573185731857,
+      "macro_f1": 0.7581738076449813,
+      "balanced_accuracy": 0.7387349856299115,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:57:59.711294+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7564575645756457,
+      "macro_f1": 0.7486002485467096,
+      "balanced_accuracy": 0.7431767440262635,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:58:42.208565+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7416974169741697,
+      "macro_f1": 0.7040178139212339,
+      "balanced_accuracy": 0.7135477549416153,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 551
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T15:59:30.168772+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7355473554735548,
+      "macro_f1": 0.7357726688785857,
+      "balanced_accuracy": 0.7131812605170516,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 561
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:00:08.702375+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7195571955719557,
+      "macro_f1": 0.6605134333763927,
+      "balanced_accuracy": 0.6720363600665743,
+      "n_test": 813,
+      "subject_count": 2,
+      "n_train_windows": 518
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:00:49.232899+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7244772447724477,
+      "macro_f1": 0.7018157659445025,
+      "balanced_accuracy": 0.7020606577944263,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 768
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:01:50.495682+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7060270602706027,
+      "macro_f1": 0.7206596901314701,
+      "balanced_accuracy": 0.7153681224802633,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 791
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:02:53.911328+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7872078720787208,
+      "macro_f1": 0.7968276179143867,
+      "balanced_accuracy": 0.7799101772222158,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 800
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:03:52.688825+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7810578105781057,
+      "macro_f1": 0.7345388968984979,
+      "balanced_accuracy": 0.7908336726143119,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 810
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:04:54.994885+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7466174661746617,
+      "macro_f1": 0.6862103905693119,
+      "balanced_accuracy": 0.6925615479027475,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 842
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:18.343450+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.5116851168511685,
+      "macro_f1": 0.40739914967070007,
+      "balanced_accuracy": 0.42727836764037685,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 768
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:21.196783+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.5793357933579336,
+      "macro_f1": 0.42278199689051127,
+      "balanced_accuracy": 0.46468854459015374,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 791
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:24.025102+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6236162361623616,
+      "macro_f1": 0.5140865777919162,
+      "balanced_accuracy": 0.5312082170760023,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 800
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:27.006007+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.5412054120541205,
+      "macro_f1": 0.44210047655425816,
+      "balanced_accuracy": 0.47195921688855563,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 810
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:30.315692+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.5867158671586716,
+      "macro_f1": 0.5127620983201248,
+      "balanced_accuracy": 0.5377691394787155,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 842
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:00:39.031445+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7392373923739237,
+      "macro_f1": 0.7057516276694197,
+      "balanced_accuracy": 0.6976766759136779,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 768
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:01:38.532061+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7355473554735548,
+      "macro_f1": 0.7656854208412479,
+      "balanced_accuracy": 0.7381445092256995,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 791
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:02:43.543727+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7490774907749077,
+      "macro_f1": 0.7013327632235974,
+      "balanced_accuracy": 0.6911477378025901,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 800
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:03:42.848649+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7847478474784748,
+      "macro_f1": 0.7408109302507065,
+      "balanced_accuracy": 0.8043905841544554,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 810
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:04:46.466630+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7576875768757687,
+      "macro_f1": 0.6207856971947452,
+      "balanced_accuracy": 0.6769928732743495,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 842
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:00:12.142525+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7023370233702337,
+      "macro_f1": 0.6748669420035317,
+      "balanced_accuracy": 0.6662916605540745,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 768
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:01:09.455633+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7318573185731857,
+      "macro_f1": 0.7550453943332189,
+      "balanced_accuracy": 0.7343534248002108,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 791
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:02:16.733031+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7810578105781057,
+      "macro_f1": 0.746801784485069,
+      "balanced_accuracy": 0.7266181964891332,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 800
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:03:14.882634+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7207872078720787,
+      "macro_f1": 0.6899325558129554,
+      "balanced_accuracy": 0.6859445019449352,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 810
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:04:18.067741+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7761377613776138,
+      "macro_f1": 0.7172704392090323,
+      "balanced_accuracy": 0.7159365850342465,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 842
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:00:21.102969+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7478474784747847,
+      "macro_f1": 0.7261101158345098,
+      "balanced_accuracy": 0.7141454661730565,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 768
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:01:18.496634+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7035670356703567,
+      "macro_f1": 0.7026200220568968,
+      "balanced_accuracy": 0.6966125372003424,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 791
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:02:26.540874+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7687576875768758,
+      "macro_f1": 0.7022491832313511,
+      "balanced_accuracy": 0.700149989969285,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 800
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:03:24.214152+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7626076260762608,
+      "macro_f1": 0.7559735413555912,
+      "balanced_accuracy": 0.7466915905402235,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 810
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:04:26.823395+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7699876998769988,
+      "macro_f1": 0.7437353258134715,
+      "balanced_accuracy": 0.7345287695455547,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 842
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:00:29.971824+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7404674046740467,
+      "macro_f1": 0.7179873750155845,
+      "balanced_accuracy": 0.7031047170328182,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 768
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:01:27.786059+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7269372693726938,
+      "macro_f1": 0.737773855918552,
+      "balanced_accuracy": 0.7285115031746549,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 791
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:02:34.789171+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7650676506765067,
+      "macro_f1": 0.7015106766204087,
+      "balanced_accuracy": 0.6971889810478372,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 800
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:03:33.461673+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7638376383763837,
+      "macro_f1": 0.7223189990389911,
+      "balanced_accuracy": 0.7229171972474016,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 810
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:04:35.366846+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7675276752767528,
+      "macro_f1": 0.7407513540012437,
+      "balanced_accuracy": 0.7311511290483179,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 842
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:01:04.997199+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7490774907749077,
+      "macro_f1": 0.7151559421345254,
+      "balanced_accuracy": 0.7032370642077272,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 768
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:02:10.986058+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7441574415744158,
+      "macro_f1": 0.7419677627136188,
+      "balanced_accuracy": 0.7214731657900647,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 791
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:03:10.898324+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7872078720787208,
+      "macro_f1": 0.7775039518955494,
+      "balanced_accuracy": 0.7617787732946192,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 800
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:04:12.681743+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7613776137761378,
+      "macro_f1": 0.7144484889521223,
+      "balanced_accuracy": 0.7693642634923497,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 810
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:05:11.058971+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7564575645756457,
+      "macro_f1": 0.7397268600604092,
+      "balanced_accuracy": 0.7187588924471059,
+      "n_test": 813,
+      "subject_count": 3,
+      "n_train_windows": 842
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:06:05.250950+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8044280442804428,
+      "macro_f1": 0.7649633055716234,
+      "balanced_accuracy": 0.7620036924792273,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1092
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:07:24.015066+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7933579335793358,
+      "macro_f1": 0.7714429764986449,
+      "balanced_accuracy": 0.7603432610811264,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:08:44.860326+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8081180811808119,
+      "macro_f1": 0.757511642368209,
+      "balanced_accuracy": 0.7615378225956637,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:10:11.083943+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8228782287822878,
+      "macro_f1": 0.843148276826017,
+      "balanced_accuracy": 0.8365049001021284,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1112
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:11:24.067445+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8056580565805658,
+      "macro_f1": 0.8037143291356084,
+      "balanced_accuracy": 0.795026390050849,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1111
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:34.525911+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6592865928659286,
+      "macro_f1": 0.579157954522649,
+      "balanced_accuracy": 0.6145793584374704,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1092
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:38.406895+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6334563345633456,
+      "macro_f1": 0.5402595817886692,
+      "balanced_accuracy": 0.5696810706073593,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:43.235115+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6174661746617466,
+      "macro_f1": 0.5645537759325011,
+      "balanced_accuracy": 0.6009983001583487,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:47.460763+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6752767527675276,
+      "macro_f1": 0.5905666338118722,
+      "balanced_accuracy": 0.6285942195869423,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1112
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:51.410306+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6728167281672817,
+      "macro_f1": 0.5745577771738272,
+      "balanced_accuracy": 0.604046687662716,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1111
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:05:50.923961+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7982779827798278,
+      "macro_f1": 0.7903298234778702,
+      "balanced_accuracy": 0.7785663012430778,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1092
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:07:07.724537+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8154981549815498,
+      "macro_f1": 0.8090412377930051,
+      "balanced_accuracy": 0.7929478421318547,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:08:31.757945+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8081180811808119,
+      "macro_f1": 0.7737909545652711,
+      "balanced_accuracy": 0.7680192586576386,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:09:52.204901+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8044280442804428,
+      "macro_f1": 0.81116032925725,
+      "balanced_accuracy": 0.7997509969253528,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1112
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:11:11.577566+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7638376383763837,
+      "macro_f1": 0.6800645246868594,
+      "balanced_accuracy": 0.7394219564743573,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1111
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:05:17.056033+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8167281672816729,
+      "macro_f1": 0.8141731405848769,
+      "balanced_accuracy": 0.8019634724289652,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1092
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:06:30.915284+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7933579335793358,
+      "macro_f1": 0.7257029035451613,
+      "balanced_accuracy": 0.7230684010002827,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:07:56.386073+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8031980319803198,
+      "macro_f1": 0.8074798033956355,
+      "balanced_accuracy": 0.7919452474646385,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:09:09.943356+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7687576875768758,
+      "macro_f1": 0.7789158639488319,
+      "balanced_accuracy": 0.7567733635058389,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1112
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:10:42.437026+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7847478474784748,
+      "macro_f1": 0.7298627701740603,
+      "balanced_accuracy": 0.7316777945027364,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1111
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:05:29.235933+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7749077490774908,
+      "macro_f1": 0.6722273580665696,
+      "balanced_accuracy": 0.7307616053965765,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1092
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:06:42.851020+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7613776137761378,
+      "macro_f1": 0.7285189279567986,
+      "balanced_accuracy": 0.7281237701139859,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:08:08.176328+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7847478474784748,
+      "macro_f1": 0.7347898109275636,
+      "balanced_accuracy": 0.7172773296712887,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:09:23.097101+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8019680196801968,
+      "macro_f1": 0.7386941218252797,
+      "balanced_accuracy": 0.7426955713182349,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1112
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:10:54.281337+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7958179581795818,
+      "macro_f1": 0.8005257141055101,
+      "balanced_accuracy": 0.7940208368028735,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1111
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:05:41.206820+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7749077490774908,
+      "macro_f1": 0.7687632401300258,
+      "balanced_accuracy": 0.7597076618873213,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1092
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:06:56.266446+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7576875768757687,
+      "macro_f1": 0.7209449224441712,
+      "balanced_accuracy": 0.7176485207646993,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:08:20.472135+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7835178351783518,
+      "macro_f1": 0.708712819669561,
+      "balanced_accuracy": 0.7066090883985264,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:09:39.102877+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8105781057810578,
+      "macro_f1": 0.7620539155703675,
+      "balanced_accuracy": 0.7562512144037303,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1112
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:11:03.558281+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8044280442804428,
+      "macro_f1": 0.8242824530828073,
+      "balanced_accuracy": 0.8150659929209357,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1111
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:06:25.266954+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7859778597785978,
+      "macro_f1": 0.7179275051970758,
+      "balanced_accuracy": 0.7193579931499764,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1092
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:07:52.047238+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8019680196801968,
+      "macro_f1": 0.7572225159332008,
+      "balanced_accuracy": 0.7623549510127962,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:09:05.542085+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7933579335793358,
+      "macro_f1": 0.7949608570379202,
+      "balanced_accuracy": 0.7797848373408945,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1069
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:10:38.192196+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8007380073800738,
+      "macro_f1": 0.7809226102798511,
+      "balanced_accuracy": 0.7684927689114048,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1112
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:11:46.835222+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8105781057810578,
+      "macro_f1": 0.790571751783277,
+      "balanced_accuracy": 0.7741793530894359,
+      "n_test": 813,
+      "subject_count": 4,
+      "n_train_windows": 1111
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:13:00.995736+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8019680196801968,
+      "macro_f1": 0.7964304232435719,
+      "balanced_accuracy": 0.7906721681018225,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:14:34.357339+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8462484624846248,
+      "macro_f1": 0.8395050826273841,
+      "balanced_accuracy": 0.8272930702676128,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:16:14.828473+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8118081180811808,
+      "macro_f1": 0.8233646636659295,
+      "balanced_accuracy": 0.8098195883502466,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:17:43.573219+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8179581795817958,
+      "macro_f1": 0.8451322493607294,
+      "balanced_accuracy": 0.8325222575809242,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:19:24.229837+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8118081180811808,
+      "macro_f1": 0.8362676154272168,
+      "balanced_accuracy": 0.834361174548394,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:28:56.510515+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6814268142681427,
+      "macro_f1": 0.603313176016509,
+      "balanced_accuracy": 0.6194301182332201,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:29:02.554065+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7281672816728167,
+      "macro_f1": 0.6396733757826679,
+      "balanced_accuracy": 0.6500766103809809,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:29:07.337699+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6346863468634686,
+      "macro_f1": 0.51814193628619,
+      "balanced_accuracy": 0.5316522723004996,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:29:14.024599+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7380073800738007,
+      "macro_f1": 0.7271607865501205,
+      "balanced_accuracy": 0.6987676806638997,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:29:18.756622+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.6937269372693727,
+      "macro_f1": 0.6017166181177026,
+      "balanced_accuracy": 0.628257274866924,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:12:39.754537+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8204182041820418,
+      "macro_f1": 0.8153379085961567,
+      "balanced_accuracy": 0.8041023790553435,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:14:18.317865+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8142681426814268,
+      "macro_f1": 0.8031612358758659,
+      "balanced_accuracy": 0.7887825803988846,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:16:01.458978+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8056580565805658,
+      "macro_f1": 0.8292872930613245,
+      "balanced_accuracy": 0.8254839718764618,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:17:28.081419+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8179581795817958,
+      "macro_f1": 0.848754760464531,
+      "balanced_accuracy": 0.8222600007627885,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:19:10.920700+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8056580565805658,
+      "macro_f1": 0.8198045485300746,
+      "balanced_accuracy": 0.8179974279990234,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:11:54.506386+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8167281672816729,
+      "macro_f1": 0.7920722676403259,
+      "balanced_accuracy": 0.780326949835177,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:13:35.274266+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7970479704797048,
+      "macro_f1": 0.772253017441739,
+      "balanced_accuracy": 0.7620554744625969,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:15:16.746141+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8068880688806888,
+      "macro_f1": 0.7591675785237638,
+      "balanced_accuracy": 0.7550982452284657,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:16:50.495810+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7872078720787208,
+      "macro_f1": 0.7985303538645596,
+      "balanced_accuracy": 0.7819451374684139,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:18:27.322033+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7712177121771218,
+      "macro_f1": 0.7057545378696565,
+      "balanced_accuracy": 0.7064650559379199,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:12:09.676684+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8044280442804428,
+      "macro_f1": 0.7550801750965834,
+      "balanced_accuracy": 0.7644880376027205,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:13:47.800745+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8241082410824109,
+      "macro_f1": 0.8246867825609937,
+      "balanced_accuracy": 0.8072442021755059,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:15:35.728563+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8339483394833949,
+      "macro_f1": 0.8453367645577141,
+      "balanced_accuracy": 0.8320710534854054,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:17:02.558748+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7724477244772447,
+      "macro_f1": 0.8148195641484446,
+      "balanced_accuracy": 0.8133602955584878,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:18:41.198338+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8068880688806888,
+      "macro_f1": 0.7675937138835405,
+      "balanced_accuracy": 0.7600745029977873,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:12:21.019967+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7995079950799509,
+      "macro_f1": 0.7499234978258912,
+      "balanced_accuracy": 0.7563347551198589,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:14:02.621363+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8093480934809348,
+      "macro_f1": 0.7563369325266027,
+      "balanced_accuracy": 0.755024905834604,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:15:46.118485+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8130381303813038,
+      "macro_f1": 0.7752239820373679,
+      "balanced_accuracy": 0.7785651912479956,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:17:14.226013+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8154981549815498,
+      "macro_f1": 0.842981742781754,
+      "balanced_accuracy": 0.8241726582735034,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:18:55.239646+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7921279212792128,
+      "macro_f1": 0.7580872219395473,
+      "balanced_accuracy": 0.748677690298815,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r0",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 0,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:13:28.385170+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8056580565805658,
+      "macro_f1": 0.7859383370463315,
+      "balanced_accuracy": 0.7725071221790472,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r1",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 1,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:15:07.766951+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8179581795817958,
+      "macro_f1": 0.8001942743711087,
+      "balanced_accuracy": 0.7850064828793092,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r2",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 2,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:16:42.907996+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8154981549815498,
+      "macro_f1": 0.8136581049940333,
+      "balanced_accuracy": 0.8045485824827637,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r3",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 3,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:18:20.029902+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.8302583025830258,
+      "macro_f1": 0.8484847375806628,
+      "balanced_accuracy": 0.8356723201123027,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
+      "run_id": "pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r4",
+      "phase": 6,
+      "dataset": "PAMAP2",
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "seed": 4,
+      "status": "completed",
+      "git_commit": "b25df99248ad",
+      "git_dirty": false,
+      "ended_at": "2026-07-19T16:19:51.204440+00:00",
+      "python_version": "3.12.13",
+      "train_fraction": 1.0,
+      "accuracy": 0.7933579335793358,
+      "macro_f1": 0.752133344206944,
+      "balanced_accuracy": 0.7532736602416776,
+      "n_test": 813,
+      "subject_count": 5,
+      "n_train_windows": 1361
+    },
+    {
       "run_id": "phase1_ECG5000_dtw_cnn1d_s0",
       "phase": 1,
       "dataset": "ECG5000",
@@ -61465,6 +64265,97 @@
       "balanced_accuracy_std": 0.0033
     },
     {
+      "dataset": "PAMAP2",
+      "train_fraction": 1.0,
+      "augmentation": "dtw",
+      "model": "cnn1d_har",
+      "n_seeds": 20,
+      "accuracy_mean": 0.7815,
+      "accuracy_std": 0.0378,
+      "macro_f1_mean": 0.77,
+      "macro_f1_std": 0.052,
+      "balanced_accuracy_mean": 0.7689,
+      "balanced_accuracy_std": 0.0474
+    },
+    {
+      "dataset": "PAMAP2",
+      "train_fraction": 1.0,
+      "augmentation": "label_shuffle",
+      "model": "cnn1d_har",
+      "n_seeds": 20,
+      "accuracy_mean": 0.6265,
+      "accuracy_std": 0.0645,
+      "macro_f1_mean": 0.5413,
+      "macro_f1_std": 0.0882,
+      "balanced_accuracy_mean": 0.5648,
+      "balanced_accuracy_std": 0.0769
+    },
+    {
+      "dataset": "PAMAP2",
+      "train_fraction": 1.0,
+      "augmentation": "mixup",
+      "model": "cnn1d_har",
+      "n_seeds": 20,
+      "accuracy_mean": 0.7685,
+      "accuracy_std": 0.047,
+      "macro_f1_mean": 0.7488,
+      "macro_f1_std": 0.0717,
+      "balanced_accuracy_mean": 0.7523,
+      "balanced_accuracy_std": 0.0565
+    },
+    {
+      "dataset": "PAMAP2",
+      "train_fraction": 1.0,
+      "augmentation": "none",
+      "model": "cnn1d_har",
+      "n_seeds": 20,
+      "accuracy_mean": 0.7648,
+      "accuracy_std": 0.0372,
+      "macro_f1_mean": 0.74,
+      "macro_f1_std": 0.0448,
+      "balanced_accuracy_mean": 0.7317,
+      "balanced_accuracy_std": 0.0394
+    },
+    {
+      "dataset": "PAMAP2",
+      "train_fraction": 1.0,
+      "augmentation": "oversample",
+      "model": "cnn1d_har",
+      "n_seeds": 20,
+      "accuracy_mean": 0.7673,
+      "accuracy_std": 0.0376,
+      "macro_f1_mean": 0.7366,
+      "macro_f1_std": 0.0577,
+      "balanced_accuracy_mean": 0.7383,
+      "balanced_accuracy_std": 0.0461
+    },
+    {
+      "dataset": "PAMAP2",
+      "train_fraction": 1.0,
+      "augmentation": "scaling",
+      "model": "cnn1d_har",
+      "n_seeds": 20,
+      "accuracy_mean": 0.7685,
+      "accuracy_std": 0.0344,
+      "macro_f1_mean": 0.7395,
+      "macro_f1_std": 0.0432,
+      "balanced_accuracy_mean": 0.7356,
+      "balanced_accuracy_std": 0.0395
+    },
+    {
+      "dataset": "PAMAP2",
+      "train_fraction": 1.0,
+      "augmentation": "smote",
+      "model": "cnn1d_har",
+      "n_seeds": 20,
+      "accuracy_mean": 0.7769,
+      "accuracy_std": 0.0333,
+      "macro_f1_mean": 0.7569,
+      "macro_f1_std": 0.0436,
+      "balanced_accuracy_mean": 0.7505,
+      "balanced_accuracy_std": 0.0387
+    },
+    {
       "dataset": "Plane",
       "train_fraction": 0.1,
       "augmentation": "dtw",
@@ -69036,6 +71927,62 @@
         "macro_f1_mean": 0.9242
       }
     ],
+    "PAMAP2|cnn1d_har|dtw": [
+      {
+        "train_fraction": 1.0,
+        "accuracy_mean": 0.7815,
+        "accuracy_std": 0.0378,
+        "macro_f1_mean": 0.77
+      }
+    ],
+    "PAMAP2|cnn1d_har|label_shuffle": [
+      {
+        "train_fraction": 1.0,
+        "accuracy_mean": 0.6265,
+        "accuracy_std": 0.0645,
+        "macro_f1_mean": 0.5413
+      }
+    ],
+    "PAMAP2|cnn1d_har|mixup": [
+      {
+        "train_fraction": 1.0,
+        "accuracy_mean": 0.7685,
+        "accuracy_std": 0.047,
+        "macro_f1_mean": 0.7488
+      }
+    ],
+    "PAMAP2|cnn1d_har|none": [
+      {
+        "train_fraction": 1.0,
+        "accuracy_mean": 0.7648,
+        "accuracy_std": 0.0372,
+        "macro_f1_mean": 0.74
+      }
+    ],
+    "PAMAP2|cnn1d_har|oversample": [
+      {
+        "train_fraction": 1.0,
+        "accuracy_mean": 0.7673,
+        "accuracy_std": 0.0376,
+        "macro_f1_mean": 0.7366
+      }
+    ],
+    "PAMAP2|cnn1d_har|scaling": [
+      {
+        "train_fraction": 1.0,
+        "accuracy_mean": 0.7685,
+        "accuracy_std": 0.0344,
+        "macro_f1_mean": 0.7395
+      }
+    ],
+    "PAMAP2|cnn1d_har|smote": [
+      {
+        "train_fraction": 1.0,
+        "accuracy_mean": 0.7769,
+        "accuracy_std": 0.0333,
+        "macro_f1_mean": 0.7569
+      }
+    ],
     "Plane|cnn1d|dtw": [
       {
         "train_fraction": 0.1,
@@ -71652,6 +74599,2142 @@
     ],
     "pre_registered": true,
     "dataset": "WISDM"
+  },
+  "reduction_pamap2": {
+    "dataset": "PAMAP2",
+    "pre_registered": true,
+    "primary_metric": "macro_f1",
+    "by_metric": {
+      "macro_f1": {
+        "target_metric": "macro_f1",
+        "target_value": 0.7,
+        "n_star_none": 2.0,
+        "n_star_none_ci": [
+          2.0,
+          3.05
+        ],
+        "methods": [
+          {
+            "augmentation": "dtw",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.0
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.7358
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.728
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.7882
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.8281
+              }
+            ]
+          },
+          {
+            "augmentation": "label_shuffle",
+            "n_star": null,
+            "n_star_ci": [
+              null,
+              null
+            ],
+            "reduction_rate": null,
+            "subjects_saved": null,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.5174
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.4598
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.5698
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.618
+              }
+            ]
+          },
+          {
+            "augmentation": "mixup",
+            "n_star": 2.53,
+            "n_star_ci": [
+              2.0,
+              3.37
+            ],
+            "reduction_rate": -0.264,
+            "subjects_saved": -0.53,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.6923
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7069
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.7729
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.8233
+              }
+            ]
+          },
+          {
+            "augmentation": "none",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              3.05
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.7063
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7168
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.7712
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.7656
+              }
+            ]
+          },
+          {
+            "augmentation": "oversample",
+            "n_star": 2.38,
+            "n_star_ci": [
+              2.0,
+              2.78
+            ],
+            "reduction_rate": -0.191,
+            "subjects_saved": -0.38,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.6839
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7261
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.735
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.8015
+              }
+            ]
+          },
+          {
+            "augmentation": "scaling",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.48
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.7004
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7241
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.757
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.7765
+              }
+            ]
+          },
+          {
+            "augmentation": "smote",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.23
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.7214
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7378
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.7683
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.8001
+              }
+            ]
+          }
+        ],
+        "target_source": "pre-registered (config target_value)",
+        "fullpool_none_mean": 0.7656,
+        "fullpool_n": 5,
+        "fullpool_repeats": 5
+      },
+      "accuracy": {
+        "target_metric": "accuracy",
+        "target_value": 0.7,
+        "n_star_none": 2.0,
+        "n_star_none_ci": [
+          2.0,
+          2.0
+        ],
+        "methods": [
+          {
+            "augmentation": "dtw",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.0
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.7523
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7491
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.8069
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.818
+              }
+            ]
+          },
+          {
+            "augmentation": "label_shuffle",
+            "n_star": null,
+            "n_star_ci": [
+              null,
+              null
+            ],
+            "reduction_rate": null,
+            "subjects_saved": null,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.5907
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.5685
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.6517
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.6952
+              }
+            ]
+          },
+          {
+            "augmentation": "mixup",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.28
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.71
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7533
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.798
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.8128
+              }
+            ]
+          },
+          {
+            "augmentation": "none",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.0
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.7274
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7424
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.7934
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.7958
+              }
+            ]
+          },
+          {
+            "augmentation": "oversample",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.0
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.7267
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7506
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.7838
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.8084
+              }
+            ]
+          },
+          {
+            "augmentation": "scaling",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.0
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.7289
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7528
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.7862
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.8059
+              }
+            ]
+          },
+          {
+            "augmentation": "smote",
+            "n_star": 2.0,
+            "n_star_ci": [
+              2.0,
+              2.0
+            ],
+            "reduction_rate": 0.0,
+            "subjects_saved": 0.0,
+            "curve": [
+              {
+                "subject_count": 2,
+                "mean": 0.737
+              },
+              {
+                "subject_count": 3,
+                "mean": 0.7597
+              },
+              {
+                "subject_count": 4,
+                "mean": 0.7985
+              },
+              {
+                "subject_count": 5,
+                "mean": 0.8125
+              }
+            ]
+          }
+        ],
+        "target_source": "registered rule from full-pool none baseline",
+        "fullpool_none_mean": 0.7958,
+        "fullpool_n": 5,
+        "fullpool_repeats": 5
+      }
+    }
+  },
+  "reduction_cross": {
+    "target_rule": "floor_0.05(full_pool_none_mean - 0.05)",
+    "metrics": [
+      "accuracy",
+      "macro_f1"
+    ],
+    "note": "unified target-determination rule across datasets; pre-registered for PAMAP2, post-hoc descriptive for UCI HAR / WISDM",
+    "datasets": [
+      {
+        "dataset": "PAMAP2",
+        "pool_max": 5,
+        "grid_min": 2,
+        "primary_metric": "macro_f1",
+        "pre_registered_primary": {
+          "metric": "macro_f1",
+          "value": 0.7
+        },
+        "unified_pre_registered": true,
+        "by_metric": {
+          "accuracy": {
+            "target_metric": "accuracy",
+            "target_value": 0.7,
+            "n_star_none": 2.0,
+            "n_star_none_ci": [
+              2.0,
+              2.0
+            ],
+            "methods": [
+              {
+                "augmentation": "dtw",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.0
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.7523
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7491
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.8069
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.818
+                  }
+                ]
+              },
+              {
+                "augmentation": "label_shuffle",
+                "n_star": null,
+                "n_star_ci": [
+                  null,
+                  null
+                ],
+                "reduction_rate": null,
+                "subjects_saved": null,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.5907
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5685
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.6517
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.6952
+                  }
+                ]
+              },
+              {
+                "augmentation": "mixup",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.28
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.71
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7533
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.798
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.8128
+                  }
+                ]
+              },
+              {
+                "augmentation": "none",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.0
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.7274
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7424
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.7934
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.7958
+                  }
+                ]
+              },
+              {
+                "augmentation": "oversample",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.0
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.7267
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7506
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.7838
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.8084
+                  }
+                ]
+              },
+              {
+                "augmentation": "scaling",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.0
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.7289
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7528
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.7862
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.8059
+                  }
+                ]
+              },
+              {
+                "augmentation": "smote",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.0
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.737
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7597
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.7985
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.8125
+                  }
+                ]
+              }
+            ],
+            "fullpool_none_mean": 0.7958,
+            "fullpool_n": 5,
+            "fullpool_repeats": 5,
+            "left_censored": true
+          },
+          "macro_f1": {
+            "target_metric": "macro_f1",
+            "target_value": 0.7,
+            "n_star_none": 2.0,
+            "n_star_none_ci": [
+              2.0,
+              3.05
+            ],
+            "methods": [
+              {
+                "augmentation": "dtw",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.0
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.7358
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.728
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.7882
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.8281
+                  }
+                ]
+              },
+              {
+                "augmentation": "label_shuffle",
+                "n_star": null,
+                "n_star_ci": [
+                  null,
+                  null
+                ],
+                "reduction_rate": null,
+                "subjects_saved": null,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.5174
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.4598
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.5698
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.618
+                  }
+                ]
+              },
+              {
+                "augmentation": "mixup",
+                "n_star": 2.53,
+                "n_star_ci": [
+                  2.0,
+                  3.37
+                ],
+                "reduction_rate": -0.264,
+                "subjects_saved": -0.53,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.6923
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7069
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.7729
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.8233
+                  }
+                ]
+              },
+              {
+                "augmentation": "none",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  3.05
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.7063
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7168
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.7712
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.7656
+                  }
+                ]
+              },
+              {
+                "augmentation": "oversample",
+                "n_star": 2.38,
+                "n_star_ci": [
+                  2.0,
+                  2.78
+                ],
+                "reduction_rate": -0.191,
+                "subjects_saved": -0.38,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.6839
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7261
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.735
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.8015
+                  }
+                ]
+              },
+              {
+                "augmentation": "scaling",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.48
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.7004
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7241
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.757
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.7765
+                  }
+                ]
+              },
+              {
+                "augmentation": "smote",
+                "n_star": 2.0,
+                "n_star_ci": [
+                  2.0,
+                  2.23
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 2,
+                    "mean": 0.7214
+                  },
+                  {
+                    "subject_count": 3,
+                    "mean": 0.7378
+                  },
+                  {
+                    "subject_count": 4,
+                    "mean": 0.7683
+                  },
+                  {
+                    "subject_count": 5,
+                    "mean": 0.8001
+                  }
+                ]
+              }
+            ],
+            "fullpool_none_mean": 0.7656,
+            "fullpool_n": 5,
+            "fullpool_repeats": 5,
+            "left_censored": true
+          }
+        }
+      },
+      {
+        "dataset": "UCI_HAR",
+        "pool_max": 21,
+        "grid_min": 3,
+        "primary_metric": "accuracy",
+        "pre_registered_primary": {
+          "metric": "accuracy",
+          "value": 0.9
+        },
+        "unified_pre_registered": false,
+        "by_metric": {
+          "accuracy": {
+            "target_metric": "accuracy",
+            "target_value": 0.85,
+            "n_star_none": 3.47,
+            "n_star_none_ci": [
+              3.0,
+              4.89
+            ],
+            "methods": [
+              {
+                "augmentation": "dtw",
+                "n_star": 3.0,
+                "n_star_ci": [
+                  3.0,
+                  4.79
+                ],
+                "reduction_rate": 0.136,
+                "subjects_saved": 0.47,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8596
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8922
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.9045
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9277
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9341
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9312
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9398
+                  }
+                ]
+              },
+              {
+                "augmentation": "label_shuffle",
+                "n_star": 3.25,
+                "n_star_ci": [
+                  3.0,
+                  4.44
+                ],
+                "reduction_rate": 0.063,
+                "subjects_saved": 0.22,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8474
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.878
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.9048
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9087
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9204
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9184
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9184
+                  }
+                ]
+              },
+              {
+                "augmentation": "mixup",
+                "n_star": 3.0,
+                "n_star_ci": [
+                  3.0,
+                  4.9
+                ],
+                "reduction_rate": 0.136,
+                "subjects_saved": 0.47,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.86
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.876
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.905
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9249
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9326
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9276
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9391
+                  }
+                ]
+              },
+              {
+                "augmentation": "none",
+                "n_star": 3.47,
+                "n_star_ci": [
+                  3.0,
+                  4.89
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8431
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8869
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.9007
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9336
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9433
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9312
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9376
+                  }
+                ]
+              },
+              {
+                "augmentation": "oversample",
+                "n_star": 3.11,
+                "n_star_ci": [
+                  3.0,
+                  5.02
+                ],
+                "reduction_rate": 0.103,
+                "subjects_saved": 0.36,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8489
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8785
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.897
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9303
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9372
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9259
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9355
+                  }
+                ]
+              },
+              {
+                "augmentation": "scaling",
+                "n_star": 3.0,
+                "n_star_ci": [
+                  3.0,
+                  3.0
+                ],
+                "reduction_rate": 0.136,
+                "subjects_saved": 0.47,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8827
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8746
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.905
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9332
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9458
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9303
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9429
+                  }
+                ]
+              },
+              {
+                "augmentation": "smote",
+                "n_star": 3.06,
+                "n_star_ci": [
+                  3.0,
+                  5.17
+                ],
+                "reduction_rate": 0.119,
+                "subjects_saved": 0.41,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8495
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8771
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.8993
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9257
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.941
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9287
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9358
+                  }
+                ]
+              }
+            ],
+            "fullpool_none_mean": 0.9376,
+            "fullpool_n": 21,
+            "fullpool_repeats": 3,
+            "left_censored": false
+          },
+          "macro_f1": {
+            "target_metric": "macro_f1",
+            "target_value": 0.85,
+            "n_star_none": 3.4,
+            "n_star_none_ci": [
+              3.0,
+              4.81
+            ],
+            "methods": [
+              {
+                "augmentation": "dtw",
+                "n_star": 3.0,
+                "n_star_ci": [
+                  3.0,
+                  4.8
+                ],
+                "reduction_rate": 0.118,
+                "subjects_saved": 0.4,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.86
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8931
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.9051
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9294
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9349
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9316
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9402
+                  }
+                ]
+              },
+              {
+                "augmentation": "label_shuffle",
+                "n_star": 3.29,
+                "n_star_ci": [
+                  3.0,
+                  4.53
+                ],
+                "reduction_rate": 0.034,
+                "subjects_saved": 0.11,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8472
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8764
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.9044
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9096
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9213
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9193
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.919
+                  }
+                ]
+              },
+              {
+                "augmentation": "mixup",
+                "n_star": 3.0,
+                "n_star_ci": [
+                  3.0,
+                  4.92
+                ],
+                "reduction_rate": 0.118,
+                "subjects_saved": 0.4,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8598
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8783
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.9055
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9264
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9339
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9288
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9393
+                  }
+                ]
+              },
+              {
+                "augmentation": "none",
+                "n_star": 3.4,
+                "n_star_ci": [
+                  3.0,
+                  4.81
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.844
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8888
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.9018
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9349
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9449
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9323
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9382
+                  }
+                ]
+              },
+              {
+                "augmentation": "oversample",
+                "n_star": 3.0,
+                "n_star_ci": [
+                  3.0,
+                  4.91
+                ],
+                "reduction_rate": 0.118,
+                "subjects_saved": 0.4,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8521
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8806
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.8984
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9318
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9382
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9269
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.936
+                  }
+                ]
+              },
+              {
+                "augmentation": "scaling",
+                "n_star": 3.0,
+                "n_star_ci": [
+                  3.0,
+                  3.0
+                ],
+                "reduction_rate": 0.118,
+                "subjects_saved": 0.4,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8843
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8773
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.906
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.9343
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9471
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.931
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9434
+                  }
+                ]
+              },
+              {
+                "augmentation": "smote",
+                "n_star": 3.0,
+                "n_star_ci": [
+                  3.0,
+                  5.14
+                ],
+                "reduction_rate": 0.118,
+                "subjects_saved": 0.4,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.8506
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.8791
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.9012
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.927
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.9424
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.9292
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.9363
+                  }
+                ]
+              }
+            ],
+            "fullpool_none_mean": 0.9382,
+            "fullpool_n": 21,
+            "fullpool_repeats": 3,
+            "left_censored": false
+          }
+        }
+      },
+      {
+        "dataset": "WISDM",
+        "pool_max": 24,
+        "grid_min": 3,
+        "primary_metric": "accuracy",
+        "pre_registered_primary": {
+          "metric": "accuracy",
+          "value": 0.8
+        },
+        "unified_pre_registered": false,
+        "by_metric": {
+          "accuracy": {
+            "target_metric": "accuracy",
+            "target_value": 0.75,
+            "n_star_none": 11.13,
+            "n_star_none_ci": [
+              8.4,
+              12.78
+            ],
+            "methods": [
+              {
+                "augmentation": "dtw",
+                "n_star": 12.39,
+                "n_star_ci": [
+                  8.82,
+                  13.28
+                ],
+                "reduction_rate": -0.113,
+                "subjects_saved": -1.26,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5346
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.5928
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.7105
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.7387
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.8245
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.8383
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.8297
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.8465
+                  }
+                ]
+              },
+              {
+                "augmentation": "label_shuffle",
+                "n_star": 13.56,
+                "n_star_ci": [
+                  9.62,
+                  14.48
+                ],
+                "reduction_rate": -0.218,
+                "subjects_saved": -2.43,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5198
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.5634
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.6846
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.6984
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.7974
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.7793
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.7986
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.833
+                  }
+                ]
+              },
+              {
+                "augmentation": "mixup",
+                "n_star": 11.71,
+                "n_star_ci": [
+                  8.74,
+                  14.25
+                ],
+                "reduction_rate": -0.052,
+                "subjects_saved": -0.58,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5377
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.6495
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.6949
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.7559
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.7974
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.8515
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.8465
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.8484
+                  }
+                ]
+              },
+              {
+                "augmentation": "none",
+                "n_star": 11.13,
+                "n_star_ci": [
+                  8.4,
+                  12.78
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5404
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.6224
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.7023
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.7693
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.8145
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.8537
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.8301
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.8264
+                  }
+                ]
+              },
+              {
+                "augmentation": "oversample",
+                "n_star": 11.17,
+                "n_star_ci": [
+                  8.1,
+                  13.35
+                ],
+                "reduction_rate": -0.003,
+                "subjects_saved": -0.04,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5178
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.6236
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.7156
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.7631
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.8145
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.8395
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.821
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.8284
+                  }
+                ]
+              },
+              {
+                "augmentation": "scaling",
+                "n_star": 11.98,
+                "n_star_ci": [
+                  8.26,
+                  13.2
+                ],
+                "reduction_rate": -0.076,
+                "subjects_saved": -0.84,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5196
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.6269
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.7167
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.7502
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.8364
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.8441
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.8319
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.8496
+                  }
+                ]
+              },
+              {
+                "augmentation": "smote",
+                "n_star": 10.52,
+                "n_star_ci": [
+                  8.26,
+                  11.66
+                ],
+                "reduction_rate": 0.055,
+                "subjects_saved": 0.61,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5143
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.6065
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.7054
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.7933
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.8295
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.8369
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.8457
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.8621
+                  }
+                ]
+              }
+            ],
+            "fullpool_none_mean": 0.8264,
+            "fullpool_n": 24,
+            "fullpool_repeats": 3,
+            "left_censored": false
+          },
+          "macro_f1": {
+            "target_metric": "macro_f1",
+            "target_value": 0.7,
+            "n_star_none": 11.85,
+            "n_star_none_ci": [
+              10.67,
+              14.41
+            ],
+            "methods": [
+              {
+                "augmentation": "dtw",
+                "n_star": 13.16,
+                "n_star_ci": [
+                  11.75,
+                  14.05
+                ],
+                "reduction_rate": -0.11,
+                "subjects_saved": -1.31,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.5016
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.5469
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.6363
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.6694
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.7487
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.769
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.754
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.7826
+                  }
+                ]
+              },
+              {
+                "augmentation": "label_shuffle",
+                "n_star": null,
+                "n_star_ci": [
+                  null,
+                  null
+                ],
+                "reduction_rate": null,
+                "subjects_saved": null,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.434
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.4585
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.4878
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.5966
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.612
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.5974
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.6532
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.6929
+                  }
+                ]
+              },
+              {
+                "augmentation": "mixup",
+                "n_star": 12.77,
+                "n_star_ci": [
+                  10.96,
+                  15.07
+                ],
+                "reduction_rate": -0.078,
+                "subjects_saved": -0.92,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.4801
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.5728
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.6325
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.6872
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.7368
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.7891
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.7676
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.7784
+                  }
+                ]
+              },
+              {
+                "augmentation": "none",
+                "n_star": 11.85,
+                "n_star_ci": [
+                  10.67,
+                  14.41
+                ],
+                "reduction_rate": 0.0,
+                "subjects_saved": 0.0,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.4897
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.5598
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.6238
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.704
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.7196
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.7797
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.7636
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.7571
+                  }
+                ]
+              },
+              {
+                "augmentation": "oversample",
+                "n_star": 12.43,
+                "n_star_ci": [
+                  10.94,
+                  15.65
+                ],
+                "reduction_rate": -0.049,
+                "subjects_saved": -0.58,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.4754
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.5468
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.6215
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.6927
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.7432
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.7736
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.7545
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.759
+                  }
+                ]
+              },
+              {
+                "augmentation": "scaling",
+                "n_star": 12.46,
+                "n_star_ci": [
+                  11.45,
+                  13.64
+                ],
+                "reduction_rate": -0.052,
+                "subjects_saved": -0.61,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.4714
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.5451
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.6174
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.6901
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.7544
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.7784
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.7582
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.781
+                  }
+                ]
+              },
+              {
+                "augmentation": "smote",
+                "n_star": 11.36,
+                "n_star_ci": [
+                  10.67,
+                  12.8
+                ],
+                "reduction_rate": 0.041,
+                "subjects_saved": 0.49,
+                "curve": [
+                  {
+                    "subject_count": 3,
+                    "mean": 0.4873
+                  },
+                  {
+                    "subject_count": 6,
+                    "mean": 0.5464
+                  },
+                  {
+                    "subject_count": 9,
+                    "mean": 0.6192
+                  },
+                  {
+                    "subject_count": 12,
+                    "mean": 0.7218
+                  },
+                  {
+                    "subject_count": 15,
+                    "mean": 0.7498
+                  },
+                  {
+                    "subject_count": 18,
+                    "mean": 0.7736
+                  },
+                  {
+                    "subject_count": 21,
+                    "mean": 0.7753
+                  },
+                  {
+                    "subject_count": 24,
+                    "mean": 0.7981
+                  }
+                ]
+              }
+            ],
+            "fullpool_none_mean": 0.7571,
+            "fullpool_n": 24,
+            "fullpool_repeats": 3,
+            "left_censored": false
+          }
+        }
+      }
+    ]
   },
   "failed_runs": [],
   "audit": {

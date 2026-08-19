@@ -132,6 +132,89 @@ def subject_curve_svg(curves_by_aug: dict, target: float | None, width: int = 56
     return "".join(parts)
 
 
+def cross_reduction_svg(cross: dict, metric: str, width: int = 580, height: int = 320) -> str:
+    """Scatter of reduction rate (y) vs pool subject count (x) across the three
+    subject datasets, one dot per augmentation, for a single metric. The none
+    baseline is the y=0 line. Left-censored datasets (N*(none) at the grid floor)
+    are NOT given a false reduction value; instead a shaded band marks them as
+    "推定不能". Self-contained SVG (no JS/external refs). Data-driven from
+    results.json['reduction_cross']; nothing about the values is hand-typed."""
+    datasets = [d for d in cross.get("datasets", []) if metric in d.get("by_metric", {})]
+    if not datasets:
+        return ""
+    pad_l, pad_r, pad_t, pad_b = 46, 96, 34, 40
+    # y-range from estimable reductions only (skip none and censored/null)
+    yvals = [0.0]
+    for d in datasets:
+        b = d["by_metric"][metric]
+        if b.get("left_censored"):
+            continue
+        for m in b["methods"]:
+            if m["augmentation"] != "none" and m.get("reduction_rate") is not None:
+                yvals.append(m["reduction_rate"])
+    y_min, y_max = min(yvals), max(yvals)
+    span = max(y_max - y_min, 0.1)
+    y_min, y_max = y_min - 0.05 * span, y_max + 0.05 * span
+    pools = [d["pool_max"] for d in datasets]
+    x_min, x_max = min(pools), max(pools)
+
+    def sx(x):
+        return pad_l + (x - x_min) / (x_max - x_min or 1) * (width - pad_l - pad_r)
+
+    def sy(v):
+        return pad_t + (1 - (v - y_min) / (y_max - y_min or 1)) * (height - pad_t - pad_b)
+
+    parts = [f'<svg viewBox="0 0 {width} {height}" class="w-full h-auto" role="img" '
+             f'aria-label="cross-dataset reduction vs pool size ({metric})">']
+    # axes
+    parts.append(f'<line x1="{pad_l}" y1="{pad_t}" x2="{pad_l}" y2="{height-pad_b}" stroke="#cbd5e1"/>')
+    parts.append(f'<line x1="{pad_l}" y1="{height-pad_b}" x2="{width-pad_r}" y2="{height-pad_b}" stroke="#cbd5e1"/>')
+    # y ticks
+    for frac in (0.0, 0.25, 0.5, 0.75, 1.0):
+        v = y_min + frac * (y_max - y_min)
+        parts.append(f'<text x="{pad_l-5}" y="{sy(v)+3:.1f}" text-anchor="end" font-size="9" fill="#64748b">{v*100:+.0f}%</text>')
+    # zero line = none baseline
+    parts.append(f'<line x1="{pad_l}" y1="{sy(0):.1f}" x2="{width-pad_r}" y2="{sy(0):.1f}" '
+                 f'stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/>')
+    parts.append(f'<text x="{width-pad_r+4}" y="{sy(0)+3:.1f}" font-size="9" fill="#ef4444">none 基準</text>')
+    parts.append(f'<text x="{(pad_l+width-pad_r)/2:.0f}" y="{height-6}" text-anchor="middle" font-size="10" fill="#475569">母集団(pool)被験者数</text>')
+    parts.append(f'<text x="14" y="{(pad_t+height-pad_b)/2:.0f}" text-anchor="middle" font-size="10" fill="#475569" '
+                 f'transform="rotate(-90 14 {(pad_t+height-pad_b)/2:.0f})">削減率 = 1 − N*(aug)/N*(none)</text>')
+    # per-dataset x tick + points
+    order = ["oversample", "scaling", "mixup", "dtw", "smote", "label_shuffle"]
+    for d in datasets:
+        b = d["by_metric"][metric]
+        x0 = sx(d["pool_max"])
+        parts.append(f'<text x="{x0:.1f}" y="{height-pad_b+14}" text-anchor="middle" font-size="10" fill="#334155">{d["dataset"]}</text>')
+        parts.append(f'<text x="{x0:.1f}" y="{height-pad_b+25}" text-anchor="middle" font-size="8" fill="#94a3b8">pool {d["pool_max"]}</text>')
+        if b.get("left_censored"):
+            # mark as not-estimable rather than plotting a false reduction
+            parts.append(f'<rect x="{x0-13:.1f}" y="{pad_t}" width="26" height="{height-pad_t-pad_b}" '
+                         f'fill="#94a3b8" opacity="0.12"/>')
+            parts.append(f'<text x="{x0:.1f}" y="{(pad_t+height-pad_b)/2:.0f}" text-anchor="middle" font-size="9" '
+                         f'fill="#64748b" transform="rotate(-90 {x0:.1f} {(pad_t+height-pad_b)/2:.0f})">推定不能(左側打ち切り)</text>')
+            continue
+        methods = {m["augmentation"]: m for m in b["methods"]}
+        present = [a for a in order if a in methods]
+        n = len(present)
+        for i, aug in enumerate(present):
+            m = methods[aug]
+            if m.get("reduction_rate") is None:
+                continue
+            jitter = (i - (n - 1) / 2) * 5
+            cx, cy = x0 + jitter, sy(m["reduction_rate"])
+            parts.append(f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="3.2" fill="{aug_color(aug)}" '
+                         f'stroke="#fff" stroke-width="0.6"/>')
+    # legend (methods)
+    lx = pad_l
+    for aug in order:
+        parts.append(f'<circle cx="{lx+4:.0f}" cy="{pad_t-16}" r="3.2" fill="{aug_color(aug)}"/>')
+        parts.append(f'<text x="{lx+10:.0f}" y="{pad_t-12}" font-size="8" fill="#475569">{aug}</text>')
+        lx += 18 + len(aug) * 5.2
+    parts.append("</svg>")
+    return "".join(parts)
+
+
 PHASE_NAMES = {
     0: "Phase 0: 基盤構築",
     1: "Phase 1: UCR最小追試",
@@ -156,6 +239,7 @@ REQUIRED_SECTION_IDS = [
     "results",
     "learning-curves",
     "subject-reduction",
+    "subject-reduction-cross",
     "discussion",
     "limitations",
     "conclusion",
@@ -273,6 +357,26 @@ def gather_context(repo_root: str | Path = ".") -> dict:
                     for m in reduction_wisdm["methods"]}
         reduction_wisdm_svg = subject_curve_svg(curves_w, reduction_wisdm.get("target_value"))
 
+    # PAMAP2 external-validity reduction (issue #21 DS-2), both metrics
+    reduction_pamap2 = results.get("reduction_pamap2")
+
+    # cross-dataset reduction-vs-pool-size figure (issue #21 DS-2), unified rule
+    reduction_cross = results.get("reduction_cross")
+    reduction_cross_svg = {}
+    pamap2_none_n2 = None
+    if reduction_cross and reduction_cross.get("datasets"):
+        for metric in reduction_cross.get("metrics", ["accuracy", "macro_f1"]):
+            svg = cross_reduction_svg(reduction_cross, metric)
+            if svg:
+                reduction_cross_svg[metric] = svg
+        # the left-censoring evidence value: PAMAP2 none macro-F1 already at N=2
+        _p2 = next((d for d in reduction_cross["datasets"] if d["dataset"] == "PAMAP2"), None)
+        if _p2 and "macro_f1" in _p2["by_metric"]:
+            _none = next((m for m in _p2["by_metric"]["macro_f1"]["methods"]
+                          if m["augmentation"] == "none"), None)
+            if _none:
+                pamap2_none_n2 = next((p["mean"] for p in _none["curve"] if p["subject_count"] == 2), None)
+
     from signal_aug.evaluation.stats import holm_bonferroni
 
     stats = results.get("stats", [])
@@ -322,6 +426,11 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "reduction_svg": reduction_svg,
         "reduction_wisdm": reduction_wisdm,
         "reduction_wisdm_svg": reduction_wisdm_svg,
+        "reduction_pamap2": reduction_pamap2,
+        "reduction_cross": reduction_cross,
+        "reduction_cross_svg": reduction_cross_svg,
+        "cross_method_order": ["oversample", "scaling", "mixup", "dtw", "smote", "label_shuffle"],
+        "pamap2_none_n2": pamap2_none_n2,
         "n_runs": len(results["runs"]),
         "n_completed": len(completed_runs),
         "n_failed": len(results["failed_runs"]),

@@ -78,7 +78,7 @@
         {{ "%.2f" | format(facts.target_value) if facts.target_value is not none else "—" }} に必要な実被験者数は拡張なしで約
         {{ facts.n_star_none if facts.n_star_none is not none else "—" }} 名であり、点推定では DTW ベース合成 [{{ ref.forestier2017 }}] が最大
         {{ facts.dtw_reduction_pct if facts.dtw_reduction_pct is not none else "—" }}% の削減を示すが、反復が少なく信頼区間が対照と重なるため確定できない。
-        この「削減を確定できない(帰無)」という結論は第2の被験者データ WISDM v1.1 [{{ ref.kwapisz2011 }}] でも一貫して再現された(ただし最良手法の順位は再現せず、指標にも依存する。§6.4)。
+        この「削減を確定できない(帰無)」という結論は第2の被験者データ WISDM v1.1 [{{ ref.kwapisz2011 }}] でも一貫して再現され(ただし最良手法の順位は再現せず、指標にも依存する。§6.4)、第3の PAMAP2 [{{ ref.reiss2012 }}] を加えた3データ横断でも母集団被験者数(5〜24名)に沿う系統トレンドは検出されない(PAMAP2 は少 N・高 baseline で左側打ち切り=削減率推定不能。§6.5)。
         したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
         なお UCR での精度効果は先行研究 [{{ ref.iwana2021 }}] の傾向を追試した結果であり、被験者数削減の評価枠組みと negative control による健全性検証が本研究独自の貢献である。
         すべての結果は目標の事前登録とデータリーク防止プロトコルの下で得られ、実験基盤・レポートは完全に自動生成される。
@@ -409,6 +409,66 @@
         <p>純粋な「量の水増し」の対照は <span class="font-mono">oversample</span> であり、WISDM では{% if osw and osw.reduction_rate is not none %} <span class="font-mono">{{ "%+.1f%%" | format(osw.reduction_rate * 100) }}</span>(ほぼ 0){% endif %}——量を増やすだけでは N* は下がらない。
         {% if ncw and ncw.reduction_rate is not none %}悲観的対照 <span class="font-mono">label_shuffle</span>(元データ保持+ラベルノイズ)は WISDM では <span class="font-mono">{{ "%+.1f%%" | format(ncw.reduction_rate * 100) }}</span> と必要被験者数がむしろ増える。これは複製分の乱ラベルが有害に働いた結果であって、UCI HAR で見た見かけの削減の有無を「量水増しアーティファクトの強弱」として対比できるものではない(対照の性質が「量の水増し」ではなくラベルノイズだからである)。{% endif %}
         いずれにせよ<strong>「拡張が所定性能に必要な実被験者を明確に代替する」ことは UCI HAR・WISDM のどちらでも確証されない</strong>。再現したのは帰無であって手法順位ではなく、RQ2 の結論(本設定では削減を統計的に確定できない)が単一データセット固有でないことを示す。反復数が少なく CI が広い点は両データ共通の限界(issue #6/#7)。</p>
+      </div>
+      {% endif %}
+
+      {% if reduction_cross and reduction_cross.datasets %}
+      <!-- 6.5 Cross-dataset external validity (issue #21 DS-2) -->
+      <h3 class="sub mt-6" id="subject-reduction-cross">6.5 横断の外的妥当性:PAMAP2 を加えた3データの削減率 vs 母集団被験者数</h3>
+      <p class="lead text-sm">第3の被験者データ PAMAP2 [{{ ref.reiss2012 }}](屋内外18活動のうち標準の12活動 protocol サブセット、被験者9名)を横断比較に加える。ローダは一次配布 <span class="font-mono">.dat</span> から自前前処理し(加速度 ±16g 9ch・100→33.3Hz・168サンプル窓・窓ごと z 正規化)、活動サポートの欠損する subject 109 を機械的に除外(除外基準は再現ノートタブ J-PAMAP2-EXCLUDE109)、test = 3 名(103/104/105)・<strong>pool = 5 名</strong>で N∈{2,3,4,5}×5反復。クラス不均衡(rope_jumping は test 側 0 窓で実効11クラス)のため<strong>主指標は macro-F1</strong>。目標 <span class="font-mono">macro-F1 = 0.70</span> は「pool 全員・拡張なしの test 平均から 0.05 引き 0.05 刻みで切り捨てる」統一ルールで、<strong>数値算出前・1 グリッド run 前に事前登録</strong>した(UCI HAR の 0.90・WISDM の 0.80 は流用しない)。</p>
+
+      <div class="mt-2 border border-amber-300 bg-amber-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-amber-900 mb-1">統一ルール target の扱い(比較可能性のための別レンズ)</p>
+        <p>3データの削減率を同じ軸で並べるため、横断図・横断表では <strong>3データとも同一の target 決定ルール</strong>(<span class="font-mono">{{ reduction_cross.target_rule }}</span>)を用いる。このルールは <strong>PAMAP2 では事前登録どおり</strong>だが、データ確定済みの UCI HAR・WISDM にとっては<strong>事後(post-hoc)の記述的再解析</strong>であり、両データの統一 target(macro-F1 で UCI HAR 0.85・WISDM 0.70 等)は各データの<strong>事前登録した主 target(UCI HAR accuracy 0.90 / WISDM accuracy 0.80)とは異なる</strong>。主結論(F-8/F-10/F-12)は各データの事前登録 τ に基づき<strong>不変</strong>で、本節はそれとは別レンズである。ただし統一レンズで得られる結論(削減は帰無)は主解析と一致するため、解釈は補強方向に働く。</p>
+      </div>
+
+      <p class="lead text-sm mt-3">3データはサンプリング(50/20/100→33.3Hz)・窓長・チャネル数(6/3/9)・クラス数(6/6/12)・pool 上限(21/24/5)・目標の絶対値が異なる。<strong>同一枠組みの厳密再現ではなく、各データに前処理を適合させた追試</strong>であり、これらは交絡として削減率差の原因を母集団サイズに帰属することを妨げる。3データ=<strong>3点</strong>のため回帰・相関は求めず、点+定性考察に限る。</p>
+
+      <div class="grid md:grid-cols-2 gap-3 my-3">
+        {% for metric in reduction_cross.metrics %}
+        {% if reduction_cross_svg[metric] %}
+        <figure class="border border-slate-200 rounded p-2">{{ reduction_cross_svg[metric] | safe }}<figcaption class="cap mt-1">図{{ 4 if metric == 'accuracy' else 5 }}: 削減率 vs pool 被験者数({{ metric }}、統一ルール target)。y=0 が none 基準。PAMAP2 は N*(none) が格子下限で左側打ち切り=推定不能のため点を置かず網掛けで示す。交絡(クラス数・センサ・窓・pool 上限)により削減率差を被験者数に帰属できない。</figcaption></figure>
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">データ</th><th class="p-2">指標</th><th class="p-2 text-right">pool</th><th class="p-2 text-right">統一target</th><th class="p-2 text-right">N*(none) [95%CI]</th>
+          {% for aug in cross_method_order %}<th class="p-2 text-right font-mono text-xs">{{ aug }}</th>{% endfor %}
+        </tr></thead>
+        <tbody>
+          {% for ds in reduction_cross.datasets %}
+          {% for metric in reduction_cross.metrics %}
+          {% set b = ds.by_metric[metric] %}
+          {% if b %}
+          <tr class="border-b border-slate-100 {{ 'bg-amber-50/40' if b.left_censored else '' }}">
+            <td class="p-2">{{ ds.dataset }}{% if ds.primary_metric == metric %} <span class="text-xs text-slate-400">(主)</span>{% endif %}</td>
+            <td class="p-2 font-mono text-xs">{{ metric }}</td>
+            <td class="p-2 text-right">{{ ds.pool_max }}</td>
+            <td class="p-2 text-right">{{ "%.2f" | format(b.target_value) }}</td>
+            <td class="p-2 text-right text-slate-500">{% if b.left_censored %}≤{{ ds.grid_min }}<span class="text-amber-700">(左側打ち切り)</span>{% else %}{{ b.n_star_none }} [{{ b.n_star_none_ci[0] }}–{{ b.n_star_none_ci[1] }}]{% endif %}</td>
+            {% for aug in cross_method_order %}
+            {% set m = b.methods | selectattr('augmentation','equalto',aug) | first %}
+            <td class="p-2 text-right {% if not b.left_censored and m and m.reduction_rate is not none %}{{ 'text-green-700' if m.reduction_rate > 0 else ('text-red-700' if m.reduction_rate < 0 else 'text-slate-400') }}{% else %}text-slate-400{% endif %}">
+              {%- if b.left_censored %}<span class="text-xs">推定不能</span>{% elif m and m.reduction_rate is not none %}{{ "%+.1f%%" | format(m.reduction_rate * 100) }}{% else %}未到達{% endif -%}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endif %}
+          {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      <p class="cap mt-1">表8: 統一ルール target による横断削減率(pool 昇順)。「(主)」は各データの主指標を示す。<strong>「統一target」列は横断比較用の値であり、UCI HAR・WISDM では各データの事前登録主 target(accuracy 0.90 / 0.80)とは異なる post-hoc の値</strong>である(上記注記)。<span class="font-mono">oversample</span> は純量水増しの基準、<span class="font-mono">label_shuffle</span> は元データ保持+ラベルノイズの悲観的対照。「未到達」は目標未到達で N* が定義できないこと(PAMAP2・WISDM macro-F1 の label_shuffle)。推定可能なセルでは、どの手法の N* 95%CI も N*(none) と重なる。UCI HAR の削減率が一様に正なのは、統一 target 0.85 が UCI HAR では N≈3(格子下限)で到達し N* が下限近傍に圧縮されるためで、真の削減の証拠ではない。</p>
+
+      <p class="lead text-sm mt-3"><strong>PAMAP2 は削減率を数値で断定できない。</strong> none の macro-F1 が最小格子 N=2 で既に目標 0.70 を超え{% if pamap2_none_n2 is not none %}(N2={{ "%.3f" | format(pamap2_none_n2) }}){% endif %}、N*(none) が格子下限 N=2 に張り付く(<strong>左側打ち切り</strong>)。事前登録した停止条件どおり、削減率は算出せず<strong>定性記述に格下げ</strong>する。これは PAMAP2 固有の捏造回避ではなく、<strong>少 N(pool 5)・高 baseline という構造的限界</strong>である。悲観的対照 label_shuffle は PAMAP2 で目標未到達(N* 定義不能)であり、対照として妥当に機能した。</p>
+
+      <div class="mt-3 border border-emerald-300 bg-emerald-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-emerald-900 mb-1">3データで一貫するのは帰無:母集団サイズに沿う系統トレンドは非検出</p>
+        <p>推定可能な UCI HAR・WISDM でも、統一ルール下の削減率は正負にばらつき(実手法で概ね ±14% 以内)、どの手法も none 基準(y=0)から CI 分離しない。PAMAP2 は左側打ち切りで削減率を解像できない。統一ルールは target 決定手続きを揃える一方、baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)では N* が格子下限近傍に寄り、削減率が格子分解能で圧縮される。<strong>3点・広 CI から、母集団被験者数(5〜24名)に沿った削減率の系統的トレンドは読み取れない</strong>。悲観的対照 label_shuffle は WISDM・PAMAP2 で目標未到達、UCI HAR で削減最小と、対照として一貫して妥当。以上は DS-1(F-8/F-10/F-12)で見た<strong>帰無の外的妥当性を第3データで補強</strong>するものであり、削減効果の存在を主張するものではない。強い因果・外挿はしない(F-13)。</p>
       </div>
       {% endif %}
     </section>

@@ -46,6 +46,10 @@ steps:
     title: WISDM 被験者数削減の再現(Phase 6 / issue #21 DS-1)
     command: "uv run python scripts/run_subject_experiment.py --config config/experiments/wisdm_subject_count.yaml"
     detail: "第2の被験者データ WISDM v1.1 で N∈{3,6,9,12,15,18,21,24} × 3反復の学習曲線。WISDM は初回実行時に自動ダウンロード(CC BY 4.0、data/metadata/wisdm.json に出典記録)。目標 accuracy=0.80 は UCI HAR と独立に事前登録済み。同一の loader dispatch(data/subject_datasets.py)を経由。"
+  - id: S7c
+    title: PAMAP2 被験者数削減の横断追加(Phase 6 / issue #21 DS-2)
+    command: "uv run python scripts/run_subject_experiment.py --config config/experiments/pamap2_subject_count.yaml"
+    detail: "第3の被験者データ PAMAP2 で N∈{2,3,4,5} × 5反復の学習曲線。PAMAP2 は初回実行時に自動ダウンロード(UCI #231, CC BY 4.0, DOI:10.24432/C5NW2H, archive sha256=76b3580b…; data/metadata/pamap2.json に出典・per-subject 活動サポート記録)。加速度±16g 9ch・100→33.3Hz・168窓・窓ごとznorm、subject 109 は活動サポートで機械除外。主指標 macro-F1、target は full-pool none baseline から登録ルールで確定。negative control は config/experiments/pamap2_negative_control.yaml。target 決定用 baseline のみは config/experiments/pamap2_target_baseline.yaml。同一 loader dispatch(data/subject_datasets.py)経由。"
   - id: S8
     title: 集計・監査・レポート生成
     command: "make all-report"

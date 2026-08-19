@@ -130,3 +130,51 @@ calls:
     sensitivity: "中〜高。曲線が非単調・ノイジーだと補間点が振れる。実際 WISDM の none 曲線は非単調(中盤で最大に達し以降やや低下)で、目標 0.80 の交差は 12→15 名の単一の上向き交差に依存する。複数交差時は最初の到達点を採る(interpolate)。この非単調性は N* 不確実性の一因で、手法間 N* 差(WISDM smote で被験者 1.48 名)は被験者格子間隔(3)・セル内 std・bootstrap CI より小さいため、反復増まで手法順位は報告しない。bootstrap で CI を付す。"
     preregistered: true
     source: "pre_registration.md / reporting/aggregate.py"
+  - id: J-PAMAP2-TARGET
+    topic: PAMAP2 の目標性能 τ とその選択ルール(issue #21 DS-2)
+    decision: "主指標 macro-F1。target = full-pool(N=5, aug=none)の held-out macro-F1 平均 − 0.05 を 0.05 刻みで切り捨てた値(ルールを数値確定前に登録)。UCI HAR 0.90 / WISDM 0.80 は流用しない。"
+    why: "PAMAP2 は 12活動でクラス不均衡のため主指標を macro-F1 に(#23 V2 の教訓)。target は none baseline のみに依存する手続きで決め、拡張手法の結果に依存させない(手法有利化の排除)。曲線急峻部に置き天井/床を回避。"
+    alternatives: "固定丸め値(0.60/0.65 等)、accuracy 基準、−0.10 マージン。"
+    sensitivity: "高。N* は τ 到達点なので値で削減率が動く。ルール駆動で恣意性を排除。target 絶対値は 3 データで異なるが削減率(無次元)で横断比較する。実測: full-pool none macro-F1 平均 0.766 に対しルールで target=0.70 となったが、none 曲線は最小格子点 N=2 で既に平均 0.706(≥target)。→ **N*(none) は格子下限 2 に左側打ち切り**され、{2..5} の測定レンジでは sub-target 域を捉えられず**削減率は推定不能**(事前登録の停止条件どおり定性記述に格下げ)。negative control label_shuffle は target 未到達(N*=None)で対照として妥当。この左側打ち切りは『τ を下げ過ぎた』ではなくルール適用結果であり、少 N・高 baseline データでの構造的限界。"
+    preregistered: true
+    source: "artifacts/pre_registration.md(PAMAP2 DS-2 節)/ config/experiments/pamap2_subject_count.yaml / results.json(reduction_pamap2)"
+  - id: J-PAMAP2-EXCLUDE109
+    topic: subject 109 の除外(データ有無で機械決定)
+    decision: "subject 109 を除外(pool=5 [101,102,106,107,108]、test=3 [103,104,105]、subject_counts={2,3,4,5})。"
+    why: "実測で 109 は総窓数 10・12活動中 1活動のみ(rope_jumping のみ)、他被験者 247–301 窓・8–12 活動と桁違いに欠損(生ファイル 3.9MB 対 118–207MB)。事前登録した基準『欠ける活動数が著しい/窓数が極端に少なければ除外』に機械的に該当。精度ではなくデータ有無で決定。"
+    alternatives: "保持(pool=6)。ただし 109 はほぼ全活動欠落で学習に寄与せずクラス欠落を悪化させる。"
+    sensitivity: "中。pool を 5 に減らすと N 格子分解能が下がる。ただし 109 保持は活動サポートを大きく歪めるため除外がデータ的に妥当。除外後 rope_jumping が希少化(pool 4窓・test 0窓)し macro-F1 を不安定化しうる点は限界として記録。"
+    preregistered: true
+    source: "data/metadata/pamap2.json(per_subject_activity_support)/ pre_registration.md"
+  - id: J-PAMAP2-CHANNELS
+    topic: PAMAP2 のチャネル選択
+    decision: "加速度 ±16g のみ 9ch(hand/chest/ankle × x/y/z)。orientation(無効4/IMU)・HR・±6g・ジャイロ・磁気を除外。"
+    why: "WISDM(加速度3ch)/UCI HAR(加速度+ジャイロ6ch)との加速度ドメイン整合、モデル入力の単純化。±16g は ±6g の飽和クリップを回避。orientation は公式に無効、HR は 9Hz 非同期で大半 NaN。"
+    alternatives: "加速度+ジャイロ 18ch(情報量重視)。チャネル数は横断比較の交絡。"
+    sensitivity: "中。チャネル集合で分類難度が変わり削減率にも影響しうる。チャネル数差(9/6/3)は横断図の交絡として図注明記。"
+    preregistered: true
+    source: "src/signal_aug/data/pamap2.py(DEFAULT_CHANNELS)/ config"
+  - id: J-PAMAP2-WINDOW
+    topic: PAMAP2 の窓化・ダウンサンプル
+    decision: "100→33.3Hz(stride-3 間引き)、168サンプル(~5.0s)非重複窓、(subject,activity) 連続区間内、NaN 含む窓は破棄。"
+    why: "窓の実時間長を WISDM(10s)/UCI HAR(2.56s)と近づけ横断交絡を減らす(完全一致は不可能)。33.3Hz は複数実装の慣例。非重複でセット内窓相関を回避、区間内窓化で単一ラベル保証。NaN(無線ドロップアウト)窓破棄はリーク無しで単純。"
+    alternatives: "窓長 128/256、50% オーバーラップ、線形補間による NaN 補完、6g レンジ併用。"
+    sensitivity: "中。窓長・レートは窓数と学習曲線に影響。被験者跨ぎリークは group split で別途防止。"
+    preregistered: true
+    source: "src/signal_aug/data/pamap2.py(make_windows/downsample_factor)"
+  - id: J-PAMAP2-NORM
+    topic: PAMAP2 の正規化方針
+    decision: "窓ごと・チャネルごと z 正規化(WISDM と同じ、リーク無し)。"
+    why: "PAMAP2 生加速度スケールを吸収。各窓が自分の統計のみ使用しリーク無し。WISDM と揃え DS-1/DS-2 の前処理を一貫させる。"
+    alternatives: "非正規化、被験者/データセット統計での正規化(リーク or 追加設計)。"
+    sensitivity: "中。振幅情報が落ちるが HAR は波形パターンが主判別要因。UCI HAR(非正規化)とは非対称のため『前処理を dataset に合わせた追試』と位置づける(WISDM と同じ扱い)。"
+    preregistered: true
+    source: "src/signal_aug/data/pamap2.py(_znorm_window)"
+  - id: J-CROSS-UNIFIED
+    topic: 横断図(§6.5)の統一 target ルールと UCI HAR/WISDM への post-hoc 適用(issue #21 DS-2)
+    decision: "3データの削減率を同一軸で並べるため、横断図・横断表では3データとも同一ルール target=floor_0.05(full-pool none 平均 −0.05)を用いる。results.json['reduction_cross'] として run manifest から再集計(手入力なし)。"
+    why: "削減率(1−N*(aug)/N*(none))は無次元だが、target 決定手続きが揃わないと横断比較が不公平。統一ルールは none baseline のみ依存で手法有利化がない。PAMAP2 ではこのルールを事前登録済み。"
+    alternatives: "各データの事前登録 τ をそのまま横断に使う(手続き不統一)/ 共通の固定丸め target(データ間で難度が非対称)。"
+    sensitivity: "高(解釈)。UCI HAR・WISDM はデータ確定済みのため、統一ルール適用は両データにとって post-hoc の記述的再解析であり、統一 target(macro-F1 で UCI HAR 0.85・WISDM 0.70)は事前登録主 target(accuracy 0.90/0.80)と異なる。主結論 F-8/F-10/F-12 は各データの事前登録 τ に基づき不変で、横断の統一ルール版は別レンズ(結論の帰無は主解析と一致し補強方向)。統一ルールは baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)で N* を格子下限近傍に寄せ削減率を格子分解能で圧縮する(PAMAP2 は左側打ち切りで推定不能、UCI HAR も N*(none)≈3.4)。3点のため回帰・相関は求めない。"
+    preregistered: false
+    source: "src/signal_aug/reporting/aggregate.py(_cross_dataset_reduction)/ results.json(reduction_cross)/ report §6.5 / findings F-13"

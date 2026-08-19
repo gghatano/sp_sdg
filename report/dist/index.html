@@ -46,7 +46,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-19 13:52 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-07-19 16:57 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -71,14 +71,14 @@
         <h2 class="text-sm font-bold figtab tracking-wide text-slate-700 mb-2">要旨</h2>
         <p class="lead text-sm">
         本研究は、時系列データ拡張が分類精度に与える効果を UCR Time Series Classification Archive [1] の
-        13 データセットで系統的に評価し(被験者ID付きデータ 2 件を含め計 2961 run)、被験者ID付きデータ
+        13 データセットで系統的に評価し(被験者ID付きデータ 3 件を含め計 3101 run)、被験者ID付きデータ
         (UCI HAR [12])へ展開して「所定の分類性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を定量する。
         1D-CNN では 5 手法の拡張が精度を統計的に有意に改善する一方、MiniRocket [4] では有意な改善が
         見られず、効果はモデルに強く依存する。被験者数削減では、事前登録した目標精度
         0.90 に必要な実被験者数は拡張なしで約
         8.85 名であり、点推定では DTW ベース合成 [9] が最大
         10.8% の削減を示すが、反復が少なく信頼区間が対照と重なるため確定できない。
-        この「削減を確定できない(帰無)」という結論は第2の被験者データ WISDM v1.1 [13] でも一貫して再現された(ただし最良手法の順位は再現せず、指標にも依存する。§6.4)。
+        この「削減を確定できない(帰無)」という結論は第2の被験者データ WISDM v1.1 [13] でも一貫して再現され(ただし最良手法の順位は再現せず、指標にも依存する。§6.4)、第3の PAMAP2 [14] を加えた3データ横断でも母集団被験者数(5〜24名)に沿う系統トレンドは検出されない(PAMAP2 は少 N・高 baseline で左側打ち切り=削減率推定不能。§6.5)。
         したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
         なお UCR での精度効果は先行研究 [8] の傾向を追試した結果であり、被験者数削減の評価枠組みと negative control による健全性検証が本研究独自の貢献である。
         すべての結果は目標の事前登録とデータリーク防止プロトコルの下で得られ、実験基盤・レポートは完全に自動生成される。
@@ -228,7 +228,7 @@
 
       <h3 class="sub">5.1 データセット</h3>
       <p class="lead text-sm">UCR アーカイブ [1] から小〜中規模の 13 データセットで RQ1 を評価し、RQ2(被験者数削減)の主対象には
-      被験者ID付きの UCI HAR [12](30名)を、第2の被験者データに WISDM v1.1 [13](36名)を選定した(表2 の synthetic を除く計 15 データセット)。</p>
+      被験者ID付きの UCI HAR [12](30名)を、第2の被験者データに WISDM v1.1 [13](36名)を選定した(表2 の synthetic を除く計 16 データセット)。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50"><th class="p-2">名前</th><th class="p-2">ソース</th><th class="p-2">備考</th></tr></thead>
@@ -1326,6 +1326,62 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">PAMAP2</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7815 ± 0.0378</td>
+            <td class="p-2 text-right text-green-700">+0.0167</td>
+            <td class="p-2 text-right">0.7700</td>
+            <td class="p-2 text-right">0.7689</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">PAMAP2</td><td class="p-2 font-mono">label_shuffle</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.6265 ± 0.0645</td>
+            <td class="p-2 text-right text-slate-400">-0.1383</td>
+            <td class="p-2 text-right">0.5413</td>
+            <td class="p-2 text-right">0.5648</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">PAMAP2</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7685 ± 0.0470</td>
+            <td class="p-2 text-right text-green-700">+0.0037</td>
+            <td class="p-2 text-right">0.7488</td>
+            <td class="p-2 text-right">0.7523</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">PAMAP2</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7648 ± 0.0372</td>
+            <td class="p-2 text-right text-slate-400">—</td>
+            <td class="p-2 text-right">0.7400</td>
+            <td class="p-2 text-right">0.7317</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">PAMAP2</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7673 ± 0.0376</td>
+            <td class="p-2 text-right text-green-700">+0.0025</td>
+            <td class="p-2 text-right">0.7366</td>
+            <td class="p-2 text-right">0.7383</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">PAMAP2</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7685 ± 0.0344</td>
+            <td class="p-2 text-right text-green-700">+0.0037</td>
+            <td class="p-2 text-right">0.7395</td>
+            <td class="p-2 text-right">0.7356</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">PAMAP2</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">cnn1d_har</td>
+            <td class="p-2 text-right">0.7769 ± 0.0333</td>
+            <td class="p-2 text-right text-green-700">+0.0121</td>
+            <td class="p-2 text-right">0.7569</td>
+            <td class="p-2 text-right">0.7505</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
             <td class="p-2 text-right">1.0000 ± 0.0000</td>
             <td class="p-2 text-right text-slate-400">+0.0000</td>
@@ -1888,7 +1944,7 @@
         </tbody>
       </table>
       </div>
-      <p class="cap mt-1">表4: 学習比率 100% の主要結果(全 2965 run のうち完了分から集計)。macro-F1 はクラス不均衡なデータ(例 ECG5000)で精度より低くなる。
+      <p class="cap mt-1">表4: 学習比率 100% の主要結果(全 3105 run のうち完了分から集計)。macro-F1 はクラス不均衡なデータ(例 ECG5000)で精度より低くなる。
       bal. acc.(balanced accuracy)はクラスごとの再現率の平均で、少数クラスを多数クラスと対等に扱う指標。</p>
 
       
@@ -2330,6 +2386,237 @@
         いずれにせよ<strong>「拡張が所定性能に必要な実被験者を明確に代替する」ことは UCI HAR・WISDM のどちらでも確証されない</strong>。再現したのは帰無であって手法順位ではなく、RQ2 の結論(本設定では削減を統計的に確定できない)が単一データセット固有でないことを示す。反復数が少なく CI が広い点は両データ共通の限界(issue #6/#7)。</p>
       </div>
       
+
+      
+      <!-- 6.5 Cross-dataset external validity (issue #21 DS-2) -->
+      <h3 class="sub mt-6" id="subject-reduction-cross">6.5 横断の外的妥当性:PAMAP2 を加えた3データの削減率 vs 母集団被験者数</h3>
+      <p class="lead text-sm">第3の被験者データ PAMAP2 [14](屋内外18活動のうち標準の12活動 protocol サブセット、被験者9名)を横断比較に加える。ローダは一次配布 <span class="font-mono">.dat</span> から自前前処理し(加速度 ±16g 9ch・100→33.3Hz・168サンプル窓・窓ごと z 正規化)、活動サポートの欠損する subject 109 を機械的に除外(除外基準は再現ノートタブ J-PAMAP2-EXCLUDE109)、test = 3 名(103/104/105)・<strong>pool = 5 名</strong>で N∈{2,3,4,5}×5反復。クラス不均衡(rope_jumping は test 側 0 窓で実効11クラス)のため<strong>主指標は macro-F1</strong>。目標 <span class="font-mono">macro-F1 = 0.70</span> は「pool 全員・拡張なしの test 平均から 0.05 引き 0.05 刻みで切り捨てる」統一ルールで、<strong>数値算出前・1 グリッド run 前に事前登録</strong>した(UCI HAR の 0.90・WISDM の 0.80 は流用しない)。</p>
+
+      <div class="mt-2 border border-amber-300 bg-amber-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-amber-900 mb-1">統一ルール target の扱い(比較可能性のための別レンズ)</p>
+        <p>3データの削減率を同じ軸で並べるため、横断図・横断表では <strong>3データとも同一の target 決定ルール</strong>(<span class="font-mono">floor_0.05(full_pool_none_mean - 0.05)</span>)を用いる。このルールは <strong>PAMAP2 では事前登録どおり</strong>だが、データ確定済みの UCI HAR・WISDM にとっては<strong>事後(post-hoc)の記述的再解析</strong>であり、両データの統一 target(macro-F1 で UCI HAR 0.85・WISDM 0.70 等)は各データの<strong>事前登録した主 target(UCI HAR accuracy 0.90 / WISDM accuracy 0.80)とは異なる</strong>。主結論(F-8/F-10/F-12)は各データの事前登録 τ に基づき<strong>不変</strong>で、本節はそれとは別レンズである。ただし統一レンズで得られる結論(削減は帰無)は主解析と一致するため、解釈は補強方向に働く。</p>
+      </div>
+
+      <p class="lead text-sm mt-3">3データはサンプリング(50/20/100→33.3Hz)・窓長・チャネル数(6/3/9)・クラス数(6/6/12)・pool 上限(21/24/5)・目標の絶対値が異なる。<strong>同一枠組みの厳密再現ではなく、各データに前処理を適合させた追試</strong>であり、これらは交絡として削減率差の原因を母集団サイズに帰属することを妨げる。3データ=<strong>3点</strong>のため回帰・相関は求めず、点+定性考察に限る。</p>
+
+      <div class="grid md:grid-cols-2 gap-3 my-3">
+        
+        
+        <figure class="border border-slate-200 rounded p-2"><svg viewBox="0 0 580 320" class="w-full h-auto" role="img" aria-label="cross-dataset reduction vs pool size (accuracy)"><line x1="46" y1="34" x2="46" y2="280" stroke="#cbd5e1"/><line x1="46" y1="280" x2="484" y2="280" stroke="#cbd5e1"/><text x="41" y="283.0" text-anchor="end" font-size="9" fill="#64748b">-24%</text><text x="41" y="221.5" text-anchor="end" font-size="9" fill="#64748b">-14%</text><text x="41" y="160.0" text-anchor="end" font-size="9" fill="#64748b">-4%</text><text x="41" y="98.5" text-anchor="end" font-size="9" fill="#64748b">+6%</text><text x="41" y="37.0" text-anchor="end" font-size="9" fill="#64748b">+15%</text><line x1="46" y1="131.1" x2="484" y2="131.1" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/><text x="488" y="134.1" font-size="9" fill="#ef4444">none 基準</text><text x="265" y="314" text-anchor="middle" font-size="10" fill="#475569">母集団(pool)被験者数</text><text x="14" y="157" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-90 14 157)">削減率 = 1 − N*(aug)/N*(none)</text><text x="46.0" y="294" text-anchor="middle" font-size="10" fill="#334155">PAMAP2</text><text x="46.0" y="305" text-anchor="middle" font-size="8" fill="#94a3b8">pool 5</text><rect x="33.0" y="34" width="26" height="246" fill="#94a3b8" opacity="0.12"/><text x="46.0" y="157" text-anchor="middle" font-size="9" fill="#64748b" transform="rotate(-90 46.0 157)">推定不能(左側打ち切り)</text><text x="414.8" y="294" text-anchor="middle" font-size="10" fill="#334155">UCI_HAR</text><text x="414.8" y="305" text-anchor="middle" font-size="8" fill="#94a3b8">pool 21</text><circle cx="402.3" cy="66.0" r="3.2" fill="#0ea5e9" stroke="#fff" stroke-width="0.6"/><circle cx="407.3" cy="45.2" r="3.2" fill="#eab308" stroke="#fff" stroke-width="0.6"/><circle cx="412.3" cy="45.2" r="3.2" fill="#ec4899" stroke="#fff" stroke-width="0.6"/><circle cx="417.3" cy="45.2" r="3.2" fill="#8b5cf6" stroke="#fff" stroke-width="0.6"/><circle cx="422.3" cy="55.9" r="3.2" fill="#f97316" stroke="#fff" stroke-width="0.6"/><circle cx="427.3" cy="91.3" r="3.2" fill="#94a3b8" stroke="#fff" stroke-width="0.6"/><text x="484.0" y="294" text-anchor="middle" font-size="10" fill="#334155">WISDM</text><text x="484.0" y="305" text-anchor="middle" font-size="8" fill="#94a3b8">pool 24</text><circle cx="471.5" cy="133.0" r="3.2" fill="#0ea5e9" stroke="#fff" stroke-width="0.6"/><circle cx="476.5" cy="179.1" r="3.2" fill="#eab308" stroke="#fff" stroke-width="0.6"/><circle cx="481.5" cy="163.9" r="3.2" fill="#ec4899" stroke="#fff" stroke-width="0.6"/><circle cx="486.5" cy="202.5" r="3.2" fill="#8b5cf6" stroke="#fff" stroke-width="0.6"/><circle cx="491.5" cy="96.4" r="3.2" fill="#f97316" stroke="#fff" stroke-width="0.6"/><circle cx="496.5" cy="268.8" r="3.2" fill="#94a3b8" stroke="#fff" stroke-width="0.6"/><circle cx="50" cy="18" r="3.2" fill="#0ea5e9"/><text x="56" y="22" font-size="8" fill="#475569">oversample</text><circle cx="120" cy="18" r="3.2" fill="#eab308"/><text x="126" y="22" font-size="8" fill="#475569">scaling</text><circle cx="174" cy="18" r="3.2" fill="#ec4899"/><text x="180" y="22" font-size="8" fill="#475569">mixup</text><circle cx="218" cy="18" r="3.2" fill="#8b5cf6"/><text x="224" y="22" font-size="8" fill="#475569">dtw</text><circle cx="252" cy="18" r="3.2" fill="#f97316"/><text x="258" y="22" font-size="8" fill="#475569">smote</text><circle cx="296" cy="18" r="3.2" fill="#94a3b8"/><text x="302" y="22" font-size="8" fill="#475569">label_shuffle</text></svg><figcaption class="cap mt-1">図4: 削減率 vs pool 被験者数(accuracy、統一ルール target)。y=0 が none 基準。PAMAP2 は N*(none) が格子下限で左側打ち切り=推定不能のため点を置かず網掛けで示す。交絡(クラス数・センサ・窓・pool 上限)により削減率差を被験者数に帰属できない。</figcaption></figure>
+        
+        
+        
+        <figure class="border border-slate-200 rounded p-2"><svg viewBox="0 0 580 320" class="w-full h-auto" role="img" aria-label="cross-dataset reduction vs pool size (macro_f1)"><line x1="46" y1="34" x2="46" y2="280" stroke="#cbd5e1"/><line x1="46" y1="280" x2="484" y2="280" stroke="#cbd5e1"/><text x="41" y="283.0" text-anchor="end" font-size="9" fill="#64748b">-12%</text><text x="41" y="221.5" text-anchor="end" font-size="9" fill="#64748b">-6%</text><text x="41" y="160.0" text-anchor="end" font-size="9" fill="#64748b">+0%</text><text x="41" y="98.5" text-anchor="end" font-size="9" fill="#64748b">+7%</text><text x="41" y="37.0" text-anchor="end" font-size="9" fill="#64748b">+13%</text><line x1="46" y1="160.9" x2="484" y2="160.9" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3"/><text x="488" y="163.9" font-size="9" fill="#ef4444">none 基準</text><text x="265" y="314" text-anchor="middle" font-size="10" fill="#475569">母集団(pool)被験者数</text><text x="14" y="157" text-anchor="middle" font-size="10" fill="#475569" transform="rotate(-90 14 157)">削減率 = 1 − N*(aug)/N*(none)</text><text x="46.0" y="294" text-anchor="middle" font-size="10" fill="#334155">PAMAP2</text><text x="46.0" y="305" text-anchor="middle" font-size="8" fill="#94a3b8">pool 5</text><rect x="33.0" y="34" width="26" height="246" fill="#94a3b8" opacity="0.12"/><text x="46.0" y="157" text-anchor="middle" font-size="9" fill="#64748b" transform="rotate(-90 46.0 157)">推定不能(左側打ち切り)</text><text x="414.8" y="294" text-anchor="middle" font-size="10" fill="#334155">UCI_HAR</text><text x="414.8" y="305" text-anchor="middle" font-size="8" fill="#94a3b8">pool 21</text><circle cx="402.3" cy="45.2" r="3.2" fill="#0ea5e9" stroke="#fff" stroke-width="0.6"/><circle cx="407.3" cy="45.2" r="3.2" fill="#eab308" stroke="#fff" stroke-width="0.6"/><circle cx="412.3" cy="45.2" r="3.2" fill="#ec4899" stroke="#fff" stroke-width="0.6"/><circle cx="417.3" cy="45.2" r="3.2" fill="#8b5cf6" stroke="#fff" stroke-width="0.6"/><circle cx="422.3" cy="45.2" r="3.2" fill="#f97316" stroke="#fff" stroke-width="0.6"/><circle cx="427.3" cy="127.6" r="3.2" fill="#94a3b8" stroke="#fff" stroke-width="0.6"/><text x="484.0" y="294" text-anchor="middle" font-size="10" fill="#334155">WISDM</text><text x="484.0" y="305" text-anchor="middle" font-size="8" fill="#94a3b8">pool 24</text><circle cx="471.5" cy="209.0" r="3.2" fill="#0ea5e9" stroke="#fff" stroke-width="0.6"/><circle cx="476.5" cy="211.9" r="3.2" fill="#eab308" stroke="#fff" stroke-width="0.6"/><circle cx="481.5" cy="237.4" r="3.2" fill="#ec4899" stroke="#fff" stroke-width="0.6"/><circle cx="486.5" cy="268.8" r="3.2" fill="#8b5cf6" stroke="#fff" stroke-width="0.6"/><circle cx="491.5" cy="120.7" r="3.2" fill="#f97316" stroke="#fff" stroke-width="0.6"/><circle cx="50" cy="18" r="3.2" fill="#0ea5e9"/><text x="56" y="22" font-size="8" fill="#475569">oversample</text><circle cx="120" cy="18" r="3.2" fill="#eab308"/><text x="126" y="22" font-size="8" fill="#475569">scaling</text><circle cx="174" cy="18" r="3.2" fill="#ec4899"/><text x="180" y="22" font-size="8" fill="#475569">mixup</text><circle cx="218" cy="18" r="3.2" fill="#8b5cf6"/><text x="224" y="22" font-size="8" fill="#475569">dtw</text><circle cx="252" cy="18" r="3.2" fill="#f97316"/><text x="258" y="22" font-size="8" fill="#475569">smote</text><circle cx="296" cy="18" r="3.2" fill="#94a3b8"/><text x="302" y="22" font-size="8" fill="#475569">label_shuffle</text></svg><figcaption class="cap mt-1">図5: 削減率 vs pool 被験者数(macro_f1、統一ルール target)。y=0 が none 基準。PAMAP2 は N*(none) が格子下限で左側打ち切り=推定不能のため点を置かず網掛けで示す。交絡(クラス数・センサ・窓・pool 上限)により削減率差を被験者数に帰属できない。</figcaption></figure>
+        
+        
+      </div>
+
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">データ</th><th class="p-2">指標</th><th class="p-2 text-right">pool</th><th class="p-2 text-right">統一target</th><th class="p-2 text-right">N*(none) [95%CI]</th>
+          <th class="p-2 text-right font-mono text-xs">oversample</th><th class="p-2 text-right font-mono text-xs">scaling</th><th class="p-2 text-right font-mono text-xs">mixup</th><th class="p-2 text-right font-mono text-xs">dtw</th><th class="p-2 text-right font-mono text-xs">smote</th><th class="p-2 text-right font-mono text-xs">label_shuffle</th>
+        </tr></thead>
+        <tbody>
+          
+          
+          
+          
+          <tr class="border-b border-slate-100 bg-amber-50/40">
+            <td class="p-2">PAMAP2</td>
+            <td class="p-2 font-mono text-xs">accuracy</td>
+            <td class="p-2 text-right">5</td>
+            <td class="p-2 text-right">0.70</td>
+            <td class="p-2 text-right text-slate-500">≤2<span class="text-amber-700">(左側打ち切り)</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+          </tr>
+          
+          
+          
+          
+          <tr class="border-b border-slate-100 bg-amber-50/40">
+            <td class="p-2">PAMAP2 <span class="text-xs text-slate-400">(主)</span></td>
+            <td class="p-2 font-mono text-xs">macro_f1</td>
+            <td class="p-2 text-right">5</td>
+            <td class="p-2 text-right">0.70</td>
+            <td class="p-2 text-right text-slate-500">≤2<span class="text-amber-700">(左側打ち切り)</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+            
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+            
+          </tr>
+          
+          
+          
+          
+          
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2">UCI_HAR <span class="text-xs text-slate-400">(主)</span></td>
+            <td class="p-2 font-mono text-xs">accuracy</td>
+            <td class="p-2 text-right">21</td>
+            <td class="p-2 text-right">0.85</td>
+            <td class="p-2 text-right text-slate-500">3.47 [3.0–4.89]</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+10.3%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+13.6%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+13.6%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+13.6%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+11.9%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+6.3%</td>
+            
+          </tr>
+          
+          
+          
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2">UCI_HAR</td>
+            <td class="p-2 font-mono text-xs">macro_f1</td>
+            <td class="p-2 text-right">21</td>
+            <td class="p-2 text-right">0.85</td>
+            <td class="p-2 text-right text-slate-500">3.4 [3.0–4.81]</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+11.8%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+11.8%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+11.8%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+11.8%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+11.8%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+3.4%</td>
+            
+          </tr>
+          
+          
+          
+          
+          
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2">WISDM <span class="text-xs text-slate-400">(主)</span></td>
+            <td class="p-2 font-mono text-xs">accuracy</td>
+            <td class="p-2 text-right">24</td>
+            <td class="p-2 text-right">0.75</td>
+            <td class="p-2 text-right text-slate-500">11.13 [8.4–12.78]</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-0.3%</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-7.6%</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-5.2%</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-11.3%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+5.5%</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-21.8%</td>
+            
+          </tr>
+          
+          
+          
+          
+          <tr class="border-b border-slate-100 ">
+            <td class="p-2">WISDM</td>
+            <td class="p-2 font-mono text-xs">macro_f1</td>
+            <td class="p-2 text-right">24</td>
+            <td class="p-2 text-right">0.70</td>
+            <td class="p-2 text-right text-slate-500">11.85 [10.67–14.41]</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-4.9%</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-5.2%</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-7.8%</td>
+            
+            
+            <td class="p-2 text-right text-red-700">-11.0%</td>
+            
+            
+            <td class="p-2 text-right text-green-700">+4.1%</td>
+            
+            
+            <td class="p-2 text-right text-slate-400">未到達</td>
+            
+          </tr>
+          
+          
+          
+        </tbody>
+      </table>
+      </div>
+      <p class="cap mt-1">表8: 統一ルール target による横断削減率(pool 昇順)。「(主)」は各データの主指標を示す。<strong>「統一target」列は横断比較用の値であり、UCI HAR・WISDM では各データの事前登録主 target(accuracy 0.90 / 0.80)とは異なる post-hoc の値</strong>である(上記注記)。<span class="font-mono">oversample</span> は純量水増しの基準、<span class="font-mono">label_shuffle</span> は元データ保持+ラベルノイズの悲観的対照。「未到達」は目標未到達で N* が定義できないこと(PAMAP2・WISDM macro-F1 の label_shuffle)。推定可能なセルでは、どの手法の N* 95%CI も N*(none) と重なる。UCI HAR の削減率が一様に正なのは、統一 target 0.85 が UCI HAR では N≈3(格子下限)で到達し N* が下限近傍に圧縮されるためで、真の削減の証拠ではない。</p>
+
+      <p class="lead text-sm mt-3"><strong>PAMAP2 は削減率を数値で断定できない。</strong> none の macro-F1 が最小格子 N=2 で既に目標 0.70 を超え(N2=0.706)、N*(none) が格子下限 N=2 に張り付く(<strong>左側打ち切り</strong>)。事前登録した停止条件どおり、削減率は算出せず<strong>定性記述に格下げ</strong>する。これは PAMAP2 固有の捏造回避ではなく、<strong>少 N(pool 5)・高 baseline という構造的限界</strong>である。悲観的対照 label_shuffle は PAMAP2 で目標未到達(N* 定義不能)であり、対照として妥当に機能した。</p>
+
+      <div class="mt-3 border border-emerald-300 bg-emerald-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-emerald-900 mb-1">3データで一貫するのは帰無:母集団サイズに沿う系統トレンドは非検出</p>
+        <p>推定可能な UCI HAR・WISDM でも、統一ルール下の削減率は正負にばらつき(実手法で概ね ±14% 以内)、どの手法も none 基準(y=0)から CI 分離しない。PAMAP2 は左側打ち切りで削減率を解像できない。統一ルールは target 決定手続きを揃える一方、baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)では N* が格子下限近傍に寄り、削減率が格子分解能で圧縮される。<strong>3点・広 CI から、母集団被験者数(5〜24名)に沿った削減率の系統的トレンドは読み取れない</strong>。悲観的対照 label_shuffle は WISDM・PAMAP2 で目標未到達、UCI HAR で削減最小と、対照として一貫して妥当。以上は DS-1(F-8/F-10/F-12)で見た<strong>帰無の外的妥当性を第3データで補強</strong>するものであり、削減効果の存在を主張するものではない。強い因果・外挿はしない(F-13)。</p>
+      </div>
+      
     </section>
 
     <!-- 7. Discussion -->
@@ -2465,6 +2752,16 @@
           <div class="text-xs text-slate-500 mt-1">反復3回のため N* の CI は広く(issue #6 と同じ構造的制約)、手法間 N* 差(smote で被験者 1.48 名)は被験者格子間隔(3)・セル内 std・bootstrap CI より小さく、順位づけには実質情報が乏しい(反復増まで順位は報告しない)。smote の +10.5% は accuracy 固有で、WISDM はクラス不均衡のため macro-F1 では順位が変わる: macro_f1@0.70(N*(none)=11.85)では smote のみ +4.1%、scaling -5.2%、dtw -11.0%(最下位)、macro_f1@0.65(N*(none)=9.98)でも smote +0.8%/dtw -2.6%/scaling -3.7% と、いずれも none の CI と大きく重なる。すなわち WISDM の削減は macro-F1 でも確認されず accuracy 基準の帰無と整合(WISDM run=168、reduction_analysis と同一手法)。目標 0.80 は none 曲線のプラトー肩付近で手法差が圧縮され、none 曲線は非単調(中盤で最大、以降低下)なため N* は 12→15 名の単一上向き交差に依存する(J-NSTAR の線形補間)。前処理は dataset に合わせた追試(UCI HAR 非正規化 vs WISDM 窓ごと z 正規化)で同一枠組みの厳密再現ではない。純量水増しの対照は oversample(WISDM ≈0)。label_shuffle は WISDM では -50.5%(N* 増)だが、これは元データ保持+ラベルノイズ対照の乱ラベルが有害に働いた結果で、UCI HAR の見かけ削減の有無を『量水増しアーティファクトの強弱』として対比することはできない。検出力確保(反復増、issue #7 候補1)が両データセット共通の後続課題。</div>
         </div>
         
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-mono text-xs text-slate-400">F-13</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-purple-100 text-purple-800">独自</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">確度 low</span>
+          </div>
+          <div>第3の被験者データ PAMAP2(Reiss &amp; Stricker 2012, 9名, subject 109 除外で pool 5+test 3)を加えた3データ横断でも、拡張による被験者数削減は帰無:母集団被験者数(5〜24名)に沿う系統的トレンドは検出されない。PAMAP2 は none の macro-F1 が最小格子 N=2 で既に統一 target 0.70 を超え(N2=0.706)、N*(none) が格子下限に張り付く左側打ち切りのため削減率は推定不能(定性記述に格下げ)。推定可能な UCI HAR・WISDM でも統一ルール下の削減率は実手法で概ね ±14% 以内かつ全手法が none 基準から CI 分離せず、悲観的対照 label_shuffle は WISDM・PAMAP2 で目標未到達・UCI HAR で削減最小と対照として妥当に機能した</div>
+          <div class="text-xs text-slate-500 mt-1">【統一ルールの post-hoc 明示】横断比較のため3データとも同一の target 決定ルール(floor_0.05(full-pool none 平均 −0.05))を用いるが、これは PAMAP2 では事前登録どおり(数値算出前・1グリッド run 前に登録)である一方、データ確定済みの UCI HAR・WISDM にとっては事後(post-hoc)の記述的再解析である。統一 target(macro-F1 で UCI HAR 0.85・WISDM 0.70)は各データの事前登録主 target(UCI HAR accuracy 0.90 / WISDM accuracy 0.80)とは異なる。主結論 F-8/F-10/F-12 は各データの事前登録 τ に基づき不変で、本節は別レンズ。ただし統一レンズの結論(帰無)は主解析と一致するため補強方向。【3点記述限定】3データ=3点のため回帰・相関は求めず点+定性考察に限る。3データはクラス数(12/6/6)・センサ(3IMU/加速度+ジャイロ/加速度)・チャネル数(9/6/3)・サンプリング/窓実時間・pool 上限(5/21/24)・目標絶対値が異なり多数の交絡を含むため、削減率差を母集団サイズに帰属できない。統一ルールは baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)で N* を格子下限近傍に寄せ(PAMAP2 は左側打ち切り、UCI HAR も N*(none)≈3.4)、削減率を格子分解能で圧縮する。PAMAP2 は加速度±16g 9ch・100→33.3Hz・168窓・窓ごと z 正規化の自前前処理で、rope_jumping は test 側 0 窓のため実効11クラス(macro-F1 分母に影響)。DS-1(F-8/F-10/F-12)の帰無の外的妥当性を第3データで補強するが、削減効果の存在は主張しない。反復5回でも少 N ゆえ CI は広く、検出力は依然限界(issue #6/#7)。</div>
+        </div>
+        
       </div>
       
     </section>
@@ -2474,7 +2771,7 @@
       <h2 class="sec">8. 限界</h2>
       
       <ul class="lead text-sm list-disc list-inside space-y-1">
-        <li>UCR データセットのサンプル数は被験者数ではないため、Phase 1–2 の結果から被験者数削減効果を直接主張することはできない</li><li>mixup・DTW 拡張は原論文と実装差がある(詳細は deviations.md)。追試結果の比較はこの差分を前提に解釈する必要がある</li><li>実行環境は CPU のみであり、1D-CNN のハイパーパラメータ探索は行っていない(拡張条件間の比較は固定条件で公平)</li><li>Phase 1 は 3 seeds であり、統計検定に足る反復数は Phase 2 で確保する</li><li>UCR の既定 train/test 分割 1 通りを 42 条件で再利用しているため、最良条件の選択には多重比較の問題がある(Phase 2 で検定と併せて対処)</li><li>Phase 2 の Wilcoxon 検定は同一データセットの入れ子の学習比率(10–100%)を含むペアを用いており、これらは厳密には独立でない。このため p 値は反保守的(有意を出しやすい)方向に偏る可能性があり、効果量(平均Δ)と併せて解釈する必要がある</li><li>GunPoint は精度 0.99–1.00 の天井効果があり、改善余地がテスト 1–2 サンプル分しかない。GunPoint での「改善」の解釈には特に注意が必要</li><li>拡張強度(ratio=1.0、sigma、alpha、k、window)は各手法 1 点固定であり、「手法の効果」と「強度選択の効果」が交絡している</li><li>Phase 1 の manifest の git_dirty=true は、実験中に生成される run 成果物(未追跡ファイル)を含んで判定していたことによる。ソースコードは push 済みコミットと一致している。以後の run では未追跡ファイルを無視して判定する</li><li>Phase 5 の被験者数削減(N*)は反復 3 回のため bootstrap 信頼区間が広く、拡張手法の CI は none の CI と重なる。点推定では DTW 等が数%の削減を示すが統計的に確定できない。反復数を増やす(例: 各被験者数で 10 回以上)ことが確度向上に必要</li><li>被験者数学習曲線は UCI HAR・WISDM v1.1 の 2 データセットで確認済み。ただし再現できたのは「削減を確定できない(帰無)」の一点のみで、最良手法の順位は 2 データセット間で入れ替わる(UCI HAR は DTW 最良/SMOTE 有害寄り、WISDM は SMOTE 最良/DTW≈0)。第 3 の被験者データ・別ドメインへの一般化は未検証</li><li>WISDM への追試は同一枠組みの厳密再現ではなく、前処理を各データセットに合わせた追試である(UCI HAR は配布元整形済みの非正規化、WISDM は生値のため窓ごと z 正規化。J-WISDM-NORM)。scaling/jitter は正規化後と生データで作用が異なるため、両データの結果差には前処理の非対称も寄与しうる</li><li>WISDM はクラス不均衡で accuracy が多数クラスに偏る。WISDM で smote が示す点推定の削減(accuracy@0.80 で +10.5%)は accuracy 固有であり、macro-F1 では手法順位が変わる: macro_f1@0.70(N*(none)=11.85)では smote のみ +4.1%・scaling -5.2%・dtw -11.0%(最下位)、macro_f1@0.65(N*(none)=9.98)でも smote +0.8%/dtw -2.6%/scaling -3.7% と、いずれも none の CI と大きく重なる。すなわち WISDM の削減は macro-F1 でも確認されない(accuracy 基準の帰無と整合)。不均衡データでは accuracy と macro-F1 / balanced accuracy を併記して解釈する必要がある</li><li>WISDM の none 学習曲線は被験者数に対して非単調(中盤で最大に達し以降やや低下)で、目標 0.80 の交差は 12→15 名の単一の上向き交差に依存する。N* は隣接点の線形補間(J-NSTAR)で定めるため、この非単調性は N* 不確実性の一因である。また 0.80 は none 曲線のプラトー肩付近にあたり手法差が圧縮されやすい</li><li>目標精度 0.90(UCI HAR)/ 0.80(WISDM)は各データで比較的到達しやすい水準であり、より難しいタスク・目標では削減効果の様相が変わりうる</li><li>対照 label_shuffle は「クラス信号ゼロの床」ではなく、正しいラベルの元データを保持し複製分にだけ乱ラベルを与える「元データ保持+ラベルノイズ」の悲観的・有害寄りの対照である。純粋な「量の水増し」の基準はむしろ oversample(単純複製)で、UCI HAR では -4.8%・WISDM では ≈0 と、量を増やすだけでは N* は下がらない。UCI HAR では label_shuffle でさえ約 4.3% の見かけの削減を示し、mixup(4.1%)・scaling(3.9%)と同等——この水準以下の削減はアーティファクトと区別できない。DTW(10.8%)のみが対照を上回るが CI は重なり確定できない(F-10)。対照 1 本(label_shuffle)に加え、純ノイズ拡張・時間シャッフル等の対照拡充が今後の課題(issue #7 候補)</li>
+        <li>UCR データセットのサンプル数は被験者数ではないため、Phase 1–2 の結果から被験者数削減効果を直接主張することはできない</li><li>mixup・DTW 拡張は原論文と実装差がある(詳細は deviations.md)。追試結果の比較はこの差分を前提に解釈する必要がある</li><li>実行環境は CPU のみであり、1D-CNN のハイパーパラメータ探索は行っていない(拡張条件間の比較は固定条件で公平)</li><li>Phase 1 は 3 seeds であり、統計検定に足る反復数は Phase 2 で確保する</li><li>UCR の既定 train/test 分割 1 通りを 42 条件で再利用しているため、最良条件の選択には多重比較の問題がある(Phase 2 で検定と併せて対処)</li><li>Phase 2 の Wilcoxon 検定は同一データセットの入れ子の学習比率(10–100%)を含むペアを用いており、これらは厳密には独立でない。このため p 値は反保守的(有意を出しやすい)方向に偏る可能性があり、効果量(平均Δ)と併せて解釈する必要がある</li><li>GunPoint は精度 0.99–1.00 の天井効果があり、改善余地がテスト 1–2 サンプル分しかない。GunPoint での「改善」の解釈には特に注意が必要</li><li>拡張強度(ratio=1.0、sigma、alpha、k、window)は各手法 1 点固定であり、「手法の効果」と「強度選択の効果」が交絡している</li><li>Phase 1 の manifest の git_dirty=true は、実験中に生成される run 成果物(未追跡ファイル)を含んで判定していたことによる。ソースコードは push 済みコミットと一致している。以後の run では未追跡ファイルを無視して判定する</li><li>Phase 5 の被験者数削減(N*)は反復 3 回のため bootstrap 信頼区間が広く、拡張手法の CI は none の CI と重なる。点推定では DTW 等が数%の削減を示すが統計的に確定できない。反復数を増やす(例: 各被験者数で 10 回以上)ことが確度向上に必要</li><li>被験者数学習曲線は UCI HAR・WISDM v1.1・PAMAP2 の 3 データセットで確認済み。ただし再現できたのは「削減を確定できない(帰無)」の一点のみで、最良手法の順位は データセット間で入れ替わる(UCI HAR は DTW 最良/SMOTE 有害寄り、WISDM は SMOTE 最良/DTW≈0)。3 データ=3 点のため回帰・相関は求めず、母集団被験者数(5〜24名)に沿う削減率の系統トレンドは検出されない(記述的主張に限定)。さらに別ドメインへの一般化は未検証</li><li>WISDM への追試は同一枠組みの厳密再現ではなく、前処理を各データセットに合わせた追試である(UCI HAR は配布元整形済みの非正規化、WISDM は生値のため窓ごと z 正規化。J-WISDM-NORM)。scaling/jitter は正規化後と生データで作用が異なるため、両データの結果差には前処理の非対称も寄与しうる</li><li>WISDM はクラス不均衡で accuracy が多数クラスに偏る。WISDM で smote が示す点推定の削減(accuracy@0.80 で +10.5%)は accuracy 固有であり、macro-F1 では手法順位が変わる: macro_f1@0.70(N*(none)=11.85)では smote のみ +4.1%・scaling -5.2%・dtw -11.0%(最下位)、macro_f1@0.65(N*(none)=9.98)でも smote +0.8%/dtw -2.6%/scaling -3.7% と、いずれも none の CI と大きく重なる。すなわち WISDM の削減は macro-F1 でも確認されない(accuracy 基準の帰無と整合)。不均衡データでは accuracy と macro-F1 / balanced accuracy を併記して解釈する必要がある</li><li>WISDM の none 学習曲線は被験者数に対して非単調(中盤で最大に達し以降やや低下)で、目標 0.80 の交差は 12→15 名の単一の上向き交差に依存する。N* は隣接点の線形補間(J-NSTAR)で定めるため、この非単調性は N* 不確実性の一因である。また 0.80 は none 曲線のプラトー肩付近にあたり手法差が圧縮されやすい</li><li>目標精度 0.90(UCI HAR)/ 0.80(WISDM)は各データで比較的到達しやすい水準であり、より難しいタスク・目標では削減効果の様相が変わりうる</li><li>対照 label_shuffle は「クラス信号ゼロの床」ではなく、正しいラベルの元データを保持し複製分にだけ乱ラベルを与える「元データ保持+ラベルノイズ」の悲観的・有害寄りの対照である。純粋な「量の水増し」の基準はむしろ oversample(単純複製)で、UCI HAR では -4.8%・WISDM では ≈0 と、量を増やすだけでは N* は下がらない。UCI HAR では label_shuffle でさえ約 4.3% の見かけの削減を示し、mixup(4.1%)・scaling(3.9%)と同等——この水準以下の削減はアーティファクトと区別できない。DTW(10.8%)のみが対照を上回るが CI は重なり確定できない(F-10)。対照 1 本(label_shuffle)に加え、純ノイズ拡張・時間シャッフル等の対照拡充が今後の課題(issue #7 候補)</li><li>PAMAP2(issue #21 DS-2)は被験者 9 名・subject 109 除外で pool 5 と少 N であり、N∈{2,3,4,5} の粗い格子では削減率を推定できない。none の macro-F1 が最小格子 N=2 で既に統一 target 0.70 を超え(N2=0.706)、N*(none) が格子下限に張り付く左側打ち切りのため、削減率は事前登録の停止条件どおり算出せず定性記述に格下げした。これは捏造回避であり、少 N・高 baseline という構造的限界に起因する(反復5回でも CI は広い)</li><li>横断図・横断表(§6.5)は3データの比較可能性のため統一 target ルール(floor_0.05(full-pool none 平均 −0.05))を用いるが、これは PAMAP2 では事前登録どおりである一方、データ確定済みの UCI HAR・WISDM にとっては事後(post-hoc)の記述的再解析である。統一 target(macro-F1 で UCI HAR 0.85・WISDM 0.70)は各データの事前登録主 target(UCI HAR accuracy 0.90・WISDM accuracy 0.80)と異なる。主結論 F-8/F-10/F-12 は各データの事前登録 τ に基づき不変で、横断の統一ルール版は別レンズ(結論の帰無は主解析と一致するため補強方向)。統一ルールは baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)で N* を格子下限近傍に寄せ削減率を格子分解能で圧縮する点も交絡である</li><li>PAMAP2 は 12 活動 protocol サブセットを対象とするが、希少活動 rope_jumping は固定 test 側(103/104/105)で 0 窓のため実効 11 クラスであり、macro-F1 の分母(クラス平均)に影響する。3 データはクラス数(12/6/6)・センサ(3IMU/加速度+ジャイロ/加速度)・チャネル数(9/6/3)・サンプリングと窓実時間・pool 上限が異なり、これらの交絡により削減率差を母集団サイズに帰属することはできない</li>
       </ul>
       
     </section>
@@ -2523,7 +2820,9 @@
         
         <li class="flex gap-2"><span class="text-slate-400 shrink-0">[13]</span><span>J. R. Kwapisz, G. M. Weiss, and S. A. Moore, &#34;Activity Recognition using Cell Phone Accelerometers,&#34; ACM SIGKDD Explorations Newsletter, vol. 12, no. 2, pp. 74–82, 2011. <a href="https://www.cis.fordham.edu/wisdm/dataset.php" class="break-all">https://www.cis.fordham.edu/wisdm/dataset.php</a></span></li>
         
-        <li class="flex gap-2"><span class="text-slate-400 shrink-0">[14]</span><span>P. Wagner, N. Strodthoff, R.-D. Bousseljot, D. Kreiseler, F. I. Lunze, W. Samek, and T. Schaeffter, &#34;PTB-XL, a large publicly available electrocardiography dataset,&#34; Scientific Data, vol. 7, no. 154, 2020. <a href="https://physionet.org/content/ptb-xl/1.0.1/" class="break-all">https://physionet.org/content/ptb-xl/1.0.1/</a></span></li>
+        <li class="flex gap-2"><span class="text-slate-400 shrink-0">[14]</span><span>A. Reiss and D. Stricker, &#34;Introducing a New Benchmarked Dataset for Activity Monitoring,&#34; in Proc. 16th Int. Symp. on Wearable Computers (ISWC), Newcastle, UK, 2012, pp. 108–109. Dataset: PAMAP2 Physical Activity Monitoring, UCI Machine Learning Repository, DOI:10.24432/C5NW2H (License: CC BY 4.0). <a href="https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring" class="break-all">https://archive.ics.uci.edu/dataset/231/pamap2+physical+activity+monitoring</a></span></li>
+        
+        <li class="flex gap-2"><span class="text-slate-400 shrink-0">[15]</span><span>P. Wagner, N. Strodthoff, R.-D. Bousseljot, D. Kreiseler, F. I. Lunze, W. Samek, and T. Schaeffter, &#34;PTB-XL, a large publicly available electrocardiography dataset,&#34; Scientific Data, vol. 7, no. 154, 2020. <a href="https://physionet.org/content/ptb-xl/1.0.1/" class="break-all">https://physionet.org/content/ptb-xl/1.0.1/</a></span></li>
         
       </ol>
     </section>
@@ -2538,7 +2837,7 @@
     <!-- summary tiles -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
       <div class="rounded-lg border border-slate-200 p-4">
-        <div class="text-2xl font-bold text-slate-900">2965</div>
+        <div class="text-2xl font-bold text-slate-900">3105</div>
         <div class="text-xs text-slate-500 mt-1">完了した run</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
@@ -2546,7 +2845,7 @@
         <div class="text-xs text-slate-500 mt-1">失敗した run</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
-        <div class="text-2xl font-bold text-slate-900">39 / 39</div>
+        <div class="text-2xl font-bold text-slate-900">48 / 48</div>
         <div class="text-xs text-slate-500 mt-1">完了タスク</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
@@ -2559,8 +2858,8 @@
       <h2 class="text-lg font-semibold text-slate-900 mb-3">実験進捗(タスク状況)</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <div>
-          <h3 class="font-medium text-green-700 mb-2">完了 (39)</h3>
-          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic, checksum, znorm, train/val split)</li><li class="border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression)</li><li class="border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN, MiniRocket+Ridge)</li><li class="border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 12 件の選定</li><li class="border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="border border-slate-200 rounded px-2 py-1">P2-3: 統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加</li><li class="border border-slate-200 rounded px-2 py-1">P2-5: Phase 2 実験格子の実行 (2520 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P2-6: Phase 2 集計・検定・レポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)</li><li class="border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="border border-slate-200 rounded px-2 py-1">P3-2: 主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)</li><li class="border border-slate-200 rounded px-2 py-1">P4-1: 被験者単位 group split 基盤 (subject.py)</li><li class="border border-slate-200 rounded px-2 py-1">P4-2: 目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)</li><li class="border border-slate-200 rounded px-2 py-1">P4-3: UCI HAR ローダ + 被験者数 runner 実装</li><li class="border border-slate-200 rounded px-2 py-1">P4-4: 被験者数学習曲線グリッド実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P5-1: 必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P5-2: negative control (label_shuffle) の追加と削減の健全性検証</li><li class="border border-slate-200 rounded px-2 py-1">R13-1: レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化</li><li class="border border-slate-200 rounded px-2 py-1">R13-2: 3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)</li><li class="border border-slate-200 rounded px-2 py-1">RP-1: 再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)</li><li class="border border-slate-200 rounded px-2 py-1">RP-2: 維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)</li><li class="border border-slate-200 rounded px-2 py-1">RM-1: README を公開実装向けに再構成 (issue #18): 結果紹介・再現手順・やっていないこと/今後の課題。進捗/計画記録を除去し3ペルソナレビュー反映</li><li class="border border-slate-200 rounded px-2 py-1">DS1-1: subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS1-2: WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新</li><li class="border border-slate-200 rounded px-2 py-1">DS1-3: WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)</li></ul>
+          <h3 class="font-medium text-green-700 mb-2">完了 (48)</h3>
+          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic, checksum, znorm, train/val split)</li><li class="border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression)</li><li class="border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN, MiniRocket+Ridge)</li><li class="border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 12 件の選定</li><li class="border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="border border-slate-200 rounded px-2 py-1">P2-3: 統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加</li><li class="border border-slate-200 rounded px-2 py-1">P2-5: Phase 2 実験格子の実行 (2520 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P2-6: Phase 2 集計・検定・レポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)</li><li class="border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="border border-slate-200 rounded px-2 py-1">P3-2: 主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)</li><li class="border border-slate-200 rounded px-2 py-1">P4-1: 被験者単位 group split 基盤 (subject.py)</li><li class="border border-slate-200 rounded px-2 py-1">P4-2: 目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)</li><li class="border border-slate-200 rounded px-2 py-1">P4-3: UCI HAR ローダ + 被験者数 runner 実装</li><li class="border border-slate-200 rounded px-2 py-1">P4-4: 被験者数学習曲線グリッド実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P5-1: 必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P5-2: negative control (label_shuffle) の追加と削減の健全性検証</li><li class="border border-slate-200 rounded px-2 py-1">R13-1: レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化</li><li class="border border-slate-200 rounded px-2 py-1">R13-2: 3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)</li><li class="border border-slate-200 rounded px-2 py-1">RP-1: 再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)</li><li class="border border-slate-200 rounded px-2 py-1">RP-2: 維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)</li><li class="border border-slate-200 rounded px-2 py-1">RM-1: README を公開実装向けに再構成 (issue #18): 結果紹介・再現手順・やっていないこと/今後の課題。進捗/計画記録を除去し3ペルソナレビュー反映</li><li class="border border-slate-200 rounded px-2 py-1">DS1-1: subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS1-2: WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新</li><li class="border border-slate-200 rounded px-2 py-1">DS1-3: WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)</li><li class="border border-slate-200 rounded px-2 py-1">DS2-1: PAMAP2 ローダ新規 (data/pamap2.py: .dat parse/transient除外/protocol12マッピング/±16g加速度9ch選択/NaN窓破棄/100→33.3Hzダウンサンプル/168窓/窓ごとznorm/seed-0 K=3 split) + dispatch登録 + metadata drift検査 + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS2-2: per-subject 活動サポート実測で subject 109 の除外/保持を機械決定 + pamap2 config作成 (subject_count/negative_control) + pre_registration に PAMAP2 target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.70) → 統括GO取得</li><li class="border border-slate-200 rounded px-2 py-1">DS2-3: PAMAP2 被験者数削減グリッド実行 (主120 + negative control 20, 失敗0/git_dirty=false) + reduction_pamap2 集計(accuracy/macro_f1両版) + 横断数値算出(N*(none) 左側打ち切りで削減率推定不能を明示) → Reporting レーンへ数値受け渡し</li><li class="border border-slate-200 rounded px-2 py-1">DS2-4: [Reporting レーン] PAMAP2 DS-2 の横断図(削減率 vs pool被験者数, accuracy/macro_f1両版)・レポート本文・findings・ペルソナレビュー・make all-report</li><li class="border border-slate-200 rounded px-2 py-1">RT23-1: 文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー</li><li class="border border-slate-200 rounded px-2 py-1">RT23-2: コード/config是正 (V9 dataset_params昇格+manifest記録 / V10 実データchecksum / V1 docstring)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-3: V5 再現性: git_dirty をソース限定判定に修正 + negative control 11 run を clean 再実行 (git_dirty=false)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-4: Windows 移植性修正 (UTF-8 encoding + os.kill WinError87): make all-report とテストのブロック解消・全144テスト green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-5: result-auditor 最終監査 (8観点 CONFIRMED・手入力乖離なし・リーケージガード有効) + 参照メタデータ整合</li></ul>
         </div>
         <div>
           <h3 class="font-medium text-amber-700 mb-2">実行中 (0)</h3>
@@ -2595,8 +2894,8 @@
       <h2 class="text-lg font-semibold text-slate-900 mb-3">再現性・環境</h2>
       <ul class="text-sm list-disc list-inside space-y-1">
         <li>全 run は一意な run_id と manifest(条件・環境・Git commit・依存関係チェックサム)を持つ</li>
-        <li>最後に完了した run(ended_at 基準)のコード版: <span class="font-mono">1c949690a27c</span>、Python 3.12.13</li>
-        <li class="text-amber-700">git_dirty=true の run が 2734/2965 件(実験中に生成される未追跡の run 成果物を含む判定。詳細は論文タブの限界)</li>
+        <li>最後に完了した run(ended_at 基準)のコード版: <span class="font-mono">b25df99248ad</span>、Python 3.12.13</li>
+        <li class="text-amber-700">git_dirty=true の run が 2734/3105 件(実験中に生成される未追跡の run 成果物を含む判定。詳細は論文タブの限界)</li>
         <li>乱数 seed は run 単位で固定(分割・拡張・初期化に適用)</li>
         <li>依存関係は uv.lock で固定(torch は CPU 版)。実験条件は config/ の YAML で管理しコードに埋め込まない</li>
         <li>実装基盤: aeon [11](UCR 取得・MiniRocket・DTW)、PyTorch(1D-CNN)、scikit-learn(Ridge・評価指標)</li>
@@ -2616,13 +2915,993 @@
     </section>
 
     <section id="ops-runs" class="mb-4">
-      <h2 class="text-lg font-semibold text-slate-900 mb-3">全 run 一覧(2965 runs)</h2>
+      <h2 class="text-lg font-semibold text-slate-900 mb-3">全 run 一覧(3105 runs)</h2>
       <details class="text-sm">
         <summary class="cursor-pointer text-blue-700">一覧を展開</summary>
         <div class="overflow-x-auto mt-2 max-h-96 overflow-y-auto">
         <table class="w-full text-xs border border-slate-200 rounded">
           <thead class="sticky top-0 bg-slate-50"><tr class="text-left border-b border-slate-200"><th class="p-2">run_id</th><th class="p-2">status</th><th class="p-2 text-right">accuracy</th><th class="p-2 text-right">macro_f1</th><th class="p-2">commit</th></tr></thead>
           <tbody>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7478</td>
+              <td class="p-2 text-right">0.7482</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7528</td>
+              <td class="p-2 text-right">0.7347</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7355</td>
+              <td class="p-2 text-right">0.7225</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7811</td>
+              <td class="p-2 text-right">0.7814</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_dtw_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7442</td>
+              <td class="p-2 text-right">0.6921</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5191</td>
+              <td class="p-2 text-right">0.4473</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6630</td>
+              <td class="p-2 text-right">0.6731</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6125</td>
+              <td class="p-2 text-right">0.5419</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6027</td>
+              <td class="p-2 text-right">0.5260</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_label_shuffle_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5560</td>
+              <td class="p-2 text-right">0.3989</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6728</td>
+              <td class="p-2 text-right">0.7032</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7503</td>
+              <td class="p-2 text-right">0.7256</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6888</td>
+              <td class="p-2 text-right">0.6912</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7540</td>
+              <td class="p-2 text-right">0.7580</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_mixup_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6839</td>
+              <td class="p-2 text-right">0.5837</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7146</td>
+              <td class="p-2 text-right">0.6697</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7331</td>
+              <td class="p-2 text-right">0.7233</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7208</td>
+              <td class="p-2 text-right">0.6958</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7454</td>
+              <td class="p-2 text-right">0.7538</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_none_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7232</td>
+              <td class="p-2 text-right">0.6887</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7306</td>
+              <td class="p-2 text-right">0.6853</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7417</td>
+              <td class="p-2 text-right">0.7054</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7368</td>
+              <td class="p-2 text-right">0.6920</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6986</td>
+              <td class="p-2 text-right">0.7396</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_oversample_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7257</td>
+              <td class="p-2 text-right">0.5969</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7319</td>
+              <td class="p-2 text-right">0.6883</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7269</td>
+              <td class="p-2 text-right">0.7045</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7466</td>
+              <td class="p-2 text-right">0.6923</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6999</td>
+              <td class="p-2 text-right">0.7456</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_scaling_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7392</td>
+              <td class="p-2 text-right">0.6713</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7319</td>
+              <td class="p-2 text-right">0.7582</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7565</td>
+              <td class="p-2 text-right">0.7486</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7417</td>
+              <td class="p-2 text-right">0.7040</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7355</td>
+              <td class="p-2 text-right">0.7358</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n2_smote_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7196</td>
+              <td class="p-2 text-right">0.6605</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7245</td>
+              <td class="p-2 text-right">0.7018</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7060</td>
+              <td class="p-2 text-right">0.7207</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7872</td>
+              <td class="p-2 text-right">0.7968</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7811</td>
+              <td class="p-2 text-right">0.7345</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_dtw_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7466</td>
+              <td class="p-2 text-right">0.6862</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5117</td>
+              <td class="p-2 text-right">0.4074</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5793</td>
+              <td class="p-2 text-right">0.4228</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6236</td>
+              <td class="p-2 text-right">0.5141</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5412</td>
+              <td class="p-2 text-right">0.4421</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_label_shuffle_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.5867</td>
+              <td class="p-2 text-right">0.5128</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7392</td>
+              <td class="p-2 text-right">0.7058</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7355</td>
+              <td class="p-2 text-right">0.7657</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7491</td>
+              <td class="p-2 text-right">0.7013</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7847</td>
+              <td class="p-2 text-right">0.7408</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_mixup_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7577</td>
+              <td class="p-2 text-right">0.6208</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7023</td>
+              <td class="p-2 text-right">0.6749</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7319</td>
+              <td class="p-2 text-right">0.7550</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7811</td>
+              <td class="p-2 text-right">0.7468</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7208</td>
+              <td class="p-2 text-right">0.6899</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_none_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7761</td>
+              <td class="p-2 text-right">0.7173</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7478</td>
+              <td class="p-2 text-right">0.7261</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7036</td>
+              <td class="p-2 text-right">0.7026</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7688</td>
+              <td class="p-2 text-right">0.7022</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7626</td>
+              <td class="p-2 text-right">0.7560</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_oversample_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7700</td>
+              <td class="p-2 text-right">0.7437</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7405</td>
+              <td class="p-2 text-right">0.7180</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7269</td>
+              <td class="p-2 text-right">0.7378</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7651</td>
+              <td class="p-2 text-right">0.7015</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7638</td>
+              <td class="p-2 text-right">0.7223</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_scaling_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7675</td>
+              <td class="p-2 text-right">0.7408</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7491</td>
+              <td class="p-2 text-right">0.7152</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7442</td>
+              <td class="p-2 text-right">0.7420</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7872</td>
+              <td class="p-2 text-right">0.7775</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7614</td>
+              <td class="p-2 text-right">0.7144</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n3_smote_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7565</td>
+              <td class="p-2 text-right">0.7397</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8044</td>
+              <td class="p-2 text-right">0.7650</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7934</td>
+              <td class="p-2 text-right">0.7714</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8081</td>
+              <td class="p-2 text-right">0.7575</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8229</td>
+              <td class="p-2 text-right">0.8431</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_dtw_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8057</td>
+              <td class="p-2 text-right">0.8037</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6593</td>
+              <td class="p-2 text-right">0.5792</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6335</td>
+              <td class="p-2 text-right">0.5403</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6175</td>
+              <td class="p-2 text-right">0.5646</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6753</td>
+              <td class="p-2 text-right">0.5906</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_label_shuffle_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6728</td>
+              <td class="p-2 text-right">0.5746</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7983</td>
+              <td class="p-2 text-right">0.7903</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8155</td>
+              <td class="p-2 text-right">0.8090</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8081</td>
+              <td class="p-2 text-right">0.7738</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8044</td>
+              <td class="p-2 text-right">0.8112</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_mixup_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7638</td>
+              <td class="p-2 text-right">0.6801</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8167</td>
+              <td class="p-2 text-right">0.8142</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7934</td>
+              <td class="p-2 text-right">0.7257</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8032</td>
+              <td class="p-2 text-right">0.8075</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7688</td>
+              <td class="p-2 text-right">0.7789</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_none_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7847</td>
+              <td class="p-2 text-right">0.7299</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7749</td>
+              <td class="p-2 text-right">0.6722</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7614</td>
+              <td class="p-2 text-right">0.7285</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7847</td>
+              <td class="p-2 text-right">0.7348</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8020</td>
+              <td class="p-2 text-right">0.7387</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_oversample_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7958</td>
+              <td class="p-2 text-right">0.8005</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7749</td>
+              <td class="p-2 text-right">0.7688</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7577</td>
+              <td class="p-2 text-right">0.7209</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7835</td>
+              <td class="p-2 text-right">0.7087</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8106</td>
+              <td class="p-2 text-right">0.7621</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_scaling_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8044</td>
+              <td class="p-2 text-right">0.8243</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7860</td>
+              <td class="p-2 text-right">0.7179</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8020</td>
+              <td class="p-2 text-right">0.7572</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7934</td>
+              <td class="p-2 text-right">0.7950</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8007</td>
+              <td class="p-2 text-right">0.7809</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n4_smote_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8106</td>
+              <td class="p-2 text-right">0.7906</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8020</td>
+              <td class="p-2 text-right">0.7964</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8462</td>
+              <td class="p-2 text-right">0.8395</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8118</td>
+              <td class="p-2 text-right">0.8234</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8180</td>
+              <td class="p-2 text-right">0.8451</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_dtw_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8118</td>
+              <td class="p-2 text-right">0.8363</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6814</td>
+              <td class="p-2 text-right">0.6033</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7282</td>
+              <td class="p-2 text-right">0.6397</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6347</td>
+              <td class="p-2 text-right">0.5181</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7380</td>
+              <td class="p-2 text-right">0.7272</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_label_shuffle_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.6937</td>
+              <td class="p-2 text-right">0.6017</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8204</td>
+              <td class="p-2 text-right">0.8153</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8143</td>
+              <td class="p-2 text-right">0.8032</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8057</td>
+              <td class="p-2 text-right">0.8293</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8180</td>
+              <td class="p-2 text-right">0.8488</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_mixup_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8057</td>
+              <td class="p-2 text-right">0.8198</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8167</td>
+              <td class="p-2 text-right">0.7921</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7970</td>
+              <td class="p-2 text-right">0.7723</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8069</td>
+              <td class="p-2 text-right">0.7592</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7872</td>
+              <td class="p-2 text-right">0.7985</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_none_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7712</td>
+              <td class="p-2 text-right">0.7058</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8044</td>
+              <td class="p-2 text-right">0.7551</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8241</td>
+              <td class="p-2 text-right">0.8247</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8339</td>
+              <td class="p-2 text-right">0.8453</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7724</td>
+              <td class="p-2 text-right">0.8148</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_oversample_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8069</td>
+              <td class="p-2 text-right">0.7676</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7995</td>
+              <td class="p-2 text-right">0.7499</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8093</td>
+              <td class="p-2 text-right">0.7563</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8130</td>
+              <td class="p-2 text-right">0.7752</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8155</td>
+              <td class="p-2 text-right">0.8430</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_scaling_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7921</td>
+              <td class="p-2 text-right">0.7581</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r0</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8057</td>
+              <td class="p-2 text-right">0.7859</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r1</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8180</td>
+              <td class="p-2 text-right">0.8002</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r2</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8155</td>
+              <td class="p-2 text-right">0.8137</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r3</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.8303</td>
+              <td class="p-2 text-right">0.8485</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
+            
+            <tr class="border-b border-slate-100">
+              <td class="p-2 font-mono">pamap2_subject_count_PAMAP2_n5_smote_cnn1d_har_r4</td><td class="p-2">completed</td>
+              <td class="p-2 text-right">0.7934</td>
+              <td class="p-2 text-right">0.7521</td>
+              <td class="p-2 font-mono">b25df99248ad</td>
+            </tr>
             
             <tr class="border-b border-slate-100">
               <td class="p-2 font-mono">phase1_ECG5000_dtw_cnn1d_s0</td><td class="p-2">completed</td>
@@ -23385,7 +24664,7 @@
       </details>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-19 13:52 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-07-19 16:57 UTC</p>
   </div>
 
   <!-- ================= REPRODUCTION & PREPROCESSING TAB ================= -->
@@ -23481,6 +24760,15 @@
           </div>
           <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>uv run python scripts/run_subject_experiment.py --config config/experiments/wisdm_subject_count.yaml</code></pre>
           <p class="text-sm text-slate-600 mt-1">第2の被験者データ WISDM v1.1 で N∈{3,6,9,12,15,18,21,24} × 3反復の学習曲線。WISDM は初回実行時に自動ダウンロード(CC BY 4.0、data/metadata/wisdm.json に出典記録)。目標 accuracy=0.80 は UCI HAR と独立に事前登録済み。同一の loader dispatch(data/subject_datasets.py)を経由。</p>
+        </li>
+        
+        <li class="border border-slate-200 rounded p-3">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">S7c</span>
+            <span class="font-medium text-slate-800 text-sm">PAMAP2 被験者数削減の横断追加(Phase 6 / issue</span>
+          </div>
+          <pre class="mt-1 text-xs bg-slate-900 text-slate-100 rounded px-3 py-2 overflow-x-auto"><code>uv run python scripts/run_subject_experiment.py --config config/experiments/pamap2_subject_count.yaml</code></pre>
+          <p class="text-sm text-slate-600 mt-1">第3の被験者データ PAMAP2 で N∈{2,3,4,5} × 5反復の学習曲線。PAMAP2 は初回実行時に自動ダウンロード(UCI #231, CC BY 4.0, DOI:10.24432/C5NW2H, archive sha256=76b3580b…; data/metadata/pamap2.json に出典・per-subject 活動サポート記録)。加速度±16g 9ch・100→33.3Hz・168窓・窓ごとznorm、subject 109 は活動サポートで機械除外。主指標 macro-F1、target は full-pool none baseline から登録ルールで確定。negative control は config/experiments/pamap2_negative_control.yaml。target 決定用 baseline のみは config/experiments/pamap2_target_baseline.yaml。同一 loader dispatch(data/subject_datasets.py)経由。</p>
         </li>
         
         <li class="border border-slate-200 rounded p-3">
@@ -23591,6 +24879,13 @@
             <td class="p-2 text-slate-600">UCI HAR(Phase 4-5)</td>
             <td class="p-2 text-slate-600">被験者数 N の各点で、プール(公式 train の21被験者)から丸ごと N 被験者を seed 決定的に抽選する。サンプル単位ではなく被験者単位で増やす。</td>
             <td class="p-2 text-amber-800">反復は3回のみで N* の信頼区間が広い(本研究の主要な限界)。固定 held-out test は公式 test の9被験者。</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-medium text-slate-800">被験者選択・前処理(PAMAP2, issue</td>
+            <td class="p-2 text-slate-600">PAMAP2(Phase 6)</td>
+            <td class="p-2 text-slate-600">54列 .dat をパース → transient(0)・optional 6活動を除外し 12 protocol 活動へ写像 → 加速度 ±16g 9ch(hand/chest/ankle x/y/z)を選択(orientation/HR/±6g/gyro/mag 除外)→ 100→33.3Hz(stride-3)間引き → (subject,activity) 連続区間内で 168サンプル非重複窓 → 選択チャネルに NaN を含む窓は破棄 → 窓ごと z 正規化。subject 109 は活動サポート実測(総窓10・1/12活動)で機械的に除外し pool=5[101,102,106,107,108]/test=3[103,104,105](seed-0)。被験者単位で N を増やす。</td>
+            <td class="p-2 text-amber-800">被験者8名(除外後)は下限付近で N* CI が広い。rope_jumping は除外後 pool 4窓・test 0窓と希少でクラス欠落が macro-F1 を不安定化しうる。反復5回・CI 提示で緩和。前処理条件(チャネル数・レート・窓長)は UCI HAR/WISDM と非対称で横断比較の交絡(『dataset に合わせた追試』の位置づけ)。</td>
           </tr>
           
           <tr class="border-b border-slate-100 align-top">
@@ -23808,6 +25103,84 @@
           <p class="text-xs text-slate-400 mt-1 font-mono">pre_registration.md / reporting/aggregate.py</p>
         </div>
         
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-PAMAP2-TARGET</span>
+            <span class="font-medium text-slate-800">PAMAP2 の目標性能 τ とその選択ルール(issue</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 主指標 macro-F1。target = full-pool(N=5, aug=none)の held-out macro-F1 平均 − 0.05 を 0.05 刻みで切り捨てた値(ルールを数値確定前に登録)。UCI HAR 0.90 / WISDM 0.80 は流用しない。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> PAMAP2 は 12活動でクラス不均衡のため主指標を macro-F1 に(#23 V2 の教訓)。target は none baseline のみに依存する手続きで決め、拡張手法の結果に依存させない(手法有利化の排除)。曲線急峻部に置き天井/床を回避。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 固定丸め値(0.60/0.65 等)、accuracy 基準、−0.10 マージン。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 高。N* は τ 到達点なので値で削減率が動く。ルール駆動で恣意性を排除。target 絶対値は 3 データで異なるが削減率(無次元)で横断比較する。実測: full-pool none macro-F1 平均 0.766 に対しルールで target=0.70 となったが、none 曲線は最小格子点 N=2 で既に平均 0.706(≥target)。→ **N*(none) は格子下限 2 に左側打ち切り**され、{2..5} の測定レンジでは sub-target 域を捉えられず**削減率は推定不能**(事前登録の停止条件どおり定性記述に格下げ)。negative control label_shuffle は target 未到達(N*=None)で対照として妥当。この左側打ち切りは『τ を下げ過ぎた』ではなくルール適用結果であり、少 N・高 baseline データでの構造的限界。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">artifacts/pre_registration.md(PAMAP2 DS-2 節)/ config/experiments/pamap2_subject_count.yaml / results.json(reduction_pamap2)</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-PAMAP2-EXCLUDE109</span>
+            <span class="font-medium text-slate-800">subject 109 の除外(データ有無で機械決定)</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> subject 109 を除外(pool=5 [101,102,106,107,108]、test=3 [103,104,105]、subject_counts={2,3,4,5})。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 実測で 109 は総窓数 10・12活動中 1活動のみ(rope_jumping のみ)、他被験者 247–301 窓・8–12 活動と桁違いに欠損(生ファイル 3.9MB 対 118–207MB)。事前登録した基準『欠ける活動数が著しい/窓数が極端に少なければ除外』に機械的に該当。精度ではなくデータ有無で決定。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 保持(pool=6)。ただし 109 はほぼ全活動欠落で学習に寄与せずクラス欠落を悪化させる。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。pool を 5 に減らすと N 格子分解能が下がる。ただし 109 保持は活動サポートを大きく歪めるため除外がデータ的に妥当。除外後 rope_jumping が希少化(pool 4窓・test 0窓)し macro-F1 を不安定化しうる点は限界として記録。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">data/metadata/pamap2.json(per_subject_activity_support)/ pre_registration.md</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-PAMAP2-CHANNELS</span>
+            <span class="font-medium text-slate-800">PAMAP2 のチャネル選択</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 加速度 ±16g のみ 9ch(hand/chest/ankle × x/y/z)。orientation(無効4/IMU)・HR・±6g・ジャイロ・磁気を除外。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> WISDM(加速度3ch)/UCI HAR(加速度+ジャイロ6ch)との加速度ドメイン整合、モデル入力の単純化。±16g は ±6g の飽和クリップを回避。orientation は公式に無効、HR は 9Hz 非同期で大半 NaN。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 加速度+ジャイロ 18ch(情報量重視)。チャネル数は横断比較の交絡。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。チャネル集合で分類難度が変わり削減率にも影響しうる。チャネル数差(9/6/3)は横断図の交絡として図注明記。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">src/signal_aug/data/pamap2.py(DEFAULT_CHANNELS)/ config</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-PAMAP2-WINDOW</span>
+            <span class="font-medium text-slate-800">PAMAP2 の窓化・ダウンサンプル</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 100→33.3Hz(stride-3 間引き)、168サンプル(~5.0s)非重複窓、(subject,activity) 連続区間内、NaN 含む窓は破棄。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 窓の実時間長を WISDM(10s)/UCI HAR(2.56s)と近づけ横断交絡を減らす(完全一致は不可能)。33.3Hz は複数実装の慣例。非重複でセット内窓相関を回避、区間内窓化で単一ラベル保証。NaN(無線ドロップアウト)窓破棄はリーク無しで単純。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 窓長 128/256、50% オーバーラップ、線形補間による NaN 補完、6g レンジ併用。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。窓長・レートは窓数と学習曲線に影響。被験者跨ぎリークは group split で別途防止。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">src/signal_aug/data/pamap2.py(make_windows/downsample_factor)</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-PAMAP2-NORM</span>
+            <span class="font-medium text-slate-800">PAMAP2 の正規化方針</span>
+            <span class="text-xs rounded px-1.5 py-0.5 bg-green-100 text-green-800">事前登録</span>
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 窓ごと・チャネルごと z 正規化(WISDM と同じ、リーク無し)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> PAMAP2 生加速度スケールを吸収。各窓が自分の統計のみ使用しリーク無し。WISDM と揃え DS-1/DS-2 の前処理を一貫させる。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 非正規化、被験者/データセット統計での正規化(リーク or 追加設計)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 中。振幅情報が落ちるが HAR は波形パターンが主判別要因。UCI HAR(非正規化)とは非対称のため『前処理を dataset に合わせた追試』と位置づける(WISDM と同じ扱い)。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">src/signal_aug/data/pamap2.py(_znorm_window)</p>
+        </div>
+        
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-CROSS-UNIFIED</span>
+            <span class="font-medium text-slate-800">横断図(§6.5)の統一 target ルールと UCI HAR/WISDM への post-hoc 適用(issue</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> 3データの削減率を同一軸で並べるため、横断図・横断表では3データとも同一ルール target=floor_0.05(full-pool none 平均 −0.05)を用いる。results.json[&#39;reduction_cross&#39;] として run manifest から再集計(手入力なし)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 削減率(1−N*(aug)/N*(none))は無次元だが、target 決定手続きが揃わないと横断比較が不公平。統一ルールは none baseline のみ依存で手法有利化がない。PAMAP2 ではこのルールを事前登録済み。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> 各データの事前登録 τ をそのまま横断に使う(手続き不統一)/ 共通の固定丸め target(データ間で難度が非対称)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 高(解釈)。UCI HAR・WISDM はデータ確定済みのため、統一ルール適用は両データにとって post-hoc の記述的再解析であり、統一 target(macro-F1 で UCI HAR 0.85・WISDM 0.70)は事前登録主 target(accuracy 0.90/0.80)と異なる。主結論 F-8/F-10/F-12 は各データの事前登録 τ に基づき不変で、横断の統一ルール版は別レンズ(結論の帰無は主解析と一致し補強方向)。統一ルールは baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)で N* を格子下限近傍に寄せ削減率を格子分解能で圧縮する(PAMAP2 は左側打ち切りで推定不能、UCI HAR も N*(none)≈3.4)。3点のため回帰・相関は求めない。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">src/signal_aug/reporting/aggregate.py(_cross_dataset_reduction)/ results.json(reduction_cross)/ report §6.5 / findings F-13</p>
+        </div>
+        
       </div>
       
     </section>
@@ -23818,12 +25191,12 @@
       <p class="text-sm text-slate-500 mb-3">追試結果の解釈時に参照する、原論文・標準的手法からの実装上の差分(artifacts/deviations.md)。追試と独自検証の区別は論文タブの知見カード(追試/独自バッジ)を参照。</p>
       
       <ul class="text-sm list-disc list-inside space-y-1 text-slate-700">
-        <li>**mixup**: 原論文(Zhang et al. 2018)は異クラス間の凸結合とソフトラベルを用いるが、本実装は同一クラスペアに限定しハードラベルを維持する。RidgeClassifier がソフトラベルを扱えないため、モデル間で条件を揃える目的。効果は原論文より控えめになる可能性がある。</li><li>**DTW ベース拡張**: Forestier et al. 2017 の DBA(DTW Barycenter Averaging)による合成ではなく、同一クラス 2 サンプルの DTW 整列平均(ペアワイズ簡略版)。多サンプル平均より多様性は低い。</li><li>**raw-SMOTE**: SMOTE(Chawla et al. 2002)を生信号の平坦化ベクトル空間へ適用。原論文は特徴量空間・少数クラスのみが対象だが、本実装は全クラスに適用する。</li><li>**1D-CNN**: 特定論文の再現ではなく、時系列分類で標準的な 3 ブロック構成(Conv-BN-ReLU-Pool + GAP)。Fawaz et al. 2019 のレビューにおける FCN 系の簡略版。</li>
+        <li>**mixup**: 原論文(Zhang et al. 2018)は異クラス間の凸結合とソフトラベルを用いるが、本実装は同一クラスペアに限定しハードラベルを維持する。RidgeClassifier がソフトラベルを扱えないため、モデル間で条件を揃える目的。効果は原論文より控えめになる可能性がある。</li><li>**DTW ベース拡張**: Forestier et al. 2017 の DBA(DTW Barycenter Averaging)による合成ではなく、同一クラス 2 サンプルの DTW 整列平均(ペアワイズ簡略版)。多サンプル平均より多様性は低い。</li><li>**raw-SMOTE**: SMOTE(Chawla et al. 2002)を生信号の平坦化ベクトル空間へ適用。原論文は特徴量空間・少数クラスのみが対象だが、本実装は全クラスに適用する。</li><li>**1D-CNN**: 特定論文の再現ではなく、時系列分類で標準的な 3 ブロック構成(Conv-BN-ReLU-Pool + GAP)。Fawaz et al. 2019 のレビューにおける FCN 系の簡略版。</li><li>**PAMAP2 前処理(issue #21 DS-2)**: 一次配布 `.dat` から自前前処理(Zenodo 等の前処理済み版は不使用、透明性のため)。標準的追試との差分: (1) チャネルは加速度 ±16g 9ch のみ(±6g・ジャイロ・磁気・orientation・HR を除外)、(2) 100→33.3Hz 間引き・168サンプル窓は文献ごとに異なる窓長を横断比較のため実時間で近似的に揃えたもので原著の特定設定の再現ではない、(3) subject 109 を活動サポート欠損により除外(原著は 9 被験者全体を対象)、(4) rope_jumping は除外後希少化。原著(Reiss &amp; Stricker 2012)のベンチマークとは前処理・被験者集合・チャネルが異なるため精度は直接比較しない。</li>
       </ul>
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-07-19 13:52 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-07-19 16:57 UTC</p>
   </div>
 
 </div>
