@@ -903,6 +903,12 @@ def gather_context(repo_root: str | Path = ".") -> dict:
 
     # smoke runs on synthetic data are quality-gate checks, not study results
     summary_main = [s for s in results["summary"] if s["dataset"] != "synthetic"]
+    # Datasets whose axis is not time are reported in the appendix tab only, so
+    # every paper-tab aggregate (headline numbers, table 4, the highlighted
+    # conditions, the learning-curve panels) is computed without them.
+    non_temporal = {n for n, s in _load_yaml(root / "config/datasets.yaml").get("datasets", {}).items()
+                    if s.get("temporal") is False}
+    summary_paper = [s for s in summary_main if s["dataset"] not in non_temporal]
 
     baseline = {
         (s["dataset"], s.get("train_fraction", 1.0), s["model"]): s
@@ -917,7 +923,7 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         s["baseline_std"] = base["accuracy_std"] if base else None
 
     deltas = sorted(
-        [s for s in summary_main if s.get("delta_vs_none") is not None],
+        [s for s in summary_paper if s.get("delta_vs_none") is not None],
         key=lambda s: s["delta_vs_none"],
         reverse=True,
     )
@@ -932,6 +938,8 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     curve_keys = sorted({(k.split("|")[0], k.split("|")[1]) for k in curves})
     curve_panels = []
     for dataset, model in curve_keys:
+        if dataset in non_temporal:
+            continue  # shown in the appendix tab instead
         # only render panels that actually have multiple fractions (a real sweep)
         sample = curves.get(f"{dataset}|{model}|none", [])
         if len(sample) >= 2:
@@ -1096,7 +1104,7 @@ def gather_context(repo_root: str | Path = ".") -> dict:
 
     # main table shows full-training-set rows only; the fraction sweep lives in
     # the learning-curve figures, so 858 rows don't flood the table
-    summary_full = [s for s in summary_main if s.get("train_fraction", 1.0) == 1.0]
+    summary_full = [s for s in summary_paper if s.get("train_fraction", 1.0) == 1.0]
 
     # headline numbers for the abstract/intro (all derived from data, not typed)
     study_runs = [r for r in results["runs"] if r["status"] == "completed" and r.get("dataset") != "synthetic"]
@@ -1113,7 +1121,8 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     # analysis excludes them; they are reported in the appendix tab.
     _non_temporal = {n for n, s in _datasets_cfg_all.items() if s.get("temporal") is False}
     facts = {
-        "n_study_runs": len(study_runs),
+        "n_study_runs": len([r for r in study_runs if r.get("dataset") not in non_temporal]),
+        "n_appendix_runs": len([r for r in study_runs if r.get("dataset") in non_temporal]),
         "n_study_datasets": len(_study_datasets - _non_temporal),
         "non_temporal_datasets": sorted(_study_datasets & _non_temporal),
         "n_ucr_datasets": len((_study_datasets & _ucr_names) - _non_temporal),

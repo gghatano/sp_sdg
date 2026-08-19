@@ -31,6 +31,8 @@
 - **非時系列データの主結果からの除外と付録タブ新設(同ブランチ)**: UCR には軸が時間でない系列(輪郭・スペクトル)が含まれる。Plane / ArrowHead / Coffee の3件は、時間領域の拡張(とくに DTW 整列合成)が前提とする「クラス内差異が時間的伸縮」という仮定を満たさないため、主結果の集計から除外し新設の「付録: 非時系列データ」タブへ移設(データ説明・学習と評価・結果表・学習曲線をすべて収録)。フラグは `config/datasets.yaml` の `temporal: false`(config 駆動)。主結果の Wilcoxon/Holm は Phase 2 の12件から9件へ、UCR 全体では13件→10件。**結論は不変**(1D-CNN で複数手法が有意・MiniRocket で全手法非有意)だが効果量は縮小し(mixup +6.2→+4.8pt)、smote が有意から外れ jitter が有意に入る(いずれも p≈0.05 の境界)。post-hoc であることと除外前の全条件比較・入れ替わり条件を付録に明記。F-5/F-7 を再集計値に更新、F-16 を追加、README も更新。
 - **潜在バグ修正: Windows 記録のパスで PAMAP2/WESAD が集計から消える(同ブランチ)**: 一部の run manifest が `metrics_path` を `runs\metrics\...`(バックスラッシュ)で記録しており、POSIX では単一ファイル名として解決されず存在しない扱いになる。このため Linux で `make aggregate` を実行すると PAMAP2(140 run)と WESAD(315 run)が丸ごと欠落し、reduction_pamap2 / reduction_wesad が null になっていた(commit 済み results.json は Windows 側で生成されていたため表面化していなかった)。`manifest_path()` でセパレータを正規化して解決。再集計後も UCI HAR N*=8.85 / WISDM N*=14.04 など既存数値は一致。
 
+- **論文タブの言及範囲を時系列データに限定(branch claude/paper-tab-temporal-only)**: 非時系列3件を付録へ移した際、論文タブ側の集計が旧のまま全データセットを見ていたため、§6.1 の「改善が大きかった条件」に Coffee が出る・表4 と §6.2 の学習曲線に ArrowHead/Plane/Coffee が残るという不整合があった。論文タブが参照する集計(表4・改善/悪化の要点・学習曲線パネル・要旨の run 数)をすべて時系列データのみに揃えた(main 2786 run / 付録 630 run)。regression テスト2件(論文タブに付録データが表・要点・図のいずれにも出ないこと、run 数が論文の範囲と一致すること)。あわせて UCR 公式分割をそのまま使う方針(CBF は train 30 / test 900 など極端な分割も再分割しない。既発表値との比較可能性を優先し、学習量の影響は学習比率スイープで測る)を §5.3 とデータセットタブに明記。全232テスト green。
+
 - 次の候補: Phase 6-7(削減評価の反復数増による確度向上、拡張強度スイープ、統合レポート、WESAD 生理向け前処理 ablation=別 issue)。詳細は GitHub issue #7 / #27
 
 ## フェーズ別の経過(時系列)

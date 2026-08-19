@@ -332,6 +332,7 @@
       <h3 class="sub">5.3 評価プロトコルとリーク防止</h3>
       <ul class="lead text-sm list-disc list-inside mt-1 space-y-1">
         <li>データ拡張・スケーリング等の当てはめは<strong>学習データにのみ</strong>適用し、テストデータには一切触れない。</li>
+        <li><strong>UCR の公式 train/test 分割をそのまま用いる</strong>。学習側が極端に小さい分割(例: CBF は train 30 / test 900)も再分割しない。既発表の数値と比較可能にするためであり、test を学習側に回す操作は分割の選択自体が結果に依存しうるため行わない。学習量の影響は、学習比率スイープ(§6.2)で学習側だけを縮小して測る。</li>
         <li>被験者データでは同一被験者が train と test を跨がない group split を用い、コードで disjoint 性を検査する。</li>
         <li>目標性能は結果を見る前に事前登録する(§3.2、artifacts/pre_registration.md)。</li>
         <li>乱数 seed は run 単位で固定(分割・拡張・初期化に適用)し、全 run に一意 run_id と manifest を付す。</li>
