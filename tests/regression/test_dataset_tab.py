@@ -64,7 +64,7 @@ def test_dataset_tab_rendered_with_sections():
 
 def test_dataset_tab_context_merges_three_sources():
     tab = gather_context(".")["dataset_tab"]
-    entries = {e["key"]: e for group in tab["entries"].values() for e in group}
+    entries = {e["key"]: e for group in tab["all_entries"].values() for e in group}
     har = entries["UCI_HAR"]
     assert har["meta"].get("channels"), "loader metadata (data/metadata/*.json) not merged"
     assert har["what"], "prose (references/dataset_profiles.yaml) not merged"
@@ -78,7 +78,7 @@ def test_class_descriptions_match_the_real_class_names():
     """A class described in prose but absent from the data (or renamed) shows up
     as a missing count; catch that here rather than in a reader's eyes."""
     tab = gather_context(".")["dataset_tab"]
-    for group in tab["entries"].values():
+    for group in tab["all_entries"].values():
         for entry in group:
             if not entry["sample"].get("class_distribution"):
                 continue  # no committed samples (PAMAP2/WESAD)

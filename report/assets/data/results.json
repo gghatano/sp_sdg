@@ -80340,6 +80340,104 @@
       "augmentation": "dtw",
       "model": "cnn1d",
       "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0465,
+      "p_value": 0.001406613722065141
+    },
+    {
+      "augmentation": "dtw",
+      "model": "minirocket",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0005,
+      "p_value": 0.1992154330628848
+    },
+    {
+      "augmentation": "jitter",
+      "model": "cnn1d",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0355,
+      "p_value": 0.006244495873437438
+    },
+    {
+      "augmentation": "jitter",
+      "model": "minirocket",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0014,
+      "p_value": 0.25540428512256097
+    },
+    {
+      "augmentation": "mixup",
+      "model": "cnn1d",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0483,
+      "p_value": 0.0007421791162132624
+    },
+    {
+      "augmentation": "mixup",
+      "model": "minirocket",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": -0.0006,
+      "p_value": 0.19159698644075585
+    },
+    {
+      "augmentation": "oversample",
+      "model": "cnn1d",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0409,
+      "p_value": 0.0005461103901321008
+    },
+    {
+      "augmentation": "oversample",
+      "model": "minirocket",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.004,
+      "p_value": 0.14181799446913398
+    },
+    {
+      "augmentation": "scaling",
+      "model": "cnn1d",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0306,
+      "p_value": 0.0033545912278683788
+    },
+    {
+      "augmentation": "scaling",
+      "model": "minirocket",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0015,
+      "p_value": 0.29302184424901057
+    },
+    {
+      "augmentation": "smote",
+      "model": "cnn1d",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": 0.0335,
+      "p_value": 0.007237602119190157
+    },
+    {
+      "augmentation": "smote",
+      "model": "minirocket",
+      "metric": "accuracy",
+      "n_pairs": 135,
+      "mean_delta": -0.0027,
+      "p_value": 0.043974116543837954
+    }
+  ],
+  "stats_all_datasets": [
+    {
+      "augmentation": "dtw",
+      "model": "cnn1d",
+      "metric": "accuracy",
       "n_pairs": 180,
       "mean_delta": 0.0565,
       "p_value": 0.0005248736176664744
@@ -80432,6 +80530,11 @@
       "mean_delta": -0.0018,
       "p_value": 0.07070186885715588
     }
+  ],
+  "non_temporal_datasets": [
+    "ArrowHead",
+    "Coffee",
+    "Plane"
   ],
   "reduction": {
     "target_metric": "accuracy",

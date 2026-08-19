@@ -62,11 +62,16 @@ def test_per_dataset_evaluation_is_its_own_tab():
 
 
 def test_evaluation_rows_cover_every_dataset_with_runs():
+    """Every dataset with completed runs is presented somewhere: the main list,
+    or the appendix (datasets whose axis is not time)."""
     context = gather_context(".")
     with_runs = {r["dataset"] for r in context["results"]["runs"]
                  if r["status"] == "completed" and r["dataset"] != "synthetic"}
-    covered = {r["key"] for r in context["eval_tab"]["rows"]}
+    covered = {r["key"] for r in context["eval_tab"]["all_rows"]}
     assert covered == with_runs, f"evaluation tab covers {sorted(covered)} != runs {sorted(with_runs)}"
+    main = {r["key"] for r in context["eval_tab"]["rows"]}
+    appendix = {r["key"] for r in context["eval_tab"]["appendix_rows"]}
+    assert main.isdisjoint(appendix) and main | appendix == covered
 
 
 def test_evaluation_numbers_come_from_results():

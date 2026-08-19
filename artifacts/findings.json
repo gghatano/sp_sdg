@@ -39,11 +39,11 @@
     {
       "id": "F-5",
       "phase": 2,
-      "claim": "1D-CNN ではデータ拡張が精度を有意に改善する(12データセット×5比率×3seeds のペア検定で mixup +6.2pt, dtw +5.7pt, smote +5.1pt, oversample +4.3pt, scaling +3.7pt が Holm-Bonferroni 補正後も有意, α=0.05)",
-      "evidence": "results.json stats (Wilcoxon vs none, n=180 pairs/条件), Phase 2",
+      "claim": "1D-CNN ではデータ拡張が精度を有意に改善する(時間軸を持つ 9 データセット×5比率×3seeds のペア検定で mixup +4.8pt, dtw +4.7pt, oversample +4.1pt, jitter +3.6pt, scaling +3.1pt が Holm-Bonferroni 補正後も有意, α=0.05)",
+      "evidence": "results.json stats (Wilcoxon vs none, n=135 pairs/条件), Phase 2(非時系列3件を除外)",
       "confidence": "high",
       "type": "original",
-      "notes": "2520 runs・監査合格。効果量は mixup が最大。jitter は補正後は非有意(p=0.0099)"
+      "notes": "2520 runs・監査合格。効果量は mixup が最大。非時系列3件(Plane/ArrowHead/Coffee)を含めた全12データセットでは有意手法は mixup +6.2pt, dtw +5.7pt, smote +5.1pt, oversample +4.3pt, scaling +3.7pt で、有意な手法数は 5 で変わらないが smote と jitter が入れ替わる(どちらも p≈0.05 の境界事例)。除外前後の比較は付録タブ参照"
     },
     {
       "id": "F-6",
@@ -58,10 +58,10 @@
       "id": "F-7",
       "phase": 2,
       "claim": "拡張効果(1D-CNN)は学習比率が中〜低程度(25-50%)で相対的に大きい傾向があり、低データ条件で拡張が効くという仮説 H1 と整合する",
-      "evidence": "results.json learning_curves, フラクション別平均Δ(cnn1d: 10%→+4.2pt, 25%→+5.5pt, 50%→+3.7pt, 75%→+2.3pt)",
+      "evidence": "results.json learning_curves, フラクション別平均Δ(cnn1d, 非時系列除外後: 10%→+3.0pt, 25%→+5.1pt, 50%→+3.8pt, 75%→+1.9pt, 100%→+5.7pt)",
       "confidence": "medium",
       "type": "reproduction",
-      "notes": "厳密には単調でなく、フルサイズでも改善が残る点は Iwana & Uchida の傾向より弱い。被験者数削減の主張には Phase 4-5 の被験者単位学習曲線が必要"
+      "notes": "厳密には単調でなく、フルサイズ(100%)の平均Δが最大である点は Iwana & Uchida の傾向と整合しない。低データで効くという H1 は 25% 付近のピークとしては見えるが、単調な関係ではない。被験者数削減の主張には Phase 4-5 の被験者単位学習曲線が必要"
     },
     {
       "id": "F-8",
@@ -134,6 +134,15 @@
       "confidence": "medium",
       "type": "original",
       "notes": "【レンズ】各データの事前登録 primary target を用いるため主結論 F-8/F-10/F-12 と同一レンズであり、これらは統合でも不変。§6.5 の統一ルール target は UCI HAR/WISDM では post-hoc の別レンズだが結論(帰無)は一致し補強方向。【記述限定】4点(うち2点は推定不能)のため回帰・相関・因果は求めず、母集団サイズや信号種への系統トレンドは非検出/測定不能と明記。交絡(タスク・クラス数・前処理・pool 上限・正規化)によりデータ間の削減率差を単一要因に帰属できない。【WESAD の扱い】信号種が異なり near-chance のため、削減率の横並び比較ではなく『枠組み非転移』の事例として区別(HAR 3データと同列に削減率を比べない)。【削減率 CI の作図】図7の横棒は各手法の N* bootstrap CI を none 点推定で規格化したもので、none 自身の不確実性は網掛け帯で別途表示。作図上 WISDM smote の規格化 CI は 0 を跨がないが none の CI 帯とは重複するため『対照/baseline 越え』には当たらない(F-12 と整合)。【DS-5 対象外の根拠】チャネル横断拡張が削減に効くかを測るには多モーダルかつ N* 推定可能な基盤が要るが、PAMAP2(打ち切り)/WESAD(near-chance)/単一モダリティの UCI HAR・WISDM のいずれも該当せず。将来の発火条件は『多モーダルデータで N*(none) が格子内推定可能かつ label_shuffle≪none(モデルが学習)』(ds5_assessment.md §0、issue #27)。"
+    },
+    {
+      "id": "F-16",
+      "phase": 2,
+      "claim": "時間軸を持たないデータセット(輪郭・スペクトル)を主結果から除外しても、RQ1 の定性的結論は変わらない(1D-CNN で複数手法が有意・MiniRocket では全手法非有意)。ただし個々の手法の順位と有意判定は境界で入れ替わる",
+      "evidence": "results.json stats(9データセット) vs stats_all_datasets(12データセット), Phase 2",
+      "confidence": "high",
+      "type": "original",
+      "notes": "除外は結果を見たあとの post-hoc な判断だが、基準(軸が時間か)は結果と無関係なデータの構造的性質。除外により効果量は縮小し(mixup +6.2→+4.8pt)、smote が有意から外れ jitter が有意に入る(いずれも p≈0.05)。除外前後の全条件比較は付録タブ 表A1"
     }
   ],
   "schema": {
