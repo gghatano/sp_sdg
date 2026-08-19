@@ -84,3 +84,8 @@ tasks:
   - {id: MT30-1, phase: 7, title: "augmentation_profiles.yaml 新規(全8手法を同一構成で記述: 考え方/手順/ラベルの決め方/パラメータの意味/暗黙の前提/原論文からの差分/本研究での位置づけ)。サーベイ[8]の大分類に沿って magnitude/pattern/trivial/control に分類。パラメータ値は書かず config から供給", status: done}
   - {id: MT30-2, phase: 7, title: "scripts/build_augmentation_examples.py 新規(実験と同じ実装・同じ config パラメータで実データ(GunPoint 学習split)を拡張し、入出力の波形ペアを report/assets/data/augmentation_examples.json に生成)", status: done}
   - {id: MT30-3, phase: 7, title: "拡張手法タブ実装(build.py: _augmentation_entries で prose+config値+results.json の実測効果(Holm補正)+被験者数削減+実出力例を突合。template: 全手法同一構成の article)+ regression テスト8件(実装レジストリとの完全一致・パラメータが config 由来・例が実 augmenter 生成)", status: done}
+
+  # issue #31: 論文タブを「サーベイ解説 + 部分追試」に再構成し、学習/評価と被験者数削減を分離
+  - {id: PT31-1, phase: 7, title: "survey_overview.yaml 新規(サーベイ[8]の手法分類6群と主要主張5件を、本研究のカバレッジ=再現/部分的/未検証と未評価範囲つきで対応表化)+ §1.5「サーベイの内容と本研究の追試範囲」を論文タブに追加。やったこと・やっていないことを対等に提示", status: done}
+  - {id: PT31-2, phase: 7, title: "「学習と評価」タブ新設(build.py: _evaluation_entries。データセットごとに 解く問題/学習の入力(ch×点→クラス数)/評価の分割/モデル/条件(拡張×seed×比率×被験者数=run数)/結果表/学習曲線 を results.json から集計)。issue #31 の『何を学習して何を評価しているかが分からない』への対応", status: done}
+  - {id: PT31-3, phase: 7, title: "被験者数削減(旧 §6.3-6.7)を論文タブから独立タブへ移設し1-5節に再番号。論文タブは §6 を RQ1 に限定し、要旨・序論・読み方ガイドをサーベイ解説+部分追試の枠組みへ改稿。regression テスト9件(移設の担保・データセット網羅・数値のresults由来・カバレッジ表の両面提示)", status: done}

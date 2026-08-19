@@ -1,0 +1,119 @@
+# Iwana & Uchida (2021) のサーベイ内容と、本研究がどこを追試したかの対応表 (issue #31)。
+#
+# 目的: 本レポートを「サーベイの内容解説 + 部分的な追試」として読めるようにする。
+# 主張ごとに、本研究で対応する実験・知見・カバレッジを明示し、追試していない範囲も
+# 同じ粒度で書く(やったこととやっていないことを対等に並べる)。
+#
+# 数値(改善幅・p値など)はここに書かない: 実測値は results.json / findings.json から
+# レポートが引く。このファイルは「サーベイが何を言っているか」「本研究がどこを触ったか」
+# の対応だけを持つ。
+
+survey:
+  reference: iwana2021
+  title: "An empirical survey of data augmentation for time series classification with neural networks"
+  scope: >-
+    時系列分類向けデータ拡張手法を体系的に整理し、UCR アーカイブ128データセット上で
+    ニューラルネット分類器と組み合わせて横断評価した実証サーベイ。手法を変換の種類で
+    分類し、「どの手法がどの条件で効くか」はデータセットとモデルに強く依存する、という
+    のが中心的な結論。
+  our_framing: >-
+    本レポートはこのサーベイの内容を解説したうえで、その一部を独立に追試する。追試の範囲は
+    UCR の 13 データセット × 拡張 7 種 × モデル 2 種で、サーベイの規模(128データセット)には
+    及ばない。そのうえで、サーベイが扱っていない「必要実被験者数の削減」という応用側の問いを
+    被験者ID付きデータで独自に評価した(別タブ)。
+
+# サーベイの手法分類。本研究の各手法がどの群に属するかは
+# references/augmentation_profiles.yaml の family と対応する。
+taxonomy:
+  - key: magnitude
+    survey_name: "Magnitude domain(振幅領域の変換)"
+    description: 値そのものを変換する。jittering(ノイズ付加)・scaling(振幅倍率)・magnitude warping など。
+    our_coverage: partial
+    our_methods: [jitter, scaling]
+    not_covered: magnitude warping・rotation・permutation などの残りの変換は未評価。
+  - key: time
+    survey_name: "Time domain(時間領域の変換)"
+    description: 時間軸を変換する。time warping・window slicing・window warping など。
+    our_coverage: none
+    our_methods: []
+    not_covered: >-
+      時間軸そのものを歪める手法は本研究では単独評価していない。DTW ベース合成が時間整列を
+      使うが、これはパターン合成として扱っており、time warping の追試ではない。
+  - key: frequency
+    survey_name: "Frequency domain(周波数領域の変換)"
+    description: フーリエ変換等で周波数成分を操作する。
+    our_coverage: none
+    our_methods: []
+    not_covered: 未評価。
+  - key: pattern
+    survey_name: "Pattern mixing(サンプル間の混合)"
+    description: 複数サンプルを混ぜて新しいサンプルを作る。SMOTE・mixup・DTW ベース平均(DBA 等)。
+    our_coverage: partial
+    our_methods: [mixup, dtw, smote]
+    not_covered: DBA による重み付き重心合成(原法)は簡略版で代替。
+  - key: generative
+    survey_name: "Generative models(生成モデル)"
+    description: GAN・VAE 等で学習した生成器から合成サンプルを得る。
+    our_coverage: none
+    our_methods: []
+    not_covered: TimeGAN 等は未実装。計算コストと再現性の観点から本研究の範囲外とした。
+  - key: decomposition
+    survey_name: "Decomposition(分解に基づく手法)"
+    description: EMD・STL 等で成分分解し、成分を入れ替えて合成する。
+    our_coverage: none
+    our_methods: []
+    not_covered: 未評価。
+
+# サーベイの主要な主張と、本研究での追試状況。
+claims:
+  - id: C1
+    claim: 拡張の効果はデータセットに強く依存し、全データセットで一貫して効く手法は存在しない。
+    our_status: reproduced
+    our_evidence: [F-1, F-2, F-5, F-7]
+    our_note: >-
+      13データセット横断でも、同一手法の効果はデータセットによって符号が変わる。フル学習データ条件
+      では改善は小さく、悪化する組合せもある。
+  - id: C2
+    claim: 拡張の効果はモデル(分類器)にも依存する。
+    our_status: reproduced
+    our_evidence: [F-5, F-6]
+    our_note: >-
+      1D-CNN では複数手法が多重比較補正後も有意に改善する一方、MiniRocket ではどの手法も有意でない。
+      サーベイの「モデル依存」をモデル2種の対比として明確に再現した。
+  - id: C3
+    claim: 学習データが少ない条件ほど拡張の相対的な効き目が大きい。
+    our_status: reproduced
+    our_evidence: [F-7]
+    our_note: 学習比率スイープ(10〜100%)で、中〜低比率での効果が相対的に大きい傾向を確認。
+  - id: C4
+    claim: 単純な手法(jittering 等)でも、複雑な手法に劣らない場合がある。
+    our_status: partial
+    our_evidence: [F-5]
+    our_note: >-
+      本研究の範囲では pattern 系(mixup/dtw/smote)が 1D-CNN で上位だったが、順位は指標に依存し、
+      反復数も少ないため「単純 vs 複雑」の優劣は結論づけない。
+  - id: C5
+    claim: 拡張手法の選択はデータセットの性質(クラス数・系列長・ドメイン)に応じて行うべき。
+    our_status: not_tested
+    our_evidence: []
+    our_note: >-
+      データセット性質と最適手法の対応づけには、より多くのデータセットと反復が要る。本研究は
+      13データセットでの傾向確認に留まり、選択指針は導出していない。
+
+# 本研究がサーベイを越えて独自に行った部分(追試ではない)。
+beyond_survey:
+  - id: B1
+    topic: 必要実被験者数(N*)の削減という評価軸
+    detail: >-
+      サーベイは精度改善を評価軸とする。本研究は被験者単位の学習曲線から「目標性能に必要な
+      実被験者数」を推定し、拡張がそれをどれだけ減らせるかを直接測る枠組みを定式化した。
+  - id: B2
+    topic: negative control による「対照越え」判定
+    detail: >-
+      見かけの削減が、ラベルを壊した対照や単純増量でも同程度に再現されることを示し、削減の主張に
+      対照を超えることを課した。これは精度改善の評価では使われていない健全性チェック。
+  - id: B3
+    topic: 事前登録とリーク防止の運用
+    detail: >-
+      目標性能を結果を見る前に固定し、被験者非跨り分割・test 不使用をコードで検査する運用を
+      実験基盤に組み込んだ。

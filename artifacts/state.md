@@ -20,6 +20,8 @@
 
 - **拡張手法タブ新設(issue #30, branch claude/issue-30-method-tab)**: レポートに第5タブ「拡張手法」を追加。評価対象の全8手法を同一構成(考え方 / 手順 / ラベルの決め方 / ハイパーパラメータの意味と本実験の値 / 暗黙の前提 / 実測の効果 / 入出力例 / 原論文からの差分 / 本研究での位置づけ)で提示。サーベイ[8]の大分類に沿って magnitude / pattern / trivial / control の4群に整理。説明は `references/augmentation_profiles.yaml`(パラメータ値を持たない散文のみ)、値は `config/augmentations.yaml`、効果は `results.json`(Holm 補正後の有意判定・被験者数削減率)、入出力例は新規 `scripts/build_augmentation_examples.py` が実験と同じ実装・同じパラメータで実データを拡張した `report/assets/data/augmentation_examples.json` に由来し、HTML 手入力なし。label_shuffle は issue #23 の訂正どおり「クラス信号ゼロの床」ではなく悲観的対照として記述。regression テスト8件追加(実装レジストリ・config・散文の三者一致、パラメータ値の config 由来、例が実 augmenter 生成であること)。全205テスト green。
 
+- **論文タブ再構成 + 学習/評価タブ・被験者数削減タブ分離(issue #31, branch claude/issue-31-paper-restructure)**: レポートを7タブ構成へ。(1)論文タブは「サーベイ[8]の内容解説 + その部分的な追試」に位置づけを限定し、§1.5 を新設して手法分類6群のカバレッジ(一部評価2群・未評価4群)と主要主張5件の追試状況(再現3・部分的1・未検証1)を未評価範囲つきで提示(`references/survey_overview.yaml` 由来)。§6 は RQ1 に限定。(2)新タブ「学習と評価」でデータセットごとに〈解く問題 / 学習の入力(ch×点→クラス数) / 評価の分割 / モデル / 条件と run 数 / 結果表 / 学習曲線〉を results.json から集計して提示(issue #31 の「何を学習して何を評価しているか分からない」への直接対応)。(3)被験者数削減(旧 §6.3〜6.7)を独立タブへ移設し1〜5節に再番号。(4)論文タブ冒頭に読み方ガイド(どのタブに何があるか)を追加。regression テスト9件追加・全214テスト green。
+
 - 次の候補: Phase 6-7(削減評価の反復数増による確度向上、拡張強度スイープ、統合レポート、WESAD 生理向け前処理 ablation=別 issue)。詳細は GitHub issue #7 / #27
 
 ## フェーズ別の経過(時系列)
