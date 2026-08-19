@@ -1,0 +1,33 @@
+# WESAD negative control (issue #21 DS-3): the label_shuffle augmentation must
+# NOT reduce the required subject count. Same setup as wesad_subject_count.yaml,
+# one augmentation. Runs land alongside the WESAD main curves (same name).
+# label_shuffle = original signals kept + labels permuted (a pessimistic
+# label-noise control, per the #23 re-interpretation); the pure quantity baseline
+# is oversample.
+phase: 6
+name: wesad_subject_count   # same name so runs join the WESAD curves
+dataset: WESAD
+model: cnn1d_har
+subject_counts: [2, 3, 4, 5, 6, 7, 8, 9, 10]
+repeats: 5
+augmentations: [label_shuffle]
+# must match wesad_subject_count.yaml so the control shares the same window set
+dataset_params:
+  window: 2100
+  split_seed: 0
+  n_test_subjects: 5
+  normalize: per_window_z
+  downsample_hz: 70
+  overlap: 0.0
+  modality: chest
+  channels:
+    - ECG
+    - EDA
+    - EMG
+    - RESP
+    - TEMP
+  archive_sha256: "5e15d2606adf16d819ba535c1786d92e94bae5ff5392f7ae01fb63f9938fd71c"
+target_metric: macro_f1
+target_value: 0.40   # from full-pool none baseline per the registered rule (see wesad_subject_count.yaml)
+pre_registered: true
+pre_registration_note: artifacts/pre_registration.md

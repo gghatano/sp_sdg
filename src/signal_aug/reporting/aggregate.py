@@ -306,6 +306,18 @@ def build_results_json(
         prefix="pamap2_subject_count_",
     )
 
+    # WESAD (external validity across SIGNAL TYPE, issue #21 DS-3): the first
+    # non-HAR dataset (chest physiology, 3-class affect). Imbalanced (amusement
+    # minority) -> report BOTH metrics via the same procedure as PAMAP2 (macro_f1
+    # pre-registered primary, accuracy secondary by the same registered rule).
+    # Deliberately NOT added to reduction_cross / the HAR "reduction vs pool size"
+    # figure: WESAD differs in signal type, task, class count and channel count,
+    # so it is presented separately (signal-type stratified), per the DS-3 design.
+    reduction_wesad = _reduction_both_metrics(
+        Path(manifests_dir), Path(config_dir) / "experiments" / "wesad_subject_count.yaml",
+        prefix="wesad_subject_count_",
+    )
+
     # Cross-dataset comparison (issue #21 DS-2): all 3 subject datasets, both
     # metrics, on the UNIFIED target rule so the reduction-vs-pool-size figure
     # is comparable. See _cross_dataset_reduction for the post-hoc caveat.
@@ -319,6 +331,7 @@ def build_results_json(
         "reduction": reduction,
         "reduction_wisdm": reduction_wisdm,
         "reduction_pamap2": reduction_pamap2,
+        "reduction_wesad": reduction_wesad,
         "reduction_cross": reduction_cross,
         "failed_runs": [r for r in rows if r["status"] == "failed"],
         "audit": audit,

@@ -79,6 +79,7 @@
         {{ facts.n_star_none if facts.n_star_none is not none else "—" }} 名であり、点推定では DTW ベース合成 [{{ ref.forestier2017 }}] が最大
         {{ facts.dtw_reduction_pct if facts.dtw_reduction_pct is not none else "—" }}% の削減を示すが、反復が少なく信頼区間が対照と重なるため確定できない。
         この「削減を確定できない(帰無)」という結論は第2の被験者データ WISDM v1.1 [{{ ref.kwapisz2011 }}] でも一貫して再現され(ただし最良手法の順位は再現せず、指標にも依存する。§6.4)、第3の PAMAP2 [{{ ref.reiss2012 }}] を加えた3データ横断でも母集団被験者数(5〜24名)に沿う系統トレンドは検出されない(PAMAP2 は少 N・高 baseline で左側打ち切り=削減率推定不能。§6.5)。
+        さらに信号種を変えた第4データ WESAD [{{ ref.schmidt2018 }}](生理信号)では full-pool baseline が near-chance(乱ラベル対照と同水準)で、そもそも削減を論じる前提が成立せず、HAR 向け枠組みの<strong>非転移(信号種依存)</strong>が示された(§6.6)。
         したがって<strong>本設定ではデータ拡張による被験者数削減を統計的に確定できない</strong>。
         なお UCR での精度効果は先行研究 [{{ ref.iwana2021 }}] の傾向を追試した結果であり、被験者数削減の評価枠組みと negative control による健全性検証が本研究独自の貢献である。
         すべての結果は目標の事前登録とデータリーク防止プロトコルの下で得られ、実験基盤・レポートは完全に自動生成される。
@@ -471,6 +472,44 @@
         <p>推定可能な UCI HAR・WISDM でも、統一ルール下の削減率は正負にばらつき(実手法で概ね ±14% 以内)、どの手法も none 基準(y=0)から CI 分離しない。PAMAP2 は左側打ち切りで削減率を解像できない。統一ルールは target 決定手続きを揃える一方、baseline が高く pool 上限が低いデータ(PAMAP2・UCI HAR)では N* が格子下限近傍に寄り、削減率が格子分解能で圧縮される。<strong>3点・広 CI から、母集団被験者数(5〜24名)に沿った削減率の系統的トレンドは読み取れない</strong>。悲観的対照 label_shuffle は WISDM・PAMAP2 で目標未到達、UCI HAR で削減最小と、対照として一貫して妥当。以上は DS-1(F-8/F-10/F-12)で見た<strong>帰無の外的妥当性を第3データで補強</strong>するものであり、削減効果の存在を主張するものではない。強い因果・外挿はしない(F-13)。</p>
       </div>
       {% endif %}
+
+      {% if reduction_wesad and wesad_primary_block and wesad_primary_block.methods %}
+      {% set wp = wesad_primary_block %}
+      {% set wacc = reduction_wesad.by_metric.accuracy %}
+      <!-- 6.6 Signal-type dependence: physiological signals (WESAD, issue #21 DS-3) -->
+      <h3 class="sub mt-6" id="subject-reduction-wesad">6.6 信号種依存:生理信号 WESAD での外的妥当性(RQ2 別軸)</h3>
+      <p class="lead text-sm">§6.4–6.5 の3データはいずれも加速度など<strong>運動</strong>由来の HAR である。信号種を変えた外的妥当性として、第4の被験者データ WESAD [{{ ref.schmidt2018 }}](胸装着 RespiBAN の<strong>生理信号</strong>、被験者15名)で同じ削減評価の枠組みを適用する。設定:胸生理 5ch(ECG/EDA/EMG/RESP/TEMP)、700→70Hz 反エイリアス間引き、30秒非重複窓、窓ごと z 正規化、3クラス(baseline/stress/amusement)、model=cnn1d_har、seed-0 で K=5 名を held-out・残り10名を pool、N∈{2..10}×5反復×6拡張+negative control=<strong>315 run 完走</strong>(git_dirty=false・失敗0)。<strong>HAR 3データとの比較可能性を保つため、前処理・モデル・評価は一切変えていない</strong>(post-hoc 変更なし)。</p>
+
+      <div class="mt-2 border border-rose-300 bg-rose-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-rose-900 mb-1">前提が成立しない:モデルがタスクを学習していない(near-chance)</p>
+        <p>full-pool・拡張なしの baseline が <strong>near-chance</strong> である。macro-F1 = <span class="font-mono">{{ "%.3f" | format(wp.fullpool_none_mean) }}</span>(目標 {{ "%.2f" | format(wp.target_value) }}){% if wacc %}、accuracy = <span class="font-mono">{{ "%.3f" | format(wacc.fullpool_none_mean) }}</span>(目標 {{ "%.2f" | format(wacc.target_value) }}、多数派クラス率 ≈0.54 を下回る){% endif %}。図6 のとおり <span class="font-mono">none</span> 曲線は N=2..10 でほぼ<strong>平坦</strong>(~0.44–0.49)で、被験者を増やしても改善しない。さらに乱ラベルの悲観的対照 <span class="font-mono">label_shuffle</span> が <span class="font-mono">none</span> とほぼ<strong>重なる</strong>(~0.44–0.53)——これは<strong>モデルがクラス構造を学習していない直接証拠</strong>である。したがって本データで論じられるのは「拡張が被験者を削減するか否か」ではなく、そもそも<strong>削減を論じる前提(タスク学習)が成立しない</strong>という点である。</p>
+      </div>
+
+      <figure class="border border-slate-200 rounded p-2 my-3">{{ reduction_wesad_svg | safe }}<figcaption class="cap mt-1">図6: WESAD の被験者数に対する {{ wesad_primary }}(3クラス、target={{ "%.2f" | format(wp.target_value) }})。<span class="font-mono">none</span>(太実線)は平坦、悲観的対照 <span class="font-mono">label_shuffle</span>(破線)がこれと重なる=near-chance。他手法(淡色)も同帯に密集し分離しない。全手法が最小格子 N=2 で既に目標線を上回るため N* は左側打ち切り。</figcaption></figure>
+
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">拡張</th><th class="p-2 text-right">N*({{ wesad_primary }})</th><th class="p-2 text-right">削減率</th>
+        </tr></thead>
+        <tbody>
+          {% for m in wp.methods %}
+          <tr class="border-b border-slate-100 {{ 'bg-slate-50' if m.augmentation == 'none' else '' }}">
+            <td class="p-2 font-mono">{{ m.augmentation }}</td>
+            <td class="p-2 text-right text-slate-500">≤{{ m.n_star | int }} <span class="text-amber-700 text-xs">(左側打ち切り)</span></td>
+            <td class="p-2 text-right text-slate-400"><span class="text-xs">推定不能</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      <p class="cap mt-1">表9: WESAD の N* と削減率({{ wesad_primary }})。<strong>全手法(none・対照含む)で N*(none) が最小格子 N=2 に張り付く左側打ち切り</strong>——none が N=2 で既に target を超えるため。事前登録の停止条件どおり削減率は算出せず<strong>「推定不能」</strong>とし、捏造(見かけの 0% や正値)をしない。accuracy 指標でも同様に全手法左側打ち切り。</p>
+
+      <div class="mt-3 border border-emerald-300 bg-emerald-50 rounded p-3 text-sm figtab">
+        <p class="font-bold text-emerald-900 mb-1">DS-3 で言えるのは「枠組みの非転移(信号種依存)」に限る</p>
+        <p>WESAD で<strong>拡張の効果は評価不能</strong>である(前提となるタスク学習が成立しない)。DS-3 の結論は「拡張が被験者数を削減する/しない」ではなく、<strong>HAR 向けの枠組み(窓ごと z 正規化 + cnn1d_har)が生理信号に転移せず near-chance にとどまる=信号種依存</strong>という一点に限定される。near-chance を「WESAD が難しいから」だけに帰さない:候補要因として、<strong>HAR 由来の窓ごと z 正規化が EDA / 体温の絶対レベル</strong>(ストレスで上昇する皮膚コンダクタンス・体温——生理信号の主情報)を各窓内で消すことが挙げられる(再現ノートタブ J-WESAD-NORM / deviations D-WESAD に記録)。原論文 [{{ ref.schmidt2018 }}] は手作り生理特徴で 3クラス accuracy ~93% を報告しており、near-chance は WESAD 自体の限界ではなく<strong>前処理・モデルの選択</strong>に強く依存することを示唆する。<strong>それでも比較可能性のため枠組みは固定し(前処理変更なし=#23 の規律)</strong>、信号種を変えた別軸として本結果を記録する。WESAD は交絡(タスク・信号種・クラス数)を避けるため §6.5 の HAR 横断図には同列で載せていない。データは<strong>非商用+帰属</strong>ライセンス(CC BY ではない)で、生データは非コミット・利用時は Schmidt et al. 2018 の帰属表示が必須。</p>
+      </div>
+      {% endif %}
     </section>
 
     <!-- 7. Discussion -->
@@ -519,7 +558,7 @@
       時系列データ拡張の効果は手法・モデル・データに強く依存する。1D-CNN では複数手法が精度を有意に改善するが MiniRocket では改善せず、
       被験者数削減に至っては対照と区別できるレベルの効果は本設定では得られなかった。この「削減を確定できない(帰無)」という結論は
       第2の被験者データ WISDM v1.1 [{{ ref.kwapisz2011 }}] でも再現され、単一データセット固有でないことを確認した(ただし前処理を各データセットに合わせた追試であり、
-      再現したのは帰無であって最良手法の順位ではない。順位は評価指標にも依存する。§6.4)。以上は、削減を主張する際に
+      再現したのは帰無であって最良手法の順位ではない。順位は評価指標にも依存する。§6.4)。信号種を変えた WESAD(生理信号)では baseline が near-chance で削減の前提すら成立せず、HAR 向け枠組みが転移しない(信号種依存。§6.6)。以上は、削減を主張する際に
       「対照越え」と反復数の確保が不可欠であることを示す。今後は反復数を増やした検出力設計、macro-F1 / balanced accuracy を含む指標横断の評価、
       拡張強度と手法効果の分離、および第3の被験者データや別ドメインへの拡張が課題である。
       </p>

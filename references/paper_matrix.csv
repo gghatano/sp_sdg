@@ -15,3 +15,4 @@ weiss2019,Weiss et al.,2019,IEEE Access,被験者データ,WISDM (51名),-,Phase
 kwapisz2011,"Kwapisz, Weiss, Moore",2011,SIGKDD Explorations,被験者データ,WISDM v1.1 (36名),-,Phase6 実使用(被験者数削減の追試 F-12)
 wagner2020,Wagner et al.,2020,Scientific Data,被験者データ,PTB-XL (18885名),-,Phase6-7 予備候補
 reiss2012,Reiss & Stricker,2012,ISWC/PETRA,被験者データ,PAMAP2 (9名),-,issue #21 DS-2 横断評価の少N端点(設計: artifacts/ds2_design.md)
+schmidt2018,Schmidt et al.,2018,ACM ICMI,被験者データ(生理信号/情動),WESAD (15名),-,issue #21 DS-3 非HAR生理信号での被験者数削減の外的妥当性(設計: artifacts/ds3_design.md; License: 非商用+帰属)

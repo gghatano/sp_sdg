@@ -12,12 +12,14 @@ from typing import Callable
 
 from signal_aug.data.pamap2 import load_pamap2
 from signal_aug.data.uci_har import load_uci_har
+from signal_aug.data.wesad import load_wesad
 from signal_aug.data.wisdm import load_wisdm
 
 SUBJECT_LOADERS: dict[str, Callable] = {
     "UCI_HAR": load_uci_har,
     "WISDM": load_wisdm,
     "PAMAP2": load_pamap2,
+    "WESAD": load_wesad,
 }
 
 
