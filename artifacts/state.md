@@ -18,6 +18,8 @@
 - **DS-5(マルチモーダル/チャネル横断拡張)は deferred 確定**: 統括判断で「実行せず統合まとめで締める」。理由: 削減を測るには「多モーダル×削減測定可能」な基盤が要るが、多モーダルの PAMAP2 は左側打ち切り・WESAD は near-chance、削減が測れる UCI HAR/WISDM は単一モダリティ寄りで、該当データが無い。将来の発火条件(多モーダルで N*(none) 格子内推定可能かつ label_shuffle≪none)を issue #27 に残す。評価は `artifacts/ds5_assessment.md`。DS-4 は本アークの範囲外。§6.7 の対象外根拠ボックス + F-15 notes + limitations に明記。
 - **データセットタブ新設(issue #29, branch claude/issue-29-dataset-tab)**: レポートに第4タブ「データセット」を追加。全17データセット(UCR 13 + 被験者 4)を同一構成(本研究での役割 / どんなデータか / 分類タスク / 1レコードの構造 / クラスの意味と件数 / 実データの波形 / サンプル値抜粋 / 前処理 / 注意点)で提示。説明は `references/dataset_profiles.yaml`(件数を持たない散文のみ)、構造は `data/metadata/*.json`、波形・クラス分布・サンプル値は新規 `scripts/build_dataset_samples.py` が実データの学習split から生成した `report/assets/data/dataset_samples.json` に由来し、HTML 手入力なし。WESAD は再配布不可ライセンス、PAMAP2 は取得コスト(1.6GB)のため波形は非収録とし、構造情報のみ提示。regression テスト9件追加(全データセット網羅・構成の同一性・散文に数値を書かない・クラス名が実データと一致・test split 非使用・再配布不可データの信号値非収録)。全197テスト green・make validate OK。
 
+- **拡張手法タブ新設(issue #30, branch claude/issue-30-method-tab)**: レポートに第5タブ「拡張手法」を追加。評価対象の全8手法を同一構成(考え方 / 手順 / ラベルの決め方 / ハイパーパラメータの意味と本実験の値 / 暗黙の前提 / 実測の効果 / 入出力例 / 原論文からの差分 / 本研究での位置づけ)で提示。サーベイ[8]の大分類に沿って magnitude / pattern / trivial / control の4群に整理。説明は `references/augmentation_profiles.yaml`(パラメータ値を持たない散文のみ)、値は `config/augmentations.yaml`、効果は `results.json`(Holm 補正後の有意判定・被験者数削減率)、入出力例は新規 `scripts/build_augmentation_examples.py` が実験と同じ実装・同じパラメータで実データを拡張した `report/assets/data/augmentation_examples.json` に由来し、HTML 手入力なし。label_shuffle は issue #23 の訂正どおり「クラス信号ゼロの床」ではなく悲観的対照として記述。regression テスト8件追加(実装レジストリ・config・散文の三者一致、パラメータ値の config 由来、例が実 augmenter 生成であること)。全205テスト green。
+
 - 次の候補: Phase 6-7(削減評価の反復数増による確度向上、拡張強度スイープ、統合レポート、WESAD 生理向け前処理 ablation=別 issue)。詳細は GitHub issue #7 / #27
 
 ## フェーズ別の経過(時系列)

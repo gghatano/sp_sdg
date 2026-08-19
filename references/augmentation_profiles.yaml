@@ -1,0 +1,215 @@
+# Human-readable descriptions of the time-series augmentation methods evaluated
+# here (issue #30). One entry per method, all with the same structure.
+#
+# 数値(ハイパーパラメータの値・実測の効果)はここに書かない: 値は
+# config/augmentations.yaml、効果は results.json から取ってレポートが突き合わせる。
+# このファイルが持つのは「その手法が何をするか」の説明だけ。
+#
+# 各エントリの構成:
+#   display    : 表示名
+#   family     : 分類(サーベイ Iwana & Uchida 2021 の大分類に対応)
+#   one_liner  : 1行での要約
+#   idea       : 何をする手法か(考え方)
+#   procedure  : 本実装の手順(何を入力に、どう合成するか)
+#   label      : 合成サンプルのラベルをどう決めるか
+#   params     : ハイパーパラメータの意味(値は config から表示)
+#   assumption : この手法が暗に仮定していること(効く/効かない条件の根拠)
+#   deviation  : 原論文・一般的定式化からの本実装の差分(なければ null)
+#   reference  : references.json のキー(なければ null)
+#   role       : 本研究での位置づけ
+
+families:
+  magnitude:
+    title: 振幅領域の摂動
+    lead: >-
+      値そのものに小さな変換を加える。時間軸の構造は保ったまま、センサノイズや
+      個体差に相当する変動を模す。実装が軽く、信号の意味を壊しにくい。
+  pattern:
+    title: パターン合成(サンプル間の混合)
+    lead: >-
+      複数の実サンプルを組み合わせて中間的なサンプルを作る。クラス内の多様性を
+      「実在するサンプルの間」を埋める形で増やす。
+  trivial:
+    title: 単純増量
+    lead: >-
+      新しい情報を加えず、データ量だけを増やす。学習の正則化効果と「情報が増えた
+      効果」を切り分けるための基準として使う。
+  control:
+    title: 対照(negative control)
+    lead: >-
+      効果があってはいけない操作。これが改善を示したら、測っているものは
+      クラス情報ではなく別の何か(正則化アーティファクト)だと分かる。
+
+methods:
+  none:
+    display: none(拡張なし)
+    family: trivial
+    one_liner: 学習データをそのまま使うベースライン。
+    idea: 拡張の効果を測る基準線。すべての比較はこの条件との差で表される。
+    procedure: 学習データを一切変更せずモデルに渡す。
+    label: 変更なし。
+    params: {}
+    assumption: なし(基準)。
+    deviation: null
+    reference: null
+    role: 全比較の基準。N*(none) が削減率の分母になる。
+
+  oversample:
+    display: oversample(単純複製)
+    family: trivial
+    one_liner: 既存の学習サンプルをそのまま複製して数を増やす。
+    idea: >-
+      新しい情報はゼロだが、学習データ量は増える。「量が増えたこと自体の効果」と
+      「合成で情報が増えた効果」を分離するための基準。
+    procedure: 学習集合から復元抽出でサンプルを選び、コピーをそのまま追加する。
+    label: 元サンプルのラベルをそのまま継承。
+    params:
+      ratio: 元の学習件数に対して追加する合成サンプルの割合(1.0 で倍量)。
+    assumption: >-
+      情報を増やさないので、これを超えられない拡張は「量の水増し以上のことをして
+      いない」と判断できる。
+    deviation: null
+    reference: null
+    role: >-
+      純粋な量水増しの基準線。レッドチーム検証(issue #23)以降、削減率の比較は
+      label_shuffle ではなくこの oversample を「量だけの効果」の基準に据えている。
+
+  jitter:
+    display: jitter(ガウスノイズ付加)
+    family: magnitude
+    one_liner: 各時点に独立なガウスノイズを足す。
+    idea: >-
+      センサの計測ノイズを模した最も基本的な摂動。波形の大局的な形は保ったまま、
+      細部を揺らして過剰適合を抑える。
+    procedure: 選んだサンプルの全時点・全チャネルに平均0・標準偏差 sigma の正規乱数を加算する。
+    label: 元サンプルのラベルをそのまま継承。
+    params:
+      ratio: 追加する合成サンプルの割合。
+      sigma: 加えるノイズの標準偏差(z正規化後の信号に対する相対値)。
+    assumption: >-
+      クラスを決める情報が高周波の微細構造ではなく、大局的な波形にあること。
+      微細構造が効くタスク(心電図の細かい棘波など)では情報を壊しうる。
+    deviation: null
+    reference: um2017
+    role: サーベイで最も基本的な magnitude 系手法として追試対象に選定。
+
+  scaling:
+    display: scaling(振幅スケーリング)
+    family: magnitude
+    one_liner: 波形全体をチャネルごとにランダムな倍率で伸縮する。
+    idea: >-
+      センサ感度の個体差や装着位置のずれによる振幅差を模す。時間方向の形は完全に
+      保たれ、縦軸だけが変わる。
+    procedure: チャネルごとに平均1・標準偏差 sigma の正規乱数を1つ引き、そのチャネル全体に掛ける。
+    label: 元サンプルのラベルをそのまま継承。
+    params:
+      ratio: 追加する合成サンプルの割合。
+      sigma: スケール係数のばらつき(1.0 中心)。
+    assumption: >-
+      クラスが振幅の絶対値ではなく波形の形で決まること。絶対レベルが情報を持つ信号
+      (皮膚電気活動や体温など)では有害になりうる。
+    deviation: null
+    reference: um2017
+    role: >-
+      jitter と対になる magnitude 系手法。窓ごとz正規化と組み合わせると効果が
+      打ち消されやすい点は考察で触れている。
+
+  mixup:
+    display: mixup(サンプル間の線形補間)
+    family: pattern
+    one_liner: 同一クラスの2サンプルを線形に混ぜて中間サンプルを作る。
+    idea: >-
+      画像分野で提案された手法。2つの実サンプルを結ぶ直線上の点を新しい学習例と
+      することで、クラス内の分布を滑らかに埋める。
+    procedure: >-
+      同一クラスから2サンプルを選び、Beta(alpha, alpha) から引いた混合比 lam で
+      lam*A + (1-lam)*B を計算する。
+    label: >-
+      同一クラス内でのみ混ぜるため、両者のラベルは一致する。そのラベルをそのまま
+      与える(ハードラベル)。
+    params:
+      ratio: 追加する合成サンプルの割合。
+      alpha: 混合比を引く Beta 分布の形状。小さいほど端(元サンプル寄り)に偏る。
+    assumption: >-
+      2サンプルの中間が同じクラスとして妥当であること(クラス領域が凸に近いこと)。
+      時系列では位相がずれた2波形の平均が「どちらでもない波形」になりうる。
+    deviation: >-
+      原論文の mixup はクラスを跨いで混ぜ、ラベルも同じ比率で混ぜたソフトラベルを
+      使う。本実装は同一クラス限定・ハードラベルに簡略化している
+      (artifacts/deviations.md)。
+    reference: mixup
+    role: >-
+      1D-CNN で最大の改善を示した手法(F-5)。ただし被験者数削減では対照を越えて
+      いない。
+
+  dtw:
+    display: dtw(DTW 整列に基づく系列平均)
+    family: pattern
+    one_liner: 動的時間伸縮で位相を揃えてから2サンプルを平均する。
+    idea: >-
+      時系列を単純平均すると位相ずれで波形がぼやける。DTW で時間軸を対応付けてから
+      平均すると、形を保った中間サンプルが得られる。
+    procedure: >-
+      同一クラスの2サンプルを選び、チャネルごとに DTW の対応経路を求めて第2系列を
+      第1系列の時間軸へ写像し、両者を平均する。
+    label: 同一クラス内の合成なので、そのクラスのラベルを与える。
+    params:
+      ratio: 追加する合成サンプルの割合。
+      window: DTW の整列に許す時間ずれの幅(系列長に対する割合)。
+    assumption: >-
+      クラス内の差異が主に時間的な伸縮であること。伸縮では説明できない差異
+      (振幅や欠損)には効かない。
+    deviation: >-
+      原論文(Forestier et al. 2017)は重み付き DBA で多数サンプルの重心を作る。
+      本実装は2サンプルのペアワイズ平均に簡略化している(artifacts/deviations.md)。
+    reference: forestier2017
+    role: UCI HAR で点推定の削減率が最大だった手法(F-8)。ただし CI は none と重なる。
+
+  smote:
+    display: smote(近傍内挿)
+    family: pattern
+    one_liner: 同一クラスの k 近傍へ向かって内挿し、合成サンプルを作る。
+    idea: >-
+      不均衡データ対策の古典手法。特徴空間で近い同一クラスのサンプル間を内挿し、
+      少数クラス周辺の密度を上げる。
+    procedure: >-
+      サンプルを1つ選び、同一クラス内の k 近傍から1つを無作為に選び、両者を結ぶ
+      線分上の一様乱数点を合成サンプルとする。近傍探索は生信号を平坦化した
+      ベクトル空間で行う。
+    label: 元サンプルのクラスを継承。
+    params:
+      ratio: 追加する合成サンプルの割合。
+      k: 内挿相手を選ぶ近傍数。
+    assumption: >-
+      生信号のユークリッド距離が「似た波形」を意味すること。位相ずれに弱く、
+      時系列では近傍が意味的に近いとは限らない。
+    deviation: >-
+      原論文の SMOTE は少数クラスのみに適用し、特徴量空間で動作する。本実装は
+      全クラスへ適用し、生信号ベクトル空間で近傍探索する(artifacts/deviations.md)。
+    reference: smote
+    role: WISDM で点推定の削減率が最大だった手法。ただし指標を macro-F1 に変えると順位が入れ替わる。
+
+  label_shuffle:
+    display: label_shuffle(negative control)
+    family: control
+    one_liner: 実サンプルの複製に無作為なラベルを付けて追加する対照。
+    idea: >-
+      クラス情報を持たない(むしろ壊す)操作。これが削減を示すなら、その削減幅は
+      クラス情報ではなくデータ量やラベルノイズの正則化効果で説明できる。
+    procedure: >-
+      oversample と同じく複製を追加するが、追加分のラベルだけを一様乱数で置き換える。
+      元のサンプルとその正しいラベルはそのまま残る。
+    label: 追加分のみ無作為ラベル。元データのラベルは変更しない。
+    params:
+      ratio: 追加する合成サンプルの割合。
+    assumption: >-
+      健全なパイプラインならこの操作は性能を改善しない。改善するなら評価系に
+      アーティファクトがある。
+    deviation: >-
+      「クラス信号ゼロの床」ではない点に注意(レッドチーム検証 issue #23 で訂正)。
+      元データは正しいラベルのまま残るため、これはラベルノイズを上乗せした
+      悲観的対照であり、量の水増し基準は oversample の方が適切。
+    reference: null
+    role: >-
+      本研究の中心的な仕掛け。UCI HAR ではこの対照ですら約4.3%の見かけの削減を
+      示し、それ以下の削減はアーティファクトと区別できないという判定基準になった(F-10)。
