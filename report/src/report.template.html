@@ -24,6 +24,9 @@
             background:#e2e8f0; color:#475569; cursor:pointer; }
   .tabbtn[data-active="true"] { background:#fff; color:var(--ink); font-weight:700; }
   [data-tab] { display:none; }
+  /* brief highlight so a cross-tab jump is visible to the reader */
+  @keyframes anchorFlash { from { background:#fef9c3; } to { background:transparent; } }
+  .anchor-flash { animation: anchorFlash 1.6s ease-out 1; }
   a { color: var(--accent); }
   .paper table { font-family: system-ui, sans-serif; }
   @media print { .tabbar, .noprint { display:none !important; } [data-tab]{display:block !important;} }
@@ -297,18 +300,19 @@
 
       <h3 class="sub">5.1 データセット</h3>
       <p class="lead text-sm">UCR アーカイブ [{{ ref.ucr }}] から小〜中規模の {{ facts.n_ucr_datasets }} データセットで RQ1 を評価し、RQ2(被験者数削減)の主対象には
-      被験者ID付きの UCI HAR [{{ ref.anguita2013 }}](30名)を、第2の被験者データに WISDM v1.1 [{{ ref.kwapisz2011 }}](36名)を選定した(表2 の synthetic を除く計 {{ facts.n_study_datasets }} データセット)。</p>
+      被験者ID付きの UCI HAR [{{ ref.anguita2013 }}](30名)を、第2の被験者データに WISDM v1.1 [{{ ref.kwapisz2011 }}](36名)を選定した(計 {{ facts.n_study_datasets }} データセット)。
+      各データセットの中身・1レコードの構造・実波形は<a href="#tab-datasets">「データセット」タブ</a>にある。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50"><th class="p-2">名前</th><th class="p-2">ソース</th><th class="p-2">備考</th></tr></thead>
         <tbody>
-          {% for name, spec in datasets_cfg.items() %}
+          {% for name, spec in datasets_cfg.items() if spec.source != 'synthetic' %}
           <tr class="border-b border-slate-100"><td class="p-2 font-mono">{{ name }}</td><td class="p-2">{{ spec.source }}</td><td class="p-2 text-slate-600">{{ spec.note | default("") }}</td></tr>
           {% endfor %}
         </tbody>
       </table>
       </div>
-      <p class="cap mt-1">表2: 使用データセット(synthetic は動作確認用でありモデル評価には用いない)。</p>
+      <p class="cap mt-1">表2: RQ1 で使用した UCR データセット。この他に、ネットワーク不要の動作確認(smoke)専用の合成データが config にあるが、モデル評価には一切用いないため本表・全集計から除いている。</p>
 
       <h3 class="sub">5.2 モデル</h3>
       <div class="overflow-x-auto mt-1">
@@ -346,7 +350,31 @@
 
       <h3 class="sub">6.1 精度と有意性(RQ1)</h3>
       {% if summary %}
-      <p class="lead text-sm">表4 に学習比率 100% での seed 平均精度(± は seed 間標準偏差)と拡張なしとの差分 Δ を示す。学習比率スイープは §6.2 の図で示す。</p>
+      <p class="lead text-sm">学習比率 100% での seed 平均精度と拡張なしとの差分 Δ は、データセット×拡張×モデルの全 {{ summary | length }} 条件ぶんあるため表4に畳んだ。
+      個々のデータセットを読むなら<a href="#tab-evaluation">「学習と評価」タブ</a>のほうが、そのデータの問題設定・評価条件と並べて見られる。学習比率スイープは §6.2 の図で示す。</p>
+
+      <div class="grid sm:grid-cols-2 gap-3 my-3 text-sm figtab">
+        <div class="border border-emerald-300 bg-emerald-50 rounded p-3">
+          <p class="font-medium text-emerald-900 mb-1">改善が大きかった条件</p>
+          <ul class="text-emerald-900 space-y-0.5">
+            {% for s in best_improvements %}
+            <li><span class="font-mono text-xs">{{ s.dataset }} / {{ s.augmentation }} / {{ s.model }}</span> {{ "%+.1f"|format(s.delta_vs_none * 100) }}pt</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="border border-rose-300 bg-rose-50 rounded p-3">
+          <p class="font-medium text-rose-900 mb-1">悪化が大きかった条件</p>
+          <ul class="text-rose-900 space-y-0.5">
+            {% for s in worst_degradations %}
+            <li><span class="font-mono text-xs">{{ s.dataset }} / {{ s.augmentation }} / {{ s.model }}</span> {{ "%+.1f"|format(s.delta_vs_none * 100) }}pt</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <p class="cap">同一手法でも条件によって符号が変わる。これは個々の条件の点推定であり、有意性は表5の検定で判断する(少データのデータセットでは1件の増減が数pt動く)。</p>
+
+      <details class="mt-3">
+        <summary class="cursor-pointer text-sm figtab text-blue-700">表4: 全 {{ summary | length }} 条件の精度を開く</summary>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
@@ -368,9 +396,10 @@
       </div>
       <p class="cap mt-1">表4: 学習比率 100% の主要結果(全 {{ n_runs }} run のうち完了分から集計)。macro-F1 はクラス不均衡なデータ(例 ECG5000)で精度より低くなる。
       bal. acc.(balanced accuracy)はクラスごとの再現率の平均で、少数クラスを多数クラスと対等に扱う指標。</p>
+      </details>
 
       {% if stats %}
-      <p class="lead text-sm mt-4">表5 に Wilcoxon 検定の結果を示す。各行は拡張手法×モデルで、同一(データセット・seed・学習比率)のペア精度差を none と比較したもの。
+      <p class="lead text-sm mt-4">RQ1 の答えにあたるのは次の表5 である。Wilcoxon 検定の結果を示す。各行は拡張手法×モデルで、同一(データセット・seed・学習比率)のペア精度差を none と比較したもの。
       p 値は Holm–Bonferroni 補正済み。{{ facts.n_significant }} 条件が α=0.05 で有意であり、いずれも 1D-CNN であった。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
@@ -417,6 +446,7 @@
       {% else %}
       <p class="lead text-sm text-slate-500">学習サンプル比率スイープの結果がまだありません。</p>
       {% endif %}
+    </section>
 
     <section id="discussion" class="mb-4">
       <h2 class="sec">7. 考察</h2>
@@ -608,11 +638,11 @@
     <p class="text-xs text-slate-500 mb-6">説明文は <span class="font-mono">references/dataset_profiles.yaml</span>、件数・チャネル・分割は <span class="font-mono">data/metadata/*.json</span>、波形とクラス分布は <span class="font-mono">report/assets/data/dataset_samples.json</span>(実データから生成)に由来する。波形・数値はすべて<strong>学習側(train / pool)split のみ</strong>から取っており、test データは表示にも使っていない(spec §8)。</p>
 
     <!-- dataset index -->
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
+    <nav class="mb-8 text-sm border-y border-slate-200 py-3">
       {% for gkey, g in dataset_tab.groups.items() %}
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">{{ g.title }}:</span>
-        {% for d in dataset_tab.entries.get(gkey, []) %}<a class="mr-2" href="#{{ d.anchor }}">{{ d.key }}</a>{% endfor %}
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">{{ g.title }}:</span>
+        {% for d in dataset_tab.entries.get(gkey, []) %}<a href="#{{ d.anchor }}">{{ d.key }}</a>{% endfor %}
       </div>
       {% endfor %}
     </nav>
@@ -629,6 +659,7 @@
           <span class="text-xs font-mono text-slate-400">{{ d.key }}</span>
           {% if d.ref_no %}<span class="text-xs text-slate-500">[{{ d.ref_no }}]</span>{% endif %}
           {% if d.license %}<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">{{ d.license }}</span>{% endif %}
+          {% if d.key in eval_keys %}<a class="text-xs" href="#eval-{{ d.key|lower|replace('_','-') }}">→ このデータでの学習と評価</a>{% endif %}
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -745,11 +776,11 @@
     <p class="text-sm text-slate-600 mb-1">既存の時系列データ拡張手法を、全手法同じ構成(考え方 / 手順 / ラベルの決め方 / ハイパーパラメータ / 前提 / 本実装の差分 / 実測の効果)で並べる。分類はサーベイ[{{ ref.iwana2021 }}]の大分類に対応させた。</p>
     <p class="text-xs text-slate-500 mb-6">説明文は <span class="font-mono">references/augmentation_profiles.yaml</span>、パラメータ値は <span class="font-mono">config/augmentations.yaml</span>、効果は <span class="font-mono">results.json</span>、入出力例は <span class="font-mono">report/assets/data/augmentation_examples.json</span>(実験と同じ実装・同じパラメータで実データを拡張した出力)に由来する。</p>
 
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
+    <nav class="mb-8 text-sm border-y border-slate-200 py-3">
       {% for fkey, f in method_tab.families.items() %}
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">{{ f.title }}:</span>
-        {% for m in method_tab.entries.get(fkey, []) %}<a class="mr-2 font-mono text-xs" href="#{{ m.anchor }}">{{ m.key }}</a>{% endfor %}
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">{{ f.title }}:</span>
+        {% for m in method_tab.entries.get(fkey, []) %}<a class="font-mono text-xs" href="#{{ m.anchor }}">{{ m.key }}</a>{% endfor %}
       </div>
       {% endfor %}
     </nav>
@@ -867,9 +898,9 @@
       </div>
     </section>
 
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
-      <span class="text-slate-500 mr-2">データセット:</span>
-      {% for r in eval_tab.rows %}<a class="mr-2 font-mono text-xs" href="#{{ r.anchor }}">{{ r.key }}</a>{% endfor %}
+    <nav class="mb-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm border-y border-slate-200 py-3">
+      <span class="text-slate-500">データセット:</span>
+      {% for r in eval_tab.rows %}<a class="font-mono text-xs" href="#{{ r.anchor }}">{{ r.key }}</a>{% endfor %}
     </nav>
 
     {% for r in eval_tab.rows %}
@@ -1283,22 +1314,46 @@
 </div>
 
 <script>
+  var TAB_BY_HASH = {'#tab-paper':'paper', '#tab-datasets':'datasets', '#tab-methods':'methods',
+                     '#tab-evaluation':'evaluation', '#tab-reduction':'reduction',
+                     '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
+
   function showTab(id){
     document.querySelectorAll('[data-tab]').forEach(function(el){ el.style.display = (el.getAttribute('data-tab')===id) ? 'block' : 'none'; });
     document.querySelectorAll('[data-tabbtn]').forEach(function(b){ b.setAttribute('data-active', (b.getAttribute('data-tabbtn')===id) ? 'true' : 'false'); });
     if (history.replaceState) history.replaceState(null, '', '#tab-'+id);
   }
+
+  /* Jump to a section that may live in a different tab. A plain "#id" link
+     cannot scroll to a target inside a hidden tab, so switch to the owning tab
+     first, then scroll and flash the target. */
+  function gotoSection(id){
+    var el = document.getElementById(id);
+    if (!el) return false;
+    var host = el.closest('[data-tab]');
+    if (host) showTab(host.getAttribute('data-tab'));
+    el.scrollIntoView({block: 'start'});
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    el.classList.remove('anchor-flash');
+    void el.offsetWidth;  /* restart the animation when the same target is re-visited */
+    el.classList.add('anchor-flash');
+    return true;
+  }
+
+  document.addEventListener('click', function(ev){
+    var link = ev.target.closest ? ev.target.closest('a[href^="#"]') : null;
+    if (!link) return;
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+    if (TAB_BY_HASH[hash]) { ev.preventDefault(); showTab(TAB_BY_HASH[hash]); window.scrollTo(0, 0); return; }
+    if (gotoSection(hash.slice(1))) ev.preventDefault();
+  });
+
   document.addEventListener('DOMContentLoaded', function(){
-    var byHash = {'#tab-datasets':'datasets', '#tab-methods':'methods', '#tab-evaluation':'evaluation', '#tab-reduction':'reduction', '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
-    var start = byHash[location.hash] || 'paper';
-    showTab(start);
-    // if a deep link targets a dashboard section, switch to that tab
+    showTab(TAB_BY_HASH[location.hash] || 'paper');
+    // a deep link to a section opens the tab that owns it
     var h = location.hash.replace('#','');
-    if (h && document.getElementById(h)) {
-      var sec = document.getElementById(h);
-      var host = sec.closest('[data-tab]');
-      if (host) showTab(host.getAttribute('data-tab'));
-    }
+    if (h && !TAB_BY_HASH[location.hash] && document.getElementById(h)) gotoSection(h);
   });
 </script>
 </body>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>時系列データ拡張による被験者数削減の実証評価</title>
-<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.sticky{position:sticky}.top-0{top:0}.mx-auto{margin-left:auto;margin-right:auto}.my-2{margin-top:.5rem;margin-bottom:.5rem}.my-3{margin-top:.75rem;margin-bottom:.75rem}.mb-0{margin-bottom:0}.mb-1{margin-bottom:.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-2{margin-left:.5rem}.mr-1{margin-right:.25rem}.mr-2{margin-right:.5rem}.mr-3{margin-right:.75rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.inline{display:inline}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-3{height:.75rem}.h-auto{height:auto}.max-h-96{max-height:24rem}.w-3{width:.75rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.shrink-0{flex-shrink:0}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.list-inside{list-style-position:inside}.list-decimal{list-style-type:decimal}.list-disc{list-style-type:disc}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-baseline{align-items:baseline}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-x-6{-moz-column-gap:1.5rem;column-gap:1.5rem}.gap-y-3{row-gap:.75rem}.space-y-0\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.125rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.125rem*var(--tw-space-y-reverse))}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-1\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.375rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.375rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.break-all{word-break:break-all}.rounded{border-radius:.25rem}.rounded-lg{border-radius:.5rem}.rounded-sm{border-radius:.125rem}.rounded-b{border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.rounded-t{border-top-left-radius:.25rem}.rounded-t,.rounded-tr{border-top-right-radius:.25rem}.border{border-width:1px}.border-y{border-top-width:1px}.border-b,.border-y{border-bottom-width:1px}.border-t{border-top-width:1px}.border-t-2{border-top-width:2px}.border-amber-300{--tw-border-opacity:1;border-color:rgb(252 211 77/var(--tw-border-opacity,1))}.border-emerald-300{--tw-border-opacity:1;border-color:rgb(110 231 183/var(--tw-border-opacity,1))}.border-rose-300{--tw-border-opacity:1;border-color:rgb(253 164 175/var(--tw-border-opacity,1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.border-slate-300{--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}.bg-amber-100{--tw-bg-opacity:1;background-color:rgb(254 243 199/var(--tw-bg-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-amber-50\/40{background-color:rgba(255,251,235,.4)}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254/var(--tw-bg-opacity,1))}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245/var(--tw-bg-opacity,1))}.bg-green-100{--tw-bg-opacity:1;background-color:rgb(220 252 231/var(--tw-bg-opacity,1))}.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255/var(--tw-bg-opacity,1))}.bg-rose-50{--tw-bg-opacity:1;background-color:rgb(255 241 242/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.p-1\.5{padding:.375rem}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.px-1{padding-left:.25rem;padding-right:.25rem}.px-1\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.align-top{vertical-align:top}.align-middle{vertical-align:middle}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.leading-7{line-height:1.75rem}.leading-snug{line-height:1.375}.tracking-wide{letter-spacing:.025em}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity,1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15/var(--tw-text-opacity,1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175/var(--tw-text-opacity,1))}.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87/var(--tw-text-opacity,1))}.text-emerald-900{--tw-text-opacity:1;color:rgb(6 78 59/var(--tw-text-opacity,1))}.text-green-700{--tw-text-opacity:1;color:rgb(21 128 61/var(--tw-text-opacity,1))}.text-green-800{--tw-text-opacity:1;color:rgb(22 101 52/var(--tw-text-opacity,1))}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168/var(--tw-text-opacity,1))}.text-red-700{--tw-text-opacity:1;color:rgb(185 28 28/var(--tw-text-opacity,1))}.text-rose-700{--tw-text-opacity:1;color:rgb(190 18 60/var(--tw-text-opacity,1))}.text-rose-900{--tw-text-opacity:1;color:rgb(136 19 55/var(--tw-text-opacity,1))}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}@media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:px-10{padding-left:2.5rem;padding-right:2.5rem}.sm\:px-12{padding-left:3rem;padding-right:3rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}@media (min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}</style>
+<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.visible{visibility:visible}.sticky{position:sticky}.top-0{top:0}.mx-auto{margin-left:auto;margin-right:auto}.my-2{margin-top:.5rem;margin-bottom:.5rem}.my-3{margin-top:.75rem;margin-bottom:.75rem}.mb-0{margin-bottom:0}.mb-1{margin-bottom:.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-2{margin-left:.5rem}.mr-1{margin-right:.25rem}.mr-3{margin-right:.75rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.inline{display:inline}.flex{display:flex}.inline-flex{display:inline-flex}.table{display:table}.grid{display:grid}.hidden{display:none}.h-3{height:.75rem}.h-auto{height:auto}.max-h-96{max-height:24rem}.w-3{width:.75rem}.w-full{width:100%}.max-w-4xl{max-width:56rem}.shrink-0{flex-shrink:0}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.list-inside{list-style-position:inside}.list-decimal{list-style-type:decimal}.list-disc{list-style-type:disc}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-baseline{align-items:baseline}.gap-1{gap:.25rem}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-x-3{-moz-column-gap:.75rem;column-gap:.75rem}.gap-x-6{-moz-column-gap:1.5rem;column-gap:1.5rem}.gap-y-1{row-gap:.25rem}.gap-y-3{row-gap:.75rem}.space-y-0\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.125rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.125rem*var(--tw-space-y-reverse))}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-1\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.375rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.375rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.break-all{word-break:break-all}.rounded{border-radius:.25rem}.rounded-lg{border-radius:.5rem}.rounded-sm{border-radius:.125rem}.rounded-b{border-bottom-right-radius:.25rem;border-bottom-left-radius:.25rem}.rounded-t{border-top-left-radius:.25rem}.rounded-t,.rounded-tr{border-top-right-radius:.25rem}.border{border-width:1px}.border-y{border-top-width:1px}.border-b,.border-y{border-bottom-width:1px}.border-t{border-top-width:1px}.border-t-2{border-top-width:2px}.border-amber-300{--tw-border-opacity:1;border-color:rgb(252 211 77/var(--tw-border-opacity,1))}.border-emerald-300{--tw-border-opacity:1;border-color:rgb(110 231 183/var(--tw-border-opacity,1))}.border-rose-300{--tw-border-opacity:1;border-color:rgb(253 164 175/var(--tw-border-opacity,1))}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.border-slate-300{--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}.bg-amber-100{--tw-bg-opacity:1;background-color:rgb(254 243 199/var(--tw-bg-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-amber-50\/40{background-color:rgba(255,251,235,.4)}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254/var(--tw-bg-opacity,1))}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245/var(--tw-bg-opacity,1))}.bg-green-100{--tw-bg-opacity:1;background-color:rgb(220 252 231/var(--tw-bg-opacity,1))}.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255/var(--tw-bg-opacity,1))}.bg-rose-50{--tw-bg-opacity:1;background-color:rgb(255 241 242/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.bg-slate-900{--tw-bg-opacity:1;background-color:rgb(15 23 42/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.p-1\.5{padding:.375rem}.p-2{padding:.5rem}.p-3{padding:.75rem}.p-4{padding:1rem}.px-1{padding-left:.25rem;padding-right:.25rem}.px-1\.5{padding-left:.375rem;padding-right:.375rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-8{padding-top:2rem;padding-bottom:2rem}.pt-4{padding-top:1rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.align-top{vertical-align:top}.align-middle{vertical-align:middle}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-2xl{font-size:1.5rem;line-height:2rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.leading-7{line-height:1.75rem}.leading-snug{line-height:1.375}.tracking-wide{letter-spacing:.025em}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity,1))}.text-amber-900{--tw-text-opacity:1;color:rgb(120 53 15/var(--tw-text-opacity,1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175/var(--tw-text-opacity,1))}.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87/var(--tw-text-opacity,1))}.text-emerald-900{--tw-text-opacity:1;color:rgb(6 78 59/var(--tw-text-opacity,1))}.text-green-700{--tw-text-opacity:1;color:rgb(21 128 61/var(--tw-text-opacity,1))}.text-green-800{--tw-text-opacity:1;color:rgb(22 101 52/var(--tw-text-opacity,1))}.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168/var(--tw-text-opacity,1))}.text-red-700{--tw-text-opacity:1;color:rgb(185 28 28/var(--tw-text-opacity,1))}.text-rose-700{--tw-text-opacity:1;color:rgb(190 18 60/var(--tw-text-opacity,1))}.text-rose-900{--tw-text-opacity:1;color:rgb(136 19 55/var(--tw-text-opacity,1))}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}.ease-out{transition-timing-function:cubic-bezier(0,0,.2,1)}@media (min-width:640px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:px-10{padding-left:2.5rem;padding-right:2.5rem}.sm\:px-12{padding-left:3rem;padding-right:3rem}.sm\:px-8{padding-left:2rem;padding-right:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}@media (min-width:1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}</style>
 <style>
   :root { --ink:#1e293b; --muted:#64748b; --rule:#e2e8f0; --accent:#1d4ed8; }
   body { background:#f1f5f9; }
@@ -24,6 +24,9 @@
             background:#e2e8f0; color:#475569; cursor:pointer; }
   .tabbtn[data-active="true"] { background:#fff; color:var(--ink); font-weight:700; }
   [data-tab] { display:none; }
+  /* brief highlight so a cross-tab jump is visible to the reader */
+  @keyframes anchorFlash { from { background:#fef9c3; } to { background:transparent; } }
+  .anchor-flash { animation: anchorFlash 1.6s ease-out 1; }
   a { color: var(--accent); }
   .paper table { font-family: system-ui, sans-serif; }
   @media print { .tabbar, .noprint { display:none !important; } [data-tab]{display:block !important;} }
@@ -50,7 +53,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-08-19 10:43 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-08-19 12:19 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -416,13 +419,12 @@
 
       <h3 class="sub">5.1 データセット</h3>
       <p class="lead text-sm">UCR アーカイブ [1] から小〜中規模の 13 データセットで RQ1 を評価し、RQ2(被験者数削減)の主対象には
-      被験者ID付きの UCI HAR [12](30名)を、第2の被験者データに WISDM v1.1 [13](36名)を選定した(表2 の synthetic を除く計 17 データセット)。</p>
+      被験者ID付きの UCI HAR [12](30名)を、第2の被験者データに WISDM v1.1 [13](36名)を選定した(計 17 データセット)。
+      各データセットの中身・1レコードの構造・実波形は<a href="#tab-datasets">「データセット」タブ</a>にある。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50"><th class="p-2">名前</th><th class="p-2">ソース</th><th class="p-2">備考</th></tr></thead>
         <tbody>
-          
-          <tr class="border-b border-slate-100"><td class="p-2 font-mono">synthetic</td><td class="p-2">synthetic</td><td class="p-2 text-slate-600"></td></tr>
           
           <tr class="border-b border-slate-100"><td class="p-2 font-mono">ECG5000</td><td class="p-2">ucr</td><td class="p-2 text-slate-600">UCR archive. 5000 heartbeats, 5 classes, length 140.</td></tr>
           
@@ -453,7 +455,7 @@
         </tbody>
       </table>
       </div>
-      <p class="cap mt-1">表2: 使用データセット(synthetic は動作確認用でありモデル評価には用いない)。</p>
+      <p class="cap mt-1">表2: RQ1 で使用した UCR データセット。この他に、ネットワーク不要の動作確認(smoke)専用の合成データが config にあるが、モデル評価には一切用いないため本表・全集計から除いている。</p>
 
       <h3 class="sub">5.2 モデル</h3>
       <div class="overflow-x-auto mt-1">
@@ -499,7 +501,39 @@
 
       <h3 class="sub">6.1 精度と有意性(RQ1)</h3>
       
-      <p class="lead text-sm">表4 に学習比率 100% での seed 平均精度(± は seed 間標準偏差)と拡張なしとの差分 Δ を示す。学習比率スイープは §6.2 の図で示す。</p>
+      <p class="lead text-sm">学習比率 100% での seed 平均精度と拡張なしとの差分 Δ は、データセット×拡張×モデルの全 210 条件ぶんあるため表4に畳んだ。
+      個々のデータセットを読むなら<a href="#tab-evaluation">「学習と評価」タブ</a>のほうが、そのデータの問題設定・評価条件と並べて見られる。学習比率スイープは §6.2 の図で示す。</p>
+
+      <div class="grid sm:grid-cols-2 gap-3 my-3 text-sm figtab">
+        <div class="border border-emerald-300 bg-emerald-50 rounded p-3">
+          <p class="font-medium text-emerald-900 mb-1">改善が大きかった条件</p>
+          <ul class="text-emerald-900 space-y-0.5">
+            
+            <li><span class="font-mono text-xs">Coffee / mixup / cnn1d</span> +46.4pt</li>
+            
+            <li><span class="font-mono text-xs">Coffee / scaling / cnn1d</span> +46.4pt</li>
+            
+            <li><span class="font-mono text-xs">Coffee / smote / cnn1d</span> +46.4pt</li>
+            
+          </ul>
+        </div>
+        <div class="border border-rose-300 bg-rose-50 rounded p-3">
+          <p class="font-medium text-rose-900 mb-1">悪化が大きかった条件</p>
+          <ul class="text-rose-900 space-y-0.5">
+            
+            <li><span class="font-mono text-xs">TwoLeadECG / smote / cnn1d</span> -16.6pt</li>
+            
+            <li><span class="font-mono text-xs">Coffee / scaling / cnn1d</span> -15.5pt</li>
+            
+            <li><span class="font-mono text-xs">Coffee / oversample / cnn1d</span> -15.5pt</li>
+            
+          </ul>
+        </div>
+      </div>
+      <p class="cap">同一手法でも条件によって符号が変わる。これは個々の条件の点推定であり、有意性は表5の検定で判断する(少データのデータセットでは1件の増減が数pt動く)。</p>
+
+      <details class="mt-3">
+        <summary class="cursor-pointer text-sm figtab text-blue-700">表4: 全 210 条件の精度を開く</summary>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
@@ -2193,9 +2227,10 @@
       </div>
       <p class="cap mt-1">表4: 学習比率 100% の主要結果(全 3420 run のうち完了分から集計)。macro-F1 はクラス不均衡なデータ(例 ECG5000)で精度より低くなる。
       bal. acc.(balanced accuracy)はクラスごとの再現率の平均で、少数クラスを多数クラスと対等に扱う指標。</p>
+      </details>
 
       
-      <p class="lead text-sm mt-4">表5 に Wilcoxon 検定の結果を示す。各行は拡張手法×モデルで、同一(データセット・seed・学習比率)のペア精度差を none と比較したもの。
+      <p class="lead text-sm mt-4">RQ1 の答えにあたるのは次の表5 である。Wilcoxon 検定の結果を示す。各行は拡張手法×モデルで、同一(データセット・seed・学習比率)のペア精度差を none と比較したもの。
       p 値は Holm–Bonferroni 補正済み。5 条件が α=0.05 で有意であり、いずれも 1D-CNN であった。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
@@ -2455,6 +2490,7 @@
       </div>
       <p class="cap mt-1">図1: 学習比率に対する精度の学習曲線(データセット×モデル別)。</p>
       
+    </section>
 
     <section id="discussion" class="mb-4">
       <h2 class="sec">7. 考察</h2>
@@ -2703,7 +2739,7 @@
         <div class="text-xs text-slate-500 mt-1">失敗した run</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
-        <div class="text-2xl font-bold text-slate-900">64 / 65</div>
+        <div class="text-2xl font-bold text-slate-900">67 / 68</div>
         <div class="text-xs text-slate-500 mt-1">完了タスク</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
@@ -2716,8 +2752,8 @@
       <h2 class="text-lg font-semibold text-slate-900 mb-3">実験進捗(タスク状況)</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <div>
-          <h3 class="font-medium text-green-700 mb-2">完了 (64)</h3>
-          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic, checksum, znorm, train/val split)</li><li class="border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression)</li><li class="border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN, MiniRocket+Ridge)</li><li class="border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 12 件の選定</li><li class="border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="border border-slate-200 rounded px-2 py-1">P2-3: 統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加</li><li class="border border-slate-200 rounded px-2 py-1">P2-5: Phase 2 実験格子の実行 (2520 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P2-6: Phase 2 集計・検定・レポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)</li><li class="border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="border border-slate-200 rounded px-2 py-1">P3-2: 主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)</li><li class="border border-slate-200 rounded px-2 py-1">P4-1: 被験者単位 group split 基盤 (subject.py)</li><li class="border border-slate-200 rounded px-2 py-1">P4-2: 目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)</li><li class="border border-slate-200 rounded px-2 py-1">P4-3: UCI HAR ローダ + 被験者数 runner 実装</li><li class="border border-slate-200 rounded px-2 py-1">P4-4: 被験者数学習曲線グリッド実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P5-1: 必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P5-2: negative control (label_shuffle) の追加と削減の健全性検証</li><li class="border border-slate-200 rounded px-2 py-1">R13-1: レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化</li><li class="border border-slate-200 rounded px-2 py-1">R13-2: 3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)</li><li class="border border-slate-200 rounded px-2 py-1">RP-1: 再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)</li><li class="border border-slate-200 rounded px-2 py-1">RP-2: 維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)</li><li class="border border-slate-200 rounded px-2 py-1">RM-1: README を公開実装向けに再構成 (issue #18): 結果紹介・再現手順・やっていないこと/今後の課題。進捗/計画記録を除去し3ペルソナレビュー反映</li><li class="border border-slate-200 rounded px-2 py-1">DS1-1: subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS1-2: WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新</li><li class="border border-slate-200 rounded px-2 py-1">DS1-3: WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)</li><li class="border border-slate-200 rounded px-2 py-1">DS2-1: PAMAP2 ローダ新規 (data/pamap2.py: .dat parse/transient除外/protocol12マッピング/±16g加速度9ch選択/NaN窓破棄/100→33.3Hzダウンサンプル/168窓/窓ごとznorm/seed-0 K=3 split) + dispatch登録 + metadata drift検査 + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS2-2: per-subject 活動サポート実測で subject 109 の除外/保持を機械決定 + pamap2 config作成 (subject_count/negative_control) + pre_registration に PAMAP2 target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.70) → 統括GO取得</li><li class="border border-slate-200 rounded px-2 py-1">DS2-3: PAMAP2 被験者数削減グリッド実行 (主120 + negative control 20, 失敗0/git_dirty=false) + reduction_pamap2 集計(accuracy/macro_f1両版) + 横断数値算出(N*(none) 左側打ち切りで削減率推定不能を明示) → Reporting レーンへ数値受け渡し</li><li class="border border-slate-200 rounded px-2 py-1">DS2-4: [Reporting レーン] PAMAP2 DS-2 の横断図(削減率 vs pool被験者数, accuracy/macro_f1両版)・レポート本文・findings・ペルソナレビュー・make all-report</li><li class="border border-slate-200 rounded px-2 py-1">DS2-5: [Audit レーン] DS-2 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/post-hoc開示/データ駆動/事前登録完全/記述限定/再現性メタ)→ 公開可判定</li><li class="border border-slate-200 rounded px-2 py-1">DS3-1: WESAD ローダ新規 (data/wesad.py: latin1 pkl parse/胸生理5ch/3クラス{1,2,3}/700→70Hz反エイリアス/30秒非重複窓/窓ごとznorm/seed-0 K=5 split) + dispatch登録 + metadata(非商用ライセンス) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS3-2: 実在被験者ID・クラス別窓数を実測 + wesad config作成 + pre_registration に target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.40 macro_f1) → 統括GO取得(near-chance を確認のうえ事前登録どおり3クラスで完遂の判断)</li><li class="border border-slate-200 rounded px-2 py-1">DS3-3: WESAD 被験者数削減グリッド実行 (主270 + negative control 45, 失敗0/git_dirty=false) + reduction_wesad 集計 → 全手法 N* 左側打ち切り=削減推定不能(捏造せず明示)。label_shuffle≈none でモデル未学習を確認</li><li class="border border-slate-200 rounded px-2 py-1">DS3-4: [Reporting レーン] §6.6「信号種依存: 生理信号 WESAD」・図(none≈label_shuffle)・F-14・ペルソナレビュー・make all-report。framing は『HAR枠組みの非転移=信号種依存』に限定(削減の有無は語らない)。HAR横断図には非同列</li><li class="border border-slate-200 rounded px-2 py-1">DS3-5: [Audit レーン] DS-3 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/framing限定/near-chance根拠(acc&lt;多数派率)/データ駆動/事前登録完全/生データ非コミット・ライセンス)→ 公開可判定</li><li class="border border-slate-200 rounded px-2 py-1">DS5-1: [Reporting レーン] 被験者数削減の外的妥当性 統合まとめ §6.7 追加(4データ=UCI HAR/WISDM/PAMAP2/WESAD を1図1表: 統合フォレストプロット図7 + 統合表10)。各データの事前登録 primary target レンズで F-8/F-10/F-12 を再掲(不変)、測定可能=帰無/それ以外=推定不能、対照越え皆無を提示。F-15 追加・要旨/まとめ/limitations に反映。synthesis はデータ駆動生成・手入力なし。regression 必須 section に subject-reduction-synthesis 追加。make validate green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-1: 文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー</li><li class="border border-slate-200 rounded px-2 py-1">RT23-2: コード/config是正 (V9 dataset_params昇格+manifest記録 / V10 実データchecksum / V1 docstring)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-3: V5 再現性: git_dirty をソース限定判定に修正 + negative control 11 run を clean 再実行 (git_dirty=false)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-4: Windows 移植性修正 (UTF-8 encoding + os.kill WinError87): make all-report とテストのブロック解消・全144テスト green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-5: result-auditor 最終監査 (8観点 CONFIRMED・手入力乖離なし・リーケージガード有効) + 参照メタデータ整合</li><li class="border border-slate-200 rounded px-2 py-1">DT29-1: dataset_profiles.yaml 新規(全17データセットの説明を同一構成で記述: 役割/どんなデータか/タスク/1レコードの構造/クラスの意味/注意点)。件数は書かず data/metadata と生成サンプルから供給</li><li class="border border-slate-200 rounded px-2 py-1">DT29-2: scripts/build_dataset_samples.py 新規(学習split のみからクラス別代表波形・チャネル別波形・クラス分布・サンプル値抜粋を抽出 → report/assets/data/dataset_samples.json を commit)。WESAD は再配布不可・PAMAP2 は取得コストのため波形非収録</li><li class="border border-slate-200 rounded px-2 py-1">DT29-3: データセットタブ実装(build.py: _dataset_entries で prose+metadata+実データを突合、waveform/channel_stack/class_balance の SVG 生成。template: 全データセット同一構成の article)+ regression テスト9件</li><li class="border border-slate-200 rounded px-2 py-1">MT30-1: augmentation_profiles.yaml 新規(全8手法を同一構成で記述: 考え方/手順/ラベルの決め方/パラメータの意味/暗黙の前提/原論文からの差分/本研究での位置づけ)。サーベイ[8]の大分類に沿って magnitude/pattern/trivial/control に分類。パラメータ値は書かず config から供給</li><li class="border border-slate-200 rounded px-2 py-1">MT30-2: scripts/build_augmentation_examples.py 新規(実験と同じ実装・同じ config パラメータで実データ(GunPoint 学習split)を拡張し、入出力の波形ペアを report/assets/data/augmentation_examples.json に生成)</li><li class="border border-slate-200 rounded px-2 py-1">MT30-3: 拡張手法タブ実装(build.py: _augmentation_entries で prose+config値+results.json の実測効果(Holm補正)+被験者数削減+実出力例を突合。template: 全手法同一構成の article)+ regression テスト8件(実装レジストリとの完全一致・パラメータが config 由来・例が実 augmenter 生成)</li><li class="border border-slate-200 rounded px-2 py-1">PT31-1: survey_overview.yaml 新規(サーベイ[8]の手法分類6群と主要主張5件を、本研究のカバレッジ=再現/部分的/未検証と未評価範囲つきで対応表化)+ §1.5「サーベイの内容と本研究の追試範囲」を論文タブに追加。やったこと・やっていないことを対等に提示</li><li class="border border-slate-200 rounded px-2 py-1">PT31-2: 「学習と評価」タブ新設(build.py: _evaluation_entries。データセットごとに 解く問題/学習の入力(ch×点→クラス数)/評価の分割/モデル/条件(拡張×seed×比率×被験者数=run数)/結果表/学習曲線 を results.json から集計)。issue #31 の『何を学習して何を評価しているかが分からない』への対応</li><li class="border border-slate-200 rounded px-2 py-1">PT31-3: 被験者数削減(旧 §6.3-6.7)を論文タブから独立タブへ移設し1-5節に再番号。論文タブは §6 を RQ1 に限定し、要旨・序論・読み方ガイドをサーベイ解説+部分追試の枠組みへ改稿。regression テスト9件(移設の担保・データセット網羅・数値のresults由来・カバレッジ表の両面提示)</li></ul>
+          <h3 class="font-medium text-green-700 mb-2">完了 (67)</h3>
+          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic, checksum, znorm, train/val split)</li><li class="border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression)</li><li class="border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN, MiniRocket+Ridge)</li><li class="border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 12 件の選定</li><li class="border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="border border-slate-200 rounded px-2 py-1">P2-3: 統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加</li><li class="border border-slate-200 rounded px-2 py-1">P2-5: Phase 2 実験格子の実行 (2520 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P2-6: Phase 2 集計・検定・レポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)</li><li class="border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="border border-slate-200 rounded px-2 py-1">P3-2: 主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)</li><li class="border border-slate-200 rounded px-2 py-1">P4-1: 被験者単位 group split 基盤 (subject.py)</li><li class="border border-slate-200 rounded px-2 py-1">P4-2: 目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)</li><li class="border border-slate-200 rounded px-2 py-1">P4-3: UCI HAR ローダ + 被験者数 runner 実装</li><li class="border border-slate-200 rounded px-2 py-1">P4-4: 被験者数学習曲線グリッド実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P5-1: 必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P5-2: negative control (label_shuffle) の追加と削減の健全性検証</li><li class="border border-slate-200 rounded px-2 py-1">R13-1: レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化</li><li class="border border-slate-200 rounded px-2 py-1">R13-2: 3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)</li><li class="border border-slate-200 rounded px-2 py-1">RP-1: 再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)</li><li class="border border-slate-200 rounded px-2 py-1">RP-2: 維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)</li><li class="border border-slate-200 rounded px-2 py-1">RM-1: README を公開実装向けに再構成 (issue #18): 結果紹介・再現手順・やっていないこと/今後の課題。進捗/計画記録を除去し3ペルソナレビュー反映</li><li class="border border-slate-200 rounded px-2 py-1">DS1-1: subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS1-2: WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新</li><li class="border border-slate-200 rounded px-2 py-1">DS1-3: WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)</li><li class="border border-slate-200 rounded px-2 py-1">DS2-1: PAMAP2 ローダ新規 (data/pamap2.py: .dat parse/transient除外/protocol12マッピング/±16g加速度9ch選択/NaN窓破棄/100→33.3Hzダウンサンプル/168窓/窓ごとznorm/seed-0 K=3 split) + dispatch登録 + metadata drift検査 + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS2-2: per-subject 活動サポート実測で subject 109 の除外/保持を機械決定 + pamap2 config作成 (subject_count/negative_control) + pre_registration に PAMAP2 target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.70) → 統括GO取得</li><li class="border border-slate-200 rounded px-2 py-1">DS2-3: PAMAP2 被験者数削減グリッド実行 (主120 + negative control 20, 失敗0/git_dirty=false) + reduction_pamap2 集計(accuracy/macro_f1両版) + 横断数値算出(N*(none) 左側打ち切りで削減率推定不能を明示) → Reporting レーンへ数値受け渡し</li><li class="border border-slate-200 rounded px-2 py-1">DS2-4: [Reporting レーン] PAMAP2 DS-2 の横断図(削減率 vs pool被験者数, accuracy/macro_f1両版)・レポート本文・findings・ペルソナレビュー・make all-report</li><li class="border border-slate-200 rounded px-2 py-1">DS2-5: [Audit レーン] DS-2 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/post-hoc開示/データ駆動/事前登録完全/記述限定/再現性メタ)→ 公開可判定</li><li class="border border-slate-200 rounded px-2 py-1">DS3-1: WESAD ローダ新規 (data/wesad.py: latin1 pkl parse/胸生理5ch/3クラス{1,2,3}/700→70Hz反エイリアス/30秒非重複窓/窓ごとznorm/seed-0 K=5 split) + dispatch登録 + metadata(非商用ライセンス) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS3-2: 実在被験者ID・クラス別窓数を実測 + wesad config作成 + pre_registration に target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.40 macro_f1) → 統括GO取得(near-chance を確認のうえ事前登録どおり3クラスで完遂の判断)</li><li class="border border-slate-200 rounded px-2 py-1">DS3-3: WESAD 被験者数削減グリッド実行 (主270 + negative control 45, 失敗0/git_dirty=false) + reduction_wesad 集計 → 全手法 N* 左側打ち切り=削減推定不能(捏造せず明示)。label_shuffle≈none でモデル未学習を確認</li><li class="border border-slate-200 rounded px-2 py-1">DS3-4: [Reporting レーン] §6.6「信号種依存: 生理信号 WESAD」・図(none≈label_shuffle)・F-14・ペルソナレビュー・make all-report。framing は『HAR枠組みの非転移=信号種依存』に限定(削減の有無は語らない)。HAR横断図には非同列</li><li class="border border-slate-200 rounded px-2 py-1">DS3-5: [Audit レーン] DS-3 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/framing限定/near-chance根拠(acc&lt;多数派率)/データ駆動/事前登録完全/生データ非コミット・ライセンス)→ 公開可判定</li><li class="border border-slate-200 rounded px-2 py-1">DS5-1: [Reporting レーン] 被験者数削減の外的妥当性 統合まとめ §6.7 追加(4データ=UCI HAR/WISDM/PAMAP2/WESAD を1図1表: 統合フォレストプロット図7 + 統合表10)。各データの事前登録 primary target レンズで F-8/F-10/F-12 を再掲(不変)、測定可能=帰無/それ以外=推定不能、対照越え皆無を提示。F-15 追加・要旨/まとめ/limitations に反映。synthesis はデータ駆動生成・手入力なし。regression 必須 section に subject-reduction-synthesis 追加。make validate green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-1: 文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー</li><li class="border border-slate-200 rounded px-2 py-1">RT23-2: コード/config是正 (V9 dataset_params昇格+manifest記録 / V10 実データchecksum / V1 docstring)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-3: V5 再現性: git_dirty をソース限定判定に修正 + negative control 11 run を clean 再実行 (git_dirty=false)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-4: Windows 移植性修正 (UTF-8 encoding + os.kill WinError87): make all-report とテストのブロック解消・全144テスト green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-5: result-auditor 最終監査 (8観点 CONFIRMED・手入力乖離なし・リーケージガード有効) + 参照メタデータ整合</li><li class="border border-slate-200 rounded px-2 py-1">DT29-1: dataset_profiles.yaml 新規(全17データセットの説明を同一構成で記述: 役割/どんなデータか/タスク/1レコードの構造/クラスの意味/注意点)。件数は書かず data/metadata と生成サンプルから供給</li><li class="border border-slate-200 rounded px-2 py-1">DT29-2: scripts/build_dataset_samples.py 新規(学習split のみからクラス別代表波形・チャネル別波形・クラス分布・サンプル値抜粋を抽出 → report/assets/data/dataset_samples.json を commit)。WESAD は再配布不可・PAMAP2 は取得コストのため波形非収録</li><li class="border border-slate-200 rounded px-2 py-1">DT29-3: データセットタブ実装(build.py: _dataset_entries で prose+metadata+実データを突合、waveform/channel_stack/class_balance の SVG 生成。template: 全データセット同一構成の article)+ regression テスト9件</li><li class="border border-slate-200 rounded px-2 py-1">MT30-1: augmentation_profiles.yaml 新規(全8手法を同一構成で記述: 考え方/手順/ラベルの決め方/パラメータの意味/暗黙の前提/原論文からの差分/本研究での位置づけ)。サーベイ[8]の大分類に沿って magnitude/pattern/trivial/control に分類。パラメータ値は書かず config から供給</li><li class="border border-slate-200 rounded px-2 py-1">MT30-2: scripts/build_augmentation_examples.py 新規(実験と同じ実装・同じ config パラメータで実データ(GunPoint 学習split)を拡張し、入出力の波形ペアを report/assets/data/augmentation_examples.json に生成)</li><li class="border border-slate-200 rounded px-2 py-1">MT30-3: 拡張手法タブ実装(build.py: _augmentation_entries で prose+config値+results.json の実測効果(Holm補正)+被験者数削減+実出力例を突合。template: 全手法同一構成の article)+ regression テスト8件(実装レジストリとの完全一致・パラメータが config 由来・例が実 augmenter 生成)</li><li class="border border-slate-200 rounded px-2 py-1">PT31-1: survey_overview.yaml 新規(サーベイ[8]の手法分類6群と主要主張5件を、本研究のカバレッジ=再現/部分的/未検証と未評価範囲つきで対応表化)+ §1.5「サーベイの内容と本研究の追試範囲」を論文タブに追加。やったこと・やっていないことを対等に提示</li><li class="border border-slate-200 rounded px-2 py-1">PT31-2: 「学習と評価」タブ新設(build.py: _evaluation_entries。データセットごとに 解く問題/学習の入力(ch×点→クラス数)/評価の分割/モデル/条件(拡張×seed×比率×被験者数=run数)/結果表/学習曲線 を results.json から集計)。issue #31 の『何を学習して何を評価しているかが分からない』への対応</li><li class="border border-slate-200 rounded px-2 py-1">PT31-3: 被験者数削減(旧 §6.3-6.7)を論文タブから独立タブへ移設し1-5節に再番号。論文タブは §6 を RQ1 に限定し、要旨・序論・読み方ガイドをサーベイ解説+部分追試の枠組みへ改稿。regression テスト9件(移設の担保・データセット網羅・数値のresults由来・カバレッジ表の両面提示)</li><li class="border border-slate-200 rounded px-2 py-1">NAV-1: タブをまたぐアンカーリンクが遷移しない問題を修正(gotoSection: 対象を含むタブへ切替→スクロール→ハイライト。委譲クリックハンドラと深リンクの両方を同経路に)。データセット↔学習と評価の双方向リンク+リンク切れ検査テスト4件</li><li class="border border-slate-200 rounded px-2 py-1">NAV-2: 論文 §6.1 の表4(210条件)を details に折りたたみ、改善/悪化の要点を上出し。表5(有意性)は開いたまま。§5.1 表2 から smoke 専用 synthetic を除外。§6 の閉じタグ欠落(issue #31 の移設時に混入し §7-§9 が入れ子化)を修正。regression 3件追加</li><li class="border border-slate-200 rounded px-2 py-1">NAV-3: タブ索引リンクの横はみ出し修正(Jinja が空白なしで連結する &lt;/a&gt;&lt;a&gt; は1語扱いで折り返せない → flex-wrap コンテナ化)。regression 2件で再発防止</li></ul>
         </div>
         <div>
           <h3 class="font-medium text-amber-700 mb-2">実行中 (0)</h3>
@@ -26727,7 +26763,7 @@
       </details>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-08-19 10:43 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-08-19 12:19 UTC</p>
   </div>
 
   <!-- ================= REPRODUCTION & PREPROCESSING TAB ================= -->
@@ -26738,16 +26774,16 @@
     <p class="text-xs text-slate-500 mb-6">説明文は <span class="font-mono">references/dataset_profiles.yaml</span>、件数・チャネル・分割は <span class="font-mono">data/metadata/*.json</span>、波形とクラス分布は <span class="font-mono">report/assets/data/dataset_samples.json</span>(実データから生成)に由来する。波形・数値はすべて<strong>学習側(train / pool)split のみ</strong>から取っており、test データは表示にも使っていない(spec §8)。</p>
 
     <!-- dataset index -->
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
+    <nav class="mb-8 text-sm border-y border-slate-200 py-3">
       
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">UCR ベンチマーク(RQ1: 精度効果の系統評価):</span>
-        <a class="mr-2" href="#dataset-ecg5000">ECG5000</a><a class="mr-2" href="#dataset-forda">FordA</a><a class="mr-2" href="#dataset-gunpoint">GunPoint</a><a class="mr-2" href="#dataset-ecg200">ECG200</a><a class="mr-2" href="#dataset-twoleadecg">TwoLeadECG</a><a class="mr-2" href="#dataset-italypowerdemand">ItalyPowerDemand</a><a class="mr-2" href="#dataset-motestrain">MoteStrain</a><a class="mr-2" href="#dataset-sonyaiborobotsurface1">SonyAIBORobotSurface1</a><a class="mr-2" href="#dataset-cbf">CBF</a><a class="mr-2" href="#dataset-plane">Plane</a><a class="mr-2" href="#dataset-arrowhead">ArrowHead</a><a class="mr-2" href="#dataset-coffee">Coffee</a><a class="mr-2" href="#dataset-wafer">Wafer</a>
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">UCR ベンチマーク(RQ1: 精度効果の系統評価):</span>
+        <a href="#dataset-ecg5000">ECG5000</a><a href="#dataset-forda">FordA</a><a href="#dataset-gunpoint">GunPoint</a><a href="#dataset-ecg200">ECG200</a><a href="#dataset-twoleadecg">TwoLeadECG</a><a href="#dataset-italypowerdemand">ItalyPowerDemand</a><a href="#dataset-motestrain">MoteStrain</a><a href="#dataset-sonyaiborobotsurface1">SonyAIBORobotSurface1</a><a href="#dataset-cbf">CBF</a><a href="#dataset-plane">Plane</a><a href="#dataset-arrowhead">ArrowHead</a><a href="#dataset-coffee">Coffee</a><a href="#dataset-wafer">Wafer</a>
       </div>
       
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">被験者ID付きデータ(RQ2: 必要被験者数の削減評価):</span>
-        <a class="mr-2" href="#dataset-uci-har">UCI_HAR</a><a class="mr-2" href="#dataset-wisdm">WISDM</a><a class="mr-2" href="#dataset-pamap2">PAMAP2</a><a class="mr-2" href="#dataset-wesad">WESAD</a>
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">被験者ID付きデータ(RQ2: 必要被験者数の削減評価):</span>
+        <a href="#dataset-uci-har">UCI_HAR</a><a href="#dataset-wisdm">WISDM</a><a href="#dataset-pamap2">PAMAP2</a><a href="#dataset-wesad">WESAD</a>
       </div>
       
     </nav>
@@ -26764,6 +26800,7 @@
           <span class="text-xs font-mono text-slate-400">ECG5000</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-ecg5000">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -26899,6 +26936,7 @@
           <span class="text-xs font-mono text-slate-400">FordA</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-forda">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27016,6 +27054,7 @@
           <span class="text-xs font-mono text-slate-400">GunPoint</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-gunpoint">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27133,6 +27172,7 @@
           <span class="text-xs font-mono text-slate-400">ECG200</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-ecg200">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27250,6 +27290,7 @@
           <span class="text-xs font-mono text-slate-400">TwoLeadECG</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-twoleadecg">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27367,6 +27408,7 @@
           <span class="text-xs font-mono text-slate-400">ItalyPowerDemand</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-italypowerdemand">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27484,6 +27526,7 @@
           <span class="text-xs font-mono text-slate-400">MoteStrain</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-motestrain">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27601,6 +27644,7 @@
           <span class="text-xs font-mono text-slate-400">SonyAIBORobotSurface1</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-sonyaiborobotsurface1">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27718,6 +27762,7 @@
           <span class="text-xs font-mono text-slate-400">CBF</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-cbf">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27841,6 +27886,7 @@
           <span class="text-xs font-mono text-slate-400">Plane</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-plane">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -27988,6 +28034,7 @@
           <span class="text-xs font-mono text-slate-400">ArrowHead</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-arrowhead">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -28111,6 +28158,7 @@
           <span class="text-xs font-mono text-slate-400">Coffee</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-coffee">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -28228,6 +28276,7 @@
           <span class="text-xs font-mono text-slate-400">Wafer</span>
           <span class="text-xs text-slate-500">[1]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">UCR アーカイブの利用条件に従う(研究利用)</span>
+          <a class="text-xs" href="#eval-wafer">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -28352,6 +28401,7 @@
           <span class="text-xs font-mono text-slate-400">UCI_HAR</span>
           <span class="text-xs text-slate-500">[12]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">CC BY 4.0</span>
+          <a class="text-xs" href="#eval-uci-har">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -28500,6 +28550,7 @@
           <span class="text-xs font-mono text-slate-400">WISDM</span>
           <span class="text-xs text-slate-500">[13]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">CC BY 4.0</span>
+          <a class="text-xs" href="#eval-wisdm">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -28650,6 +28701,7 @@
           <span class="text-xs font-mono text-slate-400">PAMAP2</span>
           <span class="text-xs text-slate-500">[14]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">CC BY 4.0</span>
+          <a class="text-xs" href="#eval-pamap2">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -28793,6 +28845,7 @@
           <span class="text-xs font-mono text-slate-400">WESAD</span>
           <span class="text-xs text-slate-500">[16]</span>
           <span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">学術・非商用利用(帰属表示必須、再配布不可)</span>
+          <a class="text-xs" href="#eval-wesad">→ このデータでの学習と評価</a>
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -28879,7 +28932,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-08-19 10:43 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-08-19 12:19 UTC</p>
   </div>
 
   <!-- ================= METHODS TAB (issue #30) ================= -->
@@ -28888,26 +28941,26 @@
     <p class="text-sm text-slate-600 mb-1">既存の時系列データ拡張手法を、全手法同じ構成(考え方 / 手順 / ラベルの決め方 / ハイパーパラメータ / 前提 / 本実装の差分 / 実測の効果)で並べる。分類はサーベイ[8]の大分類に対応させた。</p>
     <p class="text-xs text-slate-500 mb-6">説明文は <span class="font-mono">references/augmentation_profiles.yaml</span>、パラメータ値は <span class="font-mono">config/augmentations.yaml</span>、効果は <span class="font-mono">results.json</span>、入出力例は <span class="font-mono">report/assets/data/augmentation_examples.json</span>(実験と同じ実装・同じパラメータで実データを拡張した出力)に由来する。</p>
 
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
+    <nav class="mb-8 text-sm border-y border-slate-200 py-3">
       
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">振幅領域の摂動:</span>
-        <a class="mr-2 font-mono text-xs" href="#aug-jitter">jitter</a><a class="mr-2 font-mono text-xs" href="#aug-scaling">scaling</a>
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">振幅領域の摂動:</span>
+        <a class="font-mono text-xs" href="#aug-jitter">jitter</a><a class="font-mono text-xs" href="#aug-scaling">scaling</a>
       </div>
       
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">パターン合成(サンプル間の混合):</span>
-        <a class="mr-2 font-mono text-xs" href="#aug-mixup">mixup</a><a class="mr-2 font-mono text-xs" href="#aug-dtw">dtw</a><a class="mr-2 font-mono text-xs" href="#aug-smote">smote</a>
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">パターン合成(サンプル間の混合):</span>
+        <a class="font-mono text-xs" href="#aug-mixup">mixup</a><a class="font-mono text-xs" href="#aug-dtw">dtw</a><a class="font-mono text-xs" href="#aug-smote">smote</a>
       </div>
       
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">単純増量:</span>
-        <a class="mr-2 font-mono text-xs" href="#aug-none">none</a><a class="mr-2 font-mono text-xs" href="#aug-oversample">oversample</a>
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">単純増量:</span>
+        <a class="font-mono text-xs" href="#aug-none">none</a><a class="font-mono text-xs" href="#aug-oversample">oversample</a>
       </div>
       
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">対照(negative control):</span>
-        <a class="mr-2 font-mono text-xs" href="#aug-label-shuffle">label_shuffle</a>
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">対照(negative control):</span>
+        <a class="font-mono text-xs" href="#aug-label-shuffle">label_shuffle</a>
       </div>
       
     </nav>
@@ -29586,7 +29639,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-08-19 10:43 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-08-19 12:19 UTC</p>
   </div>
 
   <!-- ================= EVALUATION TAB (issue #31) ================= -->
@@ -29615,9 +29668,9 @@
       </div>
     </section>
 
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
-      <span class="text-slate-500 mr-2">データセット:</span>
-      <a class="mr-2 font-mono text-xs" href="#eval-arrowhead">ArrowHead</a><a class="mr-2 font-mono text-xs" href="#eval-cbf">CBF</a><a class="mr-2 font-mono text-xs" href="#eval-coffee">Coffee</a><a class="mr-2 font-mono text-xs" href="#eval-ecg200">ECG200</a><a class="mr-2 font-mono text-xs" href="#eval-ecg5000">ECG5000</a><a class="mr-2 font-mono text-xs" href="#eval-forda">FordA</a><a class="mr-2 font-mono text-xs" href="#eval-gunpoint">GunPoint</a><a class="mr-2 font-mono text-xs" href="#eval-italypowerdemand">ItalyPowerDemand</a><a class="mr-2 font-mono text-xs" href="#eval-motestrain">MoteStrain</a><a class="mr-2 font-mono text-xs" href="#eval-pamap2">PAMAP2</a><a class="mr-2 font-mono text-xs" href="#eval-plane">Plane</a><a class="mr-2 font-mono text-xs" href="#eval-sonyaiborobotsurface1">SonyAIBORobotSurface1</a><a class="mr-2 font-mono text-xs" href="#eval-twoleadecg">TwoLeadECG</a><a class="mr-2 font-mono text-xs" href="#eval-uci-har">UCI_HAR</a><a class="mr-2 font-mono text-xs" href="#eval-wesad">WESAD</a><a class="mr-2 font-mono text-xs" href="#eval-wisdm">WISDM</a><a class="mr-2 font-mono text-xs" href="#eval-wafer">Wafer</a>
+    <nav class="mb-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm border-y border-slate-200 py-3">
+      <span class="text-slate-500">データセット:</span>
+      <a class="font-mono text-xs" href="#eval-arrowhead">ArrowHead</a><a class="font-mono text-xs" href="#eval-cbf">CBF</a><a class="font-mono text-xs" href="#eval-coffee">Coffee</a><a class="font-mono text-xs" href="#eval-ecg200">ECG200</a><a class="font-mono text-xs" href="#eval-ecg5000">ECG5000</a><a class="font-mono text-xs" href="#eval-forda">FordA</a><a class="font-mono text-xs" href="#eval-gunpoint">GunPoint</a><a class="font-mono text-xs" href="#eval-italypowerdemand">ItalyPowerDemand</a><a class="font-mono text-xs" href="#eval-motestrain">MoteStrain</a><a class="font-mono text-xs" href="#eval-pamap2">PAMAP2</a><a class="font-mono text-xs" href="#eval-plane">Plane</a><a class="font-mono text-xs" href="#eval-sonyaiborobotsurface1">SonyAIBORobotSurface1</a><a class="font-mono text-xs" href="#eval-twoleadecg">TwoLeadECG</a><a class="font-mono text-xs" href="#eval-uci-har">UCI_HAR</a><a class="font-mono text-xs" href="#eval-wesad">WESAD</a><a class="font-mono text-xs" href="#eval-wisdm">WISDM</a><a class="font-mono text-xs" href="#eval-wafer">Wafer</a>
     </nav>
 
     
@@ -32136,7 +32189,7 @@
     </article>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml ・ 生成日時 2026-08-19 10:43 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml ・ 生成日時 2026-08-19 12:19 UTC</p>
   </div>
 
   <!-- ================= REDUCTION TAB (issue #31: moved out of the paper tab) ================= -->
@@ -32707,7 +32760,7 @@
 
     <!-- 7. Discussion -->
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-08-19 10:43 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-08-19 12:19 UTC</p>
   </div>
 
   <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
@@ -33332,28 +33385,52 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-08-19 10:43 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-08-19 12:19 UTC</p>
   </div>
 
 </div>
 
 <script>
+  var TAB_BY_HASH = {'#tab-paper':'paper', '#tab-datasets':'datasets', '#tab-methods':'methods',
+                     '#tab-evaluation':'evaluation', '#tab-reduction':'reduction',
+                     '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
+
   function showTab(id){
     document.querySelectorAll('[data-tab]').forEach(function(el){ el.style.display = (el.getAttribute('data-tab')===id) ? 'block' : 'none'; });
     document.querySelectorAll('[data-tabbtn]').forEach(function(b){ b.setAttribute('data-active', (b.getAttribute('data-tabbtn')===id) ? 'true' : 'false'); });
     if (history.replaceState) history.replaceState(null, '', '#tab-'+id);
   }
+
+  /* Jump to a section that may live in a different tab. A plain "#id" link
+     cannot scroll to a target inside a hidden tab, so switch to the owning tab
+     first, then scroll and flash the target. */
+  function gotoSection(id){
+    var el = document.getElementById(id);
+    if (!el) return false;
+    var host = el.closest('[data-tab]');
+    if (host) showTab(host.getAttribute('data-tab'));
+    el.scrollIntoView({block: 'start'});
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    el.classList.remove('anchor-flash');
+    void el.offsetWidth;  /* restart the animation when the same target is re-visited */
+    el.classList.add('anchor-flash');
+    return true;
+  }
+
+  document.addEventListener('click', function(ev){
+    var link = ev.target.closest ? ev.target.closest('a[href^="#"]') : null;
+    if (!link) return;
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+    if (TAB_BY_HASH[hash]) { ev.preventDefault(); showTab(TAB_BY_HASH[hash]); window.scrollTo(0, 0); return; }
+    if (gotoSection(hash.slice(1))) ev.preventDefault();
+  });
+
   document.addEventListener('DOMContentLoaded', function(){
-    var byHash = {'#tab-datasets':'datasets', '#tab-methods':'methods', '#tab-evaluation':'evaluation', '#tab-reduction':'reduction', '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
-    var start = byHash[location.hash] || 'paper';
-    showTab(start);
-    // if a deep link targets a dashboard section, switch to that tab
+    showTab(TAB_BY_HASH[location.hash] || 'paper');
+    // a deep link to a section opens the tab that owns it
     var h = location.hash.replace('#','');
-    if (h && document.getElementById(h)) {
-      var sec = document.getElementById(h);
-      var host = sec.closest('[data-tab]');
-      if (host) showTab(host.getAttribute('data-tab'));
-    }
+    if (h && !TAB_BY_HASH[location.hash] && document.getElementById(h)) gotoSection(h);
   });
 </script>
 </body>

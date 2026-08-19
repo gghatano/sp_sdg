@@ -1086,6 +1086,7 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     }
 
     dataset_tab = _dataset_entries(root, references_index)
+    eval_tab = _evaluation_entries(root, results, summary_main, curves, dataset_tab)
 
     return {
         "facts": facts,
@@ -1134,7 +1135,10 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "method_tab": _augmentation_entries(root, references_index, results, stats_sorted, reduction),
         # training/evaluation tab (issue #31): per-dataset "what is learned and
         # evaluated", with that dataset's own results
-        "eval_tab": _evaluation_entries(root, results, summary_main, curves, dataset_tab),
+        "eval_tab": eval_tab,
+        # datasets that have an evaluation section, so the dataset tab only links
+        # to sections that exist (a dataset with no completed run has none)
+        "eval_keys": [r["key"] for r in eval_tab["rows"]],
         # survey explanation + reproduction coverage (issue #31)
         "survey_tab": _survey_overview(root, references_index, findings_data.get("findings", [])),
         "limitations": _markdown_bullets(root / "artifacts/limitations.md"),

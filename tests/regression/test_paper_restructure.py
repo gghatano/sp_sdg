@@ -120,3 +120,39 @@ def test_reading_guide_links_every_tab():
     paper = _tab_body(_html(), "paper")
     for tab in ("datasets", "methods", "evaluation", "reduction", "dashboard", "repro"):
         assert f"showTab('{tab}')" in paper, f"reading guide does not link {tab}"
+
+
+def test_results_section_does_not_swallow_later_sections():
+    """§6 must close before §7: moving the reduction subsections out once took
+    §6's closing tag with them, nesting 考察/限界/まとめ inside 実験結果."""
+    template = Path("report/src/report.template.html").read_text(encoding="utf-8")
+    start = template.index('<section id="results"')
+    discussion = template.index('<section id="discussion"')
+    between = template[start:discussion]
+    assert between.count("</section>") == between.count("<section") , (
+        "§6 (results) is not closed before §7 (discussion)"
+    )
+
+
+def test_smoke_fixture_is_not_presented_as_a_study_dataset():
+    """The synthetic dataset is a network-free smoke-test fixture; it must not
+    appear in the paper's dataset table or in any aggregated result."""
+    context = gather_context(".")
+    html = render_report(context, "report/src", css="")
+    setup = html[html.index('id="setup"'):html.index('id="results"')]
+    assert ">synthetic<" not in setup, "smoke fixture listed as a study dataset"
+    assert all(s["dataset"] != "synthetic" for s in context["summary"])
+    assert all(r["key"] != "synthetic" for r in context["eval_tab"]["rows"])
+
+
+def test_long_result_table_is_collapsed():
+    """§6.1 carries one row per dataset×augmentation×model; it must be folded so
+    the section stays readable, with the significance table left open."""
+    template = Path("report/src/report.template.html").read_text(encoding="utf-8")
+    section = template[template.index('6.1 精度と有意性'):template.index('6.2 学習曲線')]
+    assert "<details" in section, "表4 must be collapsed"
+    fold_start = section.index("<details")
+    # "表5:" is the caption of the significance table itself (plain "表5" also
+    # appears as a cross-reference in the visible lead text)
+    assert section.index("表5:") > section.index("</details>"), "表5 must stay outside the fold"
+    assert "改善が大きかった条件" in section[:fold_start], "highlights must stay visible"
