@@ -1,0 +1,366 @@
+# Human-readable dataset descriptions for the report's dataset tab (issue #29).
+#
+# Numbers (件数・チャネル数・系列長・クラス分布) are NOT written here: they come
+# from data/metadata/*.json と report/assets/data/dataset_samples.json（実データ
+# から生成）で、レポートは両者を突き合わせて描画する。このファイルが持つのは
+# 「そのデータが何か」を人が読んで分かる説明だけ。
+#
+# 各エントリの構成は全データセット共通:
+#   display     : 表示名
+#   group       : ucr | subject
+#   role        : 本研究での使われ方(RQ1/RQ2 のどちらで、何の役割か)
+#   what        : 何を計測したデータか(計測状況・センサ・被験者)
+#   task        : 分類タスクの定義(何を入力し、何を当てるか)
+#   schema      : 1レコードの構造(テーブル定義)
+#   classes     : クラスの意味(ラベル名 -> 説明)。実データのクラス名と対応
+#   caveats     : 読む側が知っておくべき注意点・偏り
+#   reference   : references.json のキー
+#   license     : 配布ライセンス
+
+groups:
+  ucr:
+    title: "UCR ベンチマーク(RQ1: 精度効果の系統評価)"
+    lead: >-
+      UCR Time Series Classification Archive の単変量データセット。被験者IDを持たず、
+      公式の train/test 分割が定義済み。本研究では「拡張がどの条件で精度を改善するか」
+      (RQ1)を横断的に測るために使う。全系列は読み込み時に系列ごと z 正規化される。
+      各クラスラベルの意味は UCR アーカイブの データセット説明に基づく(ラベル値そのものは
+      実データから読み出しており、意味の対応付けのみが文献由来)。
+  subject:
+    title: "被験者ID付きデータ(RQ2: 必要被験者数の削減評価)"
+    lead: >-
+      1サンプルがどの被験者由来かを追跡できるデータ。同一被験者が train と test に
+      跨がらない分割(group split)を強制でき、「所定性能に必要な実被験者数 N*」を
+      測れる。本研究の RQ2 はこの4データセットで評価した。
+
+datasets:
+  # ---------------- UCR ----------------
+  ECG5000:
+    display: ECG5000
+    group: ucr
+    role: Phase 1 の最小追試3データセットの1つ。心電図という実信号の代表例。
+    what: >-
+      BIDMC うっ血性心不全データベース由来の心拍を1拍ずつ切り出した心電図。
+      1系列 = 1心拍。
+    task: 1心拍の波形から、その拍の型を5クラス(正常 + 異常4種)に分類する。
+    schema: 単変量 1ch × 系列長140点。ラベルは心拍の型。
+    classes:
+      "1": 正常拍(N)。学習データの大半を占める
+      "2": R-on-T 型の心室期外収縮(R-on-T PVC)
+      "3": 心室期外収縮(PVC)
+      "4": 上室性期外収縮または補充収縮(SP/Esc)
+      "5": 分類不能拍(UB)
+    caveats: >-
+      クラス分布が強く偏っており(正常拍が支配的)、accuracy は多数派クラスに引きずられる。
+      少数クラスは学習データ中の実数が二桁に満たないものもある。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  FordA:
+    display: FordA
+    group: ucr
+    role: Phase 1 の最小追試3データセットの1つ。学習データが最大(3601件)で、拡張が効きにくい高データ条件の代表。
+    what: エンジン騒音を計測した車載センサ信号。系列長500点と本研究で最長。
+    task: エンジン音の波形から、特定の異常症状が存在するかどうかを2クラス分類する。
+    schema: 単変量 1ch × 系列長500点。ラベルは症状の有無。
+    classes:
+      "-1": 症状なし
+      "1": 症状あり
+    caveats: >-
+      train が 3601 件と十分に大きく、追加データの限界効用が小さい条件。
+      本研究では MiniRocket との組合せで拡張が有害になる例として現れた(F-4)。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  GunPoint:
+    display: GunPoint
+    group: ucr
+    role: Phase 1 の最小追試3データセットの1つ。少データ(50件)側の代表。
+    what: >-
+      2名の俳優が「銃を抜いて構える」動作と「指を差す」動作を行う様子をモーション
+      キャプチャし、手の x 座標を時系列化したもの。
+    task: 手の動きの軌跡から、動作が Gun(抜銃)か Point(指差し)かを2クラス分類する。
+    schema: 単変量 1ch × 系列長150点。ラベルは動作種別。
+    classes:
+      "1": Gun(銃を抜いて構える)
+      "2": Point(指を差す)
+    caveats: >-
+      train 50 件と小さく、被験者は2名のみ。本研究で拡張の改善傾向が見えた数少ない
+      データセットだが、改善幅はノイズ範囲(F-3)。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  ECG200:
+    display: ECG200
+    group: ucr
+    role: Phase 2 横断比較。少データ心電図。
+    what: 1拍分の心電図(ECG5000 とは別の収集)。
+    task: 1心拍の波形から、正常心拍か心筋梗塞かを2クラス分類する。
+    schema: 単変量 1ch × 系列長96点。
+    classes:
+      "-1": 異常(心筋梗塞)
+      "1": 正常心拍
+    caveats: train 100 件と小さく、seed 間のばらつきが大きい。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  TwoLeadECG:
+    display: TwoLeadECG
+    group: ucr
+    role: Phase 2 横断比較。本研究で最も学習データが少ない(23件)、本質的な少データ条件。
+    what: 2誘導の心電図記録から切り出した心拍(単変量として提供される)。
+    task: 心拍波形が2つの誘導のどちらに由来するかを2クラス分類する。
+    schema: 単変量 1ch × 系列長82点。
+    classes:
+      "1": 誘導1由来
+      "2": 誘導2由来
+    caveats: >-
+      train 23 件・test 1139 件と極端に非対称。少データでの拡張効果を見るには好都合だが、
+      1件の増減が精度を大きく動かすため分散が大きい。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  ItalyPowerDemand:
+    display: ItalyPowerDemand
+    group: ucr
+    role: Phase 2 横断比較。系列長24点と最短。
+    what: イタリアの12か月分の電力需要を、1日24時間 = 24点の系列として切り出したもの。
+    task: 1日の需要曲線から、その日が10月〜3月(冬季)か4月〜9月(夏季)かを2クラス分類する。
+    schema: 単変量 1ch × 系列長24点(1時間刻みの1日)。
+    classes:
+      "1": 10月〜3月
+      "2": 4月〜9月
+    caveats: 系列長が短く、窓ベースの拡張(DTW 整列等)の自由度が小さい。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  MoteStrain:
+    display: MoteStrain
+    group: ucr
+    role: Phase 2 横断比較。少データ(20件)側の代表。
+    what: 無線センサノード(Berkeley Mote)が計測した環境データ。
+    task: センサ系列がどちらのセンサ(湿度計/温度計)由来かを2クラス分類する。
+    schema: 単変量 1ch × 系列長84点。
+    classes:
+      "1": センサ1(湿度)
+      "2": センサ2(温度)
+    caveats: train 20 件。欠測・ノイズを含む実運用センサのデータ。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  SonyAIBORobotSurface1:
+    display: SonyAIBORobotSurface1
+    group: ucr
+    role: Phase 2 横断比較。加速度センサ系で、被験者データ(HAR)と信号種が近い。
+    what: 四足歩行ロボット AIBO に搭載した3軸加速度計の x 軸を歩行中に記録したもの。
+    task: 歩行中の加速度波形から、床面がカーペットかセメントかを2クラス分類する。
+    schema: 単変量 1ch × 系列長70点。
+    classes:
+      "1": セメント床
+      "2": カーペット床
+    caveats: train 20 件。加速度という点で HAR に近いが、被験者ではなくロボット由来。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  CBF:
+    display: CBF
+    group: ucr
+    role: Phase 2 横断比較。合成データで、クラス構造が既知の対照的な位置づけ。
+    what: Cylinder-Bell-Funnel。3つの形状パターンをノイズ付きで生成した合成時系列。
+    task: 波形がシリンダ型・ベル型・ファネル型のどれかを3クラス分類する。
+    schema: 単変量 1ch × 系列長128点。
+    classes:
+      "1": Cylinder(矩形状の立ち上がり)
+      "2": Bell(緩やかな立ち上がりと急降下)
+      "3": Funnel(急な立ち上がりと緩やかな降下)
+    caveats: 合成データのため、実データ特有の被験者差・機器差を含まない。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  Plane:
+    display: Plane
+    group: ucr
+    role: Phase 2 横断比較。本研究の UCR 群で最多クラス数(7)。
+    what: 航空機のシルエット輪郭を中心からの距離系列に変換したもの(形状の時系列化)。
+    task: 輪郭系列から機種7クラスを分類する。
+    schema: 単変量 1ch × 系列長144点(輪郭を一周する角度方向の距離)。
+    classes:
+      "1": Mirage
+      "2": Eurofighter
+      "3": F-14(主翼後退時)
+      "4": F-14(主翼展開時)
+      "5": Harrier
+      "6": F-22
+      "7": F-15
+    caveats: 時間軸ではなく空間(輪郭)を系列化したデータ。時間的な拡張の解釈は間接的になる。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  ArrowHead:
+    display: ArrowHead
+    group: ucr
+    role: Phase 2 横断比較。形状由来データの少データ例。
+    what: 考古学的な矢じりの画像輪郭を、中心からの距離系列に変換したもの。
+    task: 輪郭系列から矢じりの型式3クラスを分類する。
+    schema: 単変量 1ch × 系列長251点。
+    classes:
+      "0": Avonlea 型
+      "1": Clovis 型
+      "2": Mix 型
+    caveats: train 36 件。Plane と同様、時間ではなく空間の系列。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  Coffee:
+    display: Coffee
+    group: ucr
+    role: Phase 2 横断比較。分光データで、時間信号ではないスペクトル系列の例。
+    what: コーヒー豆の赤外分光(FTIR)スペクトル。
+    task: スペクトルからアラビカ種かロブスタ種かを2クラス分類する。
+    schema: 単変量 1ch × 系列長286点(波数方向のスペクトル)。
+    classes:
+      "0": Arabica
+      "1": Robusta
+    caveats: train 28 件。軸が時間ではなく波数のため、時間的整列に基づく拡張の前提が弱い。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  Wafer:
+    display: Wafer
+    group: ucr
+    role: Phase 2 横断比較。学習1000件と大きく、かつ強い不均衡を持つ条件。
+    what: 半導体製造の各工程で1枚のウェハを加工する間に記録した装置センサ値。
+    task: センサ系列から、そのウェハ加工が正常か異常かを2クラス分類する。
+    schema: 単変量 1ch × 系列長152点。
+    classes:
+      "-1": 異常
+      "1": 正常
+    caveats: >-
+      正常が圧倒的多数の不均衡データ。accuracy はほぼ多数派率で決まるため、
+      改善幅の解釈には注意が要る。
+    reference: ucr
+    license: UCR アーカイブの利用条件に従う(研究利用)
+
+  # ---------------- 被験者ID付き ----------------
+  UCI_HAR:
+    display: UCI HAR (Human Activity Recognition Using Smartphones)
+    group: subject
+    role: >-
+      RQ2 の主対象。事前登録した目標 τ=0.90 のもとで N*(必要被験者数)と削減率を推定した
+      (F-8/F-9/F-10)。
+    what: >-
+      30名の被験者が腰にスマートフォン(Samsung Galaxy S II)を装着し、6種の日常動作を
+      行った際の慣性センサ記録。加速度計とジャイロを50Hzで計測し、2.56秒(128点)の窓に
+      切り出したものが公式に配布されている。
+    task: >-
+      128点×9チャネルの慣性センサ窓から、その窓の動作6クラスを分類する。学習に使う
+      被験者数 N を変えながら、目標精度に到達するのに必要な N* を測る。
+    schema: >-
+      1レコード = 1窓。9チャネル(body_acc x/y/z、body_gyro x/y/z、total_acc x/y/z)
+      × 128点。付随して被験者ID(1〜30)と動作ラベルを持つ。公式配布には561次元の
+      手設計特徴量も含まれるが、本研究は生の慣性信号のみを使う。
+    classes:
+      WALKING: 平地歩行
+      WALKING_UPSTAIRS: 階段昇り
+      WALKING_DOWNSTAIRS: 階段降り
+      SITTING: 着座
+      STANDING: 起立
+      LAYING: 横臥
+    caveats: >-
+      公式の被験者非跨り分割(train 21名 / test 9名)をそのまま使う。静的姿勢
+      (SITTING/STANDING/LAYING)は加速度の平均値が主な手がかりで、動的動作より
+      分離しやすい。目標 τ=0.90 は6クラスとしては比較的到達しやすい水準。
+    reference: anguita2013
+    license: CC BY 4.0
+
+  WISDM:
+    display: WISDM v1.1 (Actitracker)
+    group: subject
+    role: >-
+      RQ2 の外的妥当性の第2データ。UCI HAR と独立に事前登録した τ=0.80 で再評価し、
+      帰無結論を再現した(F-12)。
+    what: >-
+      36名の被験者がスマートフォンを前ポケットに入れ、6種の動作を行った際の3軸加速度
+      記録(約20Hz)。公式の train/test 分割はない。
+    task: >-
+      200点(約10秒)×3チャネルの加速度窓から動作6クラスを分類する。UCI HAR と同じく
+      被験者数を変えて N* を測る。
+    schema: >-
+      生ファイルは1行 = (被験者ID, 動作ラベル, タイムスタンプ, x, y, z) の CSV 形式。
+      本研究は同一(被験者, 動作)の連続区間内で200点の非重複窓に切り出し、窓ごとに
+      チャネル別 z 正規化する。
+    classes:
+      Walking: 平地歩行
+      Jogging: ジョギング
+      Upstairs: 階段昇り
+      Downstairs: 階段降り
+      Sitting: 着座
+      Standing: 起立
+    caveats: >-
+      公式分割がないため、seed 0 の固定シャッフルで test 12名 / pool 24名に分けた
+      (事前登録済み)。生ファイルには壊れた行が約1%含まれ、読み込み時にスキップする。
+      Walking/Jogging が多数を占めるクラス不均衡がある。
+    reference: kwapisz2011
+    license: CC BY 4.0
+
+  PAMAP2:
+    display: PAMAP2 Physical Activity Monitoring
+    group: subject
+    role: >-
+      RQ2 の外的妥当性の第3データ(少N端点)。pool 5名と小さく、N* が格子下限で
+      左側打ち切りとなり削減率は推定不能(F-13)。
+    what: >-
+      9名の被験者が手首・胸・足首の3箇所に IMU を装着し、12種の日常/運動活動を行った
+      記録(100Hz)。心拍計も併用されているが本研究では使わない。
+    task: >-
+      168点(約5秒)×9チャネルの加速度窓から活動12クラスを分類する。
+    schema: >-
+      生ファイルは活動ごとの .dat で、1行 = (タイムスタンプ, 活動ID, 心拍, 各IMUの
+      54列)。本研究は3箇所×3軸の ±16g 加速度9列のみを使い(ジャイロ・磁気・心拍・
+      向きは除外)、100Hz を 1/3 に間引いて約33.3Hz とし、168点の非重複窓に切る。
+    classes:
+      lying: 横臥
+      sitting: 着座
+      standing: 起立
+      walking: 歩行
+      running: 走行
+      cycling: 自転車
+      nordic_walking: ノルディックウォーキング
+      ascending_stairs: 階段昇り
+      descending_stairs: 階段降り
+      vacuum_cleaning: 掃除機がけ
+      ironing: アイロンがけ
+      rope_jumping: 縄跳び
+    caveats: >-
+      被験者109は記録が10窓・1活動しかないため機械的に除外した(精度に依存しない判断)。
+      被験者ごとに実施した活動が異なり、活動の欠損が多い。ライセンス上ライブラリ経由の
+      自動取得は可能だが 1.6GB あり、本レポートでは波形の抜粋を載せていない。
+    reference: reiss2012
+    license: CC BY 4.0
+
+  WESAD:
+    display: WESAD (Wearable Stress and Affect Detection)
+    group: subject
+    role: >-
+      RQ2 の外的妥当性の第4データ(非HAR の生理信号)。HAR 向けの枠組みが転移せず
+      near-chance となり、削減以前にタスクが学習されていないことが分かった(F-14)。
+    what: >-
+      15名の被験者に胸部装着型デバイス(RespiBAN)を着け、ベースライン・ストレス誘発
+      (TSST)・娯楽(コメディ視聴)の3条件を体験させた際の生理信号記録(700Hz)。
+    task: >-
+      2100点(30秒)×5チャネルの生理信号窓から、情動状態3クラスを分類する。
+    schema: >-
+      被験者ごとの pickle ファイルに、胸部5チャネル(ECG/EDA/EMG/RESP/TEMP)と
+      手首デバイスの信号、ラベル列が入る。本研究は胸部5chとラベル{1,2,3}のみを使い、
+      700Hz を反エイリアス処理付きで70Hzへ間引き、30秒の非重複窓に切る。
+    classes:
+      baseline: 平常状態
+      stress: "ストレス負荷(TSST: 面接・暗算課題)"
+      amusement: 娯楽(コメディ動画視聴)
+    caveats: >-
+      **再配布不可**のライセンス(非商用・帰属表示)のため、生データも波形の抜粋も
+      本リポジトリには含めない(チェックサムとメタデータのみ)。また本研究の前処理は
+      HAR 用の「窓ごとz正規化」をそのまま適用しており、EDA や体温の絶対レベルという
+      生理信号の主要な情報を消している可能性が高い。これが near-chance の候補要因。
+    reference: schmidt2018
+    license: 学術・非商用利用(帰属表示必須、再配布不可)
