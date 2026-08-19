@@ -125,6 +125,15 @@
       "confidence": "medium",
       "type": "original",
       "notes": "【framing 厳守】そもそもモデルがタスクを学習しておらず(label_shuffle≈none)、削減を論じる前提が成立しないため、これは『データ拡張が被験者数を削減する/しない』の結論ではない。DS-3 の結論は HAR 前処理・モデルの生理信号への非転移(信号種依存)に限定。【near-chance の候補要因】near-chance を『WESAD が難しい』だけに帰さない:HAR 由来の窓ごと z 正規化が EDA / 体温の絶対レベル(ストレスで上昇する皮膚コンダクタンス・体温=生理信号の主情報)を各窓内で消すことが主要因の候補(judgment_calls J-WESAD-NORM / deviations D-WESAD)。原論文は手作り生理特徴 + 混在/LOSO 評価で 3クラス accuracy ~93% を報告しており、near-chance は WESAD 自体でなく前処理・モデル選択に強く依存することを示唆する。【post-hoc 変更なし】比較可能性のため前処理・モデル・評価は HAR 3データと一切変えず固定(#23 の規律)。窓ごと z 正規化は cnn1d_har に合わせた設計で、変えれば性能は上がりうるが本 issue では検証しない(今後の課題)。【交絡】タスク・信号種・クラス数(3)が HAR と異なるため §6.5 横断図には同列で載せず信号種軸の独立小節(§6.6)として提示。左側打ち切りのため削減率は捏造せず『推定不能』を明示(PAMAP2 と同じ扱い)。データは非商用+帰属ライセンス(CC BY ではない)・再配布不可のため生データは非コミット、利用時は Schmidt et al. 2018 の帰属表示が必須。"
+    },
+    {
+      "id": "F-15",
+      "phase": 6,
+      "claim": "被験者ID付き4データ(UCI HAR / WISDM / PAMAP2 / WESAD、pool 5〜24名・信号種=慣性/加速度/生理・タスク=HAR 6/12クラス・affect 3クラス)を統合すると、データ拡張による必要実被験者数の削減は『測定可能なら帰無(UCI HAR・WISDM で全手法の N* CI が none と重複、対照 label_shuffle を CI 分離で超える手法なし)』『それ以外は推定不能(PAMAP2=左側打ち切り、WESAD=near-chance)』であり、悲観的対照 label_shuffle や純量水増しの oversample を明確に超えて実被験者を削減できたデータは1つも無い。マルチモーダル(チャネル横断)拡張は『多モーダル×削減測定可能』な基盤を欠くため対象外とし、本統合で外的妥当性のアークを締める",
+      "evidence": "results.json の reduction(UCI HAR 事前登録 accuracy 0.90)/ reduction_wisdm(accuracy 0.80)/ reduction_cross PAMAP2(macro-F1 0.70 事前登録)/ reduction_wesad(macro-F1 0.40)を各データの事前登録 primary target で統合(§6.7 図7・表10、synthesis はデータ駆動生成)、artifacts/ds5_assessment.md、issue #21 / #27",
+      "confidence": "medium",
+      "type": "original",
+      "notes": "【レンズ】各データの事前登録 primary target を用いるため主結論 F-8/F-10/F-12 と同一レンズであり、これらは統合でも不変。§6.5 の統一ルール target は UCI HAR/WISDM では post-hoc の別レンズだが結論(帰無)は一致し補強方向。【記述限定】4点(うち2点は推定不能)のため回帰・相関・因果は求めず、母集団サイズや信号種への系統トレンドは非検出/測定不能と明記。交絡(タスク・クラス数・前処理・pool 上限・正規化)によりデータ間の削減率差を単一要因に帰属できない。【WESAD の扱い】信号種が異なり near-chance のため、削減率の横並び比較ではなく『枠組み非転移』の事例として区別(HAR 3データと同列に削減率を比べない)。【削減率 CI の作図】図7の横棒は各手法の N* bootstrap CI を none 点推定で規格化したもので、none 自身の不確実性は網掛け帯で別途表示。作図上 WISDM smote の規格化 CI は 0 を跨がないが none の CI 帯とは重複するため『対照/baseline 越え』には当たらない(F-12 と整合)。【DS-5 対象外の根拠】チャネル横断拡張が削減に効くかを測るには多モーダルかつ N* 推定可能な基盤が要るが、PAMAP2(打ち切り)/WESAD(near-chance)/単一モダリティの UCI HAR・WISDM のいずれも該当せず。将来の発火条件は『多モーダルデータで N*(none) が格子内推定可能かつ label_shuffle≪none(モデルが学習)』(ds5_assessment.md §0、issue #27)。"
     }
   ],
   "schema": {

@@ -64,6 +64,10 @@ tasks:
   - {id: DS3-4, phase: 6, title: "[Reporting レーン] §6.6「信号種依存: 生理信号 WESAD」・図(none≈label_shuffle)・F-14・ペルソナレビュー・make all-report。framing は『HAR枠組みの非転移=信号種依存』に限定(削減の有無は語らない)。HAR横断図には非同列", status: done}
   - {id: DS3-5, phase: 6, title: "[Audit レーン] DS-3 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/framing限定/near-chance根拠(acc<多数派率)/データ駆動/事前登録完全/生データ非コミット・ライセンス)→ 公開可判定", status: done}
 
+  # Phase 6: 外的妥当性アークの統合まとめ(issue #21 §6.7 = 4データ統合で締める)
+  - {id: DS5-1, phase: 6, title: "[Reporting レーン] 被験者数削減の外的妥当性 統合まとめ §6.7 追加(4データ=UCI HAR/WISDM/PAMAP2/WESAD を1図1表: 統合フォレストプロット図7 + 統合表10)。各データの事前登録 primary target レンズで F-8/F-10/F-12 を再掲(不変)、測定可能=帰無/それ以外=推定不能、対照越え皆無を提示。F-15 追加・要旨/まとめ/limitations に反映。synthesis はデータ駆動生成・手入力なし。regression 必須 section に subject-reduction-synthesis 追加。make validate green", status: done}
+  - {id: DS5-2, phase: 6, title: "[統括判断] DS-5(マルチモーダル/チャネル横断拡張)は deferred=実行せず統合まとめで締める。理由: 測定基盤なし(多モーダルの PAMAP2 は左側打ち切り・WESAD は near-chance・削減が測れる UCI HAR/WISDM は単一モダリティ寄り=『多モーダル×削減測定可能』のデータが存在せず)。将来の発火条件は issue #27(多モーダルで N*(none) 格子内推定可能かつ label_shuffle≪none)。評価は artifacts/ds5_assessment.md。DS-4 は本アークの範囲外", status: blocked}
+
   # issue #23: DS-1(WISDM/F-12)へのレッドチーム検証の是正
   - {id: RT23-1, phase: 6, title: "文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー", status: done}
   - {id: RT23-2, phase: 6, title: "コード/config是正 (V9 dataset_params昇格+manifest記録 / V10 実データchecksum / V1 docstring)", status: done}
