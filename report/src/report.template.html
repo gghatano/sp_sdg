@@ -24,6 +24,9 @@
             background:#e2e8f0; color:#475569; cursor:pointer; }
   .tabbtn[data-active="true"] { background:#fff; color:var(--ink); font-weight:700; }
   [data-tab] { display:none; }
+  /* brief highlight so a cross-tab jump is visible to the reader */
+  @keyframes anchorFlash { from { background:#fef9c3; } to { background:transparent; } }
+  .anchor-flash { animation: anchorFlash 1.6s ease-out 1; }
   a { color: var(--accent); }
   .paper table { font-family: system-ui, sans-serif; }
   @media print { .tabbar, .noprint { display:none !important; } [data-tab]{display:block !important;} }
@@ -629,6 +632,7 @@
           <span class="text-xs font-mono text-slate-400">{{ d.key }}</span>
           {% if d.ref_no %}<span class="text-xs text-slate-500">[{{ d.ref_no }}]</span>{% endif %}
           {% if d.license %}<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600">{{ d.license }}</span>{% endif %}
+          {% if d.key in eval_keys %}<a class="text-xs" href="#eval-{{ d.key|lower|replace('_','-') }}">→ このデータでの学習と評価</a>{% endif %}
         </div>
 
         <!-- structural facts, from loader metadata / generated samples -->
@@ -1283,22 +1287,46 @@
 </div>
 
 <script>
+  var TAB_BY_HASH = {'#tab-paper':'paper', '#tab-datasets':'datasets', '#tab-methods':'methods',
+                     '#tab-evaluation':'evaluation', '#tab-reduction':'reduction',
+                     '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
+
   function showTab(id){
     document.querySelectorAll('[data-tab]').forEach(function(el){ el.style.display = (el.getAttribute('data-tab')===id) ? 'block' : 'none'; });
     document.querySelectorAll('[data-tabbtn]').forEach(function(b){ b.setAttribute('data-active', (b.getAttribute('data-tabbtn')===id) ? 'true' : 'false'); });
     if (history.replaceState) history.replaceState(null, '', '#tab-'+id);
   }
+
+  /* Jump to a section that may live in a different tab. A plain "#id" link
+     cannot scroll to a target inside a hidden tab, so switch to the owning tab
+     first, then scroll and flash the target. */
+  function gotoSection(id){
+    var el = document.getElementById(id);
+    if (!el) return false;
+    var host = el.closest('[data-tab]');
+    if (host) showTab(host.getAttribute('data-tab'));
+    el.scrollIntoView({block: 'start'});
+    if (history.replaceState) history.replaceState(null, '', '#' + id);
+    el.classList.remove('anchor-flash');
+    void el.offsetWidth;  /* restart the animation when the same target is re-visited */
+    el.classList.add('anchor-flash');
+    return true;
+  }
+
+  document.addEventListener('click', function(ev){
+    var link = ev.target.closest ? ev.target.closest('a[href^="#"]') : null;
+    if (!link) return;
+    var hash = link.getAttribute('href');
+    if (!hash || hash === '#') return;
+    if (TAB_BY_HASH[hash]) { ev.preventDefault(); showTab(TAB_BY_HASH[hash]); window.scrollTo(0, 0); return; }
+    if (gotoSection(hash.slice(1))) ev.preventDefault();
+  });
+
   document.addEventListener('DOMContentLoaded', function(){
-    var byHash = {'#tab-datasets':'datasets', '#tab-methods':'methods', '#tab-evaluation':'evaluation', '#tab-reduction':'reduction', '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
-    var start = byHash[location.hash] || 'paper';
-    showTab(start);
-    // if a deep link targets a dashboard section, switch to that tab
+    showTab(TAB_BY_HASH[location.hash] || 'paper');
+    // a deep link to a section opens the tab that owns it
     var h = location.hash.replace('#','');
-    if (h && document.getElementById(h)) {
-      var sec = document.getElementById(h);
-      var host = sec.closest('[data-tab]');
-      if (host) showTab(host.getAttribute('data-tab'));
-    }
+    if (h && !TAB_BY_HASH[location.hash] && document.getElementById(h)) gotoSection(h);
   });
 </script>
 </body>
