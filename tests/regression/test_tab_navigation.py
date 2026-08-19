@@ -53,3 +53,28 @@ def test_deep_link_to_a_section_opens_its_tab():
     html = _html()
     # on load, a "#section" hash resolves through gotoSection (not only #tab-*)
     assert "if (h && !TAB_BY_HASH[location.hash] && document.getElementById(h)) gotoSection(h);" in html
+
+
+def test_link_lists_cannot_overflow_sideways():
+    """Jinja emits index links with no whitespace between them (</a><a>), which
+    the browser treats as one unbreakable inline run — it then overflows the
+    page horizontally instead of wrapping. Such runs must sit in a flex-wrap
+    container, where each link is an item that can wrap on its own."""
+    html = _html()
+    offenders = []
+    for match in re.finditer(r'(?:</a><a\b[^>]*>[^<]{1,60}</a>){2,}', html):
+        before = html[max(0, match.start() - 600):match.start()]
+        opener = max(before.rfind("<nav"), before.rfind("<div"), before.rfind("<p"))
+        container = before[opener:before.find(">", opener) + 1] if opener != -1 else ""
+        if "flex-wrap" not in container:
+            offenders.append(container[:90] or match.group(0)[:60])
+    assert not offenders, f"unbreakable link runs outside a flex-wrap container: {offenders}"
+
+
+def test_tab_indexes_are_wrapping_containers():
+    """The three per-tab indexes list many names and must wrap."""
+    html = _html()
+    for tab in ("datasets", "methods", "evaluation"):
+        body = html[html.index(f'data-tab="{tab}"'):]
+        nav = body[body.index("<nav"):body.index("</nav>")]
+        assert "flex-wrap" in nav, f"{tab} tab index does not wrap"

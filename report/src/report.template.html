@@ -638,11 +638,11 @@
     <p class="text-xs text-slate-500 mb-6">説明文は <span class="font-mono">references/dataset_profiles.yaml</span>、件数・チャネル・分割は <span class="font-mono">data/metadata/*.json</span>、波形とクラス分布は <span class="font-mono">report/assets/data/dataset_samples.json</span>(実データから生成)に由来する。波形・数値はすべて<strong>学習側(train / pool)split のみ</strong>から取っており、test データは表示にも使っていない(spec §8)。</p>
 
     <!-- dataset index -->
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
+    <nav class="mb-8 text-sm border-y border-slate-200 py-3">
       {% for gkey, g in dataset_tab.groups.items() %}
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">{{ g.title }}:</span>
-        {% for d in dataset_tab.entries.get(gkey, []) %}<a class="mr-2" href="#{{ d.anchor }}">{{ d.key }}</a>{% endfor %}
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">{{ g.title }}:</span>
+        {% for d in dataset_tab.entries.get(gkey, []) %}<a href="#{{ d.anchor }}">{{ d.key }}</a>{% endfor %}
       </div>
       {% endfor %}
     </nav>
@@ -776,11 +776,11 @@
     <p class="text-sm text-slate-600 mb-1">既存の時系列データ拡張手法を、全手法同じ構成(考え方 / 手順 / ラベルの決め方 / ハイパーパラメータ / 前提 / 本実装の差分 / 実測の効果)で並べる。分類はサーベイ[{{ ref.iwana2021 }}]の大分類に対応させた。</p>
     <p class="text-xs text-slate-500 mb-6">説明文は <span class="font-mono">references/augmentation_profiles.yaml</span>、パラメータ値は <span class="font-mono">config/augmentations.yaml</span>、効果は <span class="font-mono">results.json</span>、入出力例は <span class="font-mono">report/assets/data/augmentation_examples.json</span>(実験と同じ実装・同じパラメータで実データを拡張した出力)に由来する。</p>
 
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
+    <nav class="mb-8 text-sm border-y border-slate-200 py-3">
       {% for fkey, f in method_tab.families.items() %}
-      <div class="mb-1">
-        <span class="text-slate-500 mr-2">{{ f.title }}:</span>
-        {% for m in method_tab.entries.get(fkey, []) %}<a class="mr-2 font-mono text-xs" href="#{{ m.anchor }}">{{ m.key }}</a>{% endfor %}
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">{{ f.title }}:</span>
+        {% for m in method_tab.entries.get(fkey, []) %}<a class="font-mono text-xs" href="#{{ m.anchor }}">{{ m.key }}</a>{% endfor %}
       </div>
       {% endfor %}
     </nav>
@@ -898,9 +898,9 @@
       </div>
     </section>
 
-    <nav class="mb-8 text-sm border-y border-slate-200 py-3 leading-7">
-      <span class="text-slate-500 mr-2">データセット:</span>
-      {% for r in eval_tab.rows %}<a class="mr-2 font-mono text-xs" href="#{{ r.anchor }}">{{ r.key }}</a>{% endfor %}
+    <nav class="mb-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm border-y border-slate-200 py-3">
+      <span class="text-slate-500">データセット:</span>
+      {% for r in eval_tab.rows %}<a class="font-mono text-xs" href="#{{ r.anchor }}">{{ r.key }}</a>{% endfor %}
     </nav>
 
     {% for r in eval_tab.rows %}
