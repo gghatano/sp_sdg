@@ -79,3 +79,8 @@ tasks:
   - {id: DT29-1, phase: 7, title: "dataset_profiles.yaml 新規(全17データセットの説明を同一構成で記述: 役割/どんなデータか/タスク/1レコードの構造/クラスの意味/注意点)。件数は書かず data/metadata と生成サンプルから供給", status: done}
   - {id: DT29-2, phase: 7, title: "scripts/build_dataset_samples.py 新規(学習split のみからクラス別代表波形・チャネル別波形・クラス分布・サンプル値抜粋を抽出 → report/assets/data/dataset_samples.json を commit)。WESAD は再配布不可・PAMAP2 は取得コストのため波形非収録", status: done}
   - {id: DT29-3, phase: 7, title: "データセットタブ実装(build.py: _dataset_entries で prose+metadata+実データを突合、waveform/channel_stack/class_balance の SVG 生成。template: 全データセット同一構成の article)+ regression テスト9件", status: done}
+
+  # issue #30: レポートに「拡張手法」タブを新設(既存手法を同一構成で解説)
+  - {id: MT30-1, phase: 7, title: "augmentation_profiles.yaml 新規(全8手法を同一構成で記述: 考え方/手順/ラベルの決め方/パラメータの意味/暗黙の前提/原論文からの差分/本研究での位置づけ)。サーベイ[8]の大分類に沿って magnitude/pattern/trivial/control に分類。パラメータ値は書かず config から供給", status: done}
+  - {id: MT30-2, phase: 7, title: "scripts/build_augmentation_examples.py 新規(実験と同じ実装・同じ config パラメータで実データ(GunPoint 学習split)を拡張し、入出力の波形ペアを report/assets/data/augmentation_examples.json に生成)", status: done}
+  - {id: MT30-3, phase: 7, title: "拡張手法タブ実装(build.py: _augmentation_entries で prose+config値+results.json の実測効果(Holm補正)+被験者数削減+実出力例を突合。template: 全手法同一構成の article)+ regression テスト8件(実装レジストリとの完全一致・パラメータが config 由来・例が実 augmenter 生成)", status: done}
