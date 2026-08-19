@@ -610,9 +610,14 @@ def _dataset_entries(root: Path, references_index: dict) -> dict:
             for name, desc in (prose.get("classes") or {}).items()
         ]
 
+        cfg = datasets_cfg.get(key) or {}
         entries.setdefault(group, []).append({
             "key": key,
             "anchor": f"dataset-{key.lower().replace('_', '-')}",
+            # a series whose axis is not time (image contour / spectrum): the
+            # main analysis excludes it, the appendix tab presents it
+            "temporal": cfg.get("temporal") is not False,
+            "axis": cfg.get("axis"),
             "display": prose.get("display", key),
             "group": group,
             "role": prose.get("role"),
@@ -634,7 +639,12 @@ def _dataset_entries(root: Path, references_index: dict) -> dict:
             "channel_svg": channel_stack_svg(sample.get("channel_traces", [])),
             "balance_svg": class_balance_svg(sample.get("class_distribution", [])),
         })
-    return {"groups": groups, "entries": entries}
+    return {
+        "groups": groups,
+        "entries": {g: [e for e in es if e["temporal"]] for g, es in entries.items()},
+        "all_entries": entries,
+        "appendix": [e for es in entries.values() for e in es if not e["temporal"]],
+    }
 
 
 def augmentation_example_svg(source: list, synthetic: list | None, color: str,
@@ -756,7 +766,9 @@ def _evaluation_entries(root: Path, results: dict, summary_main: list, curves: d
     """
     prose = _load_yaml(root / "references/dataset_profiles.yaml")
     profiles = prose.get("datasets") or {}
-    entries_by_key = {e["key"]: e for group in dataset_tab["entries"].values() for e in group}
+    # all_entries includes the appendix (non-temporal) datasets, which still get
+    # their own evaluation section — in the appendix tab
+    entries_by_key = {e["key"]: e for group in dataset_tab["all_entries"].values() for e in group}
 
     runs = [r for r in results.get("runs", []) if r.get("status") == "completed"]
     runs_by_dataset: dict[str, list] = {}
@@ -796,6 +808,8 @@ def _evaluation_entries(root: Path, results: dict, summary_main: list, curves: d
         group = profile.get("group", "ucr")
         rows.append({
             "key": key,
+            "temporal": bool(info.get("temporal", True)),
+            "axis": info.get("axis"),
             "anchor": f"eval-{key.lower().replace('_', '-')}",
             "display": profile.get("display", key),
             "group": group,
@@ -825,11 +839,17 @@ def _evaluation_entries(root: Path, results: dict, summary_main: list, curves: d
             "panels": panels,
         })
 
+    main_rows = [r for r in rows if r["temporal"]]
+    appendix_rows = [r for r in rows if not r["temporal"]]
     return {
         "groups": prose.get("groups", {}),
-        "rows": rows,
-        "n_datasets": len(rows),
-        "n_runs": sum(r["n_runs"] for r in rows),
+        "rows": main_rows,
+        "all_rows": rows,
+        "appendix_rows": appendix_rows,
+        "n_datasets": len(main_rows),
+        "n_appendix": len(appendix_rows),
+        "n_runs": sum(r["n_runs"] for r in main_rows),
+        "n_appendix_runs": sum(r["n_runs"] for r in appendix_rows),
     }
 
 
@@ -1057,6 +1077,22 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     stats = results.get("stats", [])
     # significance after Holm-Bonferroni step-down over the family of tests
     stats_sorted = holm_bonferroni(stats, alpha=0.05)
+    # the same tests computed WITHOUT excluding the non-temporal datasets, so the
+    # effect of that exclusion is visible in the appendix rather than hidden.
+    # Each family is corrected within itself (correcting across both would mix
+    # two analyses of the same data).
+    stats_all_sorted = holm_bonferroni(results.get("stats_all_datasets", []), alpha=0.05)
+    _all_by_key = {(s["augmentation"], s["model"]): s for s in stats_all_sorted}
+    stats_comparison = [
+        {"augmentation": s["augmentation"], "model": s["model"],
+         "main": s, "all": _all_by_key.get((s["augmentation"], s["model"]))}
+        for s in stats_sorted
+        if _all_by_key.get((s["augmentation"], s["model"]))
+    ]
+    stats_flips = [
+        row for row in stats_comparison
+        if bool(row["main"].get("significant_holm")) != bool(row["all"].get("significant_holm"))
+    ]
 
     # main table shows full-training-set rows only; the fraction sweep lives in
     # the learning-curve figures, so 858 rows don't flood the table
@@ -1071,12 +1107,21 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     # separate distinct UCR datasets (RQ1) from subject-ID datasets (RQ2) so the
     # abstract/intro/§5.1 don't conflate them (UCR count must not include UCI HAR/WISDM)
     _study_datasets = {r["dataset"] for r in study_runs}
-    _ucr_names = {n for n, s in _load_yaml(root / "config/datasets.yaml").get("datasets", {}).items()
-                  if s.get("source") == "ucr"}
+    _datasets_cfg_all = _load_yaml(root / "config/datasets.yaml").get("datasets", {})
+    _ucr_names = {n for n, s in _datasets_cfg_all.items() if s.get("source") == "ucr"}
+    # datasets whose axis is not time (image contour / spectrum). The main
+    # analysis excludes them; they are reported in the appendix tab.
+    _non_temporal = {n for n, s in _datasets_cfg_all.items() if s.get("temporal") is False}
     facts = {
         "n_study_runs": len(study_runs),
-        "n_study_datasets": len(_study_datasets),
-        "n_ucr_datasets": len(_study_datasets & _ucr_names),
+        "n_study_datasets": len(_study_datasets - _non_temporal),
+        "non_temporal_datasets": sorted(_study_datasets & _non_temporal),
+        "n_ucr_datasets": len((_study_datasets & _ucr_names) - _non_temporal),
+        "n_ucr_datasets_all": len(_study_datasets & _ucr_names),
+        "n_non_temporal": len(_study_datasets & _non_temporal),
+        # the Phase 2 grid (the one the significance tests run on) is a subset
+        "n_phase2_datasets": len({r["dataset"] for r in study_runs if r.get("phase") == 2} - _non_temporal),
+        "n_phase2_datasets_all": len({r["dataset"] for r in study_runs if r.get("phase") == 2}),
         "n_subject_datasets": len(_study_datasets - _ucr_names - {"synthetic"}),
         "n_significant": sum(1 for s in stats_sorted if s.get("significant_holm")),
         "target_metric": (reduction or {}).get("target_metric"),
@@ -1099,6 +1144,9 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "ref": references_index,
         "curve_panels": curve_panels,
         "stats": stats_sorted,
+        "stats_all_datasets": stats_all_sorted,
+        "stats_comparison": stats_comparison,
+        "stats_flips": stats_flips,
         "aug_colors": AUG_COLORS,
         "reduction": reduction,
         "reduction_svg": reduction_svg,

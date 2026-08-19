@@ -16,6 +16,20 @@ from pathlib import Path
 AUX_RUN_PREFIXES = ("h2gap_",)
 
 
+def manifest_path(value: str | None) -> Path | None:
+    """Resolve a path recorded in a run manifest, whatever OS wrote it.
+
+    Runs executed on Windows recorded "runs\\metrics\\x.json"; on POSIX that is
+    a single filename that never exists, so those runs were silently dropped
+    from every aggregate (PAMAP2 and WESAD vanished from the report when
+    `make aggregate` was re-run on Linux). Manifest paths are repo-relative, so
+    normalising the separator is enough to make aggregation portable.
+    """
+    if not value:
+        return None
+    return Path(str(value).replace("\\", "/"))
+
+
 def collect_runs(manifests_dir: str | Path = "runs/manifests") -> list[dict]:
     rows = []
     for path in sorted(Path(manifests_dir).glob("*.json")):
@@ -37,8 +51,8 @@ def collect_runs(manifests_dir: str | Path = "runs/manifests") -> list[dict]:
             "train_fraction": manifest.get("train_fraction", 1.0),
         }
         if manifest["status"] == "completed" and manifest.get("metrics_path"):
-            metrics_path = Path(manifest["metrics_path"])
-            if metrics_path.exists():
+            metrics_path = manifest_path(manifest["metrics_path"])
+            if metrics_path and metrics_path.exists():
                 row.update(json.loads(metrics_path.read_text(encoding="utf-8")))
         rows.append(row)
     return rows
@@ -99,8 +113,8 @@ def _subject_metric_rows(manifests_dir: Path, prefix: str = "subject_count_") ->
         m = json.loads(path.read_text(encoding="utf-8"))
         if m.get("status") != "completed" or not m.get("metrics_path"):
             continue
-        metrics_path = Path(m["metrics_path"])
-        if not metrics_path.exists():
+        metrics_path = manifest_path(m["metrics_path"])
+        if not (metrics_path and metrics_path.exists()):
             continue
         row = {
             "phase": m["phase"],
@@ -275,7 +289,21 @@ def build_results_json(
 
     # Wilcoxon test is meaningful once fractions/datasets give >=5 pairs (Phase 2)
     phase2_rows = [r for r in rows if r.get("phase") == 2]
-    stats = wilcoxon_vs_none(phase2_rows) if phase2_rows else []
+    stats_all = wilcoxon_vs_none(phase2_rows) if phase2_rows else []
+
+    # Main analysis excludes datasets whose axis is not time (image contour /
+    # spectrum): time-domain augmentation assumes a time axis, so DTW alignment
+    # and warping have no meaning there. The flag lives in config/datasets.yaml
+    # (config-driven, CLAUDE.md) and the criterion is a structural property of
+    # the data, independent of any result. The all-datasets version is kept for
+    # comparison; the exclusion was decided after the runs, so it is post-hoc
+    # and is disclosed as such in the report.
+    datasets_cfg = yaml.safe_load(
+        (Path(config_dir) / "datasets.yaml").read_text(encoding="utf-8")
+    ).get("datasets", {})
+    non_temporal = sorted(k for k, s in datasets_cfg.items() if s.get("temporal") is False)
+    temporal_rows = [r for r in phase2_rows if r.get("dataset") not in non_temporal]
+    stats = wilcoxon_vs_none(temporal_rows) if temporal_rows else []
 
     # Phase 4-5: subject-count reduction analysis, target read from the
     # pre-registered config (never chosen post-hoc; spec section 8)
@@ -328,6 +356,10 @@ def build_results_json(
         "summary": summary,
         "learning_curves": learning_curves([s for s in summary if s["dataset"] != "synthetic"]),
         "stats": stats,
+        # all-datasets version (including the non-temporal ones), kept so the
+        # effect of the exclusion is visible instead of hidden
+        "stats_all_datasets": stats_all,
+        "non_temporal_datasets": non_temporal,
         "reduction": reduction,
         "reduction_wisdm": reduction_wisdm,
         "reduction_pamap2": reduction_pamap2,

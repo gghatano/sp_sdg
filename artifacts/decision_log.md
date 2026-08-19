@@ -14,3 +14,4 @@
 - 2026-07-12 / 統計検定は Wilcoxon 符号順位検定(対応: dataset×model×seed×fraction、5 ペア未満はスキップ) / RESEARCH_PLAN.md の設計どおり。多重比較補正は Phase 2 集計時に検討 / evaluation/stats.py
 - 2026-07-12 / 多重比較補正は Holm-Bonferroni を採用 / Bonferroni より検出力が高く、族単位の第一種過誤を制御できる / reporting/build.py
 - 2026-07-12 / 被験者データ(Phase 4-5)へ持ち込む拡張手法を mixup, dtw, smote, oversample, scaling の 5 件に決定(P2-4) / Phase 2 で 1D-CNN において Holm 補正後も有意だった手法。jitter は非有意のため除外、none は baseline として常に含む。MiniRocket では全手法非有意だったが、被験者データでは 1D-CNN を主モデルとするため CNN の結果で選定 / config(Phase 4 実験設計)
+- 2026-08-19 / 軸が時間でない3データセット(Plane, ArrowHead, Coffee)を主結果の集計から除外し、レポートの付録タブへ移設 / 時間領域の拡張は「系列が時間に沿って並ぶ」ことを前提とし、とくに DTW 整列合成はクラス内差異が時間的伸縮であると仮定するため、輪郭・スペクトルでは前提が成り立たない。除外は結果を見た後の post-hoc な判断だが、基準(軸が時間か)は結果と無関係なデータの構造的性質。除外前の検定・全条件比較・判定が入れ替わる境界事例は付録タブに併記(F-16) / config/datasets.yaml (temporal フラグ), src/signal_aug/reporting/aggregate.py

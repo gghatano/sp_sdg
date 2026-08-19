@@ -1,4 +1,8 @@
 # Dataset registry. Experiment configs reference datasets by key.
+# temporal: false marks a series whose axis is NOT time (an image contour or a
+# spectrum). Time-domain augmentation assumes a time axis (DTW alignment,
+# warping), so these are excluded from the main aggregate and reported in the
+# report's appendix tab instead (decision: 2026-08-19, artifacts/decision_log.md).
 # source: "ucr" datasets are downloaded via aeon into data/raw/.
 # source: "synthetic" is generated locally (network-free; used by smoke tests).
 datasets:
@@ -49,14 +53,20 @@ datasets:
 
   Plane:
     source: ucr
+    temporal: false
+    axis: "輪郭(角度方向)"
     note: "Sensor/shape, 7 classes, 105 train."
 
   ArrowHead:
     source: ucr
+    temporal: false
+    axis: "輪郭(角度方向)"
     note: "Image-derived shapes, 3 classes, 36 train."
 
   Coffee:
     source: ucr
+    temporal: false
+    axis: "波数(FTIR スペクトル)"
     note: "Spectrograph, 2 classes, 28 train."
 
   Wafer:

@@ -18,7 +18,9 @@ def main() -> None:
     completed = [m for m in completed if m.get("status") == "completed" and m.get("log_path")]
     n_truncated = 0
     for manifest in completed[: -args.keep] if args.keep else completed:
-        log = Path(manifest["log_path"])
+        # manifests written on Windows record backslash paths (see
+        # signal_aug.reporting.aggregate.manifest_path)
+        log = Path(str(manifest["log_path"]).replace("\\", "/"))
         if log.exists() and log.stat().st_size > 200:
             lines = log.read_text(encoding="utf-8").splitlines()
             log.write_text(

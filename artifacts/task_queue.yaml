@@ -94,3 +94,5 @@ tasks:
   - {id: NAV-1, phase: 7, title: "タブをまたぐアンカーリンクが遷移しない問題を修正(gotoSection: 対象を含むタブへ切替→スクロール→ハイライト。委譲クリックハンドラと深リンクの両方を同経路に)。データセット↔学習と評価の双方向リンク+リンク切れ検査テスト4件", status: done}
   - {id: NAV-2, phase: 7, title: "論文 §6.1 の表4(210条件)を details に折りたたみ、改善/悪化の要点を上出し。表5(有意性)は開いたまま。§5.1 表2 から smoke 専用 synthetic を除外。§6 の閉じタグ欠落(issue #31 の移設時に混入し §7-§9 が入れ子化)を修正。regression 3件追加", status: done}
   - {id: NAV-3, phase: 7, title: "タブ索引リンクの横はみ出し修正(Jinja が空白なしで連結する </a><a> は1語扱いで折り返せない → flex-wrap コンテナ化)。regression 2件で再発防止", status: done}
+  - {id: NT-1, phase: 7, title: "非時系列3件(Plane/ArrowHead/Coffee)を config の temporal フラグで識別し主結果の集計から除外。付録タブ新設(除外理由・post-hoc 開示・除外前後の検定比較表・入れ替わり条件・データ説明・学習と評価を収録)。F-5/F-7 再集計、F-16 追加、README 更新", status: done}
+  - {id: NT-2, phase: 7, title: "manifest の metrics_path が Windows 形式(バックスラッシュ)で記録されていると POSIX で解決できず PAMAP2/WESAD が集計から丸ごと欠落する潜在バグを修正(manifest_path でセパレータ正規化)。compact_logs の log_path も同様に対応", status: done}

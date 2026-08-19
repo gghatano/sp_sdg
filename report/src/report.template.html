@@ -42,6 +42,7 @@
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="methods" onclick="showTab('methods')">拡張手法</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="evaluation" onclick="showTab('evaluation')">学習と評価</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="reduction" onclick="showTab('reduction')">被験者数削減</button>
+    <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="appendix" onclick="showTab('appendix')">付録: 非時系列データ</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="dashboard" onclick="showTab('dashboard')">実験・運用ダッシュボード</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="repro" onclick="showTab('repro')">再現・前処理ノート</button>
   </div>
@@ -89,7 +90,7 @@
         <h2 class="text-sm font-bold figtab tracking-wide text-slate-700 mb-2">要旨</h2>
         <p class="lead text-sm">
         本研究は、時系列データ拡張が分類精度に与える効果を UCR Time Series Classification Archive [{{ ref.ucr }}] の
-        {{ facts.n_ucr_datasets }} データセットで系統的に評価し(被験者ID付きデータ {{ facts.n_subject_datasets }} 件を含め計 {{ facts.n_study_runs }} run)、被験者ID付きデータ
+        {{ facts.n_ucr_datasets }} データセット(取得した {{ facts.n_ucr_datasets_all }} 件から、軸が時間でない {{ facts.n_non_temporal }} 件を除いたもの)で系統的に評価し(被験者ID付きデータ {{ facts.n_subject_datasets }} 件を含め計 {{ facts.n_study_runs }} run)、被験者ID付きデータ
         (UCI HAR [{{ ref.anguita2013 }}])へ展開して「所定の分類性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を定量する。
         1D-CNN では {{ facts.n_significant }} 手法の拡張が精度を統計的に有意に改善する一方、MiniRocket [{{ ref.minirocket }}] では有意な改善が
         見られず、効果はモデルに強く依存する。被験者数削減では、事前登録した目標精度
@@ -299,20 +300,20 @@
       <h2 class="sec">5. 実験設計</h2>
 
       <h3 class="sub">5.1 データセット</h3>
-      <p class="lead text-sm">UCR アーカイブ [{{ ref.ucr }}] から小〜中規模の {{ facts.n_ucr_datasets }} データセットで RQ1 を評価し、RQ2(被験者数削減)の主対象には
+      <p class="lead text-sm">UCR アーカイブ [{{ ref.ucr }}] から小〜中規模の {{ facts.n_ucr_datasets }} データセットで RQ1 を評価し(取得した {{ facts.n_ucr_datasets_all }} 件のうち、軸が時間でない {{ facts.n_non_temporal }} 件は主結果から除外し<a href="#tab-appendix">付録タブ</a>に移した)、RQ2(被験者数削減)の主対象には
       被験者ID付きの UCI HAR [{{ ref.anguita2013 }}](30名)を、第2の被験者データに WISDM v1.1 [{{ ref.kwapisz2011 }}](36名)を選定した(計 {{ facts.n_study_datasets }} データセット)。
       各データセットの中身・1レコードの構造・実波形は<a href="#tab-datasets">「データセット」タブ</a>にある。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50"><th class="p-2">名前</th><th class="p-2">ソース</th><th class="p-2">備考</th></tr></thead>
         <tbody>
-          {% for name, spec in datasets_cfg.items() if spec.source != 'synthetic' %}
+          {% for name, spec in datasets_cfg.items() if spec.source != 'synthetic' and spec.temporal is not sameas false %}
           <tr class="border-b border-slate-100"><td class="p-2 font-mono">{{ name }}</td><td class="p-2">{{ spec.source }}</td><td class="p-2 text-slate-600">{{ spec.note | default("") }}</td></tr>
           {% endfor %}
         </tbody>
       </table>
       </div>
-      <p class="cap mt-1">表2: RQ1 で使用した UCR データセット。この他に、ネットワーク不要の動作確認(smoke)専用の合成データが config にあるが、モデル評価には一切用いないため本表・全集計から除いている。</p>
+      <p class="cap mt-1">表2: RQ1 で使用した UCR データセット(軸が時間でない {{ facts.n_non_temporal }} 件は付録タブに分離した)。この他に、ネットワーク不要の動作確認(smoke)専用の合成データが config にあるが、モデル評価には一切用いないため本表・全集計から除いている。</p>
 
       <h3 class="sub">5.2 モデル</h3>
       <div class="overflow-x-auto mt-1">
@@ -400,7 +401,8 @@
 
       {% if stats %}
       <p class="lead text-sm mt-4">RQ1 の答えにあたるのは次の表5 である。Wilcoxon 検定の結果を示す。各行は拡張手法×モデルで、同一(データセット・seed・学習比率)のペア精度差を none と比較したもの。
-      p 値は Holm–Bonferroni 補正済み。{{ facts.n_significant }} 条件が α=0.05 で有意であり、いずれも 1D-CNN であった。</p>
+      p 値は Holm–Bonferroni 補正済み。{{ facts.n_significant }} 条件が α=0.05 で有意であり、いずれも 1D-CNN であった。
+      集計対象は Phase 2 の {{ facts.n_phase2_datasets_all }} データセットのうち、軸が時間である {{ facts.n_phase2_datasets }} 件(非時系列 {{ facts.n_non_temporal }} 件は<a href="#tab-appendix">付録タブ</a>。除外前の同じ検定と、判定が入れ替わる境界条件も付録に併記した)。</p>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
@@ -1203,6 +1205,147 @@
     <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 {{ generated_at }}</p>
   </div>
 
+  <!-- ================= APPENDIX TAB: non-temporal datasets ================= -->
+  <div data-tab="appendix" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
+    <h2 class="text-lg font-semibold text-slate-900 mb-2">付録: 時間軸を持たないデータセット</h2>
+    <p class="text-sm text-slate-600 mb-3">UCR アーカイブには、時間ではない軸に沿って並んだ「系列」が含まれる。本研究が扱った {{ facts.n_ucr_datasets_all }} データセットのうち次の {{ facts.n_non_temporal }} 件がこれにあたり、<strong>主結果の集計から除外</strong>してこの付録に移した。データ・実験・結果はすべて残してある。</p>
+
+    <section id="appendix-rationale" class="mb-8">
+      <h3 class="text-base font-semibold text-slate-900 mb-2">除外の理由</h3>
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">データセット</th><th class="p-2">実際の軸</th><th class="p-2">元データ</th>
+        </tr></thead>
+        <tbody>
+          {% for d in dataset_tab.appendix %}
+          <tr class="border-b border-slate-100 align-top">
+            <td class="p-2 font-mono text-slate-700">{{ d.key }}</td>
+            <td class="p-2 text-slate-700">{{ d.axis }}</td>
+            <td class="p-2 text-slate-600">{{ d.what }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      <p class="lead text-sm mt-3">時間領域のデータ拡張は「系列が時間に沿って並んでいる」ことを前提にする。とくに DTW 整列に基づく合成は<strong>クラス内の差異が時間的な伸縮である</strong>と仮定しており、輪郭やスペクトルではこの前提が成り立たない。
+      拡張手法の前提が満たされないデータを主結果の集計に混ぜると、「時系列拡張の効果」という問いへの答えが濁るため、主結果から外した。</p>
+
+      <div class="mt-3 border border-amber-300 bg-amber-50 rounded p-3 text-sm">
+        <span class="font-medium text-amber-900">post-hoc の開示: </span><span class="text-amber-900">この除外は実験を走らせ結果を見たあとに決めたものであり、事前登録された手続きではない。
+        ただし除外の基準(軸が時間かどうか)はデータの構造的な性質で、結果の値とは無関係に決まる。判断の影響が見えるよう、除外前(全 {{ facts.n_phase2_datasets_all }} データセット)の検定結果を下に併記する。</span>
+      </div>
+    </section>
+
+    <section id="appendix-comparison" class="mb-8">
+      <h3 class="text-base font-semibold text-slate-900 mb-2">除外が主結果に与える影響</h3>
+      <p class="text-sm text-slate-600 mb-2">Phase 2 の横断比較は {{ facts.n_phase2_datasets_all }} データセットで実施し、うち {{ facts.n_non_temporal }} 件が非時系列だった(主結果は残る {{ facts.n_phase2_datasets }} 件)。同じ Wilcoxon 検定・Holm 補正を、除外前後の両方で示す。</p>
+      <div class="overflow-x-auto">
+      <table class="w-full text-sm border border-slate-200 rounded">
+        <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+          <th class="p-2">拡張</th><th class="p-2">モデル</th>
+          <th class="p-2 text-right">平均Δ(主結果 {{ facts.n_phase2_datasets }}件)</th><th class="p-2">有意</th>
+          <th class="p-2 text-right">平均Δ(全 {{ facts.n_phase2_datasets_all }}件)</th><th class="p-2">有意</th>
+        </tr></thead>
+        <tbody>
+          {% for row in stats_comparison %}
+          <tr class="border-b border-slate-100">
+            <td class="p-2 font-mono">{{ row.augmentation }}</td><td class="p-2 font-mono text-slate-600">{{ row.model }}</td>
+            <td class="p-2 text-right">{{ "%+.2f"|format(row.main.mean_delta * 100) }}pt</td>
+            <td class="p-2">{% if row.main.significant_holm %}<span class="text-green-700 font-medium">✓</span>{% else %}<span class="text-slate-400">—</span>{% endif %}</td>
+            <td class="p-2 text-right text-slate-600">{{ "%+.2f"|format(row.all.mean_delta * 100) }}pt</td>
+            <td class="p-2">{% if row.all.significant_holm %}<span class="text-green-700 font-medium">✓</span>{% else %}<span class="text-slate-400">—</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+      <p class="cap mt-1">表A1: 非時系列データを除く前後の比較(accuracy、Holm 補正後)。両者とも p 値は各集合の中で補正している。</p>
+      {% if stats_flips %}
+      <div class="mt-3 border border-slate-300 bg-slate-50 rounded p-3 text-sm">
+        <span class="font-medium text-slate-800">有意判定が入れ替わった条件: </span>
+        <span class="text-slate-700">{% for f in stats_flips %}{{ f.augmentation }}/{{ f.model }}({% if f.main.significant_holm %}除外後のみ有意{% else %}除外前のみ有意{% endif %}、p={{ "%.3g"|format(f.main.p_adjusted) }} vs {{ "%.3g"|format(f.all.p_adjusted) }}){% if not loop.last %}、{% endif %}{% endfor %}。
+        いずれも p が 0.05 近傍の境界事例で、除外によって効果の有無が定性的に変わったとは読まない。</span>
+      </div>
+      {% endif %}
+    </section>
+
+    <section id="appendix-datasets" class="mb-8">
+      <h3 class="text-base font-semibold text-slate-900 mb-3">データセットの説明</h3>
+      {% for d in dataset_tab.appendix %}
+      <article id="{{ d.anchor }}" class="border border-slate-200 rounded p-4 mb-4">
+        <div class="flex items-baseline gap-2 flex-wrap mb-2">
+          <h4 class="font-semibold text-slate-900">{{ d.display }}</h4>
+          <span class="text-xs font-mono text-slate-400">{{ d.key }}</span>
+          {% if d.ref_no %}<span class="text-xs text-slate-500">[{{ d.ref_no }}]</span>{% endif %}
+          <span class="text-xs rounded px-1.5 py-0.5 bg-amber-100 text-amber-800">軸: {{ d.axis }}</span>
+        </div>
+        <dl class="text-sm space-y-1.5 mb-3">
+          {% if d.what %}<div><dt class="inline text-slate-500">どんなデータか: </dt><dd class="inline text-slate-700">{{ d.what }}</dd></div>{% endif %}
+          {% if d.task %}<div><dt class="inline text-slate-500">分類タスク: </dt><dd class="inline text-slate-700">{{ d.task }}</dd></div>{% endif %}
+          {% if d.schema %}<div><dt class="inline text-slate-500">1レコードの構造: </dt><dd class="inline text-slate-700">{{ d.schema }}</dd></div>{% endif %}
+        </dl>
+        {% if d.waveform_svg %}
+        <p class="cap mb-1">クラス別の代表系列(各クラスの中心に最も近い1サンプル)</p>
+        {{ d.waveform_svg | safe }}
+        {% endif %}
+        {% if d.caveats %}<p class="text-sm text-amber-900 bg-amber-50 border border-amber-300 rounded p-2 mt-2">{{ d.caveats }}</p>{% endif %}
+      </article>
+      {% endfor %}
+    </section>
+
+    <section id="appendix-evaluation" class="mb-4">
+      <h3 class="text-base font-semibold text-slate-900 mb-3">学習と評価の結果</h3>
+      <p class="text-sm text-slate-600 mb-3">主結果からは外したが、実験そのものは他のデータセットと同一条件で実施している(計 {{ eval_tab.n_appendix_runs }} run)。</p>
+      {% for r in eval_tab.appendix_rows %}
+      <article id="{{ r.anchor }}" class="border border-slate-200 rounded p-4 mb-4">
+        <div class="flex items-baseline gap-2 flex-wrap mb-2">
+          <h4 class="font-semibold text-slate-900">{{ r.display }}</h4>
+          <span class="text-xs font-mono text-slate-400">{{ r.key }}</span>
+          <a class="text-xs" href="#{{ (dataset_tab.appendix | selectattr('key','equalto',r.key) | first).anchor }}">→ データの説明</a>
+        </div>
+        <dl class="text-sm space-y-1.5 mb-3">
+          <div><dt class="inline text-slate-500">学習の入力: </dt><dd class="inline text-slate-700">{{ r.input_shape.channels }}チャネル × {{ r.input_shape.length }}点の系列 → {{ r.input_shape.n_classes }}クラスの分類</dd></div>
+          <div><dt class="inline text-slate-500">条件: </dt><dd class="inline text-slate-700">拡張 {{ r.augmentations|length }} 種 × seed {{ r.seeds|length }} 個 × 学習比率 {{ r.fractions|length }} 段階 = <strong>{{ r.n_runs }} run</strong></dd></div>
+        </dl>
+        {% if r.summary %}
+        <details>
+          <summary class="cursor-pointer text-sm text-blue-700">結果表を開く({{ r.summary|length }} 条件)</summary>
+          <div class="overflow-x-auto mt-2">
+          <table class="w-full text-xs border border-slate-200 rounded">
+            <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+              <th class="p-1.5">モデル</th><th class="p-1.5">拡張</th><th class="p-1.5 text-right">精度</th><th class="p-1.5 text-right">Δ vs none</th>
+            </tr></thead>
+            <tbody>
+              {% for s in r.summary %}
+              <tr class="border-b border-slate-100">
+                <td class="p-1.5 font-mono text-slate-600">{{ s.model }}</td><td class="p-1.5 font-mono text-slate-700">{{ s.augmentation }}</td>
+                <td class="p-1.5 text-right">{{ "%.4f"|format(s.accuracy_mean) }}</td>
+                <td class="p-1.5 text-right {{ 'text-emerald-700' if s.delta_vs_none and s.delta_vs_none > 0 else ('text-rose-700' if s.delta_vs_none and s.delta_vs_none < 0 else 'text-slate-400') }}">{{ "%+.4f"|format(s.delta_vs_none) if s.delta_vs_none is not none else "基準" }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          </div>
+        </details>
+        {% endif %}
+        {% if r.panels %}
+        <div class="grid sm:grid-cols-2 gap-3 mt-3">
+          {% for panel in r.panels %}
+          <figure class="border border-slate-200 rounded p-2">
+            <figcaption class="text-xs font-mono text-slate-600 mb-1">{{ r.key }} / {{ panel.model }}</figcaption>
+            {{ panel.svg | safe }}
+          </figure>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </section>
+
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml ・ 生成日時 {{ generated_at }}</p>
+  </div>
+
   <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
     <p class="text-sm text-slate-500 mb-6">本研究を別環境で再現・移植するための実務情報。再現手順・データ前処理の補足と不定性・「エイヤッと決めた」判断・原論文からの実装差分をまとめる。
     内容はすべて <span class="font-mono">artifacts/*.yaml</span>・<span class="font-mono">*.md</span> から自動生成され、HTML への手入力は行わない(維持手順は skill <span class="font-mono">/reproducibility-notes</span>)。</p>
@@ -1315,7 +1458,7 @@
 
 <script>
   var TAB_BY_HASH = {'#tab-paper':'paper', '#tab-datasets':'datasets', '#tab-methods':'methods',
-                     '#tab-evaluation':'evaluation', '#tab-reduction':'reduction',
+                     '#tab-evaluation':'evaluation', '#tab-reduction':'reduction', '#tab-appendix':'appendix',
                      '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
 
   function showTab(id){
