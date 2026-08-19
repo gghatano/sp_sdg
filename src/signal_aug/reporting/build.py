@@ -513,6 +513,8 @@ REQUIRED_SECTION_IDS = [
     # discussion, limitations, conclusion, references)
     "abstract",
     "introduction",
+    # survey explanation + reproduction coverage (issue #31)
+    "survey",
     "problem-setup",
     "proposed-method",
     "related-methods",
@@ -537,6 +539,8 @@ REQUIRED_SECTION_IDS = [
     # dataset (anchors are generated from the dataset keys)
     "datasets-ucr",
     "datasets-subject",
+    # training/evaluation tab (issue #31): per-dataset learning/evaluation
+    "eval-protocol",
     # augmentation-method tab (issue #30): one section per method family
     "methods-magnitude",
     "methods-pattern",
@@ -735,6 +739,121 @@ def _augmentation_entries(root: Path, references_index: dict, results: dict,
         "example_meta": {k: v for k, v in examples.items() if k != "methods"},
         "reduction_dataset": (reduction or {}).get("dataset", "UCI HAR"),
         "reduction_target": (reduction or {}).get("target_value"),
+    }
+
+
+def _evaluation_entries(root: Path, results: dict, summary_main: list, curves: dict,
+                        dataset_tab: dict) -> dict:
+    """Assemble the training/evaluation tab (issue #31).
+
+    The paper tab states the study-wide protocol; this answers the per-dataset
+    question the issue raises — "何を学習して、何を評価しているのか" — for every
+    dataset separately: the input a model sees, the split it is evaluated on,
+    the metric, how many runs backed it, and the resulting numbers.
+
+    Everything is derived from results.json (runs/summary/learning curves) and
+    the dataset tab's structural facts; no per-dataset numbers are hand-typed.
+    """
+    prose = _load_yaml(root / "references/dataset_profiles.yaml")
+    profiles = prose.get("datasets") or {}
+    entries_by_key = {e["key"]: e for group in dataset_tab["entries"].values() for e in group}
+
+    runs = [r for r in results.get("runs", []) if r.get("status") == "completed"]
+    runs_by_dataset: dict[str, list] = {}
+    for r in runs:
+        if r.get("dataset") == "synthetic":
+            continue
+        runs_by_dataset.setdefault(r["dataset"], []).append(r)
+
+    rows = []
+    for key, run_list in sorted(runs_by_dataset.items()):
+        profile = profiles.get(key, {})
+        info = entries_by_key.get(key, {})
+        sample = info.get("sample", {})
+        meta = info.get("meta", {})
+        models = sorted({r.get("model") for r in run_list if r.get("model")})
+        augs = sorted({r.get("augmentation") for r in run_list if r.get("augmentation")})
+        seeds = sorted({r.get("seed") for r in run_list if r.get("seed") is not None})
+        fractions = sorted({r.get("train_fraction") for r in run_list
+                            if r.get("train_fraction") is not None})
+        subject_counts = sorted({r.get("subject_count") for r in run_list
+                                 if r.get("subject_count") is not None})
+
+        # full-training-set rows for this dataset, best/worst deltas
+        ds_summary = [s for s in summary_main
+                      if s["dataset"] == key and s.get("train_fraction", 1.0) == 1.0]
+        deltas = [s for s in ds_summary if s.get("delta_vs_none") is not None]
+        best = max(deltas, key=lambda s: s["delta_vs_none"], default=None)
+        worst = min(deltas, key=lambda s: s["delta_vs_none"], default=None)
+
+        panels = []
+        for model in models:
+            if len(curves.get(f"{key}|{model}|none", [])) >= 2:
+                svg = learning_curve_svg(key, model, curves)
+                if svg:
+                    panels.append({"model": model, "svg": svg})
+
+        group = profile.get("group", "ucr")
+        rows.append({
+            "key": key,
+            "anchor": f"eval-{key.lower().replace('_', '-')}",
+            "display": profile.get("display", key),
+            "group": group,
+            "task": profile.get("task"),
+            "role": profile.get("role"),
+            # what the model actually consumes
+            "input_shape": {
+                "channels": sample.get("n_channels") or (len(meta.get("channels", [])) or None),
+                "length": sample.get("length") or meta.get("window_length"),
+                "n_classes": sample.get("n_classes") or meta.get("n_classes"),
+            },
+            "split": (
+                "公式の被験者非跨り分割" if group == "subject" and key == "UCI_HAR"
+                else "被験者非跨り分割(seed 0 固定・事前登録)" if group == "subject"
+                else "UCR 公式の train/test 分割"
+            ),
+            "eval_unit": "被験者を跨がない held-out 被験者" if group == "subject" else "公式 test split",
+            "models": models,
+            "augmentations": augs,
+            "seeds": seeds,
+            "fractions": fractions,
+            "subject_counts": subject_counts,
+            "n_runs": len(run_list),
+            "summary": sorted(ds_summary, key=lambda s: (s["model"], s["augmentation"])),
+            "best": best,
+            "worst": worst,
+            "panels": panels,
+        })
+
+    return {
+        "groups": prose.get("groups", {}),
+        "rows": rows,
+        "n_datasets": len(rows),
+        "n_runs": sum(r["n_runs"] for r in rows),
+    }
+
+
+def _survey_overview(root: Path, references_index: dict, findings: list) -> dict:
+    """Survey-explanation context (issue #31): what Iwana & Uchida (2021) claims,
+    which parts this study reproduced, and which it did not touch. Findings are
+    linked by id so a claim's evidence stays tied to the generated findings."""
+    data = _load_yaml(root / "references/survey_overview.yaml")
+    by_id = {f["id"]: f for f in findings}
+    claims = []
+    for claim in data.get("claims", []):
+        claims.append({
+            **claim,
+            "findings": [by_id[fid] for fid in claim.get("our_evidence", []) if fid in by_id],
+        })
+    survey = data.get("survey", {})
+    return {
+        "survey": survey,
+        "ref_no": references_index.get(survey.get("reference")),
+        "taxonomy": data.get("taxonomy", []),
+        "claims": claims,
+        "beyond": data.get("beyond_survey", []),
+        "n_reproduced": sum(1 for c in claims if c["our_status"] == "reproduced"),
+        "n_claims": len(claims),
     }
 
 
@@ -966,6 +1085,8 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "dtw_reduction_pct": round(dtw_reduction * 100, 1) if dtw_reduction is not None else None,
     }
 
+    dataset_tab = _dataset_entries(root, references_index)
+
     return {
         "facts": facts,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
@@ -1007,10 +1128,15 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "models_cfg": _load_yaml(root / "config/models.yaml").get("models", {}),
         "reproduction_targets": _load_yaml(root / "references/reproduction_targets.yaml"),
         # dataset tab (issue #29): prose + loader metadata + real sample traces
-        "dataset_tab": _dataset_entries(root, references_index),
+        "dataset_tab": dataset_tab,
         # augmentation-method tab (issue #30): prose + configured params +
         # measured effects + real augmenter output
         "method_tab": _augmentation_entries(root, references_index, results, stats_sorted, reduction),
+        # training/evaluation tab (issue #31): per-dataset "what is learned and
+        # evaluated", with that dataset's own results
+        "eval_tab": _evaluation_entries(root, results, summary_main, curves, dataset_tab),
+        # survey explanation + reproduction coverage (issue #31)
+        "survey_tab": _survey_overview(root, references_index, findings_data.get("findings", [])),
         "limitations": _markdown_bullets(root / "artifacts/limitations.md"),
         "audit": results.get("audit"),
         "reproducibility": reproducibility,
