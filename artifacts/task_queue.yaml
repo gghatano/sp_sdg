@@ -97,3 +97,4 @@ tasks:
   - {id: NT-1, phase: 7, title: "非時系列3件(Plane/ArrowHead/Coffee)を config の temporal フラグで識別し主結果の集計から除外。付録タブ新設(除外理由・post-hoc 開示・除外前後の検定比較表・入れ替わり条件・データ説明・学習と評価を収録)。F-5/F-7 再集計、F-16 追加、README 更新", status: done}
   - {id: NT-2, phase: 7, title: "manifest の metrics_path が Windows 形式(バックスラッシュ)で記録されていると POSIX で解決できず PAMAP2/WESAD が集計から丸ごと欠落する潜在バグを修正(manifest_path でセパレータ正規化)。compact_logs の log_path も同様に対応", status: done}
   - {id: NT-3, phase: 7, title: "論文タブの集計を時系列データのみに限定(表4・改善/悪化の要点・学習曲線パネル・要旨の run 数)。付録送りにした Coffee が論文の要点に出る不整合を解消。UCR 公式分割を再分割しない方針を §5.3 とデータセットタブに明記", status: done}
+  - {id: OV-1, phase: 7, title: "トップページ(概要タブ)新設: Pages の初期表示を論文→概要に変更。全8タブの内容と要点をカードで索引化(数値は各タブの context 由来で自動同期)+目的別の入口。regression 5件", status: done}
