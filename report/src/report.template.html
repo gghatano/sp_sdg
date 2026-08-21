@@ -37,6 +37,7 @@
 
   <!-- Tab bar -->
   <div class="tabbar flex gap-1 mb-0 text-sm noprint">
+    <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="overview" onclick="showTab('overview')">概要</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="paper" onclick="showTab('paper')">論文</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="datasets" onclick="showTab('datasets')">データセット</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="methods" onclick="showTab('methods')">拡張手法</button>
@@ -45,6 +46,57 @@
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="appendix" onclick="showTab('appendix')">付録: 非時系列データ</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="dashboard" onclick="showTab('dashboard')">実験・運用ダッシュボード</button>
     <button class="tabbtn rounded-t px-4 py-2" data-tabbtn="repro" onclick="showTab('repro')">再現・前処理ノート</button>
+  </div>
+
+  <!-- ================= OVERVIEW TAB (landing page) ================= -->
+  <div data-tab="overview" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-12 py-10 figtab">
+    <div class="text-center mb-8">
+      <h1 class="text-2xl sm:text-3xl font-bold leading-snug text-slate-900">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
+      <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と、被験者ID付きデータでの実証</p>
+      <p class="mt-3 text-sm text-slate-500">自動生成レポート ・ {{ generated_at }}</p>
+    </div>
+
+    <div class="border-l-4 border-blue-700 bg-slate-50 rounded p-4 mb-8 text-sm">
+      <p class="text-slate-700">時系列データ拡張が分類精度に与える効果を公開ベンチマークで評価し、その知見を被験者ID付きデータへ展開して<strong>「所定の分類性能に必要な実被験者数を、データ拡張でどれだけ削減できるか」</strong>を、誤検出に頑健な枠組みで定量した研究の公開レポート。</p>
+      <p class="text-slate-700 mt-2"><strong>主結論</strong>: 拡張の効果はモデルに強く依存し、被験者数削減は本設定では統計的に確定できない。見かけの削減の多くは、ラベルを壊した対照でも同程度に再現される正則化アーティファクトである。</p>
+      <div class="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs text-slate-500">
+        <span>データセット {{ facts.n_study_datasets }} 件</span>
+        <span>拡張手法 {{ method_tab.entries.values() | map('length') | sum }} 種</span>
+        <span>実験 {{ facts.n_study_runs }} run(付録 {{ facts.n_appendix_runs }} run)</span>
+        <span>失敗 {{ n_failed }} run</span>
+      </div>
+    </div>
+
+    <section id="overview-tabs" class="mb-6">
+      <h2 class="text-base font-semibold text-slate-900 mb-1">タブの案内</h2>
+      <p class="text-sm text-slate-600 mb-4">内容ごとにタブを分けている。各カードの見出しをクリックするとそのタブへ移動する。</p>
+
+      <div class="grid md:grid-cols-2 gap-3">
+        {% for card in overview_cards %}
+        <a class="block border border-slate-200 rounded p-4 hover:border-blue-400 hover:bg-slate-50 no-underline" href="#tab-{{ card.tab }}">
+          <p class="font-semibold text-blue-700 mb-1">{{ card.title }} →</p>
+          <p class="text-sm text-slate-700">{{ card.lead }}</p>
+          <ul class="mt-2 text-xs text-slate-500 space-y-0.5">
+            {% for point in card.points %}<li>・{{ point }}</li>{% endfor %}
+          </ul>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section id="overview-start" class="mb-2">
+      <h2 class="text-base font-semibold text-slate-900 mb-2">目的別の入口</h2>
+      <ul class="text-sm text-slate-700 space-y-1">
+        <li>・<strong>研究の主張と根拠</strong>を読みたい → <a href="#tab-paper">論文</a></li>
+        <li>・<strong>どんなデータを使ったか</strong>を見たい → <a href="#tab-datasets">データセット</a></li>
+        <li>・<strong>各手法が何をするか</strong>を知りたい → <a href="#tab-methods">拡張手法</a></li>
+        <li>・<strong>データセットごとの問題設定と結果</strong>を確かめたい → <a href="#tab-evaluation">学習と評価</a></li>
+        <li>・<strong>被験者数を減らせるのか</strong>という本題の結果 → <a href="#tab-reduction">被験者数削減</a></li>
+        <li>・<strong>手元で再現したい</strong> → <a href="#tab-repro">再現・前処理ノート</a></li>
+      </ul>
+    </section>
+
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">本レポートの数値は実験結果ファイル(runs/・artifacts/)から自動生成されており、HTML への手入力は行っていない ・ 生成日時 {{ generated_at }}</p>
   </div>
 
   <!-- ================= PAPER TAB ================= -->
@@ -1458,7 +1510,7 @@
 </div>
 
 <script>
-  var TAB_BY_HASH = {'#tab-paper':'paper', '#tab-datasets':'datasets', '#tab-methods':'methods',
+  var TAB_BY_HASH = {'#tab-overview':'overview', '#tab-paper':'paper', '#tab-datasets':'datasets', '#tab-methods':'methods',
                      '#tab-evaluation':'evaluation', '#tab-reduction':'reduction', '#tab-appendix':'appendix',
                      '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
 
@@ -1494,7 +1546,7 @@
   });
 
   document.addEventListener('DOMContentLoaded', function(){
-    showTab(TAB_BY_HASH[location.hash] || 'paper');
+    showTab(TAB_BY_HASH[location.hash] || 'overview');
     // a deep link to a section opens the tab that owns it
     var h = location.hash.replace('#','');
     if (h && !TAB_BY_HASH[location.hash] && document.getElementById(h)) gotoSection(h);

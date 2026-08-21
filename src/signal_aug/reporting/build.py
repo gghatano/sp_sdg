@@ -508,6 +508,9 @@ PHASE_NAMES = {
 }
 
 REQUIRED_SECTION_IDS = [
+    # landing page (index of the tabs)
+    "overview-tabs",
+    "overview-start",
     # paper tab (journal-paper structure: abstract, intro, problem setup,
     # proposed framework, related methods, experimental design, results,
     # discussion, limitations, conclusion, references)
@@ -877,6 +880,95 @@ def _survey_overview(root: Path, references_index: dict, findings: list) -> dict
     }
 
 
+def _overview_cards(context: dict) -> list[dict]:
+    """Landing-page index (one card per tab).
+
+    The prose says what a tab is for; every number in a card is pulled from the
+    context that built that tab, so the index cannot drift from the content it
+    points at (a tab that gains a dataset shows the new count here too).
+    """
+    facts = context["facts"]
+    dataset_tab, eval_tab, method_tab = context["dataset_tab"], context["eval_tab"], context["method_tab"]
+    n_datasets = sum(len(v) for v in dataset_tab["entries"].values())
+    n_methods = sum(len(v) for v in method_tab["entries"].values())
+    reduction_datasets = (context["synthesis"] or {}).get("n_datasets")
+
+    return [
+        {
+            "tab": "paper", "title": "論文",
+            "lead": "サーベイ [{}] の内容解説と、その部分的な追試。研究の問い・評価枠組み・RQ1(精度効果)の結果・考察・限界をまとめた本文。".format(
+                context["ref"].get("iwana2021", "")),
+            "points": [
+                f"サーベイの手法分類 {len(context['survey_tab']['taxonomy'])} 群のうち、本研究が触れた範囲と触れていない範囲",
+                f"サーベイの主要な主張 {context['survey_tab']['n_claims']} 件の追試状況(再現 {context['survey_tab']['n_reproduced']} 件)",
+                f"RQ1 の検定結果: {facts['n_significant']} 条件が多重比較補正後も有意",
+            ],
+        },
+        {
+            "tab": "datasets", "title": "データセット",
+            "lead": "評価に使った時系列データが「どんなデータか」を、全データセット同じ構成で説明する。",
+            "points": [
+                f"{n_datasets} データセット(UCR {facts['n_ucr_datasets']} 件 + 被験者ID付き {facts['n_subject_datasets']} 件)",
+                "計測状況・1レコードの構造(テーブル定義)・クラスの意味と実件数",
+                "実データから生成したクラス別波形・チャネル別波形・サンプル値の抜粋",
+            ],
+        },
+        {
+            "tab": "methods", "title": "拡張手法",
+            "lead": "評価した時系列データ拡張手法を1手法ずつ、同じ構成で解説する。",
+            "points": [
+                f"{n_methods} 手法を {len(method_tab['families'])} 群(振幅摂動 / パターン合成 / 単純増量 / 対照)に整理",
+                "考え方・手順・ラベルの決め方・暗黙の前提・原論文からの実装差分",
+                "実験と同じ実装・同じパラメータで実データを拡張した入出力例",
+            ],
+        },
+        {
+            "tab": "evaluation", "title": "学習と評価",
+            "lead": "データセットごとに、何を入力して何を当てるモデルを学習し、どの分割・どの指標で評価したかと、その結果。",
+            "points": [
+                f"{eval_tab['n_datasets']} データセット・計 {eval_tab['n_runs']} run",
+                "入力の形(チャネル×点 → クラス数)・評価の分割・モデル・条件の内訳",
+                "データセット単体の結果表と学習曲線",
+            ],
+        },
+        {
+            "tab": "reduction", "title": "被験者数削減",
+            "lead": "本研究が独自に行った RQ2。所定の性能に必要な実被験者数を、拡張がどれだけ削減できるかを測る。",
+            "points": [
+                f"被験者ID付き {reduction_datasets or facts['n_subject_datasets']} データセットでの評価と統合",
+                "negative control による「対照越え」判定",
+                "結論: 対照を明確に超えて実被験者を削減できたデータはない",
+            ],
+        },
+        {
+            "tab": "appendix", "title": "付録: 非時系列データ",
+            "lead": "軸が時間でない系列(画像輪郭・スペクトル)。時間領域の拡張の前提が成り立たないため主結果から除外した。",
+            "points": [
+                f"{facts['n_non_temporal']} データセット・計 {facts['n_appendix_runs']} run(データ説明・結果とも収録)",
+                "除外の理由と post-hoc であることの開示",
+                "除外前後の検定比較と、判定が入れ替わった条件",
+            ],
+        },
+        {
+            "tab": "dashboard", "title": "実験・運用ダッシュボード",
+            "lead": "研究本文の傍論。用語の説明、実験基盤の運用状況、監査結果。",
+            "points": [
+                f"完了 {context['n_completed']} run / 失敗 {context['n_failed']} run",
+                "用語集・再現性メタデータ・監査チェックリスト",
+            ],
+        },
+        {
+            "tab": "repro", "title": "再現・前処理ノート",
+            "lead": "別環境で再現・移植するための実務情報。",
+            "points": [
+                f"再現手順 {len(context['reproduction_steps'].get('steps', []))} ステップ",
+                f"前処理の補足と不定性 {len(context['preprocessing_notes'].get('notes', []))} 件、「エイヤッと決めた」判断 {len(context['judgment_calls'].get('calls', []))} 件",
+                "原論文からの実装差分",
+            ],
+        },
+    ]
+
+
 def gather_context(repo_root: str | Path = ".") -> dict:
     root = Path(repo_root)
     results = _load_json(root / "report/assets/data/results.json") or {
@@ -1142,7 +1234,7 @@ def gather_context(repo_root: str | Path = ".") -> dict:
     dataset_tab = _dataset_entries(root, references_index)
     eval_tab = _evaluation_entries(root, results, summary_main, curves, dataset_tab)
 
-    return {
+    context = {
         "facts": facts,
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
         "results": results,
@@ -1209,6 +1301,9 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "judgment_calls": _load_yaml(root / "artifacts/judgment_calls.yaml"),
         "deviations": _markdown_bullets(root / "artifacts/deviations.md"),
     }
+    # landing page: one card per tab, counts taken from the context above
+    context["overview_cards"] = _overview_cards(context)
+    return context
 
 
 def render_report(context: dict, template_dir: str | Path = "report/src", css: str = "") -> str:
