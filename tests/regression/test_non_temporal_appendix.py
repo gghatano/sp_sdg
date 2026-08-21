@@ -105,3 +105,31 @@ def test_paper_states_the_dataset_basis():
     paper = html[html.index('data-tab="paper"'):html.index('data-tab="datasets"')]
     assert re.search(r"軸が時間でない", paper), "the exclusion is not stated in the paper tab"
     assert "#tab-appendix" in paper, "the paper does not link to the appendix"
+
+
+def test_paper_tab_never_mentions_appendix_datasets():
+    """The paper tab discusses time-series data only: no appendix dataset may
+    appear in its tables, highlighted conditions, or figures."""
+    context = gather_context(".")
+    for key in ("summary", "best_improvements", "worst_degradations"):
+        named = {row["dataset"] for row in context[key]}
+        assert not (named & NON_TEMPORAL), f"{key} still names {sorted(named & NON_TEMPORAL)}"
+    panels = {p["dataset"] for p in context["curve_panels"]}
+    assert not (panels & NON_TEMPORAL), f"learning-curve figures still show {sorted(panels & NON_TEMPORAL)}"
+
+    html = render_report(context, "report/src", css="")
+    paper = html[html.index('data-tab="paper"'):html.index('data-tab="datasets"')]
+    for key in NON_TEMPORAL:
+        # the paper may link to the appendix, but must not present the data
+        assert f">{key}<" not in paper, f"{key} appears in the paper tab"
+
+
+def test_headline_run_count_matches_the_paper_scope():
+    """計 N run in the abstract counts the runs the paper actually reports."""
+    context = gather_context(".")
+    facts = context["facts"]
+    results_runs = [r for r in context["results"]["runs"]
+                    if r["status"] == "completed" and r["dataset"] != "synthetic"]
+    appendix = [r for r in results_runs if r["dataset"] in NON_TEMPORAL]
+    assert facts["n_appendix_runs"] == len(appendix)
+    assert facts["n_study_runs"] == len(results_runs) - len(appendix)

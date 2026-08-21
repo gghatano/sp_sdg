@@ -54,7 +54,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-08-19 13:29 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-08-19 23:44 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -90,7 +90,7 @@
         <h2 class="text-sm font-bold figtab tracking-wide text-slate-700 mb-2">要旨</h2>
         <p class="lead text-sm">
         本研究は、時系列データ拡張が分類精度に与える効果を UCR Time Series Classification Archive [1] の
-        10 データセット(取得した 13 件から、軸が時間でない 3 件を除いたもの)で系統的に評価し(被験者ID付きデータ 4 件を含め計 3416 run)、被験者ID付きデータ
+        10 データセット(取得した 13 件から、軸が時間でない 3 件を除いたもの)で系統的に評価し(被験者ID付きデータ 4 件を含め計 2786 run)、被験者ID付きデータ
         (UCI HAR [12])へ展開して「所定の分類性能に必要な実被験者数をデータ拡張でどれだけ削減できるか」を定量する。
         1D-CNN では 5 手法の拡張が精度を統計的に有意に改善する一方、MiniRocket [4] では有意な改善が
         見られず、効果はモデルに強く依存する。被験者数削減では、事前登録した目標精度
@@ -477,6 +477,7 @@
       <h3 class="sub">5.3 評価プロトコルとリーク防止</h3>
       <ul class="lead text-sm list-disc list-inside mt-1 space-y-1">
         <li>データ拡張・スケーリング等の当てはめは<strong>学習データにのみ</strong>適用し、テストデータには一切触れない。</li>
+        <li><strong>UCR の公式 train/test 分割をそのまま用いる</strong>。学習側が極端に小さい分割(例: CBF は train 30 / test 900)も再分割しない。既発表の数値と比較可能にするためであり、test を学習側に回す操作は分割の選択自体が結果に依存しうるため行わない。学習量の影響は、学習比率スイープ(§6.2)で学習側だけを縮小して測る。</li>
         <li>被験者データでは同一被験者が train と test を跨がない group split を用い、コードで disjoint 性を検査する。</li>
         <li>目標性能は結果を見る前に事前登録する(§3.2、artifacts/pre_registration.md)。</li>
         <li>乱数 seed は run 単位で固定(分割・拡張・初期化に適用)し、全 run に一意 run_id と manifest を付す。</li>
@@ -496,7 +497,7 @@
 
       <h3 class="sub">6.1 精度と有意性(RQ1)</h3>
       
-      <p class="lead text-sm">学習比率 100% での seed 平均精度と拡張なしとの差分 Δ は、データセット×拡張×モデルの全 210 条件ぶんあるため表4に畳んだ。
+      <p class="lead text-sm">学習比率 100% での seed 平均精度と拡張なしとの差分 Δ は、データセット×拡張×モデルの全 168 条件ぶんあるため表4に畳んだ。
       個々のデータセットを読むなら<a href="#tab-evaluation">「学習と評価」タブ</a>のほうが、そのデータの問題設定・評価条件と並べて見られる。学習比率スイープは §6.2 の図で示す。</p>
 
       <div class="grid sm:grid-cols-2 gap-3 my-3 text-sm figtab">
@@ -504,11 +505,11 @@
           <p class="font-medium text-emerald-900 mb-1">改善が大きかった条件</p>
           <ul class="text-emerald-900 space-y-0.5">
             
-            <li><span class="font-mono text-xs">Coffee / mixup / cnn1d</span> +46.4pt</li>
+            <li><span class="font-mono text-xs">MoteStrain / mixup / cnn1d</span> +25.1pt</li>
             
-            <li><span class="font-mono text-xs">Coffee / scaling / cnn1d</span> +46.4pt</li>
+            <li><span class="font-mono text-xs">MoteStrain / dtw / cnn1d</span> +24.7pt</li>
             
-            <li><span class="font-mono text-xs">Coffee / smote / cnn1d</span> +46.4pt</li>
+            <li><span class="font-mono text-xs">CBF / smote / cnn1d</span> +23.9pt</li>
             
           </ul>
         </div>
@@ -518,9 +519,9 @@
             
             <li><span class="font-mono text-xs">TwoLeadECG / smote / cnn1d</span> -16.6pt</li>
             
-            <li><span class="font-mono text-xs">Coffee / scaling / cnn1d</span> -15.5pt</li>
+            <li><span class="font-mono text-xs">PAMAP2 / label_shuffle / cnn1d_har</span> -13.8pt</li>
             
-            <li><span class="font-mono text-xs">Coffee / oversample / cnn1d</span> -15.5pt</li>
+            <li><span class="font-mono text-xs">GunPoint / dtw / cnn1d</span> -9.1pt</li>
             
           </ul>
         </div>
@@ -528,7 +529,7 @@
       <p class="cap">同一手法でも条件によって符号が変わる。これは個々の条件の点推定であり、有意性は表5の検定で判断する(少データのデータセットでは1件の増減が数pt動く)。</p>
 
       <details class="mt-3">
-        <summary class="cursor-pointer text-sm figtab text-blue-700">表4: 全 210 条件の精度を開く</summary>
+        <summary class="cursor-pointer text-sm figtab text-blue-700">表4: 全 168 条件の精度を開く</summary>
       <div class="overflow-x-auto mt-2">
       <table class="w-full text-sm border border-slate-200 rounded">
         <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
@@ -536,118 +537,6 @@
           <th class="p-2 text-right">精度</th><th class="p-2 text-right">Δ vs none</th><th class="p-2 text-right">macro-F1</th><th class="p-2 text-right">bal. acc.</th>
         </tr></thead>
         <tbody>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.7276 ± 0.1109</td>
-            <td class="p-2 text-right text-green-700">+0.2533</td>
-            <td class="p-2 text-right">0.7228</td>
-            <td class="p-2 text-right">0.7352</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">0.8895 ± 0.0066</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">0.8904</td>
-            <td class="p-2 text-right">0.8983</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.4838 ± 0.1588</td>
-            <td class="p-2 text-right text-green-700">+0.0095</td>
-            <td class="p-2 text-right">0.4293</td>
-            <td class="p-2 text-right">0.5072</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">0.8724 ± 0.0258</td>
-            <td class="p-2 text-right text-slate-400">-0.0171</td>
-            <td class="p-2 text-right">0.8730</td>
-            <td class="p-2 text-right">0.8853</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.5562 ± 0.2225</td>
-            <td class="p-2 text-right text-green-700">+0.0819</td>
-            <td class="p-2 text-right">0.5053</td>
-            <td class="p-2 text-right">0.5713</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">0.8971 ± 0.0151</td>
-            <td class="p-2 text-right text-green-700">+0.0076</td>
-            <td class="p-2 text-right">0.8981</td>
-            <td class="p-2 text-right">0.9077</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.4743 ± 0.2969</td>
-            <td class="p-2 text-right text-slate-400">—</td>
-            <td class="p-2 text-right">0.3750</td>
-            <td class="p-2 text-right">0.4948</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">0.8895 ± 0.0066</td>
-            <td class="p-2 text-right text-slate-400">—</td>
-            <td class="p-2 text-right">0.8905</td>
-            <td class="p-2 text-right">0.8993</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.5867 ± 0.2544</td>
-            <td class="p-2 text-right text-green-700">+0.1124</td>
-            <td class="p-2 text-right">0.5342</td>
-            <td class="p-2 text-right">0.6024</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">0.9048 ± 0.0033</td>
-            <td class="p-2 text-right text-green-700">+0.0153</td>
-            <td class="p-2 text-right">0.9056</td>
-            <td class="p-2 text-right">0.9132</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.5200 ± 0.1888</td>
-            <td class="p-2 text-right text-green-700">+0.0457</td>
-            <td class="p-2 text-right">0.4645</td>
-            <td class="p-2 text-right">0.5398</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">0.8990 ± 0.0033</td>
-            <td class="p-2 text-right text-green-700">+0.0095</td>
-            <td class="p-2 text-right">0.9000</td>
-            <td class="p-2 text-right">0.9088</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.6419 ± 0.2936</td>
-            <td class="p-2 text-right text-green-700">+0.1676</td>
-            <td class="p-2 text-right">0.5914</td>
-            <td class="p-2 text-right">0.6525</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">ArrowHead</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">0.8819 ± 0.0201</td>
-            <td class="p-2 text-right text-slate-400">-0.0076</td>
-            <td class="p-2 text-right">0.8830</td>
-            <td class="p-2 text-right">0.8890</td>
-          </tr>
           
           <tr class="border-b border-slate-100">
             <td class="p-2 font-mono">CBF</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
@@ -759,118 +648,6 @@
             <td class="p-2 text-right text-slate-400">-0.0014</td>
             <td class="p-2 text-right">0.9967</td>
             <td class="p-2 text-right">0.9967</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.8214 ± 0.3093</td>
-            <td class="p-2 text-right text-green-700">+0.2857</td>
-            <td class="p-2 text-right">0.7724</td>
-            <td class="p-2 text-right">0.8333</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.8452 ± 0.2681</td>
-            <td class="p-2 text-right text-green-700">+0.3095</td>
-            <td class="p-2 text-right">0.7829</td>
-            <td class="p-2 text-right">0.8333</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-green-700">+0.4643</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.5357 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">—</td>
-            <td class="p-2 text-right">0.3488</td>
-            <td class="p-2 text-right">0.5000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">—</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">0.8452 ± 0.2681</td>
-            <td class="p-2 text-right text-green-700">+0.3095</td>
-            <td class="p-2 text-right">0.7829</td>
-            <td class="p-2 text-right">0.8333</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-green-700">+0.4643</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-green-700">+0.4643</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Coffee</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
           </tr>
           
           <tr class="border-b border-slate-100">
@@ -1602,118 +1379,6 @@
           </tr>
           
           <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">jitter</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">mixup</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">—</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">none</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">—</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">oversample</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">scaling</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">cnn1d</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
-            <td class="p-2 font-mono">Plane</td><td class="p-2 font-mono">smote</td><td class="p-2 font-mono">minirocket</td>
-            <td class="p-2 text-right">1.0000 ± 0.0000</td>
-            <td class="p-2 text-right text-slate-400">+0.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-            <td class="p-2 text-right">1.0000</td>
-          </tr>
-          
-          <tr class="border-b border-slate-100">
             <td class="p-2 font-mono">SonyAIBORobotSurface1</td><td class="p-2 font-mono">dtw</td><td class="p-2 font-mono">cnn1d</td>
             <td class="p-2 text-right">0.9434 ± 0.0116</td>
             <td class="p-2 text-right text-green-700">+0.1464</td>
@@ -2364,16 +2029,6 @@
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         
         <figure class="border border-slate-200 rounded p-2">
-          <figcaption class="text-xs font-mono text-slate-600 mb-1">ArrowHead / cnn1d</figcaption>
-          <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="ArrowHead cnn1d learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.303</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">0.728</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,114.6 L85.3,100.3 L160.9,147.6 L236.4,96.7 L312.0,12.0" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="114.6" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="100.3" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="147.6" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="96.7" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="12.0" r="2" fill="#8b5cf6"/><path d="M40.0,162.0 L85.3,83.8 L160.9,150.5 L236.4,110.3 L312.0,103.8" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="162.0" r="2" fill="#22c55e"/><circle cx="85.3" cy="83.8" r="2" fill="#22c55e"/><circle cx="160.9" cy="150.5" r="2" fill="#22c55e"/><circle cx="236.4" cy="110.3" r="2" fill="#22c55e"/><circle cx="312.0" cy="103.8" r="2" fill="#22c55e"/><path d="M40.0,116.1 L85.3,135.4 L160.9,115.3 L236.4,25.6 L312.0,76.6" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="116.1" r="2" fill="#ec4899"/><circle cx="85.3" cy="135.4" r="2" fill="#ec4899"/><circle cx="160.9" cy="115.3" r="2" fill="#ec4899"/><circle cx="236.4" cy="25.6" r="2" fill="#ec4899"/><circle cx="312.0" cy="76.6" r="2" fill="#ec4899"/><path d="M40.0,106.0 L85.3,172.0 L160.9,120.3 L236.4,172.0 L312.0,107.4" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="106.0" r="2" fill="#64748b"/><circle cx="85.3" cy="172.0" r="2" fill="#64748b"/><circle cx="160.9" cy="120.3" r="2" fill="#64748b"/><circle cx="236.4" cy="172.0" r="2" fill="#64748b"/><circle cx="312.0" cy="107.4" r="2" fill="#64748b"/><path d="M40.0,105.3 L85.3,122.5 L160.9,142.6 L236.4,133.3 L312.0,65.1" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="105.3" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="122.5" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="142.6" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="133.3" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="65.1" r="2" fill="#0ea5e9"/><path d="M40.0,114.6 L85.3,129.0 L160.9,151.9 L236.4,147.6 L312.0,90.2" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="114.6" r="2" fill="#eab308"/><circle cx="85.3" cy="129.0" r="2" fill="#eab308"/><circle cx="160.9" cy="151.9" r="2" fill="#eab308"/><circle cx="236.4" cy="147.6" r="2" fill="#eab308"/><circle cx="312.0" cy="90.2" r="2" fill="#eab308"/><path d="M40.0,107.4 L85.3,168.4 L160.9,74.4 L236.4,82.3 L312.0,44.3" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="107.4" r="2" fill="#f97316"/><circle cx="85.3" cy="168.4" r="2" fill="#f97316"/><circle cx="160.9" cy="74.4" r="2" fill="#f97316"/><circle cx="236.4" cy="82.3" r="2" fill="#f97316"/><circle cx="312.0" cy="44.3" r="2" fill="#f97316"/></svg>
-        </figure>
-        
-        <figure class="border border-slate-200 rounded p-2">
-          <figcaption class="text-xs font-mono text-slate-600 mb-1">ArrowHead / minirocket</figcaption>
-          <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="ArrowHead minirocket learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.531</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">0.905</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,170.4 L85.3,91.2 L160.9,50.4 L236.4,35.7 L312.0,18.6" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="170.4" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="91.2" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="50.4" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="35.7" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="18.6" r="2" fill="#8b5cf6"/><path d="M40.0,167.9 L85.3,89.6 L160.9,43.8 L236.4,35.7 L312.0,25.9" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="167.9" r="2" fill="#22c55e"/><circle cx="85.3" cy="89.6" r="2" fill="#22c55e"/><circle cx="160.9" cy="43.8" r="2" fill="#22c55e"/><circle cx="236.4" cy="35.7" r="2" fill="#22c55e"/><circle cx="312.0" cy="25.9" r="2" fill="#22c55e"/><path d="M40.0,170.4 L85.3,92.8 L160.9,39.0 L236.4,31.6 L312.0,15.3" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="170.4" r="2" fill="#ec4899"/><circle cx="85.3" cy="92.8" r="2" fill="#ec4899"/><circle cx="160.9" cy="39.0" r="2" fill="#ec4899"/><circle cx="236.4" cy="31.6" r="2" fill="#ec4899"/><circle cx="312.0" cy="15.3" r="2" fill="#ec4899"/><path d="M40.0,161.4 L85.3,113.2 L160.9,43.8 L236.4,38.1 L312.0,18.6" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="161.4" r="2" fill="#64748b"/><circle cx="85.3" cy="113.2" r="2" fill="#64748b"/><circle cx="160.9" cy="43.8" r="2" fill="#64748b"/><circle cx="236.4" cy="38.1" r="2" fill="#64748b"/><circle cx="312.0" cy="18.6" r="2" fill="#64748b"/><path d="M40.0,167.1 L85.3,86.3 L160.9,43.0 L236.4,28.3 L312.0,12.0" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="167.1" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="86.3" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="43.0" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="28.3" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="12.0" r="2" fill="#0ea5e9"/><path d="M40.0,172.0 L85.3,95.3 L160.9,47.1 L236.4,37.3 L312.0,14.5" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="172.0" r="2" fill="#eab308"/><circle cx="85.3" cy="95.3" r="2" fill="#eab308"/><circle cx="160.9" cy="47.1" r="2" fill="#eab308"/><circle cx="236.4" cy="37.3" r="2" fill="#eab308"/><circle cx="312.0" cy="14.5" r="2" fill="#eab308"/><path d="M40.0,166.3 L85.3,96.1 L160.9,47.9 L236.4,39.0 L312.0,21.8" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="166.3" r="2" fill="#f97316"/><circle cx="85.3" cy="96.1" r="2" fill="#f97316"/><circle cx="160.9" cy="47.9" r="2" fill="#f97316"/><circle cx="236.4" cy="39.0" r="2" fill="#f97316"/><circle cx="312.0" cy="21.8" r="2" fill="#f97316"/></svg>
-        </figure>
-        
-        <figure class="border border-slate-200 rounded p-2">
           <figcaption class="text-xs font-mono text-slate-600 mb-1">CBF / cnn1d</figcaption>
           <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="CBF cnn1d learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.656</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">0.982</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,116.0 L85.3,80.3 L160.9,36.7 L236.4,22.7 L312.0,22.0" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="116.0" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="80.3" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="36.7" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="22.7" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="22.0" r="2" fill="#8b5cf6"/><path d="M40.0,132.9 L85.3,91.4 L160.9,24.5 L236.4,19.5 L312.0,12.9" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="132.9" r="2" fill="#22c55e"/><circle cx="85.3" cy="91.4" r="2" fill="#22c55e"/><circle cx="160.9" cy="24.5" r="2" fill="#22c55e"/><circle cx="236.4" cy="19.5" r="2" fill="#22c55e"/><circle cx="312.0" cy="12.9" r="2" fill="#22c55e"/><path d="M40.0,116.2 L85.3,66.2 L160.9,39.4 L236.4,26.5 L312.0,15.2" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="116.2" r="2" fill="#ec4899"/><circle cx="85.3" cy="66.2" r="2" fill="#ec4899"/><circle cx="160.9" cy="39.4" r="2" fill="#ec4899"/><circle cx="236.4" cy="26.5" r="2" fill="#ec4899"/><circle cx="312.0" cy="15.2" r="2" fill="#ec4899"/><path d="M40.0,118.7 L85.3,172.0 L160.9,31.6 L236.4,16.2 L312.0,16.2" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="118.7" r="2" fill="#64748b"/><circle cx="85.3" cy="172.0" r="2" fill="#64748b"/><circle cx="160.9" cy="31.6" r="2" fill="#64748b"/><circle cx="236.4" cy="16.2" r="2" fill="#64748b"/><circle cx="312.0" cy="16.2" r="2" fill="#64748b"/><path d="M40.0,131.6 L85.3,80.5 L160.9,24.4 L236.4,25.6 L312.0,12.0" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="131.6" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="80.5" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="24.4" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="25.6" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="12.0" r="2" fill="#0ea5e9"/><path d="M40.0,135.3 L85.3,142.2 L160.9,23.6 L236.4,46.7 L312.0,12.7" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="135.3" r="2" fill="#eab308"/><circle cx="85.3" cy="142.2" r="2" fill="#eab308"/><circle cx="160.9" cy="23.6" r="2" fill="#eab308"/><circle cx="236.4" cy="46.7" r="2" fill="#eab308"/><circle cx="312.0" cy="12.7" r="2" fill="#eab308"/><path d="M40.0,120.5 L85.3,54.5 L160.9,53.1 L236.4,24.7 L312.0,21.6" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="120.5" r="2" fill="#f97316"/><circle cx="85.3" cy="54.5" r="2" fill="#f97316"/><circle cx="160.9" cy="53.1" r="2" fill="#f97316"/><circle cx="236.4" cy="24.7" r="2" fill="#f97316"/><circle cx="312.0" cy="21.6" r="2" fill="#f97316"/></svg>
         </figure>
@@ -2381,16 +2036,6 @@
         <figure class="border border-slate-200 rounded p-2">
           <figcaption class="text-xs font-mono text-slate-600 mb-1">CBF / minirocket</figcaption>
           <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="CBF minirocket learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.646</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">0.998</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,163.5 L85.3,51.7 L160.9,32.5 L236.4,21.7 L312.0,12.6" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="163.5" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="51.7" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="32.5" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="21.7" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="12.6" r="2" fill="#8b5cf6"/><path d="M40.0,162.9 L85.3,47.6 L160.9,23.1 L236.4,15.0 L312.0,12.1" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="162.9" r="2" fill="#22c55e"/><circle cx="85.3" cy="47.6" r="2" fill="#22c55e"/><circle cx="160.9" cy="23.1" r="2" fill="#22c55e"/><circle cx="236.4" cy="15.0" r="2" fill="#22c55e"/><circle cx="312.0" cy="12.1" r="2" fill="#22c55e"/><path d="M40.0,163.5 L85.3,65.3 L160.9,35.7 L236.4,22.2 L312.0,12.3" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="163.5" r="2" fill="#ec4899"/><circle cx="85.3" cy="65.3" r="2" fill="#ec4899"/><circle cx="160.9" cy="35.7" r="2" fill="#ec4899"/><circle cx="236.4" cy="22.2" r="2" fill="#ec4899"/><circle cx="312.0" cy="12.3" r="2" fill="#ec4899"/><path d="M40.0,166.0 L85.3,44.6 L160.9,23.4 L236.4,14.8 L312.0,12.0" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="166.0" r="2" fill="#64748b"/><circle cx="85.3" cy="44.6" r="2" fill="#64748b"/><circle cx="160.9" cy="23.4" r="2" fill="#64748b"/><circle cx="236.4" cy="14.8" r="2" fill="#64748b"/><circle cx="312.0" cy="12.0" r="2" fill="#64748b"/><path d="M40.0,162.8 L85.3,47.0 L160.9,23.4 L236.4,14.8 L312.0,12.0" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="162.8" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="47.0" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="23.4" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="14.8" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="12.0" r="2" fill="#0ea5e9"/><path d="M40.0,172.0 L85.3,55.2 L160.9,32.7 L236.4,19.7 L312.0,12.1" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="172.0" r="2" fill="#eab308"/><circle cx="85.3" cy="55.2" r="2" fill="#eab308"/><circle cx="160.9" cy="32.7" r="2" fill="#eab308"/><circle cx="236.4" cy="19.7" r="2" fill="#eab308"/><circle cx="312.0" cy="12.1" r="2" fill="#eab308"/><path d="M40.0,161.6 L85.3,67.6 L160.9,37.0 L236.4,22.8 L312.0,12.6" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="161.6" r="2" fill="#f97316"/><circle cx="85.3" cy="67.6" r="2" fill="#f97316"/><circle cx="160.9" cy="37.0" r="2" fill="#f97316"/><circle cx="236.4" cy="22.8" r="2" fill="#f97316"/><circle cx="312.0" cy="12.6" r="2" fill="#f97316"/></svg>
-        </figure>
-        
-        <figure class="border border-slate-200 rounded p-2">
-          <figcaption class="text-xs font-mono text-slate-600 mb-1">Coffee / cnn1d</figcaption>
-          <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="Coffee cnn1d learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.488</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">1.000</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,157.1 L85.3,119.9 L160.9,112.5 L236.4,119.9 L312.0,67.8" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="157.1" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="119.9" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="112.5" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="119.9" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="67.8" r="2" fill="#8b5cf6"/><path d="M40.0,172.0 L85.3,164.6 L160.9,108.7 L236.4,157.1 L312.0,60.4" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="172.0" r="2" fill="#22c55e"/><circle cx="85.3" cy="164.6" r="2" fill="#22c55e"/><circle cx="160.9" cy="108.7" r="2" fill="#22c55e"/><circle cx="236.4" cy="157.1" r="2" fill="#22c55e"/><circle cx="312.0" cy="60.4" r="2" fill="#22c55e"/><path d="M40.0,157.1 L85.3,164.6 L160.9,64.1 L236.4,116.2 L312.0,12.0" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="157.1" r="2" fill="#ec4899"/><circle cx="85.3" cy="164.6" r="2" fill="#ec4899"/><circle cx="160.9" cy="64.1" r="2" fill="#ec4899"/><circle cx="236.4" cy="116.2" r="2" fill="#ec4899"/><circle cx="312.0" cy="12.0" r="2" fill="#ec4899"/><path d="M40.0,157.1 L85.3,164.6 L160.9,157.1 L236.4,108.7 L312.0,157.1" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="157.1" r="2" fill="#64748b"/><circle cx="85.3" cy="164.6" r="2" fill="#64748b"/><circle cx="160.9" cy="157.1" r="2" fill="#64748b"/><circle cx="236.4" cy="108.7" r="2" fill="#64748b"/><circle cx="312.0" cy="157.1" r="2" fill="#64748b"/><path d="M40.0,157.1 L85.3,164.6 L160.9,157.1 L236.4,157.1 L312.0,60.4" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="157.1" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="164.6" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="157.1" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="157.1" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="60.4" r="2" fill="#0ea5e9"/><path d="M40.0,119.9 L85.3,164.6 L160.9,157.1 L236.4,157.1 L312.0,12.0" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="119.9" r="2" fill="#eab308"/><circle cx="85.3" cy="164.6" r="2" fill="#eab308"/><circle cx="160.9" cy="157.1" r="2" fill="#eab308"/><circle cx="236.4" cy="157.1" r="2" fill="#eab308"/><circle cx="312.0" cy="12.0" r="2" fill="#eab308"/><path d="M40.0,157.1 L85.3,116.2 L160.9,108.7 L236.4,119.9 L312.0,12.0" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="157.1" r="2" fill="#f97316"/><circle cx="85.3" cy="116.2" r="2" fill="#f97316"/><circle cx="160.9" cy="108.7" r="2" fill="#f97316"/><circle cx="236.4" cy="119.9" r="2" fill="#f97316"/><circle cx="312.0" cy="12.0" r="2" fill="#f97316"/></svg>
-        </figure>
-        
-        <figure class="border border-slate-200 rounded p-2">
-          <figcaption class="text-xs font-mono text-slate-600 mb-1">Coffee / minirocket</figcaption>
-          <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="Coffee minirocket learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.786</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">1.000</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,145.3 L85.3,38.7 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="145.3" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="38.7" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="12.0" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="12.0" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="12.0" r="2" fill="#8b5cf6"/><path d="M40.0,172.0 L85.3,38.7 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="172.0" r="2" fill="#22c55e"/><circle cx="85.3" cy="38.7" r="2" fill="#22c55e"/><circle cx="160.9" cy="12.0" r="2" fill="#22c55e"/><circle cx="236.4" cy="12.0" r="2" fill="#22c55e"/><circle cx="312.0" cy="12.0" r="2" fill="#22c55e"/><path d="M40.0,145.3 L85.3,47.5 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="145.3" r="2" fill="#ec4899"/><circle cx="85.3" cy="47.5" r="2" fill="#ec4899"/><circle cx="160.9" cy="12.0" r="2" fill="#ec4899"/><circle cx="236.4" cy="12.0" r="2" fill="#ec4899"/><circle cx="312.0" cy="12.0" r="2" fill="#ec4899"/><path d="M40.0,154.2 L85.3,47.5 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="154.2" r="2" fill="#64748b"/><circle cx="85.3" cy="47.5" r="2" fill="#64748b"/><circle cx="160.9" cy="12.0" r="2" fill="#64748b"/><circle cx="236.4" cy="12.0" r="2" fill="#64748b"/><circle cx="312.0" cy="12.0" r="2" fill="#64748b"/><path d="M40.0,145.3 L85.3,38.7 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="145.3" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="38.7" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="12.0" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="12.0" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="12.0" r="2" fill="#0ea5e9"/><path d="M40.0,136.5 L85.3,38.7 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="136.5" r="2" fill="#eab308"/><circle cx="85.3" cy="38.7" r="2" fill="#eab308"/><circle cx="160.9" cy="12.0" r="2" fill="#eab308"/><circle cx="236.4" cy="12.0" r="2" fill="#eab308"/><circle cx="312.0" cy="12.0" r="2" fill="#eab308"/><path d="M40.0,145.3 L85.3,47.5 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="145.3" r="2" fill="#f97316"/><circle cx="85.3" cy="47.5" r="2" fill="#f97316"/><circle cx="160.9" cy="12.0" r="2" fill="#f97316"/><circle cx="236.4" cy="12.0" r="2" fill="#f97316"/><circle cx="312.0" cy="12.0" r="2" fill="#f97316"/></svg>
         </figure>
         
         <figure class="border border-slate-200 rounded p-2">
@@ -2441,16 +2086,6 @@
         <figure class="border border-slate-200 rounded p-2">
           <figcaption class="text-xs font-mono text-slate-600 mb-1">MoteStrain / minirocket</figcaption>
           <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="MoteStrain minirocket learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.677</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">0.943</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,157.3 L85.3,57.4 L160.9,71.0 L236.4,26.5 L312.0,21.6" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="157.3" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="57.4" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="71.0" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="26.5" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="21.6" r="2" fill="#8b5cf6"/><path d="M40.0,162.4 L85.3,51.7 L160.9,68.5 L236.4,26.1 L312.0,19.7" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="162.4" r="2" fill="#22c55e"/><circle cx="85.3" cy="51.7" r="2" fill="#22c55e"/><circle cx="160.9" cy="68.5" r="2" fill="#22c55e"/><circle cx="236.4" cy="26.1" r="2" fill="#22c55e"/><circle cx="312.0" cy="19.7" r="2" fill="#22c55e"/><path d="M40.0,157.3 L85.3,50.0 L160.9,61.4 L236.4,24.6 L312.0,19.2" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="157.3" r="2" fill="#ec4899"/><circle cx="85.3" cy="50.0" r="2" fill="#ec4899"/><circle cx="160.9" cy="61.4" r="2" fill="#ec4899"/><circle cx="236.4" cy="24.6" r="2" fill="#ec4899"/><circle cx="312.0" cy="19.2" r="2" fill="#ec4899"/><path d="M40.0,159.9 L85.3,50.2 L160.9,61.9 L236.4,23.0 L312.0,16.4" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="159.9" r="2" fill="#64748b"/><circle cx="85.3" cy="50.2" r="2" fill="#64748b"/><circle cx="160.9" cy="61.9" r="2" fill="#64748b"/><circle cx="236.4" cy="23.0" r="2" fill="#64748b"/><circle cx="312.0" cy="16.4" r="2" fill="#64748b"/><path d="M40.0,157.3 L85.3,50.4 L160.9,65.6 L236.4,22.2 L312.0,15.7" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="157.3" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="50.4" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="65.6" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="22.2" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="15.7" r="2" fill="#0ea5e9"/><path d="M40.0,172.0 L85.3,56.8 L160.9,58.7 L236.4,17.3 L312.0,12.0" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="172.0" r="2" fill="#eab308"/><circle cx="85.3" cy="56.8" r="2" fill="#eab308"/><circle cx="160.9" cy="58.7" r="2" fill="#eab308"/><circle cx="236.4" cy="17.3" r="2" fill="#eab308"/><circle cx="312.0" cy="12.0" r="2" fill="#eab308"/><path d="M40.0,157.3 L85.3,56.2 L160.9,71.8 L236.4,25.4 L312.0,22.7" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="157.3" r="2" fill="#f97316"/><circle cx="85.3" cy="56.2" r="2" fill="#f97316"/><circle cx="160.9" cy="71.8" r="2" fill="#f97316"/><circle cx="236.4" cy="25.4" r="2" fill="#f97316"/><circle cx="312.0" cy="22.7" r="2" fill="#f97316"/></svg>
-        </figure>
-        
-        <figure class="border border-slate-200 rounded p-2">
-          <figcaption class="text-xs font-mono text-slate-600 mb-1">Plane / cnn1d</figcaption>
-          <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="Plane cnn1d learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.705</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">1.000</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,67.1 L85.3,12.0 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="67.1" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="12.0" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="12.0" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="12.0" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="12.0" r="2" fill="#8b5cf6"/><path d="M40.0,25.8 L85.3,15.4 L160.9,13.7 L236.4,12.0 L312.0,12.0" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="25.8" r="2" fill="#22c55e"/><circle cx="85.3" cy="15.4" r="2" fill="#22c55e"/><circle cx="160.9" cy="13.7" r="2" fill="#22c55e"/><circle cx="236.4" cy="12.0" r="2" fill="#22c55e"/><circle cx="312.0" cy="12.0" r="2" fill="#22c55e"/><path d="M40.0,32.7 L85.3,13.7 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="32.7" r="2" fill="#ec4899"/><circle cx="85.3" cy="13.7" r="2" fill="#ec4899"/><circle cx="160.9" cy="12.0" r="2" fill="#ec4899"/><circle cx="236.4" cy="12.0" r="2" fill="#ec4899"/><circle cx="312.0" cy="12.0" r="2" fill="#ec4899"/><path d="M40.0,172.0 L85.3,22.3 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="172.0" r="2" fill="#64748b"/><circle cx="85.3" cy="22.3" r="2" fill="#64748b"/><circle cx="160.9" cy="12.0" r="2" fill="#64748b"/><circle cx="236.4" cy="12.0" r="2" fill="#64748b"/><circle cx="312.0" cy="12.0" r="2" fill="#64748b"/><path d="M40.0,27.5 L85.3,17.1 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="27.5" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="17.1" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="12.0" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="12.0" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="12.0" r="2" fill="#0ea5e9"/><path d="M40.0,27.5 L85.3,12.0 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="27.5" r="2" fill="#eab308"/><circle cx="85.3" cy="12.0" r="2" fill="#eab308"/><circle cx="160.9" cy="12.0" r="2" fill="#eab308"/><circle cx="236.4" cy="12.0" r="2" fill="#eab308"/><circle cx="312.0" cy="12.0" r="2" fill="#eab308"/><path d="M40.0,25.8 L85.3,13.7 L160.9,12.0 L236.4,12.0 L312.0,12.0" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="25.8" r="2" fill="#f97316"/><circle cx="85.3" cy="13.7" r="2" fill="#f97316"/><circle cx="160.9" cy="12.0" r="2" fill="#f97316"/><circle cx="236.4" cy="12.0" r="2" fill="#f97316"/><circle cx="312.0" cy="12.0" r="2" fill="#f97316"/></svg>
-        </figure>
-        
-        <figure class="border border-slate-200 rounded p-2">
-          <figcaption class="text-xs font-mono text-slate-600 mb-1">Plane / minirocket</figcaption>
-          <svg viewBox="0 0 320 200" class="w-full h-auto" role="img" aria-label="Plane minirocket learning curve"><line x1="40" y1="12" x2="40" y2="172" stroke="#cbd5e1"/><line x1="40" y1="172" x2="312" y2="172" stroke="#cbd5e1"/><text x="36" y="175.0" text-anchor="end" font-size="9" fill="#64748b">0.977</text><text x="36" y="15.0" text-anchor="end" font-size="9" fill="#64748b">1.010</text><text x="40.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">10%</text><text x="85.3" y="184" text-anchor="middle" font-size="9" fill="#64748b">25%</text><text x="160.9" y="184" text-anchor="middle" font-size="9" fill="#64748b">50%</text><text x="236.4" y="184" text-anchor="middle" font-size="9" fill="#64748b">75%</text><text x="312.0" y="184" text-anchor="middle" font-size="9" fill="#64748b">100%</text><path d="M40.0,107.4 L85.3,76.6 L160.9,60.9 L236.4,76.6 L312.0,60.9" fill="none" stroke="#8b5cf6" stroke-width="1.5"/><circle cx="40.0" cy="107.4" r="2" fill="#8b5cf6"/><circle cx="85.3" cy="76.6" r="2" fill="#8b5cf6"/><circle cx="160.9" cy="60.9" r="2" fill="#8b5cf6"/><circle cx="236.4" cy="76.6" r="2" fill="#8b5cf6"/><circle cx="312.0" cy="60.9" r="2" fill="#8b5cf6"/><path d="M40.0,123.1 L85.3,76.6 L160.9,60.9 L236.4,76.6 L312.0,60.9" fill="none" stroke="#22c55e" stroke-width="1.5"/><circle cx="40.0" cy="123.1" r="2" fill="#22c55e"/><circle cx="85.3" cy="76.6" r="2" fill="#22c55e"/><circle cx="160.9" cy="60.9" r="2" fill="#22c55e"/><circle cx="236.4" cy="76.6" r="2" fill="#22c55e"/><circle cx="312.0" cy="60.9" r="2" fill="#22c55e"/><path d="M40.0,107.4 L85.3,76.6 L160.9,60.9 L236.4,76.6 L312.0,60.9" fill="none" stroke="#ec4899" stroke-width="1.5"/><circle cx="40.0" cy="107.4" r="2" fill="#ec4899"/><circle cx="85.3" cy="76.6" r="2" fill="#ec4899"/><circle cx="160.9" cy="60.9" r="2" fill="#ec4899"/><circle cx="236.4" cy="76.6" r="2" fill="#ec4899"/><circle cx="312.0" cy="60.9" r="2" fill="#ec4899"/><path d="M40.0,107.4 L85.3,76.6 L160.9,60.9 L236.4,60.9 L312.0,60.9" fill="none" stroke="#64748b" stroke-width="1.5"/><circle cx="40.0" cy="107.4" r="2" fill="#64748b"/><circle cx="85.3" cy="76.6" r="2" fill="#64748b"/><circle cx="160.9" cy="60.9" r="2" fill="#64748b"/><circle cx="236.4" cy="60.9" r="2" fill="#64748b"/><circle cx="312.0" cy="60.9" r="2" fill="#64748b"/><path d="M40.0,107.4 L85.3,76.6 L160.9,60.9 L236.4,60.9 L312.0,60.9" fill="none" stroke="#0ea5e9" stroke-width="1.5"/><circle cx="40.0" cy="107.4" r="2" fill="#0ea5e9"/><circle cx="85.3" cy="76.6" r="2" fill="#0ea5e9"/><circle cx="160.9" cy="60.9" r="2" fill="#0ea5e9"/><circle cx="236.4" cy="60.9" r="2" fill="#0ea5e9"/><circle cx="312.0" cy="60.9" r="2" fill="#0ea5e9"/><path d="M40.0,107.4 L85.3,76.6 L160.9,60.9 L236.4,76.6 L312.0,60.9" fill="none" stroke="#eab308" stroke-width="1.5"/><circle cx="40.0" cy="107.4" r="2" fill="#eab308"/><circle cx="85.3" cy="76.6" r="2" fill="#eab308"/><circle cx="160.9" cy="60.9" r="2" fill="#eab308"/><circle cx="236.4" cy="76.6" r="2" fill="#eab308"/><circle cx="312.0" cy="60.9" r="2" fill="#eab308"/><path d="M40.0,107.4 L85.3,76.6 L160.9,60.9 L236.4,76.6 L312.0,60.9" fill="none" stroke="#f97316" stroke-width="1.5"/><circle cx="40.0" cy="107.4" r="2" fill="#f97316"/><circle cx="85.3" cy="76.6" r="2" fill="#f97316"/><circle cx="160.9" cy="60.9" r="2" fill="#f97316"/><circle cx="236.4" cy="76.6" r="2" fill="#f97316"/><circle cx="312.0" cy="60.9" r="2" fill="#f97316"/></svg>
         </figure>
         
         <figure class="border border-slate-200 rounded p-2">
@@ -2745,7 +2380,7 @@
         <div class="text-xs text-slate-500 mt-1">失敗した run</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
-        <div class="text-2xl font-bold text-slate-900">69 / 70</div>
+        <div class="text-2xl font-bold text-slate-900">70 / 71</div>
         <div class="text-xs text-slate-500 mt-1">完了タスク</div>
       </div>
       <div class="rounded-lg border border-slate-200 p-4">
@@ -2758,8 +2393,8 @@
       <h2 class="text-lg font-semibold text-slate-900 mb-3">実験進捗(タスク状況)</h2>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <div>
-          <h3 class="font-medium text-green-700 mb-2">完了 (69)</h3>
-          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic, checksum, znorm, train/val split)</li><li class="border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression)</li><li class="border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN, MiniRocket+Ridge)</li><li class="border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 12 件の選定</li><li class="border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="border border-slate-200 rounded px-2 py-1">P2-3: 統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加</li><li class="border border-slate-200 rounded px-2 py-1">P2-5: Phase 2 実験格子の実行 (2520 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P2-6: Phase 2 集計・検定・レポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)</li><li class="border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="border border-slate-200 rounded px-2 py-1">P3-2: 主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)</li><li class="border border-slate-200 rounded px-2 py-1">P4-1: 被験者単位 group split 基盤 (subject.py)</li><li class="border border-slate-200 rounded px-2 py-1">P4-2: 目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)</li><li class="border border-slate-200 rounded px-2 py-1">P4-3: UCI HAR ローダ + 被験者数 runner 実装</li><li class="border border-slate-200 rounded px-2 py-1">P4-4: 被験者数学習曲線グリッド実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P5-1: 必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P5-2: negative control (label_shuffle) の追加と削減の健全性検証</li><li class="border border-slate-200 rounded px-2 py-1">R13-1: レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化</li><li class="border border-slate-200 rounded px-2 py-1">R13-2: 3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)</li><li class="border border-slate-200 rounded px-2 py-1">RP-1: 再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)</li><li class="border border-slate-200 rounded px-2 py-1">RP-2: 維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)</li><li class="border border-slate-200 rounded px-2 py-1">RM-1: README を公開実装向けに再構成 (issue #18): 結果紹介・再現手順・やっていないこと/今後の課題。進捗/計画記録を除去し3ペルソナレビュー反映</li><li class="border border-slate-200 rounded px-2 py-1">DS1-1: subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS1-2: WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新</li><li class="border border-slate-200 rounded px-2 py-1">DS1-3: WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)</li><li class="border border-slate-200 rounded px-2 py-1">DS2-1: PAMAP2 ローダ新規 (data/pamap2.py: .dat parse/transient除外/protocol12マッピング/±16g加速度9ch選択/NaN窓破棄/100→33.3Hzダウンサンプル/168窓/窓ごとznorm/seed-0 K=3 split) + dispatch登録 + metadata drift検査 + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS2-2: per-subject 活動サポート実測で subject 109 の除外/保持を機械決定 + pamap2 config作成 (subject_count/negative_control) + pre_registration に PAMAP2 target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.70) → 統括GO取得</li><li class="border border-slate-200 rounded px-2 py-1">DS2-3: PAMAP2 被験者数削減グリッド実行 (主120 + negative control 20, 失敗0/git_dirty=false) + reduction_pamap2 集計(accuracy/macro_f1両版) + 横断数値算出(N*(none) 左側打ち切りで削減率推定不能を明示) → Reporting レーンへ数値受け渡し</li><li class="border border-slate-200 rounded px-2 py-1">DS2-4: [Reporting レーン] PAMAP2 DS-2 の横断図(削減率 vs pool被験者数, accuracy/macro_f1両版)・レポート本文・findings・ペルソナレビュー・make all-report</li><li class="border border-slate-200 rounded px-2 py-1">DS2-5: [Audit レーン] DS-2 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/post-hoc開示/データ駆動/事前登録完全/記述限定/再現性メタ)→ 公開可判定</li><li class="border border-slate-200 rounded px-2 py-1">DS3-1: WESAD ローダ新規 (data/wesad.py: latin1 pkl parse/胸生理5ch/3クラス{1,2,3}/700→70Hz反エイリアス/30秒非重複窓/窓ごとznorm/seed-0 K=5 split) + dispatch登録 + metadata(非商用ライセンス) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS3-2: 実在被験者ID・クラス別窓数を実測 + wesad config作成 + pre_registration に target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.40 macro_f1) → 統括GO取得(near-chance を確認のうえ事前登録どおり3クラスで完遂の判断)</li><li class="border border-slate-200 rounded px-2 py-1">DS3-3: WESAD 被験者数削減グリッド実行 (主270 + negative control 45, 失敗0/git_dirty=false) + reduction_wesad 集計 → 全手法 N* 左側打ち切り=削減推定不能(捏造せず明示)。label_shuffle≈none でモデル未学習を確認</li><li class="border border-slate-200 rounded px-2 py-1">DS3-4: [Reporting レーン] §6.6「信号種依存: 生理信号 WESAD」・図(none≈label_shuffle)・F-14・ペルソナレビュー・make all-report。framing は『HAR枠組みの非転移=信号種依存』に限定(削減の有無は語らない)。HAR横断図には非同列</li><li class="border border-slate-200 rounded px-2 py-1">DS3-5: [Audit レーン] DS-3 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/framing限定/near-chance根拠(acc&lt;多数派率)/データ駆動/事前登録完全/生データ非コミット・ライセンス)→ 公開可判定</li><li class="border border-slate-200 rounded px-2 py-1">DS5-1: [Reporting レーン] 被験者数削減の外的妥当性 統合まとめ §6.7 追加(4データ=UCI HAR/WISDM/PAMAP2/WESAD を1図1表: 統合フォレストプロット図7 + 統合表10)。各データの事前登録 primary target レンズで F-8/F-10/F-12 を再掲(不変)、測定可能=帰無/それ以外=推定不能、対照越え皆無を提示。F-15 追加・要旨/まとめ/limitations に反映。synthesis はデータ駆動生成・手入力なし。regression 必須 section に subject-reduction-synthesis 追加。make validate green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-1: 文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー</li><li class="border border-slate-200 rounded px-2 py-1">RT23-2: コード/config是正 (V9 dataset_params昇格+manifest記録 / V10 実データchecksum / V1 docstring)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-3: V5 再現性: git_dirty をソース限定判定に修正 + negative control 11 run を clean 再実行 (git_dirty=false)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-4: Windows 移植性修正 (UTF-8 encoding + os.kill WinError87): make all-report とテストのブロック解消・全144テスト green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-5: result-auditor 最終監査 (8観点 CONFIRMED・手入力乖離なし・リーケージガード有効) + 参照メタデータ整合</li><li class="border border-slate-200 rounded px-2 py-1">DT29-1: dataset_profiles.yaml 新規(全17データセットの説明を同一構成で記述: 役割/どんなデータか/タスク/1レコードの構造/クラスの意味/注意点)。件数は書かず data/metadata と生成サンプルから供給</li><li class="border border-slate-200 rounded px-2 py-1">DT29-2: scripts/build_dataset_samples.py 新規(学習split のみからクラス別代表波形・チャネル別波形・クラス分布・サンプル値抜粋を抽出 → report/assets/data/dataset_samples.json を commit)。WESAD は再配布不可・PAMAP2 は取得コストのため波形非収録</li><li class="border border-slate-200 rounded px-2 py-1">DT29-3: データセットタブ実装(build.py: _dataset_entries で prose+metadata+実データを突合、waveform/channel_stack/class_balance の SVG 生成。template: 全データセット同一構成の article)+ regression テスト9件</li><li class="border border-slate-200 rounded px-2 py-1">MT30-1: augmentation_profiles.yaml 新規(全8手法を同一構成で記述: 考え方/手順/ラベルの決め方/パラメータの意味/暗黙の前提/原論文からの差分/本研究での位置づけ)。サーベイ[8]の大分類に沿って magnitude/pattern/trivial/control に分類。パラメータ値は書かず config から供給</li><li class="border border-slate-200 rounded px-2 py-1">MT30-2: scripts/build_augmentation_examples.py 新規(実験と同じ実装・同じ config パラメータで実データ(GunPoint 学習split)を拡張し、入出力の波形ペアを report/assets/data/augmentation_examples.json に生成)</li><li class="border border-slate-200 rounded px-2 py-1">MT30-3: 拡張手法タブ実装(build.py: _augmentation_entries で prose+config値+results.json の実測効果(Holm補正)+被験者数削減+実出力例を突合。template: 全手法同一構成の article)+ regression テスト8件(実装レジストリとの完全一致・パラメータが config 由来・例が実 augmenter 生成)</li><li class="border border-slate-200 rounded px-2 py-1">PT31-1: survey_overview.yaml 新規(サーベイ[8]の手法分類6群と主要主張5件を、本研究のカバレッジ=再現/部分的/未検証と未評価範囲つきで対応表化)+ §1.5「サーベイの内容と本研究の追試範囲」を論文タブに追加。やったこと・やっていないことを対等に提示</li><li class="border border-slate-200 rounded px-2 py-1">PT31-2: 「学習と評価」タブ新設(build.py: _evaluation_entries。データセットごとに 解く問題/学習の入力(ch×点→クラス数)/評価の分割/モデル/条件(拡張×seed×比率×被験者数=run数)/結果表/学習曲線 を results.json から集計)。issue #31 の『何を学習して何を評価しているかが分からない』への対応</li><li class="border border-slate-200 rounded px-2 py-1">PT31-3: 被験者数削減(旧 §6.3-6.7)を論文タブから独立タブへ移設し1-5節に再番号。論文タブは §6 を RQ1 に限定し、要旨・序論・読み方ガイドをサーベイ解説+部分追試の枠組みへ改稿。regression テスト9件(移設の担保・データセット網羅・数値のresults由来・カバレッジ表の両面提示)</li><li class="border border-slate-200 rounded px-2 py-1">NAV-1: タブをまたぐアンカーリンクが遷移しない問題を修正(gotoSection: 対象を含むタブへ切替→スクロール→ハイライト。委譲クリックハンドラと深リンクの両方を同経路に)。データセット↔学習と評価の双方向リンク+リンク切れ検査テスト4件</li><li class="border border-slate-200 rounded px-2 py-1">NAV-2: 論文 §6.1 の表4(210条件)を details に折りたたみ、改善/悪化の要点を上出し。表5(有意性)は開いたまま。§5.1 表2 から smoke 専用 synthetic を除外。§6 の閉じタグ欠落(issue #31 の移設時に混入し §7-§9 が入れ子化)を修正。regression 3件追加</li><li class="border border-slate-200 rounded px-2 py-1">NAV-3: タブ索引リンクの横はみ出し修正(Jinja が空白なしで連結する &lt;/a&gt;&lt;a&gt; は1語扱いで折り返せない → flex-wrap コンテナ化)。regression 2件で再発防止</li><li class="border border-slate-200 rounded px-2 py-1">NT-1: 非時系列3件(Plane/ArrowHead/Coffee)を config の temporal フラグで識別し主結果の集計から除外。付録タブ新設(除外理由・post-hoc 開示・除外前後の検定比較表・入れ替わり条件・データ説明・学習と評価を収録)。F-5/F-7 再集計、F-16 追加、README 更新</li><li class="border border-slate-200 rounded px-2 py-1">NT-2: manifest の metrics_path が Windows 形式(バックスラッシュ)で記録されていると POSIX で解決できず PAMAP2/WESAD が集計から丸ごと欠落する潜在バグを修正(manifest_path でセパレータ正規化)。compact_logs の log_path も同様に対応</li></ul>
+          <h3 class="font-medium text-green-700 mb-2">完了 (70)</h3>
+          <ul class="space-y-1"><li class="border border-slate-200 rounded px-2 py-1">P0-1: ルート直下ファイル整備 (README/CLAUDE/pyproject/Makefile等)</li><li class="border border-slate-200 rounded px-2 py-1">P0-2: config 雛形作成 (datasets/augmentations/models/experiments)</li><li class="border border-slate-200 rounded px-2 py-1">P0-3: パッケージ初期化 (__init__.py)</li><li class="border border-slate-200 rounded px-2 py-1">P0-4: データローダ (UCR + synthetic, checksum, znorm, train/val split)</li><li class="border border-slate-200 rounded px-2 py-1">P0-5: 実験 runner / seed / manifest / resume</li><li class="border border-slate-200 rounded px-2 py-1">P0-6: テスト基盤 (unit/integration/regression)</li><li class="border border-slate-200 rounded px-2 py-1">P0-7: Tailwind HTML レポート基盤 (自動生成・オフライン閲覧)</li><li class="border border-slate-200 rounded px-2 py-1">P0-8: サブエージェント・コマンド定義 (.claude/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-9: 進行管理ファイル初期化 (artifacts/)</li><li class="border border-slate-200 rounded px-2 py-1">P0-10: smoke 実験実行と Phase 0 品質ゲート通過</li><li class="border border-slate-200 rounded px-2 py-1">P1-1: 拡張手法 7 種の実装確認と unit テスト</li><li class="border border-slate-200 rounded px-2 py-1">P1-2: モデル実装 (1D-CNN, MiniRocket+Ridge)</li><li class="border border-slate-200 rounded px-2 py-1">P1-3: UCR 3データセット取得 + checksum 記録</li><li class="border border-slate-200 rounded px-2 py-1">P1-4: Phase 1 実験格子の実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P1-5: 結果集計・監査</li><li class="border border-slate-200 rounded px-2 py-1">P1-6: HTML レポートへの結果反映</li><li class="border border-slate-200 rounded px-2 py-1">P1-7: ペルソナレビュー (教授/院生/実務者視点) とレポート改訂</li><li class="border border-slate-200 rounded px-2 py-1">P2-1: Phase 2 対象データセット 12 件の選定</li><li class="border border-slate-200 rounded px-2 py-1">P2-2: 学習サンプル比率スイープの runner 拡張</li><li class="border border-slate-200 rounded px-2 py-1">P2-3: 統計検定 (Wilcoxon) の実装。信号品質指標は集計時に追加</li><li class="border border-slate-200 rounded px-2 py-1">P2-5: Phase 2 実験格子の実行 (2520 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P2-6: Phase 2 集計・検定・レポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P2-4: 被験者データへ持ち込む 5 手法選定 (mixup/dtw/smote/oversample/scaling)</li><li class="border border-slate-200 rounded px-2 py-1">P3-1: 被験者ID付き公開データ候補 3 件以上の調査 (ライセンス優先)</li><li class="border border-slate-200 rounded px-2 py-1">P3-2: 主対象 UCI HAR + 予備 WISDM の決定 (group split 設計は P4 で実装)</li><li class="border border-slate-200 rounded px-2 py-1">P4-1: 被験者単位 group split 基盤 (subject.py)</li><li class="border border-slate-200 rounded px-2 py-1">P4-2: 目標性能の事前登録 (accuracy 0.90, artifacts/pre_registration.md)</li><li class="border border-slate-200 rounded px-2 py-1">P4-3: UCI HAR ローダ + 被験者数 runner 実装</li><li class="border border-slate-200 rounded px-2 py-1">P4-4: 被験者数学習曲線グリッド実行 (126 runs)</li><li class="border border-slate-200 rounded px-2 py-1">P5-1: 必要被験者数 N* 推定・削減率・信頼区間の算出とレポート反映</li><li class="border border-slate-200 rounded px-2 py-1">P5-2: negative control (label_shuffle) の追加と削減の健全性検証</li><li class="border border-slate-200 rounded px-2 py-1">R13-1: レポートを学会誌論文構成へ再編 (issue #13): 問題設定/提案手法/関連手法を分離・用語説明を別タブ化</li><li class="border border-slate-200 rounded px-2 py-1">R13-2: 3ペルソナレビュー+結果監査を反映し収束 (要旨ロジック精緻化・数値束縛化・追試/独自明示)</li><li class="border border-slate-200 rounded px-2 py-1">RP-1: 再現・前処理ノートタブ追加 (再現手順/前処理の不定性/エイヤッ判断/実装差分を artifacts 駆動で自動生成)</li><li class="border border-slate-200 rounded px-2 py-1">RP-2: 維持手順を skill /reproducibility-notes 化し CLAUDE.md に維持義務を追記 (可搬性確保)</li><li class="border border-slate-200 rounded px-2 py-1">RM-1: README を公開実装向けに再構成 (issue #18): 結果紹介・再現手順・やっていないこと/今後の課題。進捗/計画記録を除去し3ペルソナレビュー反映</li><li class="border border-slate-200 rounded px-2 py-1">DS1-1: subject loader を dispatch 化 (data/subject_datasets.py) + WISDM v1.1 ローダ新規 (parse/window/znorm/固定split) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS1-2: WISDM 被験者数 config を事前登録 (target=0.80, N∈{3..24}) + pre_registration/judgment_calls/preprocessing_notes 更新</li><li class="border border-slate-200 rounded px-2 py-1">DS1-3: WISDM 被験者数削減グリッド実行 (144 runs) + negative control (24 runs) → 集計・レポート反映 (F-12)</li><li class="border border-slate-200 rounded px-2 py-1">DS2-1: PAMAP2 ローダ新規 (data/pamap2.py: .dat parse/transient除外/protocol12マッピング/±16g加速度9ch選択/NaN窓破棄/100→33.3Hzダウンサンプル/168窓/窓ごとznorm/seed-0 K=3 split) + dispatch登録 + metadata drift検査 + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS2-2: per-subject 活動サポート実測で subject 109 の除外/保持を機械決定 + pamap2 config作成 (subject_count/negative_control) + pre_registration に PAMAP2 target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.70) → 統括GO取得</li><li class="border border-slate-200 rounded px-2 py-1">DS2-3: PAMAP2 被験者数削減グリッド実行 (主120 + negative control 20, 失敗0/git_dirty=false) + reduction_pamap2 集計(accuracy/macro_f1両版) + 横断数値算出(N*(none) 左側打ち切りで削減率推定不能を明示) → Reporting レーンへ数値受け渡し</li><li class="border border-slate-200 rounded px-2 py-1">DS2-4: [Reporting レーン] PAMAP2 DS-2 の横断図(削減率 vs pool被験者数, accuracy/macro_f1両版)・レポート本文・findings・ペルソナレビュー・make all-report</li><li class="border border-slate-200 rounded px-2 py-1">DS2-5: [Audit レーン] DS-2 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/post-hoc開示/データ駆動/事前登録完全/記述限定/再現性メタ)→ 公開可判定</li><li class="border border-slate-200 rounded px-2 py-1">DS3-1: WESAD ローダ新規 (data/wesad.py: latin1 pkl parse/胸生理5ch/3クラス{1,2,3}/700→70Hz反エイリアス/30秒非重複窓/窓ごとznorm/seed-0 K=5 split) + dispatch登録 + metadata(非商用ライセンス) + テスト</li><li class="border border-slate-200 rounded px-2 py-1">DS3-2: 実在被験者ID・クラス別窓数を実測 + wesad config作成 + pre_registration に target選択ルールを数値確定前に登録 + full-pool none baseline で target 算出(=0.40 macro_f1) → 統括GO取得(near-chance を確認のうえ事前登録どおり3クラスで完遂の判断)</li><li class="border border-slate-200 rounded px-2 py-1">DS3-3: WESAD 被験者数削減グリッド実行 (主270 + negative control 45, 失敗0/git_dirty=false) + reduction_wesad 集計 → 全手法 N* 左側打ち切り=削減推定不能(捏造せず明示)。label_shuffle≈none でモデル未学習を確認</li><li class="border border-slate-200 rounded px-2 py-1">DS3-4: [Reporting レーン] §6.6「信号種依存: 生理信号 WESAD」・図(none≈label_shuffle)・F-14・ペルソナレビュー・make all-report。framing は『HAR枠組みの非転移=信号種依存』に限定(削減の有無は語らない)。HAR横断図には非同列</li><li class="border border-slate-200 rounded px-2 py-1">DS3-5: [Audit レーン] DS-3 最終監査(7観点 CONFIRMED: リーケージ無/偽削減値無/framing限定/near-chance根拠(acc&lt;多数派率)/データ駆動/事前登録完全/生データ非コミット・ライセンス)→ 公開可判定</li><li class="border border-slate-200 rounded px-2 py-1">DS5-1: [Reporting レーン] 被験者数削減の外的妥当性 統合まとめ §6.7 追加(4データ=UCI HAR/WISDM/PAMAP2/WESAD を1図1表: 統合フォレストプロット図7 + 統合表10)。各データの事前登録 primary target レンズで F-8/F-10/F-12 を再掲(不変)、測定可能=帰無/それ以外=推定不能、対照越え皆無を提示。F-15 追加・要旨/まとめ/limitations に反映。synthesis はデータ駆動生成・手入力なし。regression 必須 section に subject-reduction-synthesis 追加。make validate green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-1: 文書・解釈是正 (V1-4,6-8,11-17): 引用(kwapisz2011/36名)・自己矛盾・対照解釈(oversample基準)・指標依存(macro-F1)・UCR数(13+2)・3ペルソナレビュー</li><li class="border border-slate-200 rounded px-2 py-1">RT23-2: コード/config是正 (V9 dataset_params昇格+manifest記録 / V10 実データchecksum / V1 docstring)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-3: V5 再現性: git_dirty をソース限定判定に修正 + negative control 11 run を clean 再実行 (git_dirty=false)</li><li class="border border-slate-200 rounded px-2 py-1">RT23-4: Windows 移植性修正 (UTF-8 encoding + os.kill WinError87): make all-report とテストのブロック解消・全144テスト green</li><li class="border border-slate-200 rounded px-2 py-1">RT23-5: result-auditor 最終監査 (8観点 CONFIRMED・手入力乖離なし・リーケージガード有効) + 参照メタデータ整合</li><li class="border border-slate-200 rounded px-2 py-1">DT29-1: dataset_profiles.yaml 新規(全17データセットの説明を同一構成で記述: 役割/どんなデータか/タスク/1レコードの構造/クラスの意味/注意点)。件数は書かず data/metadata と生成サンプルから供給</li><li class="border border-slate-200 rounded px-2 py-1">DT29-2: scripts/build_dataset_samples.py 新規(学習split のみからクラス別代表波形・チャネル別波形・クラス分布・サンプル値抜粋を抽出 → report/assets/data/dataset_samples.json を commit)。WESAD は再配布不可・PAMAP2 は取得コストのため波形非収録</li><li class="border border-slate-200 rounded px-2 py-1">DT29-3: データセットタブ実装(build.py: _dataset_entries で prose+metadata+実データを突合、waveform/channel_stack/class_balance の SVG 生成。template: 全データセット同一構成の article)+ regression テスト9件</li><li class="border border-slate-200 rounded px-2 py-1">MT30-1: augmentation_profiles.yaml 新規(全8手法を同一構成で記述: 考え方/手順/ラベルの決め方/パラメータの意味/暗黙の前提/原論文からの差分/本研究での位置づけ)。サーベイ[8]の大分類に沿って magnitude/pattern/trivial/control に分類。パラメータ値は書かず config から供給</li><li class="border border-slate-200 rounded px-2 py-1">MT30-2: scripts/build_augmentation_examples.py 新規(実験と同じ実装・同じ config パラメータで実データ(GunPoint 学習split)を拡張し、入出力の波形ペアを report/assets/data/augmentation_examples.json に生成)</li><li class="border border-slate-200 rounded px-2 py-1">MT30-3: 拡張手法タブ実装(build.py: _augmentation_entries で prose+config値+results.json の実測効果(Holm補正)+被験者数削減+実出力例を突合。template: 全手法同一構成の article)+ regression テスト8件(実装レジストリとの完全一致・パラメータが config 由来・例が実 augmenter 生成)</li><li class="border border-slate-200 rounded px-2 py-1">PT31-1: survey_overview.yaml 新規(サーベイ[8]の手法分類6群と主要主張5件を、本研究のカバレッジ=再現/部分的/未検証と未評価範囲つきで対応表化)+ §1.5「サーベイの内容と本研究の追試範囲」を論文タブに追加。やったこと・やっていないことを対等に提示</li><li class="border border-slate-200 rounded px-2 py-1">PT31-2: 「学習と評価」タブ新設(build.py: _evaluation_entries。データセットごとに 解く問題/学習の入力(ch×点→クラス数)/評価の分割/モデル/条件(拡張×seed×比率×被験者数=run数)/結果表/学習曲線 を results.json から集計)。issue #31 の『何を学習して何を評価しているかが分からない』への対応</li><li class="border border-slate-200 rounded px-2 py-1">PT31-3: 被験者数削減(旧 §6.3-6.7)を論文タブから独立タブへ移設し1-5節に再番号。論文タブは §6 を RQ1 に限定し、要旨・序論・読み方ガイドをサーベイ解説+部分追試の枠組みへ改稿。regression テスト9件(移設の担保・データセット網羅・数値のresults由来・カバレッジ表の両面提示)</li><li class="border border-slate-200 rounded px-2 py-1">NAV-1: タブをまたぐアンカーリンクが遷移しない問題を修正(gotoSection: 対象を含むタブへ切替→スクロール→ハイライト。委譲クリックハンドラと深リンクの両方を同経路に)。データセット↔学習と評価の双方向リンク+リンク切れ検査テスト4件</li><li class="border border-slate-200 rounded px-2 py-1">NAV-2: 論文 §6.1 の表4(210条件)を details に折りたたみ、改善/悪化の要点を上出し。表5(有意性)は開いたまま。§5.1 表2 から smoke 専用 synthetic を除外。§6 の閉じタグ欠落(issue #31 の移設時に混入し §7-§9 が入れ子化)を修正。regression 3件追加</li><li class="border border-slate-200 rounded px-2 py-1">NAV-3: タブ索引リンクの横はみ出し修正(Jinja が空白なしで連結する &lt;/a&gt;&lt;a&gt; は1語扱いで折り返せない → flex-wrap コンテナ化)。regression 2件で再発防止</li><li class="border border-slate-200 rounded px-2 py-1">NT-1: 非時系列3件(Plane/ArrowHead/Coffee)を config の temporal フラグで識別し主結果の集計から除外。付録タブ新設(除外理由・post-hoc 開示・除外前後の検定比較表・入れ替わり条件・データ説明・学習と評価を収録)。F-5/F-7 再集計、F-16 追加、README 更新</li><li class="border border-slate-200 rounded px-2 py-1">NT-2: manifest の metrics_path が Windows 形式(バックスラッシュ)で記録されていると POSIX で解決できず PAMAP2/WESAD が集計から丸ごと欠落する潜在バグを修正(manifest_path でセパレータ正規化)。compact_logs の log_path も同様に対応</li><li class="border border-slate-200 rounded px-2 py-1">NT-3: 論文タブの集計を時系列データのみに限定(表4・改善/悪化の要点・学習曲線パネル・要旨の run 数)。付録送りにした Coffee が論文の要点に出る不整合を解消。UCR 公式分割を再分割しない方針を §5.3 とデータセットタブに明記</li></ul>
         </div>
         <div>
           <h3 class="font-medium text-amber-700 mb-2">実行中 (0)</h3>
@@ -26769,7 +26404,7 @@
       </details>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-08-19 13:29 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: report/src/report.template.html ・ 生成日時 2026-08-19 23:44 UTC</p>
   </div>
 
   <!-- ================= REPRODUCTION & PREPROCESSING TAB ================= -->
@@ -26797,7 +26432,7 @@
     
     <section id="datasets-ucr" class="mb-10">
       <h3 class="text-base font-semibold text-slate-900 mb-1">UCR ベンチマーク(RQ1: 精度効果の系統評価)</h3>
-      <p class="text-sm text-slate-600 mb-5">UCR Time Series Classification Archive の単変量データセット。被験者IDを持たず、 公式の train/test 分割が定義済み。本研究では「拡張がどの条件で精度を改善するか」 (RQ1)を横断的に測るために使う。全系列は読み込み時に系列ごと z 正規化される。 各クラスラベルの意味は UCR アーカイブの データセット説明に基づく(ラベル値そのものは 実データから読み出しており、意味の対応付けのみが文献由来)。</p>
+      <p class="text-sm text-slate-600 mb-5">UCR Time Series Classification Archive の単変量データセット。被験者IDを持たず、 公式の train/test 分割が定義済み。本研究では「拡張がどの条件で精度を改善するか」 (RQ1)を横断的に測るために使う。全系列は読み込み時に系列ごと z 正規化される。 各クラスラベルの意味は UCR アーカイブの データセット説明に基づく(ラベル値そのものは 実データから読み出しており、意味の対応付けのみが文献由来)。 分割はアーカイブの公式 train/test をそのまま使う。学習側が極端に小さいもの(CBF は train 30 / test 900 など)もあるが、既発表の数値と比較できることを優先して再分割しない。</p>
 
       
       <article id="dataset-ecg5000" class="border border-slate-200 rounded p-4 mb-5">
@@ -28548,7 +28183,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-08-19 13:29 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-08-19 23:44 UTC</p>
   </div>
 
   <!-- ================= METHODS TAB (issue #30) ================= -->
@@ -29255,7 +28890,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-08-19 13:29 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-08-19 23:44 UTC</p>
   </div>
 
   <!-- ================= EVALUATION TAB (issue #31) ================= -->
@@ -29270,7 +28905,7 @@
         
         <div class="border border-slate-200 rounded p-3">
           <p class="font-medium text-slate-800 mb-1">UCR ベンチマーク(RQ1: 精度効果の系統評価)</p>
-          <p class="text-slate-600">UCR Time Series Classification Archive の単変量データセット。被験者IDを持たず、 公式の train/test 分割が定義済み。本研究では「拡張がどの条件で精度を改善するか」 (RQ1)を横断的に測るために使う。全系列は読み込み時に系列ごと z 正規化される。 各クラスラベルの意味は UCR アーカイブの データセット説明に基づく(ラベル値そのものは 実データから読み出しており、意味の対応付けのみが文献由来)。</p>
+          <p class="text-slate-600">UCR Time Series Classification Archive の単変量データセット。被験者IDを持たず、 公式の train/test 分割が定義済み。本研究では「拡張がどの条件で精度を改善するか」 (RQ1)を横断的に測るために使う。全系列は読み込み時に系列ごと z 正規化される。 各クラスラベルの意味は UCR アーカイブの データセット説明に基づく(ラベル値そのものは 実データから読み出しており、意味の対応付けのみが文献由来)。 分割はアーカイブの公式 train/test をそのまま使う。学習側が極端に小さいもの(CBF は train 30 / test 900 など)もあるが、既発表の数値と比較できることを優先して再分割しない。</p>
         </div>
         
         <div class="border border-slate-200 rounded p-3">
@@ -31310,7 +30945,7 @@
     </article>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml ・ 生成日時 2026-08-19 13:29 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml ・ 生成日時 2026-08-19 23:44 UTC</p>
   </div>
 
   <!-- ================= REDUCTION TAB (issue #31: moved out of the paper tab) ================= -->
@@ -31881,7 +31516,7 @@
 
     <!-- 7. Discussion -->
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-08-19 13:29 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-08-19 23:44 UTC</p>
   </div>
 
   <!-- ================= APPENDIX TAB: non-temporal datasets ================= -->
@@ -32495,7 +32130,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml ・ 生成日時 2026-08-19 13:29 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml ・ 生成日時 2026-08-19 23:44 UTC</p>
   </div>
 
   <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
@@ -33120,7 +32755,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-08-19 13:29 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-08-19 23:44 UTC</p>
   </div>
 
 </div>
