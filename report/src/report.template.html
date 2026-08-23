@@ -84,6 +84,46 @@
       </div>
     </section>
 
+
+    <section id="overview-questions" class="mb-8">
+      <h2 class="text-base font-semibold text-slate-900 mb-1">論点と残タスク</h2>
+      {% if open_questions.intro %}<p class="text-sm text-slate-600 mb-4">{{ open_questions.intro }}</p>{% endif %}
+
+      <div class="space-y-2">
+        {% for q in open_questions.get('questions', []) %}
+        <details class="border border-slate-200 rounded">
+          <summary class="cursor-pointer px-3 py-2 text-sm">
+            <span class="text-xs font-mono text-slate-400 mr-2">{{ q.id }}</span>
+            <span class="font-medium text-slate-800">{{ q.question }}</span>
+            {% if q.priority %}<span class="text-xs rounded px-1.5 py-0.5 ml-2 {% if q.priority == '最優先' %}bg-rose-100 text-rose-800{% elif q.priority == '高' %}bg-amber-100 text-amber-800{% else %}bg-slate-100 text-slate-600{% endif %}">{{ q.priority }}</span>{% endif %}
+            {% if q.status == 'blocked' %}<span class="text-xs rounded px-1.5 py-0.5 ml-1 bg-slate-200 text-slate-600">保留中</span>
+            {% elif q.status == 'planned' %}<span class="text-xs rounded px-1.5 py-0.5 ml-1 bg-blue-100 text-blue-800">計画済み</span>{% endif %}
+          </summary>
+          <div class="px-3 pb-3 text-sm space-y-1.5">
+            <p class="text-slate-700"><span class="text-slate-500">なぜ論点か: </span>{{ q.why }}</p>
+            <p class="text-slate-700"><span class="text-slate-500">次の一手: </span>{{ q.next }}</p>
+            <p class="text-xs text-slate-500">
+              {% if q.related %}関連する知見: {% for f in q.related %}<span class="font-mono">{{ f }}</span>{% if not loop.last %}, {% endif %}{% endfor %}{% endif %}
+              {% if q.issue %}{% if q.related %} ・ {% endif %}<a href="{{ repo_url }}/issues/{{ q.issue }}">issue #{{ q.issue }}</a>{% endif %}
+            </p>
+          </div>
+        </details>
+        {% endfor %}
+      </div>
+
+      {% if tasks_todo or tasks_doing %}
+      <h3 class="text-sm font-semibold text-slate-800 mt-5 mb-2">実行中・未着手のタスク</h3>
+      <ul class="text-sm text-slate-700 space-y-1">
+        {% for task in tasks_doing %}<li>・<span class="text-xs rounded px-1.5 py-0.5 bg-blue-100 text-blue-800 mr-1">実行中</span>{{ task.title }}</li>{% endfor %}
+        {% for task in tasks_todo %}<li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>{{ task.title }}</li>{% endfor %}
+      </ul>
+      {% else %}
+      <p class="text-sm text-slate-600 mt-5">実行キューに未着手・実行中のタスクはない({{ tasks_done | length }} 件完了)。上の論点が次に拾う候補になる。</p>
+      {% endif %}
+
+      <p class="text-xs text-slate-500 mt-3">この研究で「言えないこと」の一覧は<a href="#limitations">論文タブ §8 限界</a>にある。ここはそのうち、次に手を動かせるものを取り出したもの。</p>
+    </section>
+
     <section id="overview-start" class="mb-2">
       <h2 class="text-base font-semibold text-slate-900 mb-2">目的別の入口</h2>
       <ul class="text-sm text-slate-700 space-y-1">
