@@ -40,6 +40,8 @@
 
 - **レポートのHTMLダウンロード機能追加(branch claude/report-download-button)**: 概要タブに「このレポートをHTMLファイルとして保存」ボタンを追加。レポートは元々 CSS を build 時にインライン化し(report/dist/index.html は単一ファイル)、図もすべてインライン SVG のため、zip 化やバンドルは不要で `document.documentElement.outerHTML` をそのまま Blob ダウンロードするだけで完全に自己完結したオフライン閲覧可能な HTML が得られる。取引先への送付・社内配布はこのボタンから保存した1ファイルをそのまま渡せばよい。regression テスト2件(ボタン・スクリプトの存在、外部アセット参照が皆無であること)。ヘッドレスブラウザで実クリックしダウンロード内容(DOCTYPE・インラインCSS・全9タブ)を検証。全241テスト green。
 
+- **タブ整理・0826打ち合わせ準備(branch claude/report-restructure-0826)**: (1)「論文」タブを「レポート」に改名(内部の data-tab id は既存リンク・テスト互換のため 'paper' のまま維持、表示ラベルのみ変更)。文中の「論文タブ」参照もすべて「レポートタブ」に統一し、ダッシュボード削除に伴う崩れた参照(原論文差分の参照先誤り等)も修正。(2)「実験・運用ダッシュボード」タブを削除(用語集・進捗・監査・全run一覧は他タブと重複または内部専用のため)。REQUIRED_SECTION_IDS の ops-* を除去、関連テスト更新。(3)トップページに次回打ち合わせ(artifacts/meeting_agenda.yaml: 2026-08-26(水)、議論対象=データセット/拡張手法/学習と評価)のバナーと、該当3カードへの①②③バッジを追加。(4)「学習と評価」タブの各データセットに「拡張によるデータ分布の変化」を追加: 新規 scripts/build_distribution_shift.py が実験と同じ実装・同じパラメータで各データセットの学習側 split 全体を拡張し、クラス分布のズレ(全体変動距離)と値の広がりの変化(std比)を算出(report/assets/data/distribution_shift.json)。**新知見**: mixup/dtw/label_shuffle は実装上クラスを均等に選んで合成する(元の出現比率に比例しない)ため、クラス不均衡が大きいデータ(ECG5000 等)ほどクラス分布のズレが大きく出る一方、oversample/jitter/scaling/smote は元の分布にほぼ比例する。この説明文は augment_mixup/augment_dtw の `_same_class_pairs`(クラスを均等抽出)と augment_smote/oversample(サンプルを均等抽出=クラス比例)の実装差を根拠とし、テストで実データ検証済み。PAMAP2/WESAD は生データ未取得のため「未算出」表示(データセットタブと同じ制約)。regression テスト7件追加。全248テスト green。
+
 - 次の候補: Phase 6-7(削減評価の反復数増による確度向上、拡張強度スイープ、統合レポート、WESAD 生理向け前処理 ablation=別 issue)。詳細は GitHub issue #7 / #27
 
 ## フェーズ別の経過(時系列)

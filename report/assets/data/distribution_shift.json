@@ -1,0 +1,1025 @@
+{
+ "ArrowHead": {
+  "n_before": 36,
+  "n_classes": 3,
+  "class_proportions_before": [
+   0.3333,
+   0.3333,
+   0.3333
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 36,
+    "class_balance_shift": 0.0694,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   },
+   "jitter": {
+    "n_synthetic": 36,
+    "class_balance_shift": 0.0694,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0001
+   },
+   "scaling": {
+    "n_synthetic": 36,
+    "class_balance_shift": 0.0694,
+    "std_before": 1.0,
+    "std_after": 1.0177,
+    "std_ratio": 1.0177,
+    "mean_shift": -0.0
+   },
+   "mixup": {
+    "n_synthetic": 36,
+    "class_balance_shift": 0.0417,
+    "std_before": 1.0,
+    "std_after": 0.9986,
+    "std_ratio": 0.9986,
+    "mean_shift": -0.0
+   },
+   "dtw": {
+    "n_synthetic": 36,
+    "class_balance_shift": 0.0417,
+    "std_before": 1.0,
+    "std_after": 0.9913,
+    "std_ratio": 0.9913,
+    "mean_shift": 0.0011
+   },
+   "smote": {
+    "n_synthetic": 36,
+    "class_balance_shift": 0.0694,
+    "std_before": 1.0,
+    "std_after": 0.9978,
+    "std_ratio": 0.9978,
+    "mean_shift": 0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 36,
+    "class_balance_shift": 0.0417,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   }
+  }
+ },
+ "CBF": {
+  "n_before": 30,
+  "n_classes": 3,
+  "class_proportions_before": [
+   0.3333,
+   0.4,
+   0.2667
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 30,
+    "class_balance_shift": 0.0333,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   },
+   "jitter": {
+    "n_synthetic": 30,
+    "class_balance_shift": 0.0333,
+    "std_before": 1.0,
+    "std_after": 1.0001,
+    "std_ratio": 1.0001,
+    "mean_shift": -0.0003
+   },
+   "scaling": {
+    "n_synthetic": 30,
+    "class_balance_shift": 0.0333,
+    "std_before": 1.0,
+    "std_after": 1.0078,
+    "std_ratio": 1.0078,
+    "mean_shift": 0.0
+   },
+   "mixup": {
+    "n_synthetic": 30,
+    "class_balance_shift": 0.0667,
+    "std_before": 1.0,
+    "std_after": 0.986,
+    "std_ratio": 0.986,
+    "mean_shift": 0.0
+   },
+   "dtw": {
+    "n_synthetic": 30,
+    "class_balance_shift": 0.0667,
+    "std_before": 1.0,
+    "std_after": 0.9751,
+    "std_ratio": 0.9751,
+    "mean_shift": -0.0039
+   },
+   "smote": {
+    "n_synthetic": 30,
+    "class_balance_shift": 0.05,
+    "std_before": 1.0,
+    "std_after": 0.9681,
+    "std_ratio": 0.9681,
+    "mean_shift": 0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 30,
+    "class_balance_shift": 0.0167,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   }
+  }
+ },
+ "Coffee": {
+  "n_before": 28,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.5,
+   0.5
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 28,
+    "class_balance_shift": 0.0714,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   },
+   "jitter": {
+    "n_synthetic": 28,
+    "class_balance_shift": 0.0714,
+    "std_before": 1.0,
+    "std_after": 1.0004,
+    "std_ratio": 1.0004,
+    "mean_shift": 0.0
+   },
+   "scaling": {
+    "n_synthetic": 28,
+    "class_balance_shift": 0.0714,
+    "std_before": 1.0,
+    "std_after": 1.0018,
+    "std_ratio": 1.0018,
+    "mean_shift": -0.0
+   },
+   "mixup": {
+    "n_synthetic": 28,
+    "class_balance_shift": 0.0357,
+    "std_before": 1.0,
+    "std_after": 0.9999,
+    "std_ratio": 0.9999,
+    "mean_shift": -0.0
+   },
+   "dtw": {
+    "n_synthetic": 28,
+    "class_balance_shift": 0.0357,
+    "std_before": 1.0,
+    "std_after": 0.9977,
+    "std_ratio": 0.9977,
+    "mean_shift": 0.0004
+   },
+   "smote": {
+    "n_synthetic": 28,
+    "class_balance_shift": 0.0357,
+    "std_before": 1.0,
+    "std_after": 0.9997,
+    "std_ratio": 0.9997,
+    "mean_shift": 0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 28,
+    "class_balance_shift": 0.0179,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   }
+  }
+ },
+ "ECG200": {
+  "n_before": 100,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.31,
+   0.69
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 100,
+    "class_balance_shift": 0.005,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   },
+   "jitter": {
+    "n_synthetic": 100,
+    "class_balance_shift": 0.005,
+    "std_before": 1.0,
+    "std_after": 1.0001,
+    "std_ratio": 1.0001,
+    "mean_shift": 0.0001
+   },
+   "scaling": {
+    "n_synthetic": 100,
+    "class_balance_shift": 0.005,
+    "std_before": 1.0,
+    "std_after": 1.0039,
+    "std_ratio": 1.0039,
+    "mean_shift": -0.0
+   },
+   "mixup": {
+    "n_synthetic": 100,
+    "class_balance_shift": 0.065,
+    "std_before": 1.0,
+    "std_after": 0.9847,
+    "std_ratio": 0.9847,
+    "mean_shift": -0.0
+   },
+   "dtw": {
+    "n_synthetic": 100,
+    "class_balance_shift": 0.065,
+    "std_before": 1.0,
+    "std_after": 0.9743,
+    "std_ratio": 0.9743,
+    "mean_shift": -0.004
+   },
+   "smote": {
+    "n_synthetic": 100,
+    "class_balance_shift": 0.01,
+    "std_before": 1.0,
+    "std_after": 0.9941,
+    "std_ratio": 0.9941,
+    "mean_shift": -0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 100,
+    "class_balance_shift": 0.07,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   }
+  }
+ },
+ "ECG5000": {
+  "n_before": 500,
+  "n_classes": 5,
+  "class_proportions_before": [
+   0.584,
+   0.354,
+   0.02,
+   0.038,
+   0.004
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 500,
+    "class_balance_shift": 0.017,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   },
+   "jitter": {
+    "n_synthetic": 500,
+    "class_balance_shift": 0.017,
+    "std_before": 1.0,
+    "std_after": 1.0003,
+    "std_ratio": 1.0003,
+    "mean_shift": -0.0
+   },
+   "scaling": {
+    "n_synthetic": 500,
+    "class_balance_shift": 0.017,
+    "std_before": 1.0,
+    "std_after": 1.0006,
+    "std_ratio": 1.0006,
+    "mean_shift": -0.0
+   },
+   "mixup": {
+    "n_synthetic": 500,
+    "class_balance_shift": 0.267,
+    "std_before": 1.0,
+    "std_after": 0.9872,
+    "std_ratio": 0.9872,
+    "mean_shift": -0.0
+   },
+   "dtw": {
+    "n_synthetic": 500,
+    "class_balance_shift": 0.267,
+    "std_before": 1.0,
+    "std_after": 0.9673,
+    "std_ratio": 0.9673,
+    "mean_shift": 0.0038
+   },
+   "smote": {
+    "n_synthetic": 500,
+    "class_balance_shift": 0.026,
+    "std_before": 1.0,
+    "std_after": 0.9961,
+    "std_ratio": 0.9961,
+    "mean_shift": -0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 500,
+    "class_balance_shift": 0.274,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   }
+  }
+ },
+ "FordA": {
+  "n_before": 3601,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.5126,
+   0.4874
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 3601,
+    "class_balance_shift": 0.0037,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   },
+   "jitter": {
+    "n_synthetic": 3601,
+    "class_balance_shift": 0.0037,
+    "std_before": 1.0,
+    "std_after": 1.0002,
+    "std_ratio": 1.0002,
+    "mean_shift": 0.0
+   },
+   "scaling": {
+    "n_synthetic": 3601,
+    "class_balance_shift": 0.0037,
+    "std_before": 1.0,
+    "std_after": 1.0025,
+    "std_ratio": 1.0025,
+    "mean_shift": 0.0
+   },
+   "mixup": {
+    "n_synthetic": 3601,
+    "class_balance_shift": 0.0125,
+    "std_before": 1.0,
+    "std_after": 0.9636,
+    "std_ratio": 0.9636,
+    "mean_shift": 0.0
+   },
+   "dtw": {
+    "n_synthetic": 3601,
+    "class_balance_shift": 0.0125,
+    "std_before": 1.0,
+    "std_after": 0.9631,
+    "std_ratio": 0.9631,
+    "mean_shift": -0.0
+   },
+   "smote": {
+    "n_synthetic": 3601,
+    "class_balance_shift": 0.0021,
+    "std_before": 1.0,
+    "std_after": 0.9619,
+    "std_ratio": 0.9619,
+    "mean_shift": 0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 3601,
+    "class_balance_shift": 0.0043,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   }
+  }
+ },
+ "GunPoint": {
+  "n_before": 50,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.48,
+   0.52
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 50,
+    "class_balance_shift": 0.0,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   },
+   "jitter": {
+    "n_synthetic": 50,
+    "class_balance_shift": 0.0,
+    "std_before": 1.0,
+    "std_after": 1.0004,
+    "std_ratio": 1.0004,
+    "mean_shift": -0.0
+   },
+   "scaling": {
+    "n_synthetic": 50,
+    "class_balance_shift": 0.0,
+    "std_before": 1.0,
+    "std_after": 1.0129,
+    "std_ratio": 1.0129,
+    "mean_shift": -0.0
+   },
+   "mixup": {
+    "n_synthetic": 50,
+    "class_balance_shift": 0.01,
+    "std_before": 1.0,
+    "std_after": 0.9924,
+    "std_ratio": 0.9924,
+    "mean_shift": -0.0
+   },
+   "dtw": {
+    "n_synthetic": 50,
+    "class_balance_shift": 0.01,
+    "std_before": 1.0,
+    "std_after": 0.9769,
+    "std_ratio": 0.9769,
+    "mean_shift": -0.0043
+   },
+   "smote": {
+    "n_synthetic": 50,
+    "class_balance_shift": 0.07,
+    "std_before": 1.0,
+    "std_after": 0.997,
+    "std_ratio": 0.997,
+    "mean_shift": -0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 50,
+    "class_balance_shift": 0.03,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   }
+  }
+ },
+ "ItalyPowerDemand": {
+  "n_before": 67,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.5075,
+   0.4925
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 67,
+    "class_balance_shift": 0.0075,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   },
+   "jitter": {
+    "n_synthetic": 67,
+    "class_balance_shift": 0.0075,
+    "std_before": 1.0,
+    "std_after": 1.0001,
+    "std_ratio": 1.0001,
+    "mean_shift": -0.0001
+   },
+   "scaling": {
+    "n_synthetic": 67,
+    "class_balance_shift": 0.0075,
+    "std_before": 1.0,
+    "std_after": 1.0124,
+    "std_ratio": 1.0124,
+    "mean_shift": -0.0
+   },
+   "mixup": {
+    "n_synthetic": 67,
+    "class_balance_shift": 0.0224,
+    "std_before": 1.0,
+    "std_after": 0.9921,
+    "std_ratio": 0.9921,
+    "mean_shift": 0.0
+   },
+   "dtw": {
+    "n_synthetic": 67,
+    "class_balance_shift": 0.0224,
+    "std_before": 1.0,
+    "std_after": 0.9777,
+    "std_ratio": 0.9777,
+    "mean_shift": -0.0071
+   },
+   "smote": {
+    "n_synthetic": 67,
+    "class_balance_shift": 0.0075,
+    "std_before": 1.0,
+    "std_after": 0.9955,
+    "std_ratio": 0.9955,
+    "mean_shift": -0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 67,
+    "class_balance_shift": 0.0224,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   }
+  }
+ },
+ "MoteStrain": {
+  "n_before": 20,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.5,
+   0.5
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.075,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   },
+   "jitter": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.075,
+    "std_before": 1.0,
+    "std_after": 1.0003,
+    "std_ratio": 1.0003,
+    "mean_shift": -0.0002
+   },
+   "scaling": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.075,
+    "std_before": 1.0,
+    "std_after": 0.9905,
+    "std_ratio": 0.9905,
+    "mean_shift": 0.0
+   },
+   "mixup": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.075,
+    "std_before": 1.0,
+    "std_after": 0.991,
+    "std_ratio": 0.991,
+    "mean_shift": 0.0
+   },
+   "dtw": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.075,
+    "std_before": 1.0,
+    "std_after": 0.9366,
+    "std_ratio": 0.9366,
+    "mean_shift": -0.0077
+   },
+   "smote": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.025,
+    "std_before": 1.0,
+    "std_after": 0.9704,
+    "std_ratio": 0.9704,
+    "mean_shift": 0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.025,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   }
+  }
+ },
+ "Plane": {
+  "n_before": 105,
+  "n_classes": 7,
+  "class_proportions_before": [
+   0.1429,
+   0.1333,
+   0.0857,
+   0.1524,
+   0.1238,
+   0.1714,
+   0.1905
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 105,
+    "class_balance_shift": 0.0333,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   },
+   "jitter": {
+    "n_synthetic": 105,
+    "class_balance_shift": 0.0333,
+    "std_before": 1.0,
+    "std_after": 1.0003,
+    "std_ratio": 1.0003,
+    "mean_shift": 0.0001
+   },
+   "scaling": {
+    "n_synthetic": 105,
+    "class_balance_shift": 0.0333,
+    "std_before": 1.0,
+    "std_after": 1.0028,
+    "std_ratio": 1.0028,
+    "mean_shift": 0.0
+   },
+   "mixup": {
+    "n_synthetic": 105,
+    "class_balance_shift": 0.0381,
+    "std_before": 1.0,
+    "std_after": 0.999,
+    "std_ratio": 0.999,
+    "mean_shift": 0.0
+   },
+   "dtw": {
+    "n_synthetic": 105,
+    "class_balance_shift": 0.0381,
+    "std_before": 1.0,
+    "std_after": 0.9991,
+    "std_ratio": 0.9991,
+    "mean_shift": 0.0004
+   },
+   "smote": {
+    "n_synthetic": 105,
+    "class_balance_shift": 0.0286,
+    "std_before": 1.0,
+    "std_after": 0.9982,
+    "std_ratio": 0.9982,
+    "mean_shift": 0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 105,
+    "class_balance_shift": 0.0619,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   }
+  }
+ },
+ "SonyAIBORobotSurface1": {
+  "n_before": 20,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.3,
+   0.7
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.025,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   },
+   "jitter": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.025,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0003
+   },
+   "scaling": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.025,
+    "std_before": 1.0,
+    "std_after": 0.9905,
+    "std_ratio": 0.9905,
+    "mean_shift": -0.0
+   },
+   "mixup": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.175,
+    "std_before": 1.0,
+    "std_after": 0.9951,
+    "std_ratio": 0.9951,
+    "mean_shift": 0.0
+   },
+   "dtw": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.175,
+    "std_before": 1.0,
+    "std_after": 0.9781,
+    "std_ratio": 0.9781,
+    "mean_shift": -0.002
+   },
+   "smote": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.0,
+    "std_before": 1.0,
+    "std_after": 0.98,
+    "std_ratio": 0.98,
+    "mean_shift": 0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.125,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   }
+  }
+ },
+ "TwoLeadECG": {
+  "n_before": 23,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.5217,
+   0.4783
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 23,
+    "class_balance_shift": 0.0435,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   },
+   "jitter": {
+    "n_synthetic": 23,
+    "class_balance_shift": 0.0435,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0004
+   },
+   "scaling": {
+    "n_synthetic": 23,
+    "class_balance_shift": 0.0435,
+    "std_before": 1.0,
+    "std_after": 0.9918,
+    "std_ratio": 0.9918,
+    "mean_shift": 0.0
+   },
+   "mixup": {
+    "n_synthetic": 23,
+    "class_balance_shift": 0.0217,
+    "std_before": 1.0,
+    "std_after": 0.9988,
+    "std_ratio": 0.9988,
+    "mean_shift": -0.0
+   },
+   "dtw": {
+    "n_synthetic": 23,
+    "class_balance_shift": 0.0217,
+    "std_before": 1.0,
+    "std_after": 0.9969,
+    "std_ratio": 0.9969,
+    "mean_shift": 0.0024
+   },
+   "smote": {
+    "n_synthetic": 23,
+    "class_balance_shift": 0.0435,
+    "std_before": 1.0,
+    "std_after": 0.996,
+    "std_ratio": 0.996,
+    "mean_shift": -0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 23,
+    "class_balance_shift": 0.0652,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   }
+  }
+ },
+ "Wafer": {
+  "n_before": 1000,
+  "n_classes": 2,
+  "class_proportions_before": [
+   0.097,
+   0.903
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 1000,
+    "class_balance_shift": 0.0065,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   },
+   "jitter": {
+    "n_synthetic": 1000,
+    "class_balance_shift": 0.0065,
+    "std_before": 1.0,
+    "std_after": 1.0002,
+    "std_ratio": 1.0002,
+    "mean_shift": -0.0
+   },
+   "scaling": {
+    "n_synthetic": 1000,
+    "class_balance_shift": 0.0065,
+    "std_before": 1.0,
+    "std_after": 1.0019,
+    "std_ratio": 1.0019,
+    "mean_shift": 0.0
+   },
+   "mixup": {
+    "n_synthetic": 1000,
+    "class_balance_shift": 0.181,
+    "std_before": 1.0,
+    "std_after": 0.9721,
+    "std_ratio": 0.9721,
+    "mean_shift": -0.0
+   },
+   "dtw": {
+    "n_synthetic": 1000,
+    "class_balance_shift": 0.181,
+    "std_before": 1.0,
+    "std_after": 0.9307,
+    "std_ratio": 0.9307,
+    "mean_shift": 0.0011
+   },
+   "smote": {
+    "n_synthetic": 1000,
+    "class_balance_shift": 0.0075,
+    "std_before": 1.0,
+    "std_after": 0.9967,
+    "std_ratio": 0.9967,
+    "mean_shift": 0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 1000,
+    "class_balance_shift": 0.1985,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": -0.0
+   }
+  }
+ },
+ "UCI_HAR": {
+  "n_before": 7352,
+  "n_classes": 6,
+  "class_proportions_before": [
+   0.1668,
+   0.1459,
+   0.1341,
+   0.1749,
+   0.1869,
+   0.1914
+  ],
+  "std_before": 0.1948,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 7352,
+    "class_balance_shift": 0.006,
+    "std_before": 0.1948,
+    "std_after": 0.1943,
+    "std_ratio": 0.997,
+    "mean_shift": -0.0
+   },
+   "jitter": {
+    "n_synthetic": 7352,
+    "class_balance_shift": 0.006,
+    "std_before": 0.1948,
+    "std_after": 0.1954,
+    "std_ratio": 1.0029,
+    "mean_shift": 0.0
+   },
+   "scaling": {
+    "n_synthetic": 7352,
+    "class_balance_shift": 0.006,
+    "std_before": 0.1948,
+    "std_after": 0.1949,
+    "std_ratio": 1.0003,
+    "mean_shift": -0.0
+   },
+   "mixup": {
+    "n_synthetic": 7352,
+    "class_balance_shift": 0.0248,
+    "std_before": 0.1948,
+    "std_after": 0.193,
+    "std_ratio": 0.9903,
+    "mean_shift": -0.0001
+   },
+   "dtw": {
+    "n_synthetic": 7352,
+    "class_balance_shift": 0.0248,
+    "std_before": 0.1948,
+    "std_after": 0.1932,
+    "std_ratio": 0.9916,
+    "mean_shift": -0.0001
+   },
+   "smote": {
+    "n_synthetic": 7352,
+    "class_balance_shift": 0.005,
+    "std_before": 0.1948,
+    "std_after": 0.1869,
+    "std_ratio": 0.959,
+    "mean_shift": -0.0001
+   },
+   "label_shuffle": {
+    "n_synthetic": 7352,
+    "class_balance_shift": 0.0235,
+    "std_before": 0.1948,
+    "std_after": 0.1943,
+    "std_ratio": 0.997,
+    "mean_shift": -0.0
+   }
+  }
+ },
+ "WISDM": {
+  "n_before": 3515,
+  "n_classes": 6,
+  "class_proportions_before": [
+   0.3969,
+   0.3055,
+   0.1107,
+   0.0845,
+   0.0592,
+   0.0432
+  ],
+  "std_before": 1.0,
+  "methods": {
+   "oversample": {
+    "n_synthetic": 3515,
+    "class_balance_shift": 0.0037,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   },
+   "jitter": {
+    "n_synthetic": 3515,
+    "class_balance_shift": 0.0037,
+    "std_before": 1.0,
+    "std_after": 1.0002,
+    "std_ratio": 1.0002,
+    "mean_shift": 0.0
+   },
+   "scaling": {
+    "n_synthetic": 3515,
+    "class_balance_shift": 0.0037,
+    "std_before": 1.0,
+    "std_after": 1.0035,
+    "std_ratio": 1.0035,
+    "mean_shift": 0.0
+   },
+   "mixup": {
+    "n_synthetic": 3515,
+    "class_balance_shift": 0.1906,
+    "std_before": 1.0,
+    "std_after": 0.9637,
+    "std_ratio": 0.9637,
+    "mean_shift": 0.0
+   },
+   "dtw": {
+    "n_synthetic": 3515,
+    "class_balance_shift": 0.1906,
+    "std_before": 1.0,
+    "std_after": 0.951,
+    "std_ratio": 0.951,
+    "mean_shift": -0.0008
+   },
+   "smote": {
+    "n_synthetic": 3515,
+    "class_balance_shift": 0.0058,
+    "std_before": 1.0,
+    "std_after": 0.9427,
+    "std_ratio": 0.9427,
+    "mean_shift": -0.0
+   },
+   "label_shuffle": {
+    "n_synthetic": 3515,
+    "class_balance_shift": 0.1789,
+    "std_before": 1.0,
+    "std_after": 1.0,
+    "std_ratio": 1.0,
+    "mean_shift": 0.0
+   }
+  }
+ }
+}
