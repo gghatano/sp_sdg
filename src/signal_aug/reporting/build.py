@@ -510,6 +510,7 @@ PHASE_NAMES = {
 REQUIRED_SECTION_IDS = [
     # landing page (index of the tabs)
     "overview-tabs",
+    "overview-questions",
     "overview-start",
     # paper tab (journal-paper structure: abstract, intro, problem setup,
     # proposed framework, related methods, experimental design, results,
@@ -1300,6 +1301,9 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "preprocessing_notes": _load_yaml(root / "artifacts/preprocessing_notes.yaml"),
         "judgment_calls": _load_yaml(root / "artifacts/judgment_calls.yaml"),
         "deviations": _markdown_bullets(root / "artifacts/deviations.md"),
+        # landing page: what is still unsettled and what is queued (issue-driven)
+        "open_questions": _load_yaml(root / "artifacts/open_questions.yaml"),
+        "repo_url": "https://github.com/gghatano/sp_sdg",
     }
     # landing page: one card per tab, counts taken from the context above
     context["overview_cards"] = _overview_cards(context)

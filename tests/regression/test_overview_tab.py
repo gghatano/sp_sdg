@@ -65,3 +65,37 @@ def test_index_offers_task_based_entry_points():
     # the two questions a first-time reader arrives with
     assert "どんなデータを使ったか" in overview
     assert "被験者数を減らせるのか" in overview
+
+
+def test_landing_page_lists_open_questions_and_queue():
+    """A reader (or a collaborator) must be able to see what is still unsettled
+    and what is queued without digging through artifacts."""
+    context = gather_context(".")
+    questions = context["open_questions"].get("questions", [])
+    assert questions, "artifacts/open_questions.yaml carries no questions"
+    for q in questions:
+        for field in ("question", "why", "next", "status", "priority"):
+            assert q.get(field), f"{q.get('id')}: missing '{field}'"
+        assert q["status"] in {"open", "planned", "blocked"}
+
+    html = render_report(context, "report/src", css="")
+    overview = html[html.index('data-tab="overview"'):html.index("PAPER TAB")]
+    assert 'id="overview-questions"' in overview
+    for q in questions:
+        assert q["question"] in overview, f"{q['id']} not rendered"
+    # a blocked item states what would unblock it
+    blocked = [q for q in questions if q["status"] == "blocked"]
+    for q in blocked:
+        assert q["next"], f"{q['id']}: blocked without a firing condition"
+
+
+def test_open_questions_reference_real_findings_and_issues():
+    """Cross-references must resolve: a finding id that no longer exists, or an
+    issue number typo, makes the list untrustworthy."""
+    context = gather_context(".")
+    finding_ids = {f["id"] for f in context["findings"]}
+    for q in context["open_questions"].get("questions", []):
+        for fid in q.get("related") or []:
+            assert fid in finding_ids, f"{q['id']}: unknown finding {fid}"
+        if q.get("issue"):
+            assert isinstance(q["issue"], int), f"{q['id']}: issue must be a number"
