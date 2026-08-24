@@ -123,7 +123,7 @@ def test_survey_claim_evidence_points_at_real_findings():
 def test_reading_guide_links_every_tab():
     """A reader landing on the paper tab must be told where the rest lives."""
     paper = _tab_body(_html(), "paper")
-    for tab in ("datasets", "methods", "evaluation", "reduction", "dashboard", "repro"):
+    for tab in ("datasets", "methods", "evaluation", "reduction", "repro"):
         assert f"showTab('{tab}')" in paper, f"reading guide does not link {tab}"
 
 

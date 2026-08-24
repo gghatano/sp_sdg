@@ -533,12 +533,6 @@ REQUIRED_SECTION_IDS = [
     "limitations",
     "conclusion",
     "references",
-    # dashboard tab (non-paper: operations, reproducibility, glossary)
-    "ops-progress",
-    "ops-runs",
-    "ops-audit",
-    "ops-reproducibility",
-    "ops-glossary",
     # dataset tab (issue #29): one section per dataset group, one article per
     # dataset (anchors are generated from the dataset keys)
     "datasets-ucr",
@@ -756,6 +750,37 @@ def _augmentation_entries(root: Path, references_index: dict, results: dict,
     }
 
 
+# Presentation order for the distribution-shift table: magnitude methods first
+# (small, mostly-cosmetic shift expected), then pattern methods, then the
+# control. "none" and "oversample" are covered implicitly (oversample IS the
+# no-op-on-distribution baseline; showing it lets a reader compare).
+_DISTRIBUTION_METHOD_ORDER = ["oversample", "jitter", "scaling", "mixup", "dtw", "smote", "label_shuffle"]
+
+
+def _distribution_rows(shift: dict | None) -> list[dict] | None:
+    """Per-method rows for the "拡張によるデータ分布の変化" subsection (one
+    dataset's worth). Returns None when the dataset has no local training data
+    to augment (PAMAP2/WESAD — same cost/licence reason as the dataset tab's
+    missing waveforms), so the template can render an explanatory note instead
+    of an empty table."""
+    if not shift:
+        return None
+    methods = shift.get("methods", {})
+    rows = []
+    for name in _DISTRIBUTION_METHOD_ORDER:
+        m = methods.get(name)
+        if not m:
+            continue
+        rows.append({
+            "augmentation": name,
+            "color": aug_color(name),
+            "n_synthetic": m["n_synthetic"],
+            "class_balance_shift": m["class_balance_shift"],
+            "std_ratio": m["std_ratio"],
+        })
+    return rows
+
+
 def _evaluation_entries(root: Path, results: dict, summary_main: list, curves: dict,
                         dataset_tab: dict) -> dict:
     """Assemble the training/evaluation tab (issue #31).
@@ -773,6 +798,7 @@ def _evaluation_entries(root: Path, results: dict, summary_main: list, curves: d
     # all_entries includes the appendix (non-temporal) datasets, which still get
     # their own evaluation section — in the appendix tab
     entries_by_key = {e["key"]: e for group in dataset_tab["all_entries"].values() for e in group}
+    shift_by_dataset = _load_json(root / "report/assets/data/distribution_shift.json") or {}
 
     runs = [r for r in results.get("runs", []) if r.get("status") == "completed"]
     runs_by_dataset: dict[str, list] = {}
@@ -814,6 +840,7 @@ def _evaluation_entries(root: Path, results: dict, summary_main: list, curves: d
             "key": key,
             "temporal": bool(info.get("temporal", True)),
             "axis": info.get("axis"),
+            "distribution": _distribution_rows(shift_by_dataset.get(key)),
             "anchor": f"eval-{key.lower().replace('_', '-')}",
             "display": profile.get("display", key),
             "group": group,
@@ -894,9 +921,15 @@ def _overview_cards(context: dict) -> list[dict]:
     n_methods = sum(len(v) for v in method_tab["entries"].values())
     reduction_datasets = (context["synthesis"] or {}).get("n_datasets")
 
-    return [
+    # meeting agenda ordinals (①②③...), attached below so a tab named in
+    # artifacts/meeting_agenda.yaml carries its discussion order as a card badge
+    agenda_topics = (context.get("meeting_agenda") or {}).get("topics") or []
+    ordinal_marks = "①②③④⑤⑥⑦⑧⑨"
+    discussion_order = {tab: ordinal_marks[i] for i, tab in enumerate(agenda_topics) if i < len(ordinal_marks)}
+
+    cards = [
         {
-            "tab": "paper", "title": "論文",
+            "tab": "paper", "title": "レポート",
             "lead": "サーベイ [{}] の内容解説と、その部分的な追試。研究の問い・評価枠組み・RQ1(精度効果)の結果・考察・限界をまとめた本文。".format(
                 context["ref"].get("iwana2021", "")),
             "points": [
@@ -951,14 +984,6 @@ def _overview_cards(context: dict) -> list[dict]:
             ],
         },
         {
-            "tab": "dashboard", "title": "実験・運用ダッシュボード",
-            "lead": "研究本文の傍論。用語の説明、実験基盤の運用状況、監査結果。",
-            "points": [
-                f"完了 {context['n_completed']} run / 失敗 {context['n_failed']} run",
-                "用語集・再現性メタデータ・監査チェックリスト",
-            ],
-        },
-        {
             "tab": "repro", "title": "再現・前処理ノート",
             "lead": "別環境で再現・移植するための実務情報。",
             "points": [
@@ -968,6 +993,9 @@ def _overview_cards(context: dict) -> list[dict]:
             ],
         },
     ]
+    for card in cards:
+        card["discussion_mark"] = discussion_order.get(card["tab"])
+    return cards
 
 
 def gather_context(repo_root: str | Path = ".") -> dict:
@@ -1303,6 +1331,7 @@ def gather_context(repo_root: str | Path = ".") -> dict:
         "deviations": _markdown_bullets(root / "artifacts/deviations.md"),
         # landing page: what is still unsettled and what is queued (issue-driven)
         "open_questions": _load_yaml(root / "artifacts/open_questions.yaml"),
+        "meeting_agenda": _load_yaml(root / "artifacts/meeting_agenda.yaml"),
         "repo_url": "https://github.com/gghatano/sp_sdg",
     }
     # landing page: one card per tab, counts taken from the context above

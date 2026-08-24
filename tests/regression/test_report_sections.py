@@ -49,11 +49,16 @@ def test_findings_rendered_when_present():
         assert "追試" in html
 
 
-def test_report_has_paper_and_dashboard_tabs():
+def test_report_has_a_renamed_report_tab_and_no_dashboard():
+    """The former "論文" tab is labelled "レポート"; the operational dashboard
+    tab was removed (its content was either redundant with in-context prose
+    elsewhere or internal-only, per the 2026-08 restructuring)."""
     context = gather_context(".")
     html = render_report(context, "report/src", css="")
-    assert 'data-tabbtn="paper"' in html and 'data-tabbtn="dashboard"' in html
-    assert 'data-tab="paper"' in html and 'data-tab="dashboard"' in html
+    assert 'data-tabbtn="paper"' in html and 'data-tab="paper"' in html
+    assert '>レポート</button>' in html
+    assert 'data-tabbtn="dashboard"' not in html
+    assert 'data-tab="dashboard"' not in html
 
 
 def test_report_has_reproduction_tab():
@@ -82,9 +87,9 @@ def test_reproduction_tab_is_data_driven():
 
 
 def test_paper_tab_has_academic_sections():
-    """Paper tab must carry the journal-paper structure (abstract → problem
-    setup → proposed method → related methods → design → results → conclusion);
-    ops/glossary ids live in the dashboard."""
+    """Paper (レポート) tab must carry the journal-paper structure (abstract →
+    problem setup → proposed method → related methods → design → results →
+    conclusion). The dashboard's ops/glossary ids no longer exist."""
     for sid in (
         "abstract",
         "introduction",
@@ -98,4 +103,4 @@ def test_paper_tab_has_academic_sections():
     ):
         assert sid in REQUIRED_SECTION_IDS
     for sid in ("ops-progress", "ops-audit", "ops-runs", "ops-reproducibility", "ops-glossary"):
-        assert sid in REQUIRED_SECTION_IDS
+        assert sid not in REQUIRED_SECTION_IDS
