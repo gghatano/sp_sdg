@@ -99,3 +99,4 @@ tasks:
   - {id: NT-3, phase: 7, title: "論文タブの集計を時系列データのみに限定(表4・改善/悪化の要点・学習曲線パネル・要旨の run 数)。付録送りにした Coffee が論文の要点に出る不整合を解消。UCR 公式分割を再分割しない方針を §5.3 とデータセットタブに明記", status: done}
   - {id: OV-1, phase: 7, title: "トップページ(概要タブ)新設: Pages の初期表示を論文→概要に変更。全8タブの内容と要点をカードで索引化(数値は各タブの context 由来で自動同期)+目的別の入口。regression 5件", status: done}
   - {id: OQ-1, phase: 7, title: "トップページに論点と残タスクを掲示: open_questions.yaml 新設(論点9件を なぜ論点か/次の一手/優先度/状態/関連知見・issue で記述)+概要タブへの掲載+task_queue の未完了タスク自動集約。regression 2件", status: done}
+  - {id: DL-1, phase: 7, title: "概要タブに「HTMLファイルとして保存」ボタンを追加。CSSは元々build時にインライン化済み・図もSVGインラインのため zip 不要、outerHTML の Blob ダウンロードのみで自己完結ファイルが得られる。regression 2件・実クリック検証", status: done}

@@ -99,3 +99,27 @@ def test_open_questions_reference_real_findings_and_issues():
             assert fid in finding_ids, f"{q['id']}: unknown finding {fid}"
         if q.get("issue"):
             assert isinstance(q["issue"], int), f"{q['id']}: issue must be a number"
+
+
+def test_download_button_produces_a_self_contained_file():
+    """The report must be sendable as a single .html file (customers, offline
+    viewing). CSS is already inlined at build time and every chart is inline
+    SVG, so the download only needs to serialize the live DOM — no bundling."""
+    html = _html()
+    assert 'id="download-report-btn"' in html
+    assert "function downloadReportHtml()" in html
+    assert "onclick=\"downloadReportHtml()\"" in html
+    # the report itself carries no external stylesheet/script references that
+    # a downloaded copy would be missing
+    assert '<link rel="stylesheet"' not in html
+    assert re.search(r'<script\s+src=', html) is None
+
+
+def test_no_external_asset_references():
+    """A file the user hands to a customer must not silently depend on the
+    internet (fonts, CDN scripts, remote images)."""
+    html = _html()
+    for tag_match in re.finditer(r'<(link|script|img)\b[^>]*>', html):
+        tag = tag_match.group(0)
+        if 'http://' in tag or 'https://' in tag:
+            raise AssertionError(f"external asset reference found: {tag[:120]}")

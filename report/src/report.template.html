@@ -65,6 +65,13 @@
         <span>実験 {{ facts.n_study_runs }} run(付録 {{ facts.n_appendix_runs }} run)</span>
         <span>失敗 {{ n_failed }} run</span>
       </div>
+      <div class="mt-3 pt-3 border-t border-slate-200">
+        <button id="download-report-btn" type="button" onclick="downloadReportHtml()"
+                class="noprint inline-flex items-center gap-1.5 text-xs rounded border border-slate-300 bg-white px-3 py-1.5 text-slate-700 hover:bg-slate-50 hover:border-blue-400 cursor-pointer">
+          このレポートをHTMLファイルとして保存
+        </button>
+        <p class="text-xs text-slate-500 mt-1.5">CSS・図(SVG)をすべて内包した単体ファイル(オフラインでも表示可能・追加の依存ファイル不要)。取引先への送付や社内共有はこのファイルをそのまま渡せばよい。</p>
+      </div>
     </div>
 
     <section id="overview-tabs" class="mb-6">
@@ -1553,6 +1560,23 @@
   var TAB_BY_HASH = {'#tab-overview':'overview', '#tab-paper':'paper', '#tab-datasets':'datasets', '#tab-methods':'methods',
                      '#tab-evaluation':'evaluation', '#tab-reduction':'reduction', '#tab-appendix':'appendix',
                      '#tab-dashboard':'dashboard', '#tab-repro':'repro'};
+
+  /* Standalone download: the page already inlines its CSS and every chart is
+     inline SVG, so document.documentElement.outerHTML IS the complete,
+     offline-viewable report. No bundling or zipping is needed for a single
+     HTML file to be self-sufficient. */
+  function downloadReportHtml(){
+    var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'sp_sdg_report.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  }
 
   function showTab(id){
     document.querySelectorAll('[data-tab]').forEach(function(el){ el.style.display = (el.getAttribute('data-tab')===id) ? 'block' : 'none'; });
