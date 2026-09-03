@@ -6,8 +6,7 @@
 # topics は overview_cards の tab キー(datasets/methods/evaluation/...)を
 # 議論する順に並べる。番号(①②③...)は自動で振る。
 
-date: "2026-08-26(水)"
-topics: [datasets, methods, evaluation]
-note: >-
-  当日はこの3タブの内容をベースに、どの公開データで・どんな予測タスクを解くかを議論する
-  (トップページの論点 Q2 も参照)。
+# 2026-08-26(水) の会は終了。次回が決まるまで掲示は止める。
+date:
+topics: []
+note:

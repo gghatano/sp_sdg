@@ -106,3 +106,6 @@ tasks:
   - {id: RS-2, phase: 7, title: "「実験・運用ダッシュボード」タブを削除(用語集・進捗・監査・全run一覧。他タブと重複または内部専用)。REQUIRED_SECTION_IDS・関連テスト更新", status: done}
   - {id: RS-3, phase: 7, title: "トップページに次回打ち合わせバナー追加(artifacts/meeting_agenda.yaml。2026-08-26 議論対象=データセット/拡張手法/学習と評価に①②③バッジ)", status: done}
   - {id: RS-4, phase: 7, title: "「学習と評価」タブの各データセットに拡張によるデータ分布変化を追加(scripts/build_distribution_shift.py: 実験と同じ実装・パラメータでクラス分布のズレ・広がりの変化を算出)。mixup/dtw/label_shuffle がクラスを均等抽出するため不均衡データでズレが大きく出るという実装起因の知見を発見・実データで検証。regression 7件", status: done}
+
+  # 打ち合わせバナーのクリア(会が終わったため掲示を止める)
+  - {id: MB-1, phase: 7, title: "2026-08-26 の打ち合わせバナーをクリア(artifacts/meeting_agenda.yaml の date/topics を空に。ファイル内の運用コメントに従う)。概要タブのバナーと①②③カードバッジが消えることをレポート再生成で確認", status: done}
