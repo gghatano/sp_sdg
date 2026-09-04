@@ -53,7 +53,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug text-slate-900">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と、被験者ID付きデータでの実証</p>
-      <p class="mt-3 text-sm text-slate-500">自動生成レポート ・ 2026-08-24 06:30 UTC</p>
+      <p class="mt-3 text-sm text-slate-500">自動生成レポート ・ 2026-09-03 13:12 UTC</p>
     </div>
 
     <div class="border-l-4 border-blue-700 bg-slate-50 rounded p-4 mb-8 text-sm">
@@ -75,23 +75,6 @@
     </div>
 
     
-    <div class="border-l-4 border-amber-500 bg-amber-50 rounded p-4 mb-6 text-sm">
-      <p class="font-semibold text-amber-900 mb-1">2026-08-26(水) 議論対象</p>
-      <p class="text-amber-900">
-        
-        
-        <a class="font-medium underline" href="#tab-datasets">① データセット</a>&nbsp;&nbsp;
-        
-        
-        <a class="font-medium underline" href="#tab-methods">② 拡張手法</a>&nbsp;&nbsp;
-        
-        
-        <a class="font-medium underline" href="#tab-evaluation">③ 学習と評価</a>
-        
-      </p>
-      <p class="text-amber-800 text-xs mt-1.5">当日はこの3タブの内容をベースに、どの公開データで・どんな予測タスクを解くかを議論する (トップページの論点 Q2 も参照)。</p>
-    </div>
-    
 
     <section id="overview-tabs" class="mb-6">
       <h2 class="text-base font-semibold text-slate-900 mb-1">タブの案内</h2>
@@ -107,24 +90,24 @@
           </ul>
         </a>
         
-        <a class="block border rounded p-4 no-underline border-amber-400 bg-amber-50 hover:border-amber-500" href="#tab-datasets">
-          <p class="font-semibold text-blue-700 mb-1"><span class="text-xs rounded px-1.5 py-0.5 bg-amber-500 text-white mr-1">① 議論対象</span>データセット →</p>
+        <a class="block border rounded p-4 no-underline border-slate-200 hover:border-blue-400 hover:bg-slate-50" href="#tab-datasets">
+          <p class="font-semibold text-blue-700 mb-1">データセット →</p>
           <p class="text-sm text-slate-700">評価に使った時系列データが「どんなデータか」を、全データセット同じ構成で説明する。</p>
           <ul class="mt-2 text-xs text-slate-500 space-y-0.5">
             <li>・14 データセット(UCR 10 件 + 被験者ID付き 4 件)</li><li>・計測状況・1レコードの構造(テーブル定義)・クラスの意味と実件数</li><li>・実データから生成したクラス別波形・チャネル別波形・サンプル値の抜粋</li>
           </ul>
         </a>
         
-        <a class="block border rounded p-4 no-underline border-amber-400 bg-amber-50 hover:border-amber-500" href="#tab-methods">
-          <p class="font-semibold text-blue-700 mb-1"><span class="text-xs rounded px-1.5 py-0.5 bg-amber-500 text-white mr-1">② 議論対象</span>拡張手法 →</p>
+        <a class="block border rounded p-4 no-underline border-slate-200 hover:border-blue-400 hover:bg-slate-50" href="#tab-methods">
+          <p class="font-semibold text-blue-700 mb-1">拡張手法 →</p>
           <p class="text-sm text-slate-700">評価した時系列データ拡張手法を1手法ずつ、同じ構成で解説する。</p>
           <ul class="mt-2 text-xs text-slate-500 space-y-0.5">
             <li>・8 手法を 4 群(振幅摂動 / パターン合成 / 単純増量 / 対照)に整理</li><li>・考え方・手順・ラベルの決め方・暗黙の前提・原論文からの実装差分</li><li>・実験と同じ実装・同じパラメータで実データを拡張した入出力例</li>
           </ul>
         </a>
         
-        <a class="block border rounded p-4 no-underline border-amber-400 bg-amber-50 hover:border-amber-500" href="#tab-evaluation">
-          <p class="font-semibold text-blue-700 mb-1"><span class="text-xs rounded px-1.5 py-0.5 bg-amber-500 text-white mr-1">③ 議論対象</span>学習と評価 →</p>
+        <a class="block border rounded p-4 no-underline border-slate-200 hover:border-blue-400 hover:bg-slate-50" href="#tab-evaluation">
+          <p class="font-semibold text-blue-700 mb-1">学習と評価 →</p>
           <p class="text-sm text-slate-700">データセットごとに、何を入力して何を当てるモデルを学習し、どの分割・どの指標で評価したかと、その結果。</p>
           <ul class="mt-2 text-xs text-slate-500 space-y-0.5">
             <li>・14 データセット・計 2786 run</li><li>・入力の形(チャネル×点 → クラス数)・評価の分割・モデル・条件の内訳</li><li>・データセット単体の結果表と学習曲線</li>
@@ -322,7 +305,7 @@
       </div>
 
       
-      <p class="text-sm text-slate-600 mt-5">実行キューに未着手・実行中のタスクはない(77 件完了)。上の論点が次に拾う候補になる。</p>
+      <p class="text-sm text-slate-600 mt-5">実行キューに未着手・実行中のタスクはない(78 件完了)。上の論点が次に拾う候補になる。</p>
       
 
       <p class="text-xs text-slate-500 mt-3">この研究で「言えないこと」の一覧は<a href="#limitations">レポートタブ §8 限界</a>にある。ここはそのうち、次に手を動かせるものを取り出したもの。</p>
@@ -340,7 +323,7 @@
       </ul>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">本レポートの数値は実験結果ファイル(runs/・artifacts/)から自動生成されており、HTML への手入力は行っていない ・ 生成日時 2026-08-24 06:30 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">本レポートの数値は実験結果ファイル(runs/・artifacts/)から自動生成されており、HTML への手入力は行っていない ・ 生成日時 2026-09-03 13:12 UTC</p>
   </div>
 
   <!-- ================= PAPER TAB ================= -->
@@ -350,7 +333,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-08-24 06:30 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-09-03 13:12 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -4437,7 +4420,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-08-24 06:30 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-09-03 13:12 UTC</p>
   </div>
 
   <!-- ================= METHODS TAB (issue #30) ================= -->
@@ -5144,7 +5127,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-08-24 06:30 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-09-03 13:12 UTC</p>
   </div>
 
   <!-- ================= EVALUATION TAB (issue #31) ================= -->
@@ -8075,7 +8058,7 @@
     </article>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-08-24 06:30 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-03 13:12 UTC</p>
   </div>
 
   <!-- ================= REDUCTION TAB (issue #31: moved out of the paper tab) ================= -->
@@ -8646,7 +8629,7 @@
 
     <!-- 7. Discussion -->
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-08-24 06:30 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-09-03 13:12 UTC</p>
   </div>
 
   <!-- ================= APPENDIX TAB: non-temporal datasets ================= -->
@@ -9476,7 +9459,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-08-24 06:30 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-03 13:12 UTC</p>
   </div>
 
   <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
@@ -10101,7 +10084,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-08-24 06:30 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-09-03 13:12 UTC</p>
   </div>
 
 </div>
