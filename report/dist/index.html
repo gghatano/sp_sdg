@@ -53,7 +53,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug text-slate-900">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と、被験者ID付きデータでの実証</p>
-      <p class="mt-3 text-sm text-slate-500">自動生成レポート ・ 2026-09-03 13:12 UTC</p>
+      <p class="mt-3 text-sm text-slate-500">自動生成レポート ・ 2026-09-04 05:28 UTC</p>
     </div>
 
     <div class="border-l-4 border-blue-700 bg-slate-50 rounded p-4 mb-8 text-sm">
@@ -305,7 +305,11 @@
       </div>
 
       
-      <p class="text-sm text-slate-600 mt-5">実行キューに未着手・実行中のタスクはない(78 件完了)。上の論点が次に拾う候補になる。</p>
+      <h3 class="text-sm font-semibold text-slate-800 mt-5 mb-2">実行中・未着手のタスク</h3>
+      <ul class="text-sm text-slate-700 space-y-1">
+        
+        <li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] 条件付き 1D-conv VAE (TimeVAE系) を augmentation として実装。生成器の fit は apply_augmentation の内側で完結させ spec §8 の test 非利用を構造的に保証(事前学習・キャッシュはしない)。REGISTRY 登録 + config 化 + unit テスト</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] TSTR(合成のみ学習→実データ評価)を副指標として集計に追加。生成失敗と『生成成功だが下流に効かない』を切り分けるため</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] RQ1 格子実行: 対象を n_train&gt;=500 かつ最少クラス&gt;=100 の FordA / UCI_HAR / WISDM (Wafer は境界) に限定。対照は label_shuffle / oversample 維持、ratio は既存手法と統一。Wilcoxon+Holm で判定</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] TimeGAN を文献ベースラインとして FordA / UCI_HAR の2データに限定投入(全格子には載せない: 1 fit 数十分で CPU 数百時間になるため)。拡散モデルは GPU 確保まで見送り</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] 被験者条件付き VAE 実装(クラス条件 y + 被験者埋め込み s)。合成は (1)既存被験者埋め込みの補間 (2)事前分布からの新規サンプル の2通りを比較。切り分け用にクラス条件のみの VAE も同格子で走らせる</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] リーケージ検査の追加: 生成器が参照した被験者集合を manifest に記録し、選択された N 人以外(pool 全体・test 被験者)を見ていないことを機械検査</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] RQ2 格子実行: 対象は削減が測定可能な UCI_HAR / WISDM の2件のみ(PAMAP2 は左側打ち切り F-13、WESAD は near-chance F-14 のため除外)。事前登録 target(0.90/0.80)は変更しない。反復数は論点 Q1 のため 3 より増やす</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] 結果反映: 削減率 CI が none と分離するかで判定。分離しなければ F-15 を補強する陰性結果として新 F-番号で記録。レポート反映・ペルソナレビュー</li>
+      </ul>
       
 
       <p class="text-xs text-slate-500 mt-3">この研究で「言えないこと」の一覧は<a href="#limitations">レポートタブ §8 限界</a>にある。ここはそのうち、次に手を動かせるものを取り出したもの。</p>
@@ -323,7 +327,7 @@
       </ul>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">本レポートの数値は実験結果ファイル(runs/・artifacts/)から自動生成されており、HTML への手入力は行っていない ・ 生成日時 2026-09-03 13:12 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">本レポートの数値は実験結果ファイル(runs/・artifacts/)から自動生成されており、HTML への手入力は行っていない ・ 生成日時 2026-09-04 05:28 UTC</p>
   </div>
 
   <!-- ================= PAPER TAB ================= -->
@@ -333,7 +337,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-09-03 13:12 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-09-04 05:28 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -4420,7 +4424,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-09-03 13:12 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-09-04 05:28 UTC</p>
   </div>
 
   <!-- ================= METHODS TAB (issue #30) ================= -->
@@ -5127,7 +5131,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-09-03 13:12 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-09-04 05:28 UTC</p>
   </div>
 
   <!-- ================= EVALUATION TAB (issue #31) ================= -->
@@ -8058,7 +8062,7 @@
     </article>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-03 13:12 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-04 05:28 UTC</p>
   </div>
 
   <!-- ================= REDUCTION TAB (issue #31: moved out of the paper tab) ================= -->
@@ -8629,7 +8633,7 @@
 
     <!-- 7. Discussion -->
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-09-03 13:12 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-09-04 05:28 UTC</p>
   </div>
 
   <!-- ================= APPENDIX TAB: non-temporal datasets ================= -->
@@ -9459,7 +9463,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-03 13:12 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-04 05:28 UTC</p>
   </div>
 
   <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
@@ -10084,7 +10088,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-09-03 13:12 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-09-04 05:28 UTC</p>
   </div>
 
 </div>
