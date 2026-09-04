@@ -109,3 +109,17 @@ tasks:
 
   # 打ち合わせバナーのクリア(会が終わったため掲示を止める)
   - {id: MB-1, phase: 7, title: "2026-08-26 の打ち合わせバナーをクリア(artifacts/meeting_agenda.yaml の date/topics を空に。ファイル内の運用コメントに従う)。概要タブのバナーと①②③カードバッジが消えることをレポート再生成で確認", status: done}
+
+  # Phase 8: NN 生成モデルによる合成(サーベイ generative 群の初回評価)
+  # 対象は「件数が一定量あるデータ」に限定。総件数だけでなく最少クラス件数で足切りする
+  # (ECG5000 は 500 件あるが最少クラス 2 件でクラス条件付き生成が不可能)。
+  - {id: GN-A1, phase: 8, title: "[issue #42] 条件付き 1D-conv VAE (TimeVAE系) を augmentation として実装。生成器の fit は apply_augmentation の内側で完結させ spec §8 の test 非利用を構造的に保証(事前学習・キャッシュはしない)。REGISTRY 登録 + config 化 + unit テスト", status: todo}
+  - {id: GN-A2, phase: 8, title: "[issue #42] TSTR(合成のみ学習→実データ評価)を副指標として集計に追加。生成失敗と『生成成功だが下流に効かない』を切り分けるため", status: todo}
+  - {id: GN-A3, phase: 8, title: "[issue #42] RQ1 格子実行: 対象を n_train>=500 かつ最少クラス>=100 の FordA / UCI_HAR / WISDM (Wafer は境界) に限定。対照は label_shuffle / oversample 維持、ratio は既存手法と統一。Wilcoxon+Holm で判定", status: todo}
+  - {id: GN-A4, phase: 8, title: "[issue #42] TimeGAN を文献ベースラインとして FordA / UCI_HAR の2データに限定投入(全格子には載せない: 1 fit 数十分で CPU 数百時間になるため)。拡散モデルは GPU 確保まで見送り", status: todo}
+
+  # Phase 8: 被験者条件付き生成による被験者数削減(RQ2 拡張・F-15 の再検証)
+  - {id: GN-B1, phase: 8, title: "[issue #43] 被験者条件付き VAE 実装(クラス条件 y + 被験者埋め込み s)。合成は (1)既存被験者埋め込みの補間 (2)事前分布からの新規サンプル の2通りを比較。切り分け用にクラス条件のみの VAE も同格子で走らせる", status: todo}
+  - {id: GN-B2, phase: 8, title: "[issue #43] リーケージ検査の追加: 生成器が参照した被験者集合を manifest に記録し、選択された N 人以外(pool 全体・test 被験者)を見ていないことを機械検査", status: todo}
+  - {id: GN-B3, phase: 8, title: "[issue #43] RQ2 格子実行: 対象は削減が測定可能な UCI_HAR / WISDM の2件のみ(PAMAP2 は左側打ち切り F-13、WESAD は near-chance F-14 のため除外)。事前登録 target(0.90/0.80)は変更しない。反復数は論点 Q1 のため 3 より増やす", status: todo}
+  - {id: GN-B4, phase: 8, title: "[issue #43] 結果反映: 削減率 CI が none と分離するかで判定。分離しなければ F-15 を補強する陰性結果として新 F-番号で記録。レポート反映・ペルソナレビュー", status: todo}
