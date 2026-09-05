@@ -226,3 +226,25 @@ calls:
     sensitivity: "高。N* は τ 到達点。少 N・少数派クラスで macro-F1 が跳ねると N* が不安定。full-pool none が floor 付近(マージン<0.05)や曲線が寝る場合は N* 推定不能として定性記述に格下げ(停止条件)。**実測**: full-pool none macro-F1 平均 0.4835(sd 0.0218)・accuracy 0.5053 でルールにより target=0.40(margin +0.084、floor 付近ではない)。ただし baseline は **near-chance**(J-WESAD-NORM 参照)であり、near-chance 曲線上で N* 交差が定まらない/左側打ち切りなら削減率は捏造せず『推定不能』を明示(PAMAP2 と同じ扱い)。"
     preregistered: true
     source: "artifacts/pre_registration.md(WESAD DS-3 節)/ config/experiments/wesad_subject_count.yaml / runs/metrics(full-pool none)"
+
+  - id: J-VAE-HPARAMS
+    topic: 条件付き VAE のハイパーパラメータ(latent_dim / epochs / beta / lr / batch_size)
+    decision: >-
+      latent_dim=16, steps=2000, beta=1.0, lr=0.003, batch_size=64 を初期値として固定。
+      アーキテクチャは 1D 畳み込み2層のエンコーダ・デコーダ、hidden=32。学習量は
+      エポックではなく最適化ステップ数で指定する(1エポックのステップ数が件数依存のため、
+      エポック指定だと件数の少ないデータだけ学習不足になる)。
+    why: >-
+      文献値ではなく、CPU 実行環境で既存の実験格子に載る計算量から逆算した「エイヤッ」の初期値。
+      生成器の fit は run ごとに走るため(キャッシュ不可)、1 fit のコストがそのまま格子全体に
+      掛かる。steps を上げれば生成品質は上がりうるが、格子が成立しなくなる。
+      収束の実測: クラス条件が生成を支配するまでに約600ステップを要した(合成データでの確認)。
+      初期値 2000 はその3倍強を見込んだもの。
+    alternatives: >-
+      latent_dim 8/32、steps 600/6000、beta 0.5/2.0(beta-VAE 寄り)。TimeVAE 原実装の
+      trend/seasonality ブロックを入れる案。
+    sensitivity: >-
+      未測定。生成品質に直結するため高い可能性がある。効果を測る前に強度スイープが要る
+      (task GN-A3 / 論点 Q3 と同じ構図: 手法の効果とハイパラ選択の効果が交絡する)。
+    preregistered: false
+    source: config/augmentations.yaml

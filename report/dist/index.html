@@ -53,7 +53,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug text-slate-900">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と、被験者ID付きデータでの実証</p>
-      <p class="mt-3 text-sm text-slate-500">自動生成レポート ・ 2026-09-04 05:28 UTC</p>
+      <p class="mt-3 text-sm text-slate-500">自動生成レポート ・ 2026-09-05 09:32 UTC</p>
     </div>
 
     <div class="border-l-4 border-blue-700 bg-slate-50 rounded p-4 mb-8 text-sm">
@@ -61,7 +61,7 @@
       <p class="text-slate-700 mt-2"><strong>主結論</strong>: 拡張の効果はモデルに強く依存し、被験者数削減は本設定では統計的に確定できない。見かけの削減の多くは、ラベルを壊した対照でも同程度に再現される正則化アーティファクトである。</p>
       <div class="flex flex-wrap gap-x-4 gap-y-1 mt-3 text-xs text-slate-500">
         <span>データセット 14 件</span>
-        <span>拡張手法 8 種</span>
+        <span>拡張手法 9 種</span>
         <span>実験 2786 run(付録 630 run)</span>
         <span>失敗 0 run</span>
       </div>
@@ -102,7 +102,7 @@
           <p class="font-semibold text-blue-700 mb-1">拡張手法 →</p>
           <p class="text-sm text-slate-700">評価した時系列データ拡張手法を1手法ずつ、同じ構成で解説する。</p>
           <ul class="mt-2 text-xs text-slate-500 space-y-0.5">
-            <li>・8 手法を 4 群(振幅摂動 / パターン合成 / 単純増量 / 対照)に整理</li><li>・考え方・手順・ラベルの決め方・暗黙の前提・原論文からの実装差分</li><li>・実験と同じ実装・同じパラメータで実データを拡張した入出力例</li>
+            <li>・9 手法を 5 群(振幅摂動 / パターン合成 / 単純増量 / 対照)に整理</li><li>・考え方・手順・ラベルの決め方・暗黙の前提・原論文からの実装差分</li><li>・実験と同じ実装・同じパラメータで実データを拡張した入出力例</li>
           </ul>
         </a>
         
@@ -134,7 +134,7 @@
           <p class="font-semibold text-blue-700 mb-1">再現・前処理ノート →</p>
           <p class="text-sm text-slate-700">別環境で再現・移植するための実務情報。</p>
           <ul class="mt-2 text-xs text-slate-500 space-y-0.5">
-            <li>・再現手順 12 ステップ</li><li>・前処理の補足と不定性 13 件、「エイヤッと決めた」判断 27 件</li><li>・原論文からの実装差分</li>
+            <li>・再現手順 12 ステップ</li><li>・前処理の補足と不定性 13 件、「エイヤッと決めた」判断 28 件</li><li>・原論文からの実装差分</li>
           </ul>
         </a>
         
@@ -308,7 +308,7 @@
       <h3 class="text-sm font-semibold text-slate-800 mt-5 mb-2">実行中・未着手のタスク</h3>
       <ul class="text-sm text-slate-700 space-y-1">
         
-        <li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] 条件付き 1D-conv VAE (TimeVAE系) を augmentation として実装。生成器の fit は apply_augmentation の内側で完結させ spec §8 の test 非利用を構造的に保証(事前学習・キャッシュはしない)。REGISTRY 登録 + config 化 + unit テスト</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] TSTR(合成のみ学習→実データ評価)を副指標として集計に追加。生成失敗と『生成成功だが下流に効かない』を切り分けるため</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] RQ1 格子実行: 対象を n_train&gt;=500 かつ最少クラス&gt;=100 の FordA / UCI_HAR / WISDM (Wafer は境界) に限定。対照は label_shuffle / oversample 維持、ratio は既存手法と統一。Wilcoxon+Holm で判定</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] TimeGAN を文献ベースラインとして FordA / UCI_HAR の2データに限定投入(全格子には載せない: 1 fit 数十分で CPU 数百時間になるため)。拡散モデルは GPU 確保まで見送り</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] 被験者条件付き VAE 実装(クラス条件 y + 被験者埋め込み s)。合成は (1)既存被験者埋め込みの補間 (2)事前分布からの新規サンプル の2通りを比較。切り分け用にクラス条件のみの VAE も同格子で走らせる</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] リーケージ検査の追加: 生成器が参照した被験者集合を manifest に記録し、選択された N 人以外(pool 全体・test 被験者)を見ていないことを機械検査</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] RQ2 格子実行: 対象は削減が測定可能な UCI_HAR / WISDM の2件のみ(PAMAP2 は左側打ち切り F-13、WESAD は near-chance F-14 のため除外)。事前登録 target(0.90/0.80)は変更しない。反復数は論点 Q1 のため 3 より増やす</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] 結果反映: 削減率 CI が none と分離するかで判定。分離しなければ F-15 を補強する陰性結果として新 F-番号で記録。レポート反映・ペルソナレビュー</li>
+        <li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] TSTR(合成のみ学習→実データ評価)を副指標として集計に追加。生成失敗と『生成成功だが下流に効かない』を切り分けるため</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] RQ1 格子実行: 対象を n_train&gt;=500 かつ最少クラス&gt;=100 の FordA / UCI_HAR / WISDM (Wafer は境界) に限定。対照は label_shuffle / oversample 維持、ratio は既存手法と統一。Wilcoxon+Holm で判定</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #42] TimeGAN を文献ベースラインとして FordA / UCI_HAR の2データに限定投入(全格子には載せない: 1 fit 数十分で CPU 数百時間になるため)。拡散モデルは GPU 確保まで見送り</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] 被験者条件付き VAE 実装(クラス条件 y + 被験者埋め込み s)。合成は (1)既存被験者埋め込みの補間 (2)事前分布からの新規サンプル の2通りを比較。切り分け用にクラス条件のみの VAE も同格子で走らせる</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] リーケージ検査の追加: 生成器が参照した被験者集合を manifest に記録し、選択された N 人以外(pool 全体・test 被験者)を見ていないことを機械検査</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] RQ2 格子実行: 対象は削減が測定可能な UCI_HAR / WISDM の2件のみ(PAMAP2 は左側打ち切り F-13、WESAD は near-chance F-14 のため除外)。事前登録 target(0.90/0.80)は変更しない。反復数は論点 Q1 のため 3 より増やす</li><li>・<span class="text-xs rounded px-1.5 py-0.5 bg-slate-100 text-slate-600 mr-1">未着手</span>[issue #43] 結果反映: 削減率 CI が none と分離するかで判定。分離しなければ F-15 を補強する陰性結果として新 F-番号で記録。レポート反映・ペルソナレビュー</li>
       </ul>
       
 
@@ -327,7 +327,7 @@
       </ul>
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">本レポートの数値は実験結果ファイル(runs/・artifacts/)から自動生成されており、HTML への手入力は行っていない ・ 生成日時 2026-09-04 05:28 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">本レポートの数値は実験結果ファイル(runs/・artifacts/)から自動生成されており、HTML への手入力は行っていない ・ 生成日時 2026-09-05 09:32 UTC</p>
   </div>
 
   <!-- ================= PAPER TAB ================= -->
@@ -337,7 +337,7 @@
     <div class="text-center mb-8">
       <h1 class="text-2xl sm:text-3xl font-bold leading-snug">時系列データ拡張は所定性能に必要な実被験者数を削減できるか</h1>
       <p class="mt-2 text-base text-slate-600">UCR ベンチマークでの系統評価と被験者ID付きデータ(UCI HAR)での実証</p>
-      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-09-04 05:28 UTC</p>
+      <p class="mt-3 text-sm figtab text-slate-500">信号データ拡張・論文追試プロジェクト ・ 自動生成レポート ・ 2026-09-05 09:32 UTC</p>
     </div>
 
     <!-- TOC -->
@@ -669,6 +669,8 @@
           <tr class="border-b border-slate-100"><td class="p-2 font-mono">smote</td><td class="p-2">smote</td><td class="p-2 font-mono text-xs">{&#39;ratio&#39;: 1.0, &#39;k&#39;: 5}</td></tr>
           
           <tr class="border-b border-slate-100"><td class="p-2 font-mono">label_shuffle</td><td class="p-2">label_shuffle</td><td class="p-2 font-mono text-xs">{&#39;ratio&#39;: 1.0}</td></tr>
+          
+          <tr class="border-b border-slate-100"><td class="p-2 font-mono">vae</td><td class="p-2">vae</td><td class="p-2 font-mono text-xs">{&#39;ratio&#39;: 1.0, &#39;latent_dim&#39;: 16, &#39;steps&#39;: 2000, &#39;beta&#39;: 1.0, &#39;lr&#39;: 0.003, &#39;batch_size&#39;: 64}</td></tr>
           
         </tbody>
       </table>
@@ -2305,6 +2307,8 @@
         <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-sm" style="background: #8b5cf6"></span>dtw</span>
         
         <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-sm" style="background: #f97316"></span>smote</span>
+        
+        <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-sm" style="background: #0ea5e9"></span>vae</span>
         
         <span class="inline-flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-sm" style="background: #94a3b8"></span>label_shuffle</span>
         
@@ -4424,7 +4428,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-09-04 05:28 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/dataset_profiles.yaml ・ data/metadata/*.json ・ report/assets/data/dataset_samples.json ・ 生成日時 2026-09-05 09:32 UTC</p>
   </div>
 
   <!-- ================= METHODS TAB (issue #30) ================= -->
@@ -4448,6 +4452,11 @@
       <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
         <span class="text-slate-500">単純増量:</span>
         <a class="font-mono text-xs" href="#aug-none">none</a><a class="font-mono text-xs" href="#aug-oversample">oversample</a>
+      </div>
+      
+      <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
+        <span class="text-slate-500">生成モデル:</span>
+        <a class="font-mono text-xs" href="#aug-vae">vae</a>
       </div>
       
       <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-1">
@@ -5060,6 +5069,103 @@
       
     </section>
     
+    <section id="methods-generative" class="mb-10">
+      <h3 class="text-base font-semibold text-slate-900 mb-1">生成モデル</h3>
+      <p class="text-sm text-slate-600 mb-5">学習データから生成器そのものを学習し、その生成器からサンプルを引く。 他の群が「既存サンプルを変換する」のに対し、こちらは分布を学んでから 新しいサンプルを作る。サーベイ Iwana &amp; Uchida (2021) の分類では generative 群にあたり、本研究で最後に着手した群。</p>
+
+      
+      <article id="aug-vae" class="border border-slate-200 rounded p-4 mb-5">
+        <div class="flex items-baseline gap-2 flex-wrap mb-1">
+          <span class="inline-block w-3 h-3 rounded-sm" style="background: #0ea5e9"></span>
+          <h4 class="font-semibold text-slate-900">vae(条件付きVAE)</h4>
+          
+        </div>
+        <p class="text-sm text-slate-700 mb-3">クラス条件付きの変分オートエンコーダを学習し、その事前分布から新しい波形を生成する。</p>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <dl class="text-sm space-y-1.5">
+              <div><dt class="inline text-slate-500">考え方: </dt><dd class="inline text-slate-700">既存サンプルを変形するのではなく、データの分布そのものを潜在変数モデルとして 学習する。クラスラベルを条件に与えることで、指定したクラスらしい波形を 潜在空間の事前分布から引けるようになる。TimeVAE 系の素直な実装。</dd></div>
+              <div><dt class="inline text-slate-500">手順: </dt><dd class="inline text-slate-700">1D 畳み込みのエンコーダ・デコーダを持つ条件付き VAE を学習データだけで学習する (2回のストライド畳み込みで縮め、潜在ガウス分布を挟み、畳み込みで戻したうえで 入力と同じ長さへ線形補間する)。クラスラベルは one-hot をチャネルとして エンコーダ・デコーダ双方に与える。生成時は事前分布から潜在変数を引き、 合成したいクラスを条件に指定してデコードする。</dd></div>
+              <div><dt class="inline text-slate-500">ラベル: </dt><dd class="inline text-slate-700">生成時に条件として与えたクラスをそのまま持たせる。条件は元データからサンプルを 一様に選んで決めるため、合成集合のクラス比は学習データの出現比に比例する (oversample・smote と同じ流儀。mixup・dtw はクラスを均等に選ぶ)。</dd></div>
+              <div><dt class="inline text-slate-500">暗黙の前提: </dt><dd class="inline text-slate-700">学習データが生成器を学習できるだけの件数を持つこと。とくに条件付き生成では 総件数ではなく最少クラスの件数が効く。また、生成器は学習データの分布を写すだけで 新しい情報を足せないため、効くとすれば正則化としての効果になる。</dd></div>
+            </dl>
+
+            
+            <table class="w-full text-xs border border-slate-200 rounded mt-3">
+              <thead><tr class="text-left border-b border-slate-200 bg-slate-50">
+                <th class="p-1.5">パラメータ</th><th class="p-1.5">意味</th><th class="p-1.5 text-right">本実験の値</th>
+              </tr></thead>
+              <tbody>
+                
+                <tr class="border-b border-slate-100 align-top">
+                  <td class="p-1.5 font-mono text-slate-700">ratio</td>
+                  <td class="p-1.5 text-slate-600">追加する合成サンプルの割合。</td>
+                  <td class="p-1.5 text-right font-mono text-slate-700">1.0</td>
+                </tr>
+                
+                <tr class="border-b border-slate-100 align-top">
+                  <td class="p-1.5 font-mono text-slate-700">latent_dim</td>
+                  <td class="p-1.5 text-slate-600">潜在変数の次元。小さいほど表現力が下がり、平均的な波形に寄る。</td>
+                  <td class="p-1.5 text-right font-mono text-slate-700">16</td>
+                </tr>
+                
+                <tr class="border-b border-slate-100 align-top">
+                  <td class="p-1.5 font-mono text-slate-700">steps</td>
+                  <td class="p-1.5 text-slate-600">生成器を学習させる最適化ステップ数(エポック数ではない)。1エポックあたりの ステップ数は学習データの件数で変わるため、エポックで指定すると件数の少ない データほど学習不足になる。ステップ数で揃えることでデータ間の学習量を比較可能にし、 計算コストも予測可能になる。少なすぎると生成器が収束せず、条件付けが効かない。</td>
+                  <td class="p-1.5 text-right font-mono text-slate-700">2000</td>
+                </tr>
+                
+                <tr class="border-b border-slate-100 align-top">
+                  <td class="p-1.5 font-mono text-slate-700">beta</td>
+                  <td class="p-1.5 text-slate-600">再構成誤差に対する KL 項の重み。大きいほど潜在分布が事前分布に近づき、生成は多様だがぼやける。</td>
+                  <td class="p-1.5 text-right font-mono text-slate-700">1.0</td>
+                </tr>
+                
+                <tr class="border-b border-slate-100 align-top">
+                  <td class="p-1.5 font-mono text-slate-700">lr</td>
+                  <td class="p-1.5 text-slate-600">生成器の学習率。</td>
+                  <td class="p-1.5 text-right font-mono text-slate-700">0.003</td>
+                </tr>
+                
+                <tr class="border-b border-slate-100 align-top">
+                  <td class="p-1.5 font-mono text-slate-700">batch_size</td>
+                  <td class="p-1.5 text-slate-600">生成器の学習バッチサイズ。</td>
+                  <td class="p-1.5 text-right font-mono text-slate-700">64</td>
+                </tr>
+                
+              </tbody>
+            </table>
+            
+          </div>
+
+          <div>
+            
+            <p class="cap mb-1">入出力例(GunPoint の1サンプル)</p>
+            <svg viewBox="0 0 460 96" class="w-full h-auto" role="img" aria-label="拡張の入出力例"><path d="M8.0,83.5 L11.0,86.0 L14.0,86.3 L16.9,85.7 L19.9,83.7 L22.9,81.5 L25.9,79.8 L28.9,79.4 L31.8,79.6 L34.8,80.0 L37.8,80.1 L40.8,80.2 L43.8,79.9 L46.7,79.7 L49.7,79.4 L52.7,79.3 L55.7,79.4 L58.7,79.3 L61.6,79.2 L64.6,78.8 L67.6,77.8 L70.6,76.1 L73.6,73.0 L76.5,70.2 L79.5,68.5 L82.5,67.3 L85.5,67.0 L88.5,66.8 L91.4,67.3 L94.4,67.6 L97.4,67.4 L100.4,67.0 L103.4,66.2 L106.3,65.6 L109.3,65.0 L112.3,64.4 L115.3,63.7 L118.3,61.8 L121.2,57.3 L124.2,53.1 L127.2,47.8 L130.2,42.0 L133.2,37.0 L136.1,32.6 L139.1,28.3 L142.1,24.8 L145.1,21.7 L148.1,18.8 L151.0,16.2 L154.0,14.0 L157.0,12.1 L160.0,10.4 L163.0,9.4 L165.9,8.7 L168.9,8.4 L171.9,8.3 L174.9,8.2 L177.9,8.1 L180.8,8.2 L183.8,8.2 L186.8,8.2 L189.8,8.0 L192.8,8.1 L195.7,8.1 L198.7,8.1 L201.7,8.1 L204.7,8.3 L207.7,8.4 L210.6,8.4 L213.6,8.5 L216.6,8.4 L219.6,8.5 L222.6,8.5 L225.5,8.4 L228.5,8.5 L231.5,8.7 L234.5,8.7 L237.4,8.7 L240.4,8.8 L243.4,8.7 L246.4,8.8 L249.4,8.7 L252.3,8.7 L255.3,8.8 L258.3,8.8 L261.3,8.8 L264.3,8.8 L267.2,8.8 L270.2,8.9 L273.2,9.1 L276.2,9.2 L279.2,9.4 L282.1,9.6 L285.1,10.2 L288.1,10.9 L291.1,12.3 L294.1,14.3 L297.0,17.0 L300.0,20.4 L303.0,24.1 L306.0,28.4 L309.0,33.1 L311.9,37.8 L314.9,42.0 L317.9,46.9 L320.9,51.4 L323.9,55.2 L326.8,59.0 L329.8,62.3 L332.8,64.8 L335.8,66.7 L338.8,68.1 L341.7,69.1 L344.7,69.8 L347.7,69.9 L350.7,70.1 L353.7,70.1 L356.6,70.1 L359.6,70.3 L362.6,70.6 L365.6,70.9 L368.6,71.2 L371.5,71.4 L374.5,71.5 L377.5,71.6 L380.5,71.6 L383.5,71.5 L386.4,71.8 L389.4,72.0 L392.4,72.0 L395.4,72.0 L398.4,72.1 L401.3,72.3 L404.3,72.8 L407.3,73.6 L410.3,75.0 L413.3,77.3 L416.2,79.9 L419.2,82.8 L422.2,85.0 L425.2,85.7 L428.2,85.3 L431.1,84.1 L434.1,82.3 L437.1,81.1 L440.1,80.2 L443.1,79.7 L446.0,79.6 L449.0,79.8 L452.0,79.6" fill="none" stroke="#cbd5e1" stroke-width="1.6"/><path d="M8.0,83.5 L11.0,83.5 L14.0,83.5 L16.9,83.6 L19.9,83.6 L22.9,83.7 L25.9,83.6 L28.9,83.5 L31.8,83.3 L34.8,83.1 L37.8,83.0 L40.8,83.0 L43.8,83.0 L46.7,83.0 L49.7,82.4 L52.7,81.6 L55.7,80.8 L58.7,80.0 L61.6,78.2 L64.6,75.9 L67.6,73.6 L70.6,71.4 L73.6,70.5 L76.5,70.1 L79.5,69.6 L82.5,69.1 L85.5,69.2 L88.5,69.4 L91.4,69.7 L94.4,69.9 L97.4,69.9 L100.4,69.9 L103.4,69.9 L106.3,69.9 L109.3,67.6 L112.3,65.2 L115.3,62.7 L118.3,60.3 L121.2,54.5 L124.2,48.8 L127.2,43.0 L130.2,37.4 L133.2,33.6 L136.1,29.8 L139.1,26.1 L142.1,22.4 L145.1,19.7 L148.1,17.0 L151.0,14.4 L154.0,12.0 L157.0,11.7 L160.0,11.3 L163.0,10.9 L165.9,10.5 L168.9,10.1 L171.9,9.6 L174.9,9.2 L177.9,9.0 L180.8,9.6 L183.8,10.1 L186.8,10.7 L189.8,11.0 L192.8,10.9 L195.7,10.8 L198.7,10.7 L201.7,10.8 L204.7,11.0 L207.7,11.3 L210.6,11.5 L213.6,11.6 L216.6,11.4 L219.6,11.3 L222.6,11.2 L225.5,11.2 L228.5,11.4 L231.5,11.5 L234.5,11.7 L237.4,11.7 L240.4,11.4 L243.4,11.1 L246.4,10.8 L249.4,10.7 L252.3,10.7 L255.3,10.6 L258.3,10.6 L261.3,10.8 L264.3,11.0 L267.2,11.3 L270.2,11.6 L273.2,11.7 L276.2,11.6 L279.2,11.6 L282.1,11.6 L285.1,11.7 L288.1,11.8 L291.1,11.9 L294.1,12.1 L297.0,13.4 L300.0,15.1 L303.0,16.7 L306.0,18.4 L309.0,21.8 L311.9,25.5 L314.9,29.2 L317.9,32.9 L320.9,37.2 L323.9,41.5 L326.8,45.8 L329.8,50.1 L332.8,53.7 L335.8,57.2 L338.8,60.8 L341.7,64.3 L344.7,66.0 L347.7,67.7 L350.7,69.4 L353.7,71.0 L356.6,71.5 L359.6,71.9 L362.6,72.4 L365.6,72.8 L368.6,72.9 L371.5,73.0 L374.5,73.1 L377.5,73.2 L380.5,73.1 L383.5,73.0 L386.4,72.9 L389.4,72.9 L392.4,73.2 L395.4,73.5 L398.4,73.9 L401.3,74.5 L404.3,75.9 L407.3,77.3 L410.3,78.8 L413.3,80.3 L416.2,82.0 L419.2,83.6 L422.2,85.3 L425.2,86.6 L428.2,87.0 L431.1,87.5 L434.1,88.0 L437.1,88.0 L440.1,87.3 L443.1,86.7 L446.0,86.0 L449.0,85.7 L452.0,85.7" fill="none" stroke="#0ea5e9" stroke-width="1.2"/></svg>
+            <p class="text-xs text-slate-500">
+              <span class="inline-block w-3 border-t-2 border-slate-300 align-middle"></span> 元サンプル
+              <span class="inline-block w-3 border-t-2 align-middle ml-2" style="border-color: #0ea5e9"></span> 生成されたサンプル
+              ・ 50 件 → 100 件(+50)
+            </p>
+            
+
+            
+
+            
+          </div>
+        </div>
+
+        
+        <div class="mt-3 border border-amber-300 bg-amber-50 rounded p-3 text-sm">
+          <span class="font-medium text-amber-900">本実装の差分: </span><span class="text-amber-900">TimeVAE の原実装が持つ trend / seasonality の解釈可能ブロックは実装していない。 素の畳み込み VAE であり、系列長への追従は最終層の線形補間で行う。生成器は run ごとに学習して破棄し、事前学習・キャッシュは行わない(学習データ以外を 参照しないことを構造的に保証するため)。</span>
+        </div>
+        
+        <p class="text-sm text-slate-600 mt-2"><span class="text-slate-500">本研究での位置づけ: </span>サーベイの手法分類で唯一未評価だった generative 群を埋めるための実装(issue #42)。 本タブに実装と生成例を掲載しているが、精度・被験者数削減への効果はまだ測っていない (格子実行は未着手)。</p>
+      </article>
+      
+    </section>
+    
     <section id="methods-control" class="mb-10">
       <h3 class="text-base font-semibold text-slate-900 mb-1">対照(negative control)</h3>
       <p class="text-sm text-slate-600 mb-5">効果があってはいけない操作。これが改善を示したら、測っているものは クラス情報ではなく別の何か(正則化アーティファクト)だと分かる。</p>
@@ -5131,7 +5237,7 @@
     </section>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-09-04 05:28 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: references/augmentation_profiles.yaml ・ config/augmentations.yaml ・ results.json ・ report/assets/data/augmentation_examples.json ・ 生成日時 2026-09-05 09:32 UTC</p>
   </div>
 
   <!-- ================= EVALUATION TAB (issue #31) ================= -->
@@ -5385,6 +5491,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+30</td>
+            <td class="p-1.5 text-right text-slate-700">0.033</td>
+            <td class="p-1.5 text-right text-slate-700">0.937</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+30</td>
             <td class="p-1.5 text-right text-slate-700">0.017</td>
@@ -5619,6 +5732,13 @@
             <td class="p-1.5 text-right text-slate-600">+100</td>
             <td class="p-1.5 text-right text-slate-700">0.010</td>
             <td class="p-1.5 text-right text-slate-700">0.994</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+100</td>
+            <td class="p-1.5 text-right text-slate-700">0.005</td>
+            <td class="p-1.5 text-right text-slate-700">0.968</td>
           </tr>
           
           <tr class="border-b border-slate-100">
@@ -5859,6 +5979,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+500</td>
+            <td class="p-1.5 text-right text-slate-700">0.017</td>
+            <td class="p-1.5 text-right text-slate-700">0.974</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+500</td>
             <td class="p-1.5 text-right text-amber-700 font-medium">0.274</td>
@@ -6078,6 +6205,13 @@
             <td class="p-1.5 text-right text-slate-600">+3601</td>
             <td class="p-1.5 text-right text-slate-700">0.002</td>
             <td class="p-1.5 text-right text-slate-700">0.962</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+3601</td>
+            <td class="p-1.5 text-right text-slate-700">0.004</td>
+            <td class="p-1.5 text-right text-slate-700">0.897</td>
           </tr>
           
           <tr class="border-b border-slate-100">
@@ -6318,6 +6452,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+50</td>
+            <td class="p-1.5 text-right text-slate-700">0.000</td>
+            <td class="p-1.5 text-right text-slate-700">0.993</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+50</td>
             <td class="p-1.5 text-right text-slate-700">0.030</td>
@@ -6555,6 +6696,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+67</td>
+            <td class="p-1.5 text-right text-slate-700">0.007</td>
+            <td class="p-1.5 text-right text-slate-700">0.960</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+67</td>
             <td class="p-1.5 text-right text-slate-700">0.022</td>
@@ -6789,6 +6937,13 @@
             <td class="p-1.5 text-right text-slate-600">+20</td>
             <td class="p-1.5 text-right text-slate-700">0.025</td>
             <td class="p-1.5 text-right text-slate-700">0.970</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+20</td>
+            <td class="p-1.5 text-right text-slate-700">0.075</td>
+            <td class="p-1.5 text-right text-slate-700">0.902</td>
           </tr>
           
           <tr class="border-b border-slate-100">
@@ -7131,6 +7286,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+20</td>
+            <td class="p-1.5 text-right text-slate-700">0.025</td>
+            <td class="p-1.5 text-right text-slate-700">0.937</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+20</td>
             <td class="p-1.5 text-right text-amber-700 font-medium">0.125</td>
@@ -7368,6 +7530,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+23</td>
+            <td class="p-1.5 text-right text-slate-700">0.043</td>
+            <td class="p-1.5 text-right text-slate-700">0.997</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+23</td>
             <td class="p-1.5 text-right text-slate-700">0.065</td>
@@ -7531,6 +7700,13 @@
             <td class="p-1.5 text-right text-slate-600">+7352</td>
             <td class="p-1.5 text-right text-slate-700">0.005</td>
             <td class="p-1.5 text-right text-slate-700">0.959</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+7352</td>
+            <td class="p-1.5 text-right text-slate-700">0.006</td>
+            <td class="p-1.5 text-right text-slate-700">0.878</td>
           </tr>
           
           <tr class="border-b border-slate-100">
@@ -7804,6 +7980,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+3515</td>
+            <td class="p-1.5 text-right text-slate-700">0.004</td>
+            <td class="p-1.5 text-right text-slate-700">0.777</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+3515</td>
             <td class="p-1.5 text-right text-amber-700 font-medium">0.179</td>
@@ -8043,6 +8226,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+1000</td>
+            <td class="p-1.5 text-right text-slate-700">0.006</td>
+            <td class="p-1.5 text-right text-slate-700">0.913</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+1000</td>
             <td class="p-1.5 text-right text-amber-700 font-medium">0.199</td>
@@ -8062,7 +8252,7 @@
     </article>
     
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-04 05:28 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(runs / summary / learning_curves)・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-05 09:32 UTC</p>
   </div>
 
   <!-- ================= REDUCTION TAB (issue #31: moved out of the paper tab) ================= -->
@@ -8633,7 +8823,7 @@
 
     <!-- 7. Discussion -->
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-09-04 05:28 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: results.json(reduction / reduction_wisdm / reduction_pamap2 / reduction_wesad / reduction_cross)・artifacts/findings.json ・ 生成日時 2026-09-05 09:32 UTC</p>
   </div>
 
   <!-- ================= APPENDIX TAB: non-temporal datasets ================= -->
@@ -9049,6 +9239,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+36</td>
+            <td class="p-1.5 text-right text-slate-700">0.069</td>
+            <td class="p-1.5 text-right text-slate-700">0.991</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+36</td>
             <td class="p-1.5 text-right text-slate-700">0.042</td>
@@ -9243,6 +9440,13 @@
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #f97316"></span><span class="font-mono">smote</span></td>
             <td class="p-1.5 text-right text-slate-600">+28</td>
             <td class="p-1.5 text-right text-slate-700">0.036</td>
+            <td class="p-1.5 text-right text-slate-700">1.000</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+28</td>
+            <td class="p-1.5 text-right text-slate-700">0.071</td>
             <td class="p-1.5 text-right text-slate-700">1.000</td>
           </tr>
           
@@ -9445,6 +9649,13 @@
           </tr>
           
           <tr class="border-b border-slate-100">
+            <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #0ea5e9"></span><span class="font-mono">vae</span></td>
+            <td class="p-1.5 text-right text-slate-600">+105</td>
+            <td class="p-1.5 text-right text-slate-700">0.033</td>
+            <td class="p-1.5 text-right text-slate-700">0.988</td>
+          </tr>
+          
+          <tr class="border-b border-slate-100">
             <td class="p-1.5"><span class="inline-block w-2 h-2 rounded-sm mr-1" style="background: #94a3b8"></span><span class="font-mono">label_shuffle</span></td>
             <td class="p-1.5 text-right text-slate-600">+105</td>
             <td class="p-1.5 text-right text-slate-700">0.062</td>
@@ -9463,7 +9674,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-04 05:28 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: config/datasets.yaml(temporal フラグ)・results.json・references/dataset_profiles.yaml・report/assets/data/distribution_shift.json ・ 生成日時 2026-09-05 09:32 UTC</p>
   </div>
 
   <div data-tab="repro" class="bg-white border border-slate-200 rounded-b rounded-tr px-6 sm:px-10 py-8 figtab">
@@ -10073,6 +10284,19 @@
           <p class="text-xs text-slate-400 mt-1 font-mono">artifacts/pre_registration.md(WESAD DS-3 節)/ config/experiments/wesad_subject_count.yaml / runs/metrics(full-pool none)</p>
         </div>
         
+        <div class="border border-slate-200 rounded p-3 text-sm">
+          <div class="flex items-center gap-2 mb-1 flex-wrap">
+            <span class="text-xs font-mono text-slate-400">J-VAE-HPARAMS</span>
+            <span class="font-medium text-slate-800">条件付き VAE のハイパーパラメータ(latent_dim / epochs / beta / lr / batch_size)</span>
+            
+          </div>
+          <p class="text-slate-800"><span class="text-slate-400">決定:</span> latent_dim=16, steps=2000, beta=1.0, lr=0.003, batch_size=64 を初期値として固定。 アーキテクチャは 1D 畳み込み2層のエンコーダ・デコーダ、hidden=32。学習量は エポックではなく最適化ステップ数で指定する(1エポックのステップ数が件数依存のため、 エポック指定だと件数の少ないデータだけ学習不足になる)。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">理由:</span> 文献値ではなく、CPU 実行環境で既存の実験格子に載る計算量から逆算した「エイヤッ」の初期値。 生成器の fit は run ごとに走るため(キャッシュ不可)、1 fit のコストがそのまま格子全体に 掛かる。steps を上げれば生成品質は上がりうるが、格子が成立しなくなる。 収束の実測: クラス条件が生成を支配するまでに約600ステップを要した(合成データでの確認)。 初期値 2000 はその3倍強を見込んだもの。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">他の選択肢:</span> latent_dim 8/32、steps 600/6000、beta 0.5/2.0(beta-VAE 寄り)。TimeVAE 原実装の trend/seasonality ブロックを入れる案。</p>
+          <p class="text-slate-600 mt-1"><span class="text-slate-400">結論への影響:</span> 未測定。生成品質に直結するため高い可能性がある。効果を測る前に強度スイープが要る (task GN-A3 / 論点 Q3 と同じ構図: 手法の効果とハイパラ選択の効果が交絡する)。</p>
+          <p class="text-xs text-slate-400 mt-1 font-mono">config/augmentations.yaml</p>
+        </div>
+        
       </div>
       
     </section>
@@ -10088,7 +10312,7 @@
       
     </section>
 
-    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-09-04 05:28 UTC</p>
+    <p class="text-xs text-slate-400 mt-8 pt-4 border-t border-slate-200">ソース: artifacts/reproduction_steps.yaml・preprocessing_notes.yaml・judgment_calls.yaml・deviations.md ・ 生成日時 2026-09-05 09:32 UTC</p>
   </div>
 
 </div>
