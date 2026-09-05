@@ -1,0 +1,32 @@
+# Phase 8 / GN-A3 (issue #42): does NN-based synthesis improve accuracy?
+#
+# Dataset selection - "enough data" is NOT total count alone. A class-conditional
+# generator can only learn a class it has samples of, so the binding constraint
+# is the SMALLEST class:
+#
+#   dataset   n_train  min class   verdict
+#   FordA        3601       1755   eligible
+#   Wafer        1000         97   borderline (kept, flagged)
+#   ECG5000       500          2   EXCLUDED - classes 3/4/5 have 10/19/2
+#   others     20..105     <  40   excluded
+#
+# UCI_HAR (7352) and WISDM (3515) also qualify on count but are subject-ID
+# datasets reached through the subject runner, not this grid (loader.py handles
+# ucr/synthetic only). Their RQ2 counterpart is task GN-B3 / issue #43.
+#
+# tstr: true adds a second classifier fit per run (train on synthetic only,
+# test on real) so a flat headline result can be attributed to either a broken
+# generator or a working-but-redundant one.
+phase: 8
+name: phase8_vae
+datasets:
+  - FordA   # 3601 train, 2-class, balanced 1846/1755, length 500
+  - Wafer   # 1000 train, 2-class, imbalanced 903/97 - minority class is thin
+train_fractions: [0.10, 0.25, 0.50, 1.00]
+# full comparison set: vae against every existing method under identical
+# conditions, with oversample (pure volume) and label_shuffle (negative
+# control) as the two reference points from issue #23
+augmentations: [none, oversample, jitter, scaling, mixup, dtw, smote, label_shuffle, vae]
+models: [cnn1d, minirocket]
+seeds: [0, 1, 2]
+tstr: true
