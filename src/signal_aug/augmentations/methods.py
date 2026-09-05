@@ -163,6 +163,53 @@ def augment_label_shuffle(
     return _stack(X, y, X_new, y_new)
 
 
+def augment_vae(
+    X: np.ndarray,
+    y: np.ndarray,
+    rng: np.random.Generator,
+    ratio: float = 1.0,
+    latent_dim: int = 16,
+    steps: int = 2000,
+    beta: float = 1.0,
+    lr: float = 3.0e-3,
+    batch_size: int = 64,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Class-conditional VAE: learn a generator on (X, y), then sample from it.
+
+    The generator is fitted here, on the array passed in, and discarded when
+    the call returns. That is deliberate: an augmenter only ever receives a
+    training split, so a fit confined to this call cannot see held-out data.
+    Hoisting the fit out to reuse it across runs would break that guarantee.
+
+    Labels for the synthetic samples are drawn by picking source samples
+    uniformly, so the synthetic set follows the training class prevalence -
+    the same convention as oversample/smote (mixup/dtw instead draw classes
+    uniformly; see the distribution-shift note in the evaluation tab).
+    """
+    from signal_aug.augmentations.vae import fit_and_sample
+
+    n_new = _n_synthetic(len(X), ratio)
+    if n_new == 0:
+        return X.astype(np.float32), y.astype(np.int64)
+
+    classes, y_idx = np.unique(y, return_inverse=True)
+    pick = rng.integers(0, len(X), size=n_new)
+    y_new_idx = y_idx[pick]
+    X_new = fit_and_sample(
+        X.astype(np.float32),
+        y_idx,
+        len(classes),
+        y_new_idx,
+        seed=int(rng.integers(0, 2**31 - 1)),
+        latent_dim=latent_dim,
+        steps=steps,
+        beta=beta,
+        lr=lr,
+        batch_size=batch_size,
+    )
+    return _stack(X, y, list(X_new), [int(classes[i]) for i in y_new_idx])
+
+
 REGISTRY = {
     "none": augment_none,
     "oversample": augment_oversample,
@@ -172,6 +219,7 @@ REGISTRY = {
     "dtw": augment_dtw,
     "smote": augment_smote,
     "label_shuffle": augment_label_shuffle,
+    "vae": augment_vae,
 }
 
 

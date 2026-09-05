@@ -27,6 +27,7 @@ AUG_COLORS = {
     "mixup": "#ec4899",
     "dtw": "#8b5cf6",
     "smote": "#f97316",
+    "vae": "#0ea5e9",
     "label_shuffle": "#94a3b8",
 }
 _FALLBACK_COLOR = "#334155"
@@ -754,7 +755,7 @@ def _augmentation_entries(root: Path, references_index: dict, results: dict,
 # (small, mostly-cosmetic shift expected), then pattern methods, then the
 # control. "none" and "oversample" are covered implicitly (oversample IS the
 # no-op-on-distribution baseline; showing it lets a reader compare).
-_DISTRIBUTION_METHOD_ORDER = ["oversample", "jitter", "scaling", "mixup", "dtw", "smote", "label_shuffle"]
+_DISTRIBUTION_METHOD_ORDER = ["oversample", "jitter", "scaling", "mixup", "dtw", "smote", "vae", "label_shuffle"]
 
 
 def _distribution_rows(shift: dict | None) -> list[dict] | None:

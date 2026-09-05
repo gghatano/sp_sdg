@@ -64,6 +64,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": -0.0
+   },
+   "vae": {
+    "n_synthetic": 36,
+    "class_balance_shift": 0.0694,
+    "std_before": 1.0,
+    "std_after": 0.9911,
+    "std_ratio": 0.9911,
+    "mean_shift": 0.0012
    }
   }
  },
@@ -132,6 +140,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": -0.0
+   },
+   "vae": {
+    "n_synthetic": 30,
+    "class_balance_shift": 0.0333,
+    "std_before": 1.0,
+    "std_after": 0.9366,
+    "std_ratio": 0.9366,
+    "mean_shift": 0.0084
    }
   }
  },
@@ -199,6 +215,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": 0.0
+   },
+   "vae": {
+    "n_synthetic": 28,
+    "class_balance_shift": 0.0714,
+    "std_before": 1.0,
+    "std_after": 0.9999,
+    "std_ratio": 0.9999,
+    "mean_shift": 0.0005
    }
   }
  },
@@ -266,6 +290,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": 0.0
+   },
+   "vae": {
+    "n_synthetic": 100,
+    "class_balance_shift": 0.005,
+    "std_before": 1.0,
+    "std_after": 0.9676,
+    "std_ratio": 0.9676,
+    "mean_shift": 0.0022
    }
   }
  },
@@ -336,6 +368,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": -0.0
+   },
+   "vae": {
+    "n_synthetic": 500,
+    "class_balance_shift": 0.017,
+    "std_before": 1.0,
+    "std_after": 0.9735,
+    "std_ratio": 0.9735,
+    "mean_shift": 0.0007
    }
   }
  },
@@ -403,6 +443,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": -0.0
+   },
+   "vae": {
+    "n_synthetic": 3601,
+    "class_balance_shift": 0.0037,
+    "std_before": 1.0,
+    "std_after": 0.8966,
+    "std_ratio": 0.8966,
+    "mean_shift": -0.0025
    }
   }
  },
@@ -470,6 +518,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": -0.0
+   },
+   "vae": {
+    "n_synthetic": 50,
+    "class_balance_shift": 0.0,
+    "std_before": 1.0,
+    "std_after": 0.9933,
+    "std_ratio": 0.9933,
+    "mean_shift": 0.0003
    }
   }
  },
@@ -537,6 +593,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": 0.0
+   },
+   "vae": {
+    "n_synthetic": 67,
+    "class_balance_shift": 0.0075,
+    "std_before": 1.0,
+    "std_after": 0.9597,
+    "std_ratio": 0.9597,
+    "mean_shift": -0.0021
    }
   }
  },
@@ -604,6 +668,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": 0.0
+   },
+   "vae": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.075,
+    "std_before": 1.0,
+    "std_after": 0.9017,
+    "std_ratio": 0.9017,
+    "mean_shift": -0.0215
    }
   }
  },
@@ -676,6 +748,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": 0.0
+   },
+   "vae": {
+    "n_synthetic": 105,
+    "class_balance_shift": 0.0333,
+    "std_before": 1.0,
+    "std_after": 0.9876,
+    "std_ratio": 0.9876,
+    "mean_shift": 0.0009
    }
   }
  },
@@ -743,6 +823,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": -0.0
+   },
+   "vae": {
+    "n_synthetic": 20,
+    "class_balance_shift": 0.025,
+    "std_before": 1.0,
+    "std_after": 0.9374,
+    "std_ratio": 0.9374,
+    "mean_shift": 0.0047
    }
   }
  },
@@ -810,6 +898,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": 0.0
+   },
+   "vae": {
+    "n_synthetic": 23,
+    "class_balance_shift": 0.0435,
+    "std_before": 1.0,
+    "std_after": 0.9965,
+    "std_ratio": 0.9965,
+    "mean_shift": -0.0021
    }
   }
  },
@@ -877,6 +973,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": -0.0
+   },
+   "vae": {
+    "n_synthetic": 1000,
+    "class_balance_shift": 0.0065,
+    "std_before": 1.0,
+    "std_after": 0.9131,
+    "std_ratio": 0.9131,
+    "mean_shift": 0.006
    }
   }
  },
@@ -948,6 +1052,14 @@
     "std_after": 0.1943,
     "std_ratio": 0.997,
     "mean_shift": -0.0
+   },
+   "vae": {
+    "n_synthetic": 7352,
+    "class_balance_shift": 0.006,
+    "std_before": 0.1948,
+    "std_after": 0.1711,
+    "std_ratio": 0.8783,
+    "mean_shift": -0.0002
    }
   }
  },
@@ -1019,6 +1131,14 @@
     "std_after": 1.0,
     "std_ratio": 1.0,
     "mean_shift": 0.0
+   },
+   "vae": {
+    "n_synthetic": 3515,
+    "class_balance_shift": 0.0037,
+    "std_before": 1.0,
+    "std_after": 0.7766,
+    "std_ratio": 0.7766,
+    "mean_shift": -0.0045
    }
   }
  }

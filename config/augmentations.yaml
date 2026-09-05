@@ -47,3 +47,18 @@ augmentations:
     method: label_shuffle
     params:
       ratio: 1.0
+
+  # Generative (issue #42, task GN-A1). Unlike the other methods this one
+  # trains a generator; the fit happens inside the augment call on the
+  # training split it is handed and is never cached (spec section 8).
+  # Hyperparameters are a first, untuned setting - see J-VAE-HPARAMS in
+  # artifacts/judgment_calls.yaml. Sweeping them is task GN-A3.
+  vae:
+    method: vae
+    params:
+      ratio: 1.0
+      latent_dim: 16
+      steps: 2000
+      beta: 1.0
+      lr: 0.003
+      batch_size: 64

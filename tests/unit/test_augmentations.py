@@ -8,11 +8,21 @@ from tests.fixtures.tiny import tiny_dataset
 
 METHODS = sorted(REGISTRY)
 
+# Methods that TRAIN a generator get a token training budget here: these tests
+# assert the augmenter contract (shape, dtype, label validity, determinism),
+# none of which depends on how well the generator converged. Generation quality
+# is covered separately in test_vae_augmenter.py, which pays the full budget.
+_CONTRACT_PARAMS = {"vae": {"steps": 20}}
+
+
+def _params(method: str) -> dict:
+    return dict(_CONTRACT_PARAMS.get(method, {}))
+
 
 @pytest.mark.parametrize("method", METHODS)
 def test_output_shape_and_dtype(method):
     X, y = tiny_dataset()
-    X_out, y_out = apply_augmentation(method, X, y, seed=0, params={})
+    X_out, y_out = apply_augmentation(method, X, y, seed=0, params=_params(method))
     assert X_out.ndim == 3 and X_out.shape[1:] == X.shape[1:]
     assert X_out.dtype == np.float32
     assert y_out.dtype == np.int64
@@ -24,7 +34,7 @@ def test_output_shape_and_dtype(method):
 @pytest.mark.parametrize("method", METHODS)
 def test_originals_preserved_and_labels_valid(method):
     X, y = tiny_dataset()
-    X_out, y_out = apply_augmentation(method, X, y, seed=0, params={})
+    X_out, y_out = apply_augmentation(method, X, y, seed=0, params=_params(method))
     np.testing.assert_array_equal(X_out[: len(X)], X)
     np.testing.assert_array_equal(y_out[: len(y)], y)
     assert set(np.unique(y_out)) <= set(np.unique(y))
@@ -33,15 +43,15 @@ def test_originals_preserved_and_labels_valid(method):
 @pytest.mark.parametrize("method", METHODS)
 def test_no_nan_inf(method):
     X, y = tiny_dataset()
-    X_out, _ = apply_augmentation(method, X, y, seed=0, params={})
+    X_out, _ = apply_augmentation(method, X, y, seed=0, params=_params(method))
     assert np.isfinite(X_out).all()
 
 
 @pytest.mark.parametrize("method", METHODS)
 def test_seed_reproducibility(method):
     X, y = tiny_dataset()
-    X_a, y_a = apply_augmentation(method, X, y, seed=42, params={})
-    X_b, y_b = apply_augmentation(method, X, y, seed=42, params={})
+    X_a, y_a = apply_augmentation(method, X, y, seed=42, params=_params(method))
+    X_b, y_b = apply_augmentation(method, X, y, seed=42, params=_params(method))
     np.testing.assert_array_equal(X_a, X_b)
     np.testing.assert_array_equal(y_a, y_b)
 
