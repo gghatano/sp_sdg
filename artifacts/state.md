@@ -52,6 +52,8 @@
   - config `vae`(ratio/latent_dim/steps/beta/lr/batch_size)、散文 `augmentation_profiles.yaml` に generative 群と vae 項、ハイパラは未調整の初期値として `J-VAE-HPARAMS` に記録(sensitivity 未測定・GN-A3 でスイープ)。unit テスト13件。
   - **効果はまだ測っていない**(格子実行 GN-A3 は未着手)。レポートの拡張手法タブには実装と生成例のみ掲載。
 
+- **GN-A2 完了: TSTR を副指標として追加(issue #42)**: 合成データのみで分類器を学習し実 test で評価する指標。主指標だけでは「生成器が壊れている」と「生成器は動くが下流に効かない」が区別できないため、その切り分け用。`experiments/tstr.py` に実装し、通常 runner・被験者 runner の両方へ配線。experiment config の `tstr: true` で opt-in(1 run あたり分類器の学習がもう1回走るコストがあるため既定は off)。集計側は「そのセルの全 seed が TSTR を持つときだけ」平均する(一部だけだと主指標と異なる seed 集合を平均してしまうため)。テスト7件——うち1件は合成側のラベルを反転させると精度が偶然以下に落ちることを確認し、実データ側が fit に混入していないことを担保している。全272テスト green。
+
 - 次の候補: Phase 6-7(削減評価の反復数増による確度向上、拡張強度スイープ、統合レポート、WESAD 生理向け前処理 ablation=別 issue)。詳細は GitHub issue #7 / #27
 
 ## フェーズ別の経過(時系列)

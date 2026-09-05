@@ -80,6 +80,16 @@ def summarize(rows: list[dict]) -> list[dict]:
             values = [m[metric] for m in members]
             entry[f"{metric}_mean"] = round(statistics.mean(values), 4)
             entry[f"{metric}_std"] = round(statistics.stdev(values), 4) if len(values) > 1 else 0.0
+        # TSTR (train on synthetic, test on real) is opt-in per experiment, so
+        # it is summarized only where every seed of this cell recorded it -
+        # a partially-populated cell would silently average over a different
+        # set of seeds than the headline metric.
+        for metric in ("tstr_accuracy", "tstr_macro_f1", "tstr_balanced_accuracy"):
+            values = [m[metric] for m in members if m.get(metric) is not None]
+            if len(values) != len(members):
+                continue
+            entry[f"{metric}_mean"] = round(statistics.mean(values), 4)
+            entry[f"{metric}_std"] = round(statistics.stdev(values), 4) if len(values) > 1 else 0.0
         summary.append(entry)
     return summary
 
