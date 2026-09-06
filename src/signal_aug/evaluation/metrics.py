@@ -18,4 +18,10 @@ def compute_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict:
         "macro_f1": float(f1_score(y_true, y_pred, average="macro", zero_division=0)),
         "balanced_accuracy": float(balanced_accuracy_score(y_true, y_pred)),
         "n_test": int(len(y_true)),
+        # Chance level for THIS test set. Never assume 1/n_classes: Wafer's test
+        # split is 89.2% one class, so an accuracy of 0.93 is barely above
+        # always-predicting-the-majority while its balanced accuracy is 0.70
+        # (issue #48). Reported so accuracy is always readable against the
+        # floor it actually sits on.
+        "majority_rate": float(np.bincount(np.asarray(y_true).astype(int)).max() / len(y_true)),
     }

@@ -47,4 +47,7 @@ def tstr_metrics(
     model = build_model(model_type, model_params, seed=seed)
     model.fit(X_syn, y_syn)
     scores = compute_metrics(y_test, model.predict(X_test))
-    return {f"tstr_{k}": v for k, v in scores.items() if k != "n_test"}
+    # n_test / majority_rate describe the test set, which is shared with the
+    # headline metrics - prefixing them would just duplicate the same number
+    shared = {"n_test", "majority_rate"}
+    return {f"tstr_{k}": v for k, v in scores.items() if k not in shared}

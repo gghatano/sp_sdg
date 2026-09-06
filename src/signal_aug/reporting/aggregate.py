@@ -80,6 +80,11 @@ def summarize(rows: list[dict]) -> list[dict]:
             values = [m[metric] for m in members]
             entry[f"{metric}_mean"] = round(statistics.mean(values), 4)
             entry[f"{metric}_std"] = round(statistics.stdev(values), 4) if len(values) > 1 else 0.0
+        # chance floor for this test set: TSTR and accuracy are both unreadable
+        # without it on imbalanced data (issue #48)
+        floors = [m["majority_rate"] for m in members if m.get("majority_rate") is not None]
+        if len(floors) == len(members):
+            entry["majority_rate"] = round(statistics.mean(floors), 4)
         # TSTR (train on synthetic, test on real) is opt-in per experiment, so
         # it is summarized only where every seed of this cell recorded it -
         # a partially-populated cell would silently average over a different
