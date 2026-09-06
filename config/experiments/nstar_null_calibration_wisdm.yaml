@@ -1,0 +1,22 @@
+# Issue #47: null calibration of the N* estimator, WISDM (second dataset).
+# Mirrors nstar_null_calibration.yaml. See that file for the rationale; in short,
+# label_shuffle is a treatment, not a zero-effect control, so the estimator's
+# noise floor is measured by comparing `none` against itself.
+# Everything except the dataset matches wisdm_subject_count.yaml so the
+# calibrated threshold applies to that analysis unchanged.
+phase: 8
+name: nstar_null_wisdm
+dataset: WISDM
+model: cnn1d_har
+subject_counts: [3, 6, 9, 12, 15, 18, 21, 24]
+repeats: 20
+augmentations: [none]
+dataset_params:
+  window: 200
+  split_seed: 0
+  n_test_subjects: 12
+  normalize: per_window_z
+target_metric: accuracy
+target_value: 0.80
+pre_registered: true
+pre_registration_note: "較正実験。目標値は wisdm_subject_count.yaml の事前登録値をそのまま使う"
