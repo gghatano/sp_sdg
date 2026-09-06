@@ -40,12 +40,20 @@ from signal_aug.evaluation.reduction import interpolate_nstar
 from signal_aug.reporting.aggregate import manifest_path
 
 
-def load_points(manifests_dir: Path, name: str, metric: str) -> dict[int, dict[int, float]]:
-    """{subject_count: {replicate_index: metric}} for completed `none` runs."""
+def load_points(manifests_dir: Path, name: str, metric: str, dataset: str) -> dict[int, dict[int, float]]:
+    """{subject_count: {replicate_index: metric}} for completed `none` runs.
+
+    Filtered by dataset, not by the run_id prefix alone: experiment names nest
+    ("nstar_null" is a prefix of "nstar_null_wisdm"), so a glob on the name
+    would silently pool two datasets into one curve and make the target
+    unreachable everywhere.
+    """
     pts: dict[int, dict[int, float]] = defaultdict(dict)
     for path in sorted(manifests_dir.glob(f"{name}_*.json")):
         m = json.loads(path.read_text(encoding="utf-8"))
         if m.get("status") != "completed" or m.get("augmentation") != "none":
+            continue
+        if m.get("dataset") != dataset:
             continue
         mp = manifest_path(m.get("metrics_path"))
         if not (mp and mp.exists()):
@@ -105,7 +113,7 @@ def main() -> None:
     args = ap.parse_args()
 
     cfg = yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))
-    points = load_points(Path(args.manifests), cfg["name"], cfg["target_metric"])
+    points = load_points(Path(args.manifests), cfg["name"], cfg["target_metric"], cfg["dataset"])
     if not points:
         raise SystemExit("no completed runs found - run the calibration grid first")
 
