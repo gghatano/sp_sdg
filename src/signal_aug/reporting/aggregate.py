@@ -136,6 +136,11 @@ def _subject_metric_rows(manifests_dir: Path, prefix: str = "subject_count_") ->
             "augmentation": m["augmentation"],
             "model": m["model"],
             "subject_count": m.get("subject_count"),
+            "seed": m.get("seed"),
+            # the subject set this run trained on: the paired analysis keys on it,
+            # since what justifies differencing two runs is that they saw the
+            # SAME subjects (issue #47)
+            "subjects_used": m.get("subjects_used"),
             "status": "completed",
         }
         row.update(json.loads(metrics_path.read_text(encoding="utf-8")))
@@ -291,6 +296,7 @@ def build_results_json(
 ) -> dict:
     import yaml
 
+    from signal_aug.evaluation.paired import paired_delta_analysis
     from signal_aug.evaluation.reduction import reduction_analysis
     from signal_aug.evaluation.stats import wilcoxon_vs_none
 
@@ -333,6 +339,14 @@ def build_results_json(
         )
         red["pre_registered"] = bool(cfg.get("pre_registered"))
         red["dataset"] = cfg.get("dataset")
+        # Paired within-subject-set difference (issue #47/#49). The N* ratio
+        # above is the PRE-REGISTERED estimand and stays unchanged; this is the
+        # primary one from issue #49 onwards, because null calibration showed
+        # the ratio cannot resolve effects of the size actually present. The
+        # switch is post-hoc and disclosed in artifacts/deviations.md.
+        red["paired"] = paired_delta_analysis(
+            rows_s, metric=cfg["target_metric"], target=float(cfg["target_value"])
+        )
         return red
 
     # UCI HAR (primary, Phase 4-5) and WISDM (external validity, issue #21 DS-1)
