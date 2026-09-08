@@ -23,6 +23,7 @@ from signal_aug.augmentations.methods import apply_augmentation
 from signal_aug.data.loader import DatasetSplits, load_dataset, stratified_subsample
 from signal_aug.evaluation.metrics import compute_metrics
 from signal_aug.experiments import manifest as mf
+from signal_aug.experiments.tstr import tstr_metrics
 from signal_aug.models import build_model
 
 
@@ -38,6 +39,7 @@ class RunSpec:
     model_params: dict
     seed: int
     train_fraction: float = 1.0
+    tstr: bool = False
 
 
 def load_yaml(path: str | Path) -> dict:
@@ -122,6 +124,8 @@ def expand_grid(experiment_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[Ru
     phase = int(experiment_cfg["phase"])
     name = experiment_cfg["name"]
     fractions = [float(f) for f in experiment_cfg.get("train_fractions", [1.0])]
+    # opt-in per experiment: TSTR costs a second classifier fit per run
+    tstr = bool(experiment_cfg.get("tstr", False))
     for dataset in experiment_cfg["datasets"]:
         for fraction in fractions:
             # fraction omitted from run_id at 1.0 so Phase 1 run_ids stay stable
@@ -144,6 +148,7 @@ def expand_grid(experiment_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[Ru
                                 model_params=dict(model_spec.get("params") or {}),
                                 seed=int(seed),
                                 train_fraction=fraction,
+                                tstr=tstr,
                             )
                         )
     return runs
@@ -213,6 +218,15 @@ def execute_run(spec: RunSpec, data: DatasetSplits, runs_dir: str | Path = "runs
         from sklearn.metrics import accuracy_score
 
         metrics["train_accuracy"] = float(accuracy_score(y_train, model.predict(X_train)))
+        if spec.tstr:
+            # train-on-synthetic-only, test on real: separates "the generator
+            # failed" from "the generator works but adds nothing" (GN-A2)
+            metrics.update(
+                tstr_metrics(
+                    X_aug, y_aug, len(y_train), data.X_test, data.y_test,
+                    spec.model_type, spec.model_params, spec.seed,
+                )
+            )
         logger.info("metrics=%s", metrics)
 
         metrics_path.parent.mkdir(parents=True, exist_ok=True)

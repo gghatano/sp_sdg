@@ -248,3 +248,21 @@ calls:
       (task GN-A3 / 論点 Q3 と同じ構図: 手法の効果とハイパラ選択の効果が交絡する)。
     preregistered: false
     source: config/augmentations.yaml
+
+  - id: J-PAIRED-PRIMARY
+    topic: RQ2 の主要推定量(N* 比 → 対応ありΔaccuracy)
+    decision: >-
+      主要推定量を同一被験者集合内の対応あり Δaccuracy とし、被験者換算(交換レート =
+      none 曲線の目標交差点を挟む2格子点の傾き)で報告する。事前登録の N* 比は併記して残す。
+    why: >-
+      ヌル較正(F-17)で N* 比が本研究の規模では効果を解像できないと判明したため。
+      被験者数格子はもともと対応付き設計であり、N* 経路はその対応を捨てていた。
+    alternatives: >-
+      (a) N* 比のまま反復数と格子解像度に計算資源を投入する(10反復でも UCI HAR は約27%までしか下がらない見込み)。
+      (b) 追加実行せず限界として記述する。
+    sensitivity: >-
+      高い。推定量を変えると結論の解像度が変わる。ただし両推定量とも「実手法による削減は
+      検出されない」で一致しており、結論の向きは推定量の選択に依存しない。
+    preregistered: false
+    source: artifacts/deviations.md
+

@@ -24,6 +24,7 @@ from signal_aug.data.subject import select_train_subjects, subset_by_subjects, w
 from signal_aug.data.subject_datasets import load_subject_dataset
 from signal_aug.evaluation.metrics import compute_metrics
 from signal_aug.experiments import manifest as mf
+from signal_aug.experiments.tstr import tstr_metrics
 from signal_aug.experiments.runner import clean_stale_tmp, grid_lock, load_yaml, run_logger
 from signal_aug.models import build_model
 
@@ -41,6 +42,7 @@ class SubjectRunSpec:
     seed: int
     subject_count: int
     dataset_params: dict = field(default_factory=dict)
+    tstr: bool = False
 
 
 def expand_subject_grid(exp_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[SubjectRunSpec]:
@@ -48,6 +50,8 @@ def expand_subject_grid(exp_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[S
     phase = int(exp_cfg["phase"])
     dataset = exp_cfg["dataset"]
     model = exp_cfg["model"]
+    # opt-in per experiment: TSTR costs a second classifier fit per run
+    tstr = bool(exp_cfg.get("tstr", False))
     model_spec = model_cfg["models"][model]
     dataset_params = dict(exp_cfg.get("dataset_params") or {})
     runs = []
@@ -69,6 +73,7 @@ def expand_subject_grid(exp_cfg: dict, aug_cfg: dict, model_cfg: dict) -> list[S
                         seed=rep,
                         subject_count=int(n_subj),
                         dataset_params=dict(dataset_params),
+                        tstr=tstr,
                     )
                 )
     return runs
@@ -127,6 +132,13 @@ def execute_subject_run(spec: SubjectRunSpec, pool, test, runs_dir: Path, repo_r
         model.fit(X_aug, y_aug)
         y_pred = model.predict(test.X)
         metrics = compute_metrics(test.y, y_pred)
+        if spec.tstr:
+            metrics.update(
+                tstr_metrics(
+                    X_aug, y_aug, len(y_train), test.X, test.y,
+                    spec.model_type, spec.model_params, spec.seed,
+                )
+            )
         metrics["subject_count"] = spec.subject_count
         metrics["n_train_windows"] = int(len(y_train))
         logger.info("metrics=%s", metrics)

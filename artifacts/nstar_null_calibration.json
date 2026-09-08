@@ -1,0 +1,28 @@
+{
+  "n_draws": 5000,
+  "group_size": 3,
+  "n_repeats_available": 20,
+  "subject_counts": [
+    3,
+    6,
+    9,
+    12,
+    15,
+    18,
+    21
+  ],
+  "target": 0.9,
+  "unreachable_draws": 0,
+  "unreachable_fraction": 0.0,
+  "usable_draws": 5000,
+  "reduction_mean": -0.0444,
+  "reduction_median": 0.0031,
+  "reduction_p95_one_sided": 0.3802,
+  "reduction_p99_one_sided": 0.4598,
+  "reduction_abs_p95": 0.6036,
+  "log_ratio_mean": -0.0002,
+  "log_ratio_p95": 0.4784,
+  "dataset": "UCI_HAR",
+  "metric": "accuracy",
+  "interpretation": "同一条件(none)同士を主解析と同じ3反復で比較したときに現れる見かけの削減率の分布。reduction_p95_one_sided は『効果ゼロでもこの値までは出る』というヌル分布の棄却閾値であって、検出限界(最小検出可能効果)ではない——検出力の計算は行っていない。この値を下回る観測された削減は、削減効果を裏づける証拠として不十分だと言えるだけで、『効果がない』ことや『アーティファクトである』ことの証明ではない。また 5000 draws は 140 runs の再標本化であって独立な追加実験ではなく、この pool(21名)/test(9名) と本推定手順に条件づけた値である。"
+}

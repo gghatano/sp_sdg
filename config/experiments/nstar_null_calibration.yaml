@@ -1,0 +1,30 @@
+# Issue #47: null calibration of the N* estimator.
+#
+# The current judgment ("a reduction under ~4.3% cannot be told apart from an
+# artifact") rests on label_shuffle. But label_shuffle is a TREATMENT that acts
+# on training, not a condition with a guaranteed-zero effect, so its 4.3% is
+# "what that treatment produced", not "what zero effect produces".
+#
+# This grid runs `none` ALONE with many repeats. Two disjoint sets of repeats
+# drawn from it differ by construction in nothing but the subject draw and the
+# training seed, so any apparent reduction between them is the estimator's own
+# variability under a true null.
+#
+# Repeat count: 20 gives enough repeats to draw disjoint TRIPLES (3+3), which is
+# what the calibration must use -- the headline analysis averages 3 repeats, and
+# a calibration built on 10-repeat means would be more stable than the thing it
+# calibrates and would understate the noise (external review, issue #47).
+#
+# Everything else (subject counts, model, target) mirrors subject_count.yaml so
+# the calibrated numbers apply to that analysis unchanged.
+phase: 8
+name: nstar_null
+dataset: UCI_HAR
+model: cnn1d_har
+subject_counts: [3, 6, 9, 12, 15, 18, 21]
+repeats: 20
+augmentations: [none]
+target_metric: accuracy
+target_value: 0.90
+pre_registered: true
+pre_registration_note: "較正実験。目標値は subject_count.yaml の事前登録値をそのまま使う(新たな選択はしていない)"

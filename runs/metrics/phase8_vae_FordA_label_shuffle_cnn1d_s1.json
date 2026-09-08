@@ -1,0 +1,10 @@
+{
+  "accuracy": 0.928030303030303,
+  "macro_f1": 0.9280001791383102,
+  "balanced_accuracy": 0.9283193039785458,
+  "n_test": 1320,
+  "train_accuracy": 0.9339072479866704,
+  "tstr_accuracy": 0.4871212121212121,
+  "tstr_macro_f1": 0.35853290350644845,
+  "tstr_balanced_accuracy": 0.4733545669513902
+}
